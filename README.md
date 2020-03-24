@@ -1,6 +1,6 @@
 # bushfire-paper
 
-# Purpose (draft)
+## Purpose (draft)
 
 This project aims to find out the bushfire ignition during 2019–20 Australian bushfire season and develop a model to predict fire risk. The final outcome will likely be a shiny app for people to explore the bushfire data.
 
