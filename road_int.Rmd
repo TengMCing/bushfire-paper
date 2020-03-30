@@ -1,0 +1,103 @@
+---
+title: "new dataset for road map"
+author: "Weihao Li"
+date: "2020-03-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r warning = FALSE, message=FALSE}
+library(tidyverse)
+library(sf)
+library(furrr)
+library(lubridate)
+library(rnaturalearth)
+```
+
+# OSM
+
+I find a new dataset which is openstreetmap. It is a opensource project. I download the map of australia on one of its mirror - [GeoFabrik](http://download.geofabrik.de/australia-oceania.html)
+
+```{r}
+# read all roads in australia
+au_road = st_read("australia-latest-free.shp/gis_osm_roads_free_1.shp")
+```
+
+```{r}
+# It contains all classes of roads
+levels(au_road$fclass)
+
+# It contains huge number of roads
+nrow(au_road)
+```
+
+```{r}
+# read australia polygon
+au_map = ne_states(country = 'Australia', returnclass = 'sf')
+```
+
+
+```{r}
+# extract the geometry information
+geo_road = st_geometry(au_road)
+geo_state = st_geometry(au_map)
+
+# assign each road to its corresponding state, one road can be assigned to mutiple states
+roads_in_states = st_intersects(geo_state, geo_road)
+dim(roads_in_states)
+```
+
+```{r}
+# we want all the roads which have an intersection with VIC
+VIC_roads_index = roads_in_states[[7]]
+```
+
+```{r}
+# transfrom the dataset into dataframe so that we can use indexing
+au_road_df = as.data.frame(au_road)
+
+# get the roads in VIC
+VIC_road = au_road_df[VIC_roads_index,]
+```
+
+```{r}
+head(VIC_road)
+```
+
+```{r}
+# suppose we have a bushfire at (145.997, -38), we want to find the cloeset road to this point
+st_nearest_feature(st_point(c(145.997,-38)), VIC_road$geometry)
+```
+
+```{r}
+
+my_area = matrix(c(145.95,-37.95,146.05,-37.95,146.05,-38.05,145.95,-38.05, 145.95,-37.95), byrow = TRUE, ncol = 2) %>%
+  list() %>% 
+  st_polygon()
+
+my_roads = st_intersects(my_area, VIC_road$geometry)
+my_roads = VIC_road[my_roads[[1]],]
+```
+
+
+```{r}
+ggplot() +
+  geom_sf(data = my_roads$geometry) + 
+  geom_sf(data = VIC_road$geometry[395365], col = 'red')+
+  coord_sf(ylim = c(-37.95,-38.05), xlim = c(145.95,146.05)) +
+  geom_point(aes(x = 145.997, y = -38)) +
+  theme_bw()
+```
+
+```{r}
+# calculate the distance between the point and the roda
+pt = st_sfc(st_point(c(145.997,-38)))
+st_crs(pt) = st_crs(VIC_road$geometry)
+st_distance(pt, VIC_road$geometry[395365])[1,1]
+```
+
+
+
