@@ -13,3 +13,14 @@
 
 # Thoughts
 
+1. A new tidy data structure to support exploration and modeling of temporal data
+
+    package: tsibble
+    A type of data frame 
+    index key measurements
+    A workflow for dealing with temporal data 
+    Can be used in the project to improve the workflow
+
+2. Enabling interactivity on displays of multivariate time series and longitudinal data
+
+    
