@@ -1,0 +1,155 @@
+---
+title: "plots"
+author: "Weihao Li"
+date: "2020-04-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+Sys.setlocale("LC_ALL","English")
+```
+
+
+
+```{r warning=FALSE, message=FALSE}
+library(tidyverse)
+library(sf)
+library(furrr)
+library(lubridate)
+library(rnaturalearth)
+library(bomrang)
+```
+
+
+```{r 'define_read_hotspot'}
+read_hotspot <- function(directory = "data/Himawari-8", from = '20190501', to = '20190701'){
+  ### include from, exclude to
+  
+  fls = list.files(directory, full.names = TRUE)
+  fls_short = list.files("data/Himawari-8", full.names = FALSE)
+  fls_filter = (fls_short > paste('H08', from, sep = '_')) & (fls_short < paste('H08', to, sep = '_'))
+  fls = fls[fls_filter]
+  all = map(fls, read_csv, quote="'")
+  d = bind_rows(all)
+  return(d)
+  
+}
+```
+
+```{r 'read_hotspots', warning = FALSE, message = FALSE}
+# read hotspots data in 2019
+hotspots = read_hotspot(directory = "data/Himawari-8", from = '20190101', to = '20200101')
+```
+
+```{r}
+au_map = ne_states(country = 'Australia', returnclass = 'sf') #get au map
+
+hotspots = hotspots %>%
+  filter(firepower > 100)
+
+hotspots = hotspots %>%
+  filter(between(lon, 112, 155)) %>% 
+  filter(between(lat, -44, -10))
+
+
+
+#write.csv(select(hotspots, obstime = `#obstime`, lon, lat), 'hotspots2019.csv')
+
+# modify the crs information
+hotspots = st_as_sf(x = hotspots, coords = c('lon','lat'), crs = st_crs(au_map))
+
+```
+
+
+```{r}
+# assign name to hotspots data
+tab = st_intersects(au_map$geometry, hotspots$geometry)
+hotspots$state = ''
+for (i in seq(1,nrow(au_map))){
+  
+  hotspots$state[tab[[i]]] = au_map$name[i]
+  
+}
+```
+
+```{r}
+# there are some unidentified data point
+unidentified_point = hotspots[hotspots$state == '',]
+```
+
+```{r}
+ggplot()+
+  geom_sf(data = au_map)+
+  geom_sf(data = unidentified_point$geometry)
+```
+
+```{r}
+# find the nearest state for those unidentified points
+tab2 = st_nearest_feature(unidentified_point$geometry, au_map$geometry)
+```
+
+```{r}
+# assign states to those unidentified points
+hotspots$state[hotspots$state == ''] = au_map$name[tab2]
+```
+
+```{r}
+# extract date information
+hotspots$year = year(hotspots$`#obstime`)
+hotspots$month = month(hotspots$`#obstime`)
+hotspots$day = day(hotspots$`#obstime`)
+hotspots$week = week(hotspots$`#obstime`)
+```
+
+
+```{r}
+# calculate some statistic information
+sum1 = hotspots %>%
+  group_by(state, year, month) %>%
+  summarise(total_firepower = sum(firepower), cases = n())
+  
+```
+
+```{r}
+ggplot(sum1) +
+  geom_line(aes(x = ymd(as.character(year * 10000 + month*100 + 1)), y = total_firepower, col = state)) +
+  xlab('date')
+```
+
+```{r}
+ggplot(sum1) +
+  geom_line(aes(x = ymd(as.character(year * 10000 + month*100 + 1)), y = total_firepower/cases, col = state)) +
+  xlab('date')
+```
+
+```{r}
+ggplot(sum1) +
+  geom_line(aes(x = ymd(as.character(year * 10000 + month*100 + 1)), y = cases, col = state)) +
+  xlab('date')
+```
+
+
+```{r}
+hotspots_VIC = hotspots[hotspots$state == 'Victoria',]
+```
+
+```{r}
+recreation = st_read("SDM698290\\ll_gda94\\sde_shape\\whole\\VIC\\FORESTS\\layer\\recweb_site.shp")
+recreation = st_transform(recreation, crs = st_crs(au_map))
+```
+
+```{r}
+tab = st_nearest_feature(hotspots_VIC$geometry, recreation$geometry)
+```
+
+```{r}
+hotspots_VIC$camp = tab
+# pretty slow to calculate the distance between points and the nearest recreation site if the data set is large
+# hotspots_VIC$dist_to_re = as.vector(st_distance(hotspots_VIC$geometry, recreation$geometry[tab], by_element = TRUE))
+```
+
+
