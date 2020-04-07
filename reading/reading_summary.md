@@ -95,5 +95,18 @@ Thoughts:
 
 ## 5. Map Plots Created With R And Ggmap
 
+An introduction of ggmap with an application about 911 incidents
+
+It uses Google map as background, which may be different with my idea.
+I want to use OSM or Stamen as background, since ggmap also has built-in method to get OSM static map.
+
+It illustrates some interesting techniques:
+
+	a. geom_label_repel for labelling those important points
+	this technique can be used to mark the severe bushfire
+
+	b. density plot for visulizing dangerous area
+	adding density lines on plot is wonderful
+
 
 
