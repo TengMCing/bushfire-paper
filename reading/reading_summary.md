@@ -11,13 +11,34 @@
 9. Analyzing spatio-temporal data with R: Everything you always wanted to know – but were afraid to ask
 10. Geocomputation with R
 
-# Thoughts
+# Thoughts & Notes
 
 1. A new tidy data structure to support exploration and modeling of temporal data
 
-    package: tsibble
-    A type of data frame 
-    index key measurements
+	Problem: inconsistent formats of wild temporal data
+
+	Inspiration: tidy data workflow proposed by Wickham and Grolemund 
+
+    Package: tsibble
+
+    A new type of data structure
+
+    Fields: index key measurements
+
+    index + key = PK
+
+    index: explicit
+
+    Automatically check PK when construct a tsibble 
+
+    Interval selection: 
+    	a. Compute GCD as fixed interval
+    	b. irregular interval
+    	c. unknown interval
+
+    provide tools for handling missing value 
+    adopt dplyr's tools and modify for ts data
+
     A workflow for dealing with temporal data 
     Can be used in the project to improve the workflow
 
