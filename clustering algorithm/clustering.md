@@ -2,6 +2,8 @@
 
 ## V1.0
 
+Demo: VIC_from_Oct.Rmd
+
 For first hour data:
 
 	1. connect every pair of points that close to each other (within 3km)
