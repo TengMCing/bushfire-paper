@@ -1,5 +1,5 @@
 ---
-title: "cluster_3km"
+title: "cluster_6km"
 author: "Weihao Li"
 date: "2020年4月19日"
 output: html_document
@@ -116,8 +116,8 @@ first_hour = filter(hotspots_VIC, hour_id == 1) %>%
 
 dist_matrix = matrix(as.numeric(st_distance(first_hour$geometry, first_hour$geometry)),ncol =nrow(first_hour))
 
-# if the distance between two points is less than 3 km, create an edge between them
-neighbors = (dist_matrix<3000) 
+# if the distance between two points is less than 9 km, create an edge between them
+neighbors = (dist_matrix<9000) 
 
 # create graph by adjacency matrix
 first_graph = graph.adjacency(neighbors, mode = 'undirected')
@@ -173,8 +173,8 @@ for (i in seq(2,max_hour)){
   # compute the dist matrix
   dist_matrix = matrix(as.numeric(st_distance(geom_info, geom_info)),ncol =nrow(current_hour)+nrow(active_group))
   
-  # connect two points if they have less than 3000m distance
-  neighbors = (dist_matrix<3000) 
+  # connect two points if they have less than 9000m distance
+  neighbors = (dist_matrix<9000) 
   
   # use the adjancency to create a graph
   current_graph = graph.adjacency(neighbors, mode = 'undirected')
@@ -262,7 +262,6 @@ center_move %>%
 
 ```
 
-
 ```{r}
 library(ggrepel)
 library(ggforce)
@@ -299,4 +298,8 @@ print(p)
 }
 
 ```
+
+
+
+
 

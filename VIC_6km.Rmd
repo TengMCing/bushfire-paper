@@ -116,7 +116,7 @@ first_hour = filter(hotspots_VIC, hour_id == 1) %>%
 
 dist_matrix = matrix(as.numeric(st_distance(first_hour$geometry, first_hour$geometry)),ncol =nrow(first_hour))
 
-# if the distance between two points is less than 3 km, create an edge between them
+# if the distance between two points is less than 6 km, create an edge between them
 neighbors = (dist_matrix<6000) 
 
 # create graph by adjacency matrix
@@ -173,7 +173,7 @@ for (i in seq(2,max_hour)){
   # compute the dist matrix
   dist_matrix = matrix(as.numeric(st_distance(geom_info, geom_info)),ncol =nrow(current_hour)+nrow(active_group))
   
-  # connect two points if they have less than 3000m distance
+  # connect two points if they have less than 6000m distance
   neighbors = (dist_matrix<6000) 
   
   # use the adjancency to create a graph
@@ -258,48 +258,48 @@ center_move %>%
   group_by(fire_id) %>%
   summarise(variance = var(X) + var(Y)) %>%
   arrange(desc(variance)) %>%
-  head()
+  head(10)
 
 ```
 
 ```{r}
 library(ggrepel)
+library(ggforce)
+library(viridis)
 
-test = filter(center_move, fire_id == 314)
+fire_id_list = center_move %>%
+  group_by(fire_id) %>%
+  summarise(variance = var(X) + var(Y)) %>%
+  arrange(desc(variance)) %>%
+  head(10)
+
+fire_id_list = fire_id_list$fire_id
+
+for (fire_id_used in fire_id_list){
+
+test = filter(center_move, fire_id == fire_id_used)
 test = test %>%
   mutate(same = lag(X) == X & lag(Y) == Y) %>%
-  filter(same != TRUE)
+  filter(same != TRUE| is.na(same))
 
-test %>%
-  mutate(id = 1:nrow(test)) %>%
-ggplot()+
-  geom_path(aes(x=X,y=Y)) +
-  geom_text(aes(x=X,y=Y,label=id),col='red')
-```
-
-
-```{r}
-library(plotly)
-test = 
-  mutate(hotspots_VIC, fire_id = temp_fire_id) %>%
-  filter(hour_id <= 200)
-temp = test %>%
-  group_by(fire_id) %>%
-  summarise(start_date = min(hour_id), end_date = max(hour_id))
-coo = st_coordinates(test)
-test$lon = coo[,1]
-test$lat = coo[,2]
 test = test %>%
-  mutate(start_date = temp$start_date[fire_id], end_date = temp$end_date[fire_id])
-p <- ggplot() +
-  geom_point(data = test, aes(x = lon, y=lat, group = factor(fire_id), col = factor(fire_id), text1 = start_date, text2 = end_date)) +
+  mutate(id = 1:nrow(test))
+
+hotspots_data_id = st_jitter(filter(mutate(hotspots_VIC, fire_id = temp_fire_id), fire_id == fire_id_used), amount = 0.01)
+
+p = ggplot(test)  +
+  geom_sf(data = hotspots_data_id, aes(col = hour_id), alpha = 0.5) +
+  geom_path(aes(x=X,y=Y), size = 1) +
+  annotate('point', x=test$X[1],y=test$Y[1], col = 'green', size = 2)+ 
+  scale_colour_distiller(palette  = 'RdYlBu') +
   theme_bw() +
-  theme(legend.position = "none")
-
-gg <- ggplotly(p, tooltip=c('group',"text1","text2"))
-
-gg
+  ggtitle(cat(fire_id_used))
+print(p)
+}
 
 ```
+
+
+
 
 

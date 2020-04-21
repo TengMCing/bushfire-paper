@@ -1,5 +1,5 @@
 ---
-title: "cluster_3km"
+title: "cluster_r"
 author: "Weihao Li"
 date: "2020年4月19日"
 output: html_document
@@ -117,7 +117,7 @@ first_hour = filter(hotspots_VIC, hour_id == 1) %>%
 dist_matrix = matrix(as.numeric(st_distance(first_hour$geometry, first_hour$geometry)),ncol =nrow(first_hour))
 
 # if the distance between two points is less than 3 km, create an edge between them
-neighbors = (dist_matrix<3000) 
+neighbors = (dist_matrix<6000) 
 
 # create graph by adjacency matrix
 first_graph = graph.adjacency(neighbors, mode = 'undirected')
@@ -131,11 +131,22 @@ first_hour$fire_id = cluster_result$membership
 # record centersfor each hour
 group_centers = list()
 
+calc_max_r = function(X,Y,center_X,center_Y){
+  temp_data = data.frame(X=X,Y=Y)
+  temp_data = st_as_sf(temp_data, coords = c("X", "Y"), crs = 4326)
+  points = temp_data$geometry
+  centeroid = st_sfc(st_point(c(center_X,center_Y)))
+  st_crs(centeroid) = 4326
+  max_r = max(as.numeric(st_distance(points, centeroid)))
+  return(max_r)
+}
+
 # compute the centroid of each group
 group_centers[[1]] = as.data.frame(st_coordinates(first_hour)) %>%
   mutate(fire_id = first_hour$fire_id) %>%
   group_by(fire_id) %>%
-  summarise(lon = mean(X), lat = mean(Y))
+  summarise(lon = mean(X), lat = mean(Y), max_r = calc_max_r(X,Y,mean(X),mean(Y)))
+
 
 group_centers[[1]] = st_as_sf(x = group_centers[[1]], coords = c("lon","lat"), crs = 4326)
 group_centers[[1]]$active = 0
@@ -144,6 +155,7 @@ group_centers[[1]]$active = 0
 temp_fire_id = c(temp_fire_id, first_hour$fire_id)
 temp_obs_id = c(temp_obs_id, first_hour$obs_id)
 ```
+
 
 ```{r}
 max_hour = max(hotspots_VIC$hour_id)
@@ -173,8 +185,20 @@ for (i in seq(2,max_hour)){
   # compute the dist matrix
   dist_matrix = matrix(as.numeric(st_distance(geom_info, geom_info)),ncol =nrow(current_hour)+nrow(active_group))
   
-  # connect two points if they have less than 3000m distance
-  neighbors = (dist_matrix<3000) 
+  # connect two points if they have less than 6000m distance or the max_r of the active fires
+  if (nrow(active_group)>0){
+
+    temp_matrix = matrix(0L, nrow = dim(dist_matrix)[1], ncol = dim(dist_matrix)[2])
+    partial_1 = matrix(rep(active_group$max_r, dim(dist_matrix)[1]), nrow = dim(dist_matrix)[2], byrow = TRUE)
+    partial_2 = matrix(rep(active_group$max_r, dim(dist_matrix)[2]), ncol = dim(dist_matrix)[2], byrow = FALSE)
+    temp_matrix[(nrow(current_hour)+1):dim(dist_matrix)[1],] = partial_2
+    temp_matrix[,(nrow(current_hour)+1):dim(dist_matrix)[2]] = partial_1
+
+    neighbors = ((dist_matrix<6000) + (dist_matrix<temp_matrix))>0
+
+  } else {
+    neighbors = (dist_matrix<6000)
+  }
   
   # use the adjancency to create a graph
   current_graph = graph.adjacency(neighbors, mode = 'undirected')
@@ -203,7 +227,7 @@ for (i in seq(2,max_hour)){
   # we need to slightly adjust the membership to make it start from 1 and common difference equal to 1
   temp_membership = data.frame(temp_membership = temp_membership) %>%
     group_indices(temp_membership)
-  # and add the total number of fire we knew
+  # and add the total number of fire we known
   temp_membership = temp_membership + nrow(group_centers[[i]])
 
     
@@ -211,11 +235,11 @@ for (i in seq(2,max_hour)){
   current_hour$fire_id[is.na(current_hour$fire_id)] = temp_membership
 
   
-  # now all the current hour points has a fire id, we can recompute the centers
+  # now all the current hour points has a fire id, we can recompute the centers and max_r
   current_centers = as.data.frame(st_coordinates(current_hour)) %>%
   mutate(fire_id = current_hour$fire_id) %>%
   group_by(fire_id) %>%
-  summarise(lon = mean(X), lat = mean(Y))
+  summarise(lon = mean(X), lat = mean(Y), max_r = calc_max_r(X,Y,mean(X),mean(Y)))
   
   
   current_centers$active = 0
@@ -238,7 +262,8 @@ for (i in seq(2,max_hour)){
 ```{r}
 myfun = function(x,y){
   temp = as.data.frame(st_coordinates(x)) %>%
-    mutate(hour_id = y)
+    mutate(hour_id = y) %>%
+    mutate(max_r = x$max_r)
   temp = temp %>%
     mutate(fire_id = 1:nrow(temp))
   temp
@@ -252,6 +277,12 @@ center_move = imap(group_centers, ~myfun(.x,.y)) %>%
 max(center_move$fire_id)
 ```
 
+```{r}
+summary(center_move$max_r)
+
+```
+
+
 
 ```{r}
 center_move %>%
@@ -261,7 +292,6 @@ center_move %>%
   head(10)
 
 ```
-
 
 ```{r}
 library(ggrepel)
@@ -299,4 +329,10 @@ print(p)
 }
 
 ```
+
+
+
+
+
+
 
