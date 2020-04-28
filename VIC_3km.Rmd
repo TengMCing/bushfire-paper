@@ -229,7 +229,7 @@ for (i in seq(2,max_hour)){
   
   # assign the fire id back to master data set
   temp_fire_id = c(temp_fire_id, current_hour$fire_id)
-  temp_obs_id = c(temp_obs_id, current_hour$fire_id)
+  temp_obs_id = c(temp_obs_id, current_hour$obs_id)
     
 }
 
@@ -247,6 +247,20 @@ myfun = function(x,y){
 center_move = imap(group_centers, ~myfun(.x,.y)) %>%
   reduce(rbind)
 ```
+
+```{r}
+hotspots_VIC$fire_id_3km = temp_fire_id
+output_3km = as.data.frame(hotspots_VIC) %>%
+  select(`#obstime`, firepower, state, year, month, day, week, hour, hour_id, obs_id, fire_id_3km)
+temp = as.data.frame(st_coordinates(hotspots_VIC))
+output_3km$lon = temp$X
+output_3km$lat = temp$Y
+
+write.csv(output_3km, 'data/hotspots_3km.csv', row.names = FALSE)
+write.csv(center_move， 'data/fire_3km.csv', row.names = FALSE)
+rm(output_3km)
+```
+
 
 ```{r}
 max(center_move$fire_id)
