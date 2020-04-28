@@ -18,8 +18,6 @@ Daily weather data in Australia
 
 VIC recreation site location data
 
-<del>VIC road map geometroy data</del> (probably not being used anymore)
-
 CFA fire station location data
 
 VIC historical fire on public land data
