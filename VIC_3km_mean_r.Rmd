@@ -156,6 +156,55 @@ temp_fire_id = c(temp_fire_id, first_hour$fire_id)
 temp_obs_id = c(temp_obs_id, first_hour$obs_id)
 ```
 
+```{r}
+# match current_fire_id with previous_center_current_id
+# if find mutiple previous_center, assign the nearest one
+match_muti_fire = function(current_fire_id, previous_center_current_id, dist_matrix){
+  
+  # all pairs of two vectors
+  tb = expand.grid(current_fire_id, previous_center_current_id)
+  
+  # mark pairs that have same group id
+  tb$var3 = tb$Var1 == tb$Var2
+  tb = tb$var3
+  
+  # turn this comparison into a matrix
+  mat_a = matrix(tb, nrow = length(current_fire_id))
+  
+  # get the corresponding distrance matrix
+  mat_b = dist_matrix[1:length(current_fire_id),(length(current_fire_id)+1):dim(dist_matrix)[2]]
+  
+  if (is.vector(mat_b)) {mat_b = matrix(mat_b, nrow = length(current_fire_id)) }
+  
+  # safe check
+  if (all(dim(mat_a) != dim(mat_b))) {stop("different dim between dist_matrix and membership comparison matrix")}
+  
+  # combine two matrices
+  mat_c = mat_a * mat_b
+  
+  # function to find row positive min
+  find_positive_min = function(x){
+    if (sum(x) == 0){
+      return(NA)
+      }
+    return(which(x==min(x[x>0]))[1])
+  }
+  
+  # for each row, find the positive min
+  result = apply(mat_c, 1, FUN = find_positive_min)
+  
+  # safe check
+  if (is.vector(result) == FALSE) {
+    print(result)
+    stop("result is not a vector")
+    
+    }
+  
+  # return the index vector
+  return(result)
+}
+```
+
 
 ```{r}
 max_hour = max(hotspots_VIC$hour_id)
@@ -216,7 +265,13 @@ for (i in seq(2,max_hour)){
     previous_center_current_id = cluster_result$membership[(nrow(current_hour)+1):length(cluster_result$membership)]
     
     # if the hotspots share the same group as active centers, assign those hotspots a previous fire_id
-    current_hour$fire_id =  active_group$fire_id[match(current_fire_id, previous_center_current_id)]
+    assign_ids = match_muti_fire(current_fire_id, previous_center_current_id, dist_matrix)
+    if (all(is.na(assign_ids))) {
+      current_hour$fire_id = NA
+    } else {
+      current_hour$fire_id =  active_group$fire_id[assign_ids]
+    }
+    
   }
   
   # hotspots that doesn't in the same group as active centers will have a missing value, we need to assign them new fire id
@@ -241,7 +296,7 @@ for (i in seq(2,max_hour)){
   group_by(fire_id) %>%
   summarise(lon = mean(X), lat = mean(Y), mean_r = calc_mean_r(X,Y,mean(X),mean(Y)))
   
-  
+  # mark those fire as active
   current_centers$active = 0
   current_centers = st_as_sf(x = current_centers, coords = c("lon","lat"), crs = 4326)
   
@@ -283,7 +338,7 @@ output_3km_mean$lon = temp$X
 output_3km_mean$lat = temp$Y
 
 write.csv(output_3km_mean, 'data/hotspots_3km_mean.csv', row.names = FALSE)
-write.csv(center_move， 'data/fire_3km_mean.csv', row.names = FALSE)
+write.csv(center_move, 'data/fire_3km_mean.csv', row.names = FALSE)
 rm(output_3km_mean)
 ```
 

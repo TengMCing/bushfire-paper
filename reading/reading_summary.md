@@ -8,7 +8,6 @@
 6. tidyverts - Tidy tools for time series
 7. plotly-r - Interactive web-based data visualization with R, plotly, and shiny
 8. http://socviz.co/ Data Visualization A practical introduction
-9. Analyzing spatio-temporal data with R: Everything you always wanted to know – but were afraid to ask
 10. Geocomputation with R
 11. A general science-based framework for dynamical spatio-temporal models
 12. Spatio-Temporal Statistics with R
