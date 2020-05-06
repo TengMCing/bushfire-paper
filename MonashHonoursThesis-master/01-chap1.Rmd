@@ -10,11 +10,11 @@ library(forecast)
 library(ggplot2)
 ```
 
-# Introduction {#ch:intro}
+# Statement of the topic {#ch:intro}
 
-This is where you introduce the main ideas of your thesis, and an overview of the context and background.
+Along with the extreme heatwave in Australia 2019-2020, one of the most devastating bushfires in history had been witnessed. Lighting strikes and arson were been discussed in social media as the main cause of this disaster. This paper aims to find the ignition of bushfires during this crisis and provide a model to predict the fire risk of neighbourhoods. Hotspots data from the JAXA’s Himawari-8 satellite and weather data from the Bureau of Meteorology of Australia will be used to train the model. In addition, an interactive web application embeds with research outcomes will be built for data visualization purpose.
 
-Later chapters should be divided into coherent pieces describing your analysis. The final chapter should provide some concluding remarks, discussion, ideas for future research, and so on. Appendixes can contain additional material that don't fit into any chapters, but that you want to put on record. For example, additional tables, output, etc.
+
 
 ## Rmarkdown
 
