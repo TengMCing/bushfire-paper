@@ -12,34 +12,32 @@ library(ggplot2)
 
 # Statement of the topic {#ch:intro}
 
-Along with the extreme heatwave in Australia 2019-2020, one of the most devastating bushfire season in history had been witnessed. Lighting strikes and arson were been discussed among pubilc as the main cause of this disaster. This research will explore the ignition of 2019-2020 Australia bushfires season and provide a model to predict the fire risk of neighbourhoods. Hotspots data from the JAXA’s Himawari-8 satellite and weather data from the Bureau of Meteorology of Australia will be used in ignition identification and bushfire danger estimation. In addition, an interactive web application embeds with research outcomes will be built for data visualization purpose.
+Along with the extreme heatwave in Australia 2019-2020, one of the most devastating bushfire season in history had been witnessed. Lighting strikes and arson were been discussed among pubilc as the main cause of this disaster. This research will explore the sources of fire ignition during 2019-2020 Australia bushfires season and provide a model to predict the fire risk of neighbourhoods. Hotspots data from the JAXA’s Himawari-8 satellite and weather data from the Bureau of Meteorology of Australia will be used in ignition identification and bushfire danger estimation. In addition, an interactive web application embeds with research outcomes will be built for data visualization purpose.
 
 ## Motivation
 
 \<left blank\>
 
-## Literature review
+## Background and literature review
 
 \<left blank\>
 
 ## Research aim
 
-The aim of this research is to use remote sensing data and apply machine learning framework to understand the ignition of bushfires and predict fire risk. There are 5 sub-objectives:
+The aim of this research is to use remote sensing data and apply machine learning framework to understand the sources of bushfire ignition and predict fire risk. There are 5 sub-objectives:
 
   1. Data integration of remote sensing data, weather data, map data and vegetation data.
   2. Develop customized clustering algorithm to classify fire clusters.
-  3. Exploratory data analysis of the fire clusters, weather conditions and time.
-  4. Examine ignitions of bushfire using weather records, road map and recreation site locations.
+  3. Exploratory data analysis of fire clusters.
+  4. Examine source of bushfire ignitions using weather records, road map and recreation site locations.
   5. Explore bushfire risk models based on weather condition, geometry information and fire history.
   6. Develop an interactive shiny app to present research outcome.
 
 ## Research plan
 
-### Data collection and preprocessing
+### Data
 
 In order to collect necessary datasets, two methods will be performed, including retrieve files from servers and crawl data from websites. For reproducibility purpose, only public data will be used in this research. Information on the datasets can be found in Table \ref{tab:datasetinfo}. 
-
-
 
 ```{r datasets, results='asis'}
 library(kableExtra)
@@ -70,6 +68,29 @@ knitr::kable(datasets_info, 'latex',
 ```
 
 ### Methodology
+
+Both supervised and unsupervised learning will be implemented to reach the research aims. 
+
+To understand the ignition of bushfires, a customized clustering algorithm will be developed to convert hotpots data into fire history, which will contain the starting time and coordinates of each fire. This algorithm will mainly involve simulating fire growth, deciding fire boundaries controlled by tolerance and assigning hotspots data to the most probable cluster. After the clustering result being obtained, fire history will be visualized to diagnostic the performance of the algorithm. It will be done by comparing the behaviour of the same fire under different sets of hyperparameters.
+
+Exploratory data analysis of fire history and its relative factors, like weather condition, distance to the nearest road and distance to the nearest recreation site will be performed.
+Prior knowledge and featuring engineering will be needed to fully understand the relationship. We expect to discover relationships between the ignition of fire with these factors, which can help us identify the cause of bushfires later on. 
+
+In order to examine the sources of fire ignition, different strategies will be used depending on the outcome in the previous section. If the findings from the analysis are strong and directly related to potential sources of fire ignition, hypothesis tests will be conducted to examine the pattern. If the evidence is weak, we will consider developing another clustering algorithm on fire history. This algorithm will be designed to maximize the distance between bushfire started with different causes in a high dimensional space. A probability model then can be built on top of it, which can provide a probabilistic answer for the source of bushfire ignition during 2019-2020 bushfire season.
+
+Models for predicting fire risk of neighbourhoods will be built using raw hotspots data instead of the fire history because the hotspots data can be considered generated from a partially observable Markov decision process, and the underlying state is the development of the bushfire. From low complexity models like logistic regression to high complexity models like deep neural network will be tested.    
+
+For sharing our research outcome, a shiny app will be built and hosted online. In addition, both static and dynamic visualization tools will be considered using. Due to the nature of Spatio-temporal data, which has at least 3-dimensional features, static map view without faceting can only provide limited information. Meanwhile, faceting map view with time will be limited by the size of caravans. Animation based map view is computationally expensive and distracting though it provides more information. Better ways for visualizing Spatio-temporal data will be explored during the development.
+
+## Preliminary Results
+
+
+
+
+
+\newpage
+
+## irrelevant
 
 ## code
 
