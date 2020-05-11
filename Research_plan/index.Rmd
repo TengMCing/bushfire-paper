@@ -1,5 +1,5 @@
 ---
-title: 'Using remote sensing data to understand the ignition of 2019-2020 Australia bushfire season'
+title: 'Using Remote Sensing Data To Understand Fire Ignition Of 2019-2020 Australia Bushfire Season'
 degreetype: 'Bachelor of Commerce (Honours)'
 author: 'Weihao Li'
 studentid: 28723740

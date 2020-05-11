@@ -6,57 +6,81 @@ knit: "bookdown::render_book"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, cache=TRUE)
 # Load any R packages you need here
-library(forecast)
-library(ggplot2)
+library(tidyverse)
+library(kableExtra)
 ```
 
 # Statement of the topic {#ch:intro}
 
-Along with the extreme heatwave in Australia 2019-2020, one of the most devastating bushfire season in history had been witnessed. Lighting strikes and arson were been discussed among pubilc as the main cause of this disaster. This research will explore the sources of fire ignition during 2019-2020 Australia bushfires season and provide a model to predict the fire risk of neighbourhoods. Hotspots data from the JAXA’s Himawari-8 satellite and weather data from the Bureau of Meteorology of Australia will be used in ignition identification and bushfire danger estimation. In addition, an interactive web application embeds with research outcomes will be built for data visualization purpose.
+Along with the extreme heatwave in Australia 2019-2020, one of the most devastating bushfire season in history had been witnessed. Lighting strikes and arson were been discussed among pubilc as the main cause of this disaster. This research will explore the methods of fire ignition during 2019-2020 Australia bushfires season and provide a model to predict the fire risk of neighbourhoods. Hotspots data from the JAXA’s Himawari-8 satellite and weather data from the Australian Bureau of Meteorology will be used in ignition identification and bushfire danger estimation. In addition, an interactive web application embeds with research outcomes will be built for data visualization purpose.
 
 ## Motivation
 
 \<left blank\>
 
-## Background and literature review
 
-\<left blank\>
+## Research aim and questions
 
-## Research aim
+This research aims to answer the following questions:
+  
+  1. How to find the ignition methods during 2019-2020 Australia bushfire season?
+  2. How to model fire risk of neighbourhoods?
 
-The aim of this research is to use remote sensing data and apply machine learning framework to understand the sources of bushfire ignition and predict fire risk. There are 5 sub-objectives:
-
-  1. Data integration of remote sensing data, weather data, map data and vegetation data.
-  2. Develop customized clustering algorithm to classify fire clusters.
-  3. Exploratory data analysis of fire clusters.
-  4. Examine source of bushfire ignitions using weather records, road map and recreation site locations.
-  5. Explore bushfire risk models based on weather condition, geometry information and fire history.
-  6. Develop an interactive shiny app to present research outcome.
 
 ## Research plan
 
-### Data
+\<left blank\>
 
-In order to collect necessary datasets, two methods will be performed, including retrieve files from servers and crawl data from websites. For reproducibility purpose, only public data will be used in this research. Information on the datasets can be found in Table \ref{tab:datasetinfo}. 
+## Scope of research
+
+\<left blank\>
+
+# Literature Review
+
+\<left blank\>
+
+# Data collection and processing
+
+In order to answer the reserach questions, this research will use mutiple geospatial datasets and weather datasets.
+
+## Sources
+
+Two methods were performed to collect necessary datasets, including retrieve files from servers and crawl data from websites. For reproducibility purpose, only public data will be used in this research. 
+
+To obtain fire history, we used the hotspots data from JAXA’s Himawari-8 satellite. This satellite is positioned in geostationary orbit at 140 degrees east longitude, and the revisit period is 10-minute. Its management system - JAXA's P-Tree system, provides WildFire observation product with 2km spatial resolution. However, it is a beta version product and the data is not quality assured (P-Tree System, 2020).
+
+Weather data were collected from the Australian Bureau of Meteorology, by using an R package - Bomrang. Due to the limitation of APIs provided by the package, we crawled data from BOM's website for extra information. 
+
+To characterise the fuel we used forest of Australia (2018) from the Australian Bureau of Agriculture and Resource Economics and Sciences. It is a fuel layer contains the vegetation information across Australia.
+
+Information on the datasets not covered above can be found in Table \ref{tab:datasetinfo}. 
 
 ```{r datasets, results='asis'}
-library(kableExtra)
 datasets_info = data.frame(name = c("Hotspots data - JAXA’s Himawari-8 satellite",
-                                    "Weather data - Bureau of Meteorology of \\\\ $\\hspace{5mm}$ Australia",
+                                    "Weather data - Australian Bureau of Meteorology",
                                     "Map - OpenStreetMap",
-                                    "Fuel layer - Australian Bureau of Agriculture \\\\ $\\hspace{5mm}$ and Resource Economics and Sciences"), 
+                                    "Fuel layer - Australian Bureau of Agriculture \\\\ $\\hspace{5mm}$ and Resource Economics and Sciences",
+                                    "Victorian CFA fire stations - Department of Environment, \\\\ $\\hspace{5mm}$Land, Water $\\&$ Planning",
+                                    "Victorian Recreation sites - Department of Environment, \\\\ $\\hspace{5mm}$Land, Water $\\&$ Planning"), 
                            spatialresolution = c("$0.02^\\circ \\approx 2km$",
                                                  "",
-                                                 "",
-                                                 ""), 
+                                                 "2m",
+                                                 "100m",
+                                                 "20m",
+                                                 "10m"), 
                            temporalresolution = c("Per 10 minutes",
                                                   "Daily",
                                                   "",
+                                                  "",
+                                                  "",
                                                   ""),
                            time = c("2015-2020",
-                                         "2019-2020",
-                                         "2020",
-                                         "2018"))
+                                    "2019-2020",
+                                    "2020",
+                                    "2018",
+                                    "2020",
+                                    "2020"))
+
 knitr::kable(datasets_info, 'latex', 
              caption  = 'Data information', 
              label = "datasetinfo",
@@ -67,7 +91,124 @@ knitr::kable(datasets_info, 'latex',
 
 ```
 
-### Methodology
+
+
+## Pre-processing
+
+An R package sf (Edzer, 2020) has been used to convert all geospatial data into simple features. We then used Tidyverse (Hadley et al., 2020) as a data wrangling tool to manipulate data. 
+
+To preprocess the hotspots data, we selected the observations in Australia from the full disk. Meanwhile, hotspots with irradiance under 100 watt per square metre will be deleted. We restricted our study to hotspots that have significant firepower. An hour id has been assigned to each observation range from 1 to T, represents the relative time the hotspot being observed.
+On top of the tidy hotspots data, a clustering algorithm was developed to identify fire clusters. Details about the algorithm can be found in table \ref{tab:clustering}. 
+
+\newpage
+
+\normalfont
+\begin{table}
+\caption{\label{tab:clustering}A clustering algorithm for hotspots}
+\begin{align*}
+&\rule{150mm}{0.5mm}\\[-1\jot]
+&\textbf{Algorithm 1 Hotspots clutering}\\[-1\jot]
+&\rule{150mm}{0.5mm}\\[-1\jot]
+&\textbf{input: }~~~~\text{Hotspots dataset H : (Hour}\textunderscore \text{id}^{(n)} \text{, Coordinates}^{(n)} \text{), n = 1, 2, ... N}\\[-1\jot]
+&~~~~~~~~~~~~~~~~\text{An empty dataset F : (Fire\textunderscore id}^{(m)} \text{, Coordinates}^{(m)} \text{, Active}^{(m)} \text{), m = 1, 2, ...}\\[-1\jot]
+&~~~~~~~~~~~~~~~~\text{An empty vector K} \in \mathbb{N}_1^n\\[-1\jot]
+&~~~~~~~~~~~~~~~~\text{A distance hyperparameter }r_0 \in \mathbb{R}^+\\[-1\jot]
+&~~~~~~~~~~~~~~~~\text{A time hyperparameter }t_0 \in \mathbb{N}^+\\[-1\jot]
+&\textbf{output: }~~\text{A vector K} \in \mathbb{N}_1^n~\text{contains memberships of hotspots}\\[-1\jot]
+&~~~~~~~~~~~~~~~~\text{A dataset F contains fire clusters information including memberships, latest}\\[-1\jot]
+&~~~~~~~~~~~~~~~~\text{centroids and time from last updated}\\[-1\jot]
+&~~1:~~\text{select subset }H_c \in \text{H where Hour\textunderscore id == 1}\\[-1\jot]
+&~~2:~~\text{calculate distance matrix D for Coordinates in }H_c \\[-1\jot]
+&~~3:~~\text{assign 1 to a zero adjacency matrix A for where D} \leq r_0~~//~~\text{hotspots with relative}\\[-1\jot]
+&~~~~~~~~~\text{distance less or equal to }r_0~\text{will be considered belong to the same cluster} \\[-1\jot]
+&~~4:~~\text{create undirected unweighted graph G from A}\\[-1\jot]
+&~~5:~~\text{record memberships of G to K}\\[-1\jot]
+&~~6:~~\text{record clusters classes to Fire\textunderscore id and record clusters centroids to Coordinates of F}\\[-1\jot]
+&~~7:~~\text{set Active in F to }t_0~~//~~\text{Active clusters are fire being observed in the last }t_0~\text{hour}\\[-1\jot]
+&~~8:~~\textbf{for}~~\text{hour = 2, ... T}~~\textbf{do} \\[-1\jot]
+&~~9:~~~~~~~~\text{let Active -1 and select subset }F_c \in \text{F where Active} \geq 0\\[-1\jot]
+&10:~~~~~~~~\text{select subset }H_c \in \text{H where Hour\textunderscore id == hour}\\[-1\jot]
+&11:~~~~~~~~\text{append Coordinates from }F_c~\text{to}~H_c\\[-1\jot]
+&12:~~~~~~~~\text{repeat step 2 - 4}\\[-1\jot]
+&12:~~~~~~~~\textbf{for}~~h_i = \text{each hotspot in }H_c~~\textbf{do}\\[-1\jot]
+&13:~~~~~~~~~~~~~~\textbf{if}~~h_i~\text{share the same membership as one of active clusers in }F_c~~\textbf{then}\\[-1\jot]
+&14:~~~~~~~~~~~~~~~~~~~~\text{copy the corresponding Fire\textunderscore id of the nearest active cluser to K}\\[-1\jot]
+&15:~~~~~~~~~~~~~~\textbf{else}~~\text{copy the membership from G to K}\\[-1\jot]
+&16:~~~~~~~~~~~~~~\textbf{end if}\\[-1\jot]
+&17:~~~~~~~~\textbf{end for}\\[-1\jot]
+&18:~~~~~~~~\text{update F for clusters involed in current timestamp and reset corresponding}\\[-1\jot]
+&~~~~~~~~~~~~~~~\text{Active to }t_0\\[-1\jot]
+&19:~~\textbf{end for}\\[-1\jot]
+&\rule{150mm}{0.5mm}
+\end{align*}
+\end{table}
+
+
+# Exploratory data analysis
+
+# Modelling
+
+\<plan\>
+
+## Predicting ignition method
+
+\<plan\>
+
+## Modelling fire risk
+
+\<plan\>
+
+# Timeline
+
+The research plan for this semseter can be found in Table \ref{tab:timeline1}. Future research plan can be found in Table \ref{tab:timeline2}.
+
+```{r timeline, results='asis'}
+timeline = data.frame(Timeline = c("Week 2","Week 3","", "Week 4","", "Week 5", "Week 6", "Week 7","Week 8", "week 9"),
+                      Tasks = c("Geographic data background reading",
+                                "Collect Remote sensing data (JAXA himawari-8 satellite) and",
+                                "explore BOM weather data APIs (Bomrang)",
+                                "Collect Road Map (OpenStreetMap) and",
+                                "read articles in SpatioTemporal data visualization and modelling",
+                                "Develop clustering algorithm for remote sensing data",
+                                "Test diferent hyperparameters for clusetring",
+                                "Exploratory data analysis on fire clusters and data integration",
+                                "Feature planning for the shiny app",
+                                "Write research proposal and prepare the first presentation"))
+
+
+knitr::kable(timeline, "latex",
+             caption = "Research plan till week 9",
+             label = "timeline1",
+             booktabs = TRUE,
+             escape = FALSE) %>%
+  kable_styling(latex_options = "hold_position")
+  
+```
+
+```{r}
+timeline = data.frame(Timeline = c("June - July", "August", "September", "October"),
+                      Tasks = c("Modelling fire ignition and fire risk", "Consolidate findings and create mockups of the shiny app", "Develop the shiny app and perform different levels of testing", "Write thesis and prepare the second presentation")) 
+
+knitr::kable(timeline, "latex",
+             caption = "Research plan since June",
+             label = "timeline2",
+             booktabs = TRUE,
+             escape = FALSE) %>%
+  kable_styling(latex_options = "hold_position")
+```
+
+
+# Supplementary materials
+
+# Biblography
+
+# Words from last week
+
+## Data
+
+
+
+## Methodology
 
 Both supervised and unsupervised learning will be implemented to reach the research aims. 
 
@@ -86,68 +227,4 @@ For sharing our research outcome, a shiny app will be built and hosted online. I
 ## Preliminary Results
 
 
-
-
-
-\newpage
-
-## irrelevant
-
-## code
-
-Included in this template is a file called `sales.csv`.  This contains quarterly data on Sales and Advertising budget for a small company over the period 1981--2005. It also contains the GDP (gross domestic product) over the same period. All series have been adjusted for inflation.  We can load in this data set using the following command:
-
-```{r loaddata, echo=TRUE}
-sales <- ts(read.csv("data/sales.csv")[,-1], start=1981, frequency=4)
-```
-
-Any data you use in your thesis can go into the data directory. The data should be in exactly the format you obtained it. Do no editing or manipulation of the data outside of R. Any data munging should be scripted in R and form part of your thesis files (possibly hidden in the output).
-
-## Figures
-
-Figure \ref{fig:deaths} shows time plots of the data we just loaded. Notice how figure captions and references work. Chunk names can be used as figure labels with `fig:` prefixed. Never manually type figure numbers, as they can change when you add or delete figures. This way, the figure numbering is always correct.
-
-```{r deaths, message=FALSE, fig.cap="Quarterly sales, advertising and GDP data."}
-autoplot(sales, facets=TRUE, ylab="", xlab="Year")
-```
-
-## Results from analyses
-
-We can fit a dynamic regression model to the sales data.
-
-```{r, echo=FALSE}
-fit <- auto.arima(sales[,"Sales"], xreg=sales[,2:3], D=1)
-if(!identical(fit$arma, c(1L,0L,0L,1L,4L,0L,1L)))
-  stop("Model not ARIMA(1,0,0)(0,1,1)[4]")
-#This is an example of how to put checks into your R code to warn you if something has gone wrong.
-```
-
-If $y_t$ denotes the sales in quarter $t$, $x_t$ denotes the corresponding advertising budget and $z_t$ denotes the GDP, then the resulting model is:
-\begin{equation}
-  y_t - y_{t-4} = \beta (x_t-x_{t-4}) + \gamma (z_t-z_{t-4}) + \theta_1 \varepsilon_{t-1} + \Theta_1 \varepsilon_{t-4} + \varepsilon_t
-\end{equation}
-where
-$\beta = `r format(fit[['coef']]['AdBudget'], digits=2, nsmall=2)`$,
-$\gamma = `r format(fit[['coef']]['GDP'], digits=2, nsmall=2)`$,
-$\theta_1 = `r format(fit[['coef']]['ma1'], digits=2, nsmall=2)`$,
-and
-$\Theta_1 = `r format(fit[['coef']]['sma1'], digits=2, nsmall=2)`$.
-
-## Tables
-
-Let's assume future advertising spend and GDP are at the current levels. Then forecasts for the next year are given in Table \ref{tab:salesforecasts}.
-
-```{r forecasts, results="asis"}
-currentad <- rep(tail(sales[,"AdBudget"],1),4)
-currentgdp <- rep(tail(sales[,"GDP"],1),4)
-fc <- forecast(fit, xreg=cbind(AdBudget=currentad, GDP=currentgdp))
-knitLatex::xTab(format(as.data.frame(fc), nsmall=1, digits=1),
-   caption.bottom="Forecasts for the next year assuming Advertising budget and GDP are unchanged.",
-   booktabs=TRUE, coldef='lrrrr',
-   label='tab:salesforecasts')
-```
-
-Again, notice the use of labels and references to automatically generate table numbers. In this case, we need to generate the label ourselves.
-
-The `knitLatex` package is useful for generating tables from R output. Other packages can do similar things including the `kable` function in `knitr` which is somewhat simpler but you have less control over the result. If you use `knitLatex` to generate tables, don't forget to include `results="asis"` in the chunk settings.
 

@@ -1,0 +1,1165 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.16)  12 MAY 2020 06:40
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**thesis.tex
+(./thesis.tex
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-02-25> (./monashthesis.cls
+Document Class: monashthesis 2016/09/06 Monash Thesis Class
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.s
+ty
+Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/inputenc.
+sty
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
+) (c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bera/bera.st
+y
+Package: bera 2004/01/31 (WaS)
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.s
+ty
+Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/textcomp.
+sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bera/beraserif
+.sty
+Package: beraserif 2004/01/30 (WaS)
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyva
+l.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+LaTeX Font Info:    Trying to load font information for T1+fve on input line 30
+.
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bera/t1fve.fd
+File: t1fve.fd 2004/09/07 scalable font definitions for T1/fve.
+)
+LaTeX Font Info:    Font shape `T1/fve/m/n' will be
+(Font)              scaled to size 8.99994pt on input line 30.
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bera/berasans.
+sty
+Package: berasans 2004/01/30 (WaS)
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bera/beramono.
+sty
+Package: beramono 2004/01/31 (WaS)
+))
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/mathpaz
+o.sty
+Package: mathpazo 2005/04/12 PSNFSS-v9.2a Palatino w/ Pazo Math (D.Puga, WaS) 
+\symupright=\mathgroup4
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/report.cl
+s
+Document Class: report 2019/12/20 v1.4l Standard LaTeX document class
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size11.cl
+o
+File: size11.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+LaTeX Font Info:    Font shape `T1/fve/m/n' will be
+(Font)              scaled to size 9.85492pt on input line 54.
+)
+\c@part=\count167
+\c@chapter=\count168
+\c@section=\count169
+\c@subsection=\count170
+\c@subsubsection=\count171
+\c@paragraph=\count172
+\c@subparagraph=\count173
+\c@figure=\count174
+\c@table=\count175
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/geometry/geome
+try.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex
+.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex.
+sty
+Package: iftex 2019/11/07 v1.0c TeX engine tests
+))
+\Gm@cnth=\count176
+\Gm@cntv=\count177
+\c@Gm@tempcnt=\count178
+\Gm@bindingoffset=\dimen135
+\Gm@wd@mp=\dimen136
+\Gm@odd@mp=\dimen137
+\Gm@even@mp=\dimen138
+\Gm@layoutwidth=\dimen139
+\Gm@layoutheight=\dimen140
+\Gm@layouthoffset=\dimen141
+\Gm@layoutvoffset=\dimen142
+\Gm@dimlist=\toks18
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/caption/captio
+n.sty
+Package: caption 2020/01/03 v3.4h Customizing captions (AR)
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/caption/captio
+n3.sty
+Package: caption3 2020/01/03 v1.8h caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 61.
+\captionmargin=\dimen143
+\captionmargin@=\dimen144
+\captionwidth=\dimen145
+\caption@tempdima=\dimen146
+\caption@indent=\dimen147
+\caption@parindent=\dimen148
+\caption@hangindent=\dimen149
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count179
+\c@continuedfloat=\count180
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyhdr/fancy
+hdr.sty
+Package: fancyhdr 2019/01/31 v3.10 Extensive control of page headers and footer
+s
+\f@nch@headwidth=\skip49
+\f@nch@O@elh=\skip50
+\f@nch@O@erh=\skip51
+\f@nch@O@olh=\skip52
+\f@nch@O@orh=\skip53
+\f@nch@O@elf=\skip54
+\f@nch@O@erf=\skip55
+\f@nch@O@olf=\skip56
+\f@nch@O@orf=\skip57
+) (c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/bm.sty
+Package: bm 2019/07/24 v1.2d Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup5
+\symboldletters=\mathgroup6
+\symboldsymbols=\mathgroup7
+\symboldupright=\mathgroup8
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 141.
+LaTeX Info: Redefining \bm on input line 209.
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsmat
+h.sty
+Package: amsmath 2020/01/20 v2.17e AMS math features
+\@mathmargin=\skip58
+For additional information on amsmath, use the `?' option.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amstex
+t.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen
+.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks19
+\ex@=\dimen150
+))
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy
+.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+LaTeX Info: Redefining \boldsymbol on input line 28.
+\pmbraise@=\dimen151
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn
+.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count181
+LaTeX Info: Redefining \frac on input line 227.
+\uproot@=\count182
+\leftroot@=\count183
+LaTeX Info: Redefining \overline on input line 389.
+\classnum@=\count184
+\DOTSCASE@=\count185
+LaTeX Info: Redefining \ldots on input line 486.
+LaTeX Info: Redefining \dots on input line 489.
+LaTeX Info: Redefining \cdots on input line 610.
+\Mathstrutbox@=\box45
+\strutbox@=\box46
+\big@size=\dimen152
+LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
+\macc@depth=\count186
+\c@MaxMatrixCols=\count187
+\dotsspace@=\muskip16
+\c@parentequation=\count188
+\dspbrk@lvl=\count189
+\tag@help=\toks20
+\row@=\count190
+\column@=\count191
+\maxfields@=\count192
+\andhelp@=\toks21
+\eqnshift@=\dimen153
+\alignsep@=\dimen154
+\tagshift@=\dimen155
+\tagwidth@=\dimen156
+\totwidth@=\dimen157
+\lineht@=\dimen158
+\@envbody=\toks22
+\multlinegap=\skip59
+\multlinetaggap=\skip60
+\mathdisplay@stack=\toks23
+LaTeX Info: Redefining \[ on input line 2859.
+LaTeX Info: Redefining \] on input line 2860.
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graph
+icx.sty
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graph
+ics.sty
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/trig.
+sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/g
+raphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/p
+dftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen159
+\Gin@req@width=\dimen160
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/placeins/place
+ins.sty
+Package: placeins 2005/04/18  v 2.2
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/titlesec/title
+sec.sty
+Package: titlesec 2019/10/16 v2.13 Sectioning titles
+\ttl@box=\box47
+\beforetitleunit=\skip61
+\aftertitleunit=\skip62
+\ttl@plus=\dimen161
+\ttl@minus=\dimen162
+\ttl@toksa=\toks24
+\titlewidth=\dimen163
+\titlewidthlast=\dimen164
+\titlewidthfirst=\dimen165
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/setspace/setsp
+ace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/micr
+otype.sty
+Package: microtype 2019/11/18 v2.7d Micro-typographical refinements (RS)
+\MT@toks=\toks25
+\MT@count=\count193
+LaTeX Info: Redefining \textls on input line 790.
+\MT@outer@kern=\dimen166
+LaTeX Info: Redefining \textmicrotypecontext on input line 1354.
+\MT@listname@count=\count194
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/micr
+otype-pdftex.def
+File: microtype-pdftex.def 2019/11/18 v2.7d Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 914.
+LaTeX Info: Redefining \lslig on input line 914.
+\MT@outer@space=\skip63
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/micr
+otype.cfg
+File: microtype.cfg 2019/11/18 v2.7d microtype main configuration file (RS)
+))
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/bibla
+tex.sty
+Package: biblatex 2019/12/01 v3.14 programmable bibliographies (PK/MW)
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdftexcmds/pdf
+texcmds.sty
+Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/infwarerr/in
+fwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxc
+mds.sty
+Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/etoolbox/etool
+box.sty
+Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count195
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/kvoptions/kvop
+tions.sty
+Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvsetkeys/kv
+setkeys.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+))
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/logreq/logreq.
+sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count196
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/logreq/logreq.
+def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+))
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ifthen.st
+y
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+) (c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+\c@tabx@nest=\count197
+\c@listtotal=\count198
+\c@listcount=\count199
+\c@liststart=\count266
+\c@liststop=\count267
+\c@citecount=\count268
+\c@citetotal=\count269
+\c@multicitecount=\count270
+\c@multicitetotal=\count271
+\c@instcount=\count272
+\c@maxnames=\count273
+\c@minnames=\count274
+\c@maxitems=\count275
+\c@minitems=\count276
+\c@citecounter=\count277
+\c@maxcitecounter=\count278
+\c@savedcitecounter=\count279
+\c@uniquelist=\count280
+\c@uniquename=\count281
+\c@refsection=\count282
+\c@refsegment=\count283
+\c@maxextratitle=\count284
+\c@maxextratitleyear=\count285
+\c@maxextraname=\count286
+\c@maxextradate=\count287
+\c@maxextraalpha=\count288
+\c@abbrvpenalty=\count289
+\c@highnamepenalty=\count290
+\c@lownamepenalty=\count291
+\c@maxparens=\count292
+\c@parenlevel=\count293
+\blx@tempcnta=\count294
+\blx@tempcntb=\count295
+\blx@tempcntc=\count296
+\blx@maxsection=\count297
+\blx@maxsegment@0=\count298
+\blx@notetype=\count299
+\blx@parenlevel@text=\count300
+\blx@parenlevel@foot=\count301
+\blx@sectionciteorder@0=\count302
+\blx@entrysetcounter=\count303
+\labelnumberwidth=\skip64
+\labelalphawidth=\skip65
+\biblabelsep=\skip66
+\bibitemsep=\skip67
+\bibnamesep=\skip68
+\bibinitsep=\skip69
+\bibparsep=\skip70
+\bibhang=\skip71
+\blx@bcfin=\read2
+\blx@bcfout=\write3
+\blx@langwohyphens=\language5
+\c@mincomprange=\count304
+\c@maxcomprange=\count305
+\c@mincompwidth=\count306
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/blx-d
+m.def
+File: blx-dm.def 2019/12/01 v3.14 biblatex localization (PK/MW)
+)
+Package biblatex Info: Trying to load biblatex style data model...
+Package biblatex Info: ... file 'authoryear-comp.dbx' not found.
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count307
+\c@savedafterword=\count308
+\c@annotator=\count309
+\c@savedannotator=\count310
+\c@author=\count311
+\c@savedauthor=\count312
+\c@bookauthor=\count313
+\c@savedbookauthor=\count314
+\c@commentator=\count315
+\c@savedcommentator=\count316
+\c@editor=\count317
+\c@savededitor=\count318
+\c@editora=\count319
+\c@savededitora=\count320
+\c@editorb=\count321
+\c@savededitorb=\count322
+\c@editorc=\count323
+\c@savededitorc=\count324
+\c@foreword=\count325
+\c@savedforeword=\count326
+\c@holder=\count327
+\c@savedholder=\count328
+\c@introduction=\count329
+\c@savedintroduction=\count330
+\c@namea=\count331
+\c@savednamea=\count332
+\c@nameb=\count333
+\c@savednameb=\count334
+\c@namec=\count335
+\c@savednamec=\count336
+\c@translator=\count337
+\c@savedtranslator=\count338
+\c@shortauthor=\count339
+\c@savedshortauthor=\count340
+\c@shorteditor=\count341
+\c@savedshorteditor=\count342
+\c@labelname=\count343
+\c@savedlabelname=\count344
+\c@institution=\count345
+\c@savedinstitution=\count346
+\c@lista=\count347
+\c@savedlista=\count348
+\c@listb=\count349
+\c@savedlistb=\count350
+\c@listc=\count351
+\c@savedlistc=\count352
+\c@listd=\count353
+\c@savedlistd=\count354
+\c@liste=\count355
+\c@savedliste=\count356
+\c@listf=\count357
+\c@savedlistf=\count358
+\c@location=\count359
+\c@savedlocation=\count360
+\c@organization=\count361
+\c@savedorganization=\count362
+\c@origlocation=\count363
+\c@savedoriglocation=\count364
+\c@origpublisher=\count365
+\c@savedorigpublisher=\count366
+\c@publisher=\count367
+\c@savedpublisher=\count368
+\c@language=\count369
+\c@savedlanguage=\count370
+\c@origlanguage=\count371
+\c@savedoriglanguage=\count372
+\c@pageref=\count373
+\c@savedpageref=\count374
+\shorthandwidth=\skip72
+\shortjournalwidth=\skip73
+\shortserieswidth=\skip74
+\shorttitlewidth=\skip75
+\shortauthorwidth=\skip76
+\shorteditorwidth=\skip77
+\locallabelnumberwidth=\skip78
+\locallabelalphawidth=\skip79
+\localshorthandwidth=\skip80
+\localshortjournalwidth=\skip81
+\localshortserieswidth=\skip82
+\localshorttitlewidth=\skip83
+\localshortauthorwidth=\skip84
+\localshorteditorwidth=\skip85
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/blx-c
+ompat.def
+File: blx-compat.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/bibla
+tex.def
+File: biblatex.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
+\c@textcitecount=\count375
+\c@textcitetotal=\count376
+\c@textcitemaxnames=\count377
+\c@biburlbigbreakpenalty=\count378
+\c@biburlbreakpenalty=\count379
+\c@biburlnumpenalty=\count380
+\c@biburlucpenalty=\count381
+\c@biburllcpenalty=\count382
+\biburlbigskip=\muskip18
+\biburlnumskip=\muskip19
+\biburlucskip=\muskip20
+\biburllcskip=\muskip21
+\c@smartand=\count383
+)
+Package biblatex Info: Trying to load natbib compatibility...
+Package biblatex Info: ... file 'blx-natbib.def' found.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/blx-n
+atbib.def
+File: blx-natbib.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
+Package biblatex Info: Delimiter 'nameyeardelim' in context '' already defined,
+ overwriting.
+)
+Package biblatex Info: Trying to load bibliography style 'authoryear-comp'...
+Package biblatex Info: ... file 'authoryear-comp.bbx' found.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/bbx/a
+uthoryear-comp.bbx
+File: authoryear-comp.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'authoryear'...
+Package biblatex Info: ... file 'authoryear.bbx' found.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/bbx/a
+uthoryear.bbx
+File: authoryear.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/bbx/s
+tandard.bbx
+File: standard.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count384
+\c@bbx:relatedtotal=\count385
+)))
+Package biblatex Info: Trying to load citation style 'authoryear-comp'...
+Package biblatex Info: ... file 'authoryear-comp.cbx' found.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/cbx/a
+uthoryear-comp.cbx
+File: authoryear-comp.cbx 2019/12/01 v3.14 biblatex citation style (PK/MW)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\footcites'.
+Package biblatex Info: Redefining '\footcitetexts'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/bibla
+tex.cfg
+File: biblatex.cfg 
+))
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xpatch/xpatch.
+sty
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3
+.sty
+Package: expl3 2020-02-25 L3 programming layer (loader) 
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3ba
+ckend-pdfmode.def
+File: l3backend-pdfmode.def 2020-02-23 L3 backend support: PDF mode
+\l__kernel_color_stack_int=\count386
+\l__pdf_internal_box=\box48
+))
+Package: xpatch 2012/10/02 v0.3 Extending etoolbox patching commands
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/xpa
+rse/xparse.sty
+Package: xparse 2020-02-25 L3 Experimental document command parser
+\l__xparse_current_arg_int=\count387
+\g__xparse_grabber_int=\count388
+\l__xparse_m_args_int=\count389
+\l__xparse_v_nesting_int=\count390
+))
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.
+sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/c
+olor.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyper
+ref.sty
+Package: hyperref 2020/01/14 v7.00d Hypertext links for LaTeX
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvdefinekeys
+/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdfescape/pd
+fescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hycolor/hycolo
+r.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/letltxmacro/le
+tltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/auxhook/auxhoo
+k.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+\@linkdim=\dimen167
+\Hy@linkcounter=\count391
+\Hy@pagecounter=\count392
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/pd1en
+c.def
+File: pd1enc.def 2020/01/14 v7.00d Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/intcalc/intc
+alc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/etexcmds/ete
+xcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count393
+\pdfmajorversion=\count394
+Package hyperref Info: Option `colorlinks' set `false' on input line 4421.
+Package hyperref Info: Hyper figures OFF on input line 4547.
+Package hyperref Info: Link nesting OFF on input line 4552.
+Package hyperref Info: Hyper index ON on input line 4555.
+Package hyperref Info: Plain pages OFF on input line 4562.
+Package hyperref Info: Backreferencing OFF on input line 4567.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4800.
+\c@Hy@tempcnt=\count395
+LaTeX Info: Redefining \url on input line 5159.
+\XeTeXLinkMargin=\dimen168
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bitset/bitse
+t.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bigintcalc/b
+igintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count396
+\Field@Width=\dimen169
+\Fld@charsize=\dimen170
+Package hyperref Info: Hyper figures OFF on input line 6430.
+Package hyperref Info: Link nesting OFF on input line 6435.
+Package hyperref Info: Hyper index ON on input line 6438.
+Package hyperref Info: backreferencing OFF on input line 6445.
+Package hyperref Info: Link coloring OFF on input line 6450.
+Package hyperref Info: Link coloring with OCG OFF on input line 6455.
+Package hyperref Info: PDF/A mode OFF on input line 6460.
+LaTeX Info: Redefining \ref on input line 6500.
+LaTeX Info: Redefining \pageref on input line 6504.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/atbegshi/atb
+egshi.sty
+Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
+)
+\Hy@abspage=\count397
+\c@Item=\count398
+\c@Hfootnote=\count399
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hpdft
+ex.def
+File: hpdftex.def 2020/01/14 v7.00d Hyperref driver for pdfTeX
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/atveryend/atve
+ryend.sty
+Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
+)
+\Fld@listcount=\count400
+\c@bookmark@seq@number=\count401
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/rerunfilecheck
+/rerunfilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/uniquecounte
+r/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
+)
+\Hy@SectionHShift=\skip86
+)
+Package hyperref Info: Option `breaklinks' set `true' on input line 159.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 159.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 159.
+
+Package hyperref Info: Option `colorlinks' set `true' on input line 159.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tocbibind/tocb
+ibind.sty
+Package: tocbibind 2010/10/13 v1.5k extra ToC listings
+Package tocbibind Info: The document has chapter divisions on input line 50.
+
+Package tocbibind Note: Using chapter style headings, unless overridden.
+
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tocloft/toclof
+t.sty
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has chapter divisions on input line 51.
+\cftparskip=\skip87
+\cftbeforetoctitleskip=\skip88
+\cftaftertoctitleskip=\skip89
+\cftbeforepartskip=\skip90
+\cftpartnumwidth=\skip91
+\cftpartindent=\skip92
+\cftbeforechapskip=\skip93
+\cftchapindent=\skip94
+\cftchapnumwidth=\skip95
+\cftbeforesecskip=\skip96
+\cftsecindent=\skip97
+\cftsecnumwidth=\skip98
+\cftbeforesubsecskip=\skip99
+\cftsubsecindent=\skip100
+\cftsubsecnumwidth=\skip101
+\cftbeforesubsubsecskip=\skip102
+\cftsubsubsecindent=\skip103
+\cftsubsubsecnumwidth=\skip104
+\cftbeforeparaskip=\skip105
+\cftparaindent=\skip106
+\cftparanumwidth=\skip107
+\cftbeforesubparaskip=\skip108
+\cftsubparaindent=\skip109
+\cftsubparanumwidth=\skip110
+\cftbeforeloftitleskip=\skip111
+\cftafterloftitleskip=\skip112
+\cftbeforefigskip=\skip113
+\cftfigindent=\skip114
+\cftfignumwidth=\skip115
+\c@lofdepth=\count402
+\c@lotdepth=\count403
+\cftbeforelottitleskip=\skip116
+\cftafterlottitleskip=\skip117
+\cftbeforetabskip=\skip118
+\cfttabindent=\skip119
+\cfttabnumwidth=\skip120
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/framed/framed.
+sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip121
+\fb@frw=\dimen171
+\fb@frh=\dimen172
+\FrameRule=\dimen173
+\FrameSep=\dimen174
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancy
+vrb.sty
+Package: fancyvrb 2020/01/13 v3.5 verbatim text (tvz,hv)
+\FV@CodeLineNo=\count404
+\FV@InFile=\read3
+\FV@TabBox=\box49
+\c@FancyVerbLine=\count405
+\FV@StepNumber=\count406
+\FV@OutFile=\write4
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtabl
+e.sty
+Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
+\LTleft=\skip122
+\LTright=\skip123
+\LTpre=\skip124
+\LTpost=\skip125
+\LTchunksize=\count407
+\LTcapwidth=\dimen175
+\LT@head=\box50
+\LT@firsthead=\box51
+\LT@foot=\box52
+\LT@lastfoot=\box53
+\LT@cols=\count408
+\LT@rows=\count409
+\c@LT@tables=\count410
+\c@LT@chunks=\count411
+\LT@p@ftn=\toks26
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/bookt
+abs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen176
+\lightrulewidth=\dimen177
+\cmidrulewidth=\dimen178
+\belowrulesep=\dimen179
+\belowbottomsep=\dimen180
+\aboverulesep=\dimen181
+\abovetopsep=\dimen182
+\cmidrulesep=\dimen183
+\cmidrulekern=\dimen184
+\defaultaddspace=\dimen185
+\@cmidla=\count412
+\@cmidlb=\count413
+\@aboverulesep=\dimen186
+\@belowrulesep=\dimen187
+\@thisruleclass=\count414
+\@lastruleclass=\count415
+\@thisrulewidth=\dimen188
+))
+\@quotelevel=\count416
+\@quotereset=\count417
+(./thesis.aux)
+\openout1 = `thesis.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Trying to load font information for T1+ppl on input line 30
+.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/t1ppl.f
+d
+File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(99.58464pt, 426.79135pt, 71.13188pt)
+* v-part:(T,H,B)=(71.13188pt, 674.33032pt, 99.58464pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=426.79135pt
+* \textheight=674.33032pt
+* \oddsidemargin=27.31465pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-38.1381pt
+* \headheight=15.0pt
+* \headsep=25.0pt
+* \topskip=11.0pt
+* \footskip=30.0pt
+* \marginparwidth=103.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: hyperref package is loaded.
+Package caption Info: longtable package is loaded.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/caption/ltcapt
+ion.sty
+Package: ltcaption 2018/08/26 v1.4a longtable captions (AR)
+)
+Package caption Info: End \AtBeginDocument code.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/e
+pstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/ep
+stopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+LaTeX Info: Redefining \microtypecontext on input line 30.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `basictext'.
+LaTeX Info: Redefining \showhyphens on input line 30.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/mt-p
+pl.cfg
+File: mt-ppl.cfg 2005/11/16 v1.6 microtype config. file: Palatino (RS)
+)
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/lbx/e
+nglish.lbx
+File: english.lbx 2019/12/01 v3.14 biblatex localization (PK/MW)
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Data encoding 'utf8' specified.
+(biblatex)             No need to reencode data.
+\openout3 = `thesis.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'thesis.bbl' found.
+(./thesis.bbl)
+Package biblatex Info: Reference section=0 on input line 30.
+Package biblatex Info: Reference segment=0 on input line 30.
+\AtBeginShipoutBox=\box54
+Package hyperref Info: Link coloring ON on input line 30.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/namer
+ef.sty
+Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/refcount/refco
+unt.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/gettitlestri
+ng/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count418
+)
+LaTeX Info: Redefining \ref on input line 30.
+LaTeX Info: Redefining \pageref on input line 30.
+LaTeX Info: Redefining \nameref on input line 30.
+(./thesis.out) (./thesis.out)
+\@outlinefile=\write5
+\openout5 = `thesis.out'.
+
+LaTeX Font Info:    Trying to load font information for T1+fvs on input line 34
+.
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bera/t1fvs.fd
+File: t1fvs.fd 2004/09/07 scalable font definitions for T1/fvs.
+)
+LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
+(Font)              scaled to size 9.85492pt on input line 34.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `fvs' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
+(Font)              scaled to size 22.39185pt on input line 34.
+LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
+(Font)              scaled to size 22.39185pt on input line 34.
+LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
+(Font)              scaled to size 12.9599pt on input line 34.
+LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
+(Font)              scaled to size 15.55188pt on input line 34.
+<figures/crest.jpg, id=88, 509.905pt x 553.06625pt>
+File: figures/crest.jpg Graphic file (type jpg)
+<use figures/crest.jpg>
+Package pdftex.def Info: figures/crest.jpg  used on input line 34.
+(pdftex.def)             Requested size: 85.35826pt x 92.57692pt.
+LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
+(Font)              scaled to size 10.79993pt on input line 34.
+[1
+
+{c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/p
+dftex.map} <./figures/crest.jpg>]
+LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
+(Font)              scaled to size 21.59985pt on input line 36.
+LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
+(Font)              scaled to size 21.59985pt on input line 36.
+(./thesis.toc
+LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
+(Font)              scaled to size 9.85492pt on input line 3.
+LaTeX Font Info:    Trying to load font information for OT1+ppl on input line 3
+.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/ot1ppl.
+fd
+File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
+)
+LaTeX Font Info:    Trying to load font information for OML+zplm on input line 
+3.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/omlzplm
+.fd
+File: omlzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OML/zplm.
+)
+LaTeX Font Info:    Trying to load font information for OMS+zplm on input line 
+3.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/omszplm
+.fd
+File: omszplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMS/zplm.
+)
+LaTeX Font Info:    Trying to load font information for OMX+zplm on input line 
+3.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/omxzplm
+.fd
+File: omxzplm.fd 2002/09/08 Fontinst v1.914 font definitions for OMX/zplm.
+)
+LaTeX Font Info:    Trying to load font information for OT1+zplm on input line 
+3.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/ot1zplm
+.fd
+File: ot1zplm.fd 2002/09/08 Fontinst v1.914 font definitions for OT1/zplm.
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `zplm' (encoding: OT1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+)
+\tf@toc=\write6
+\openout6 = `thesis.toc'.
+
+[2] [0
+
+
+]
+Chapter 1.
+LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
+(Font)              scaled to size 18.66588pt on input line 40.
+LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
+(Font)              scaled to size 13.49991pt on input line 53.
+[1]
+LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
+(Font)              scaled to size 12.9599pt on input line 79.
+[2]
+Chapter 2.
+[3
+
+] [4
+
+]
+Chapter 3.
+
+Overfull \hbox (40.38799pt too wide) in paragraph at lines 119--132
+ [][] 
+ []
+
+[5] [6]
+
+LaTeX Warning: Command \textunderscore invalid in math mode on input line 190.
+
+LaTeX Font Info:    Trying to load font information for U+fplmbb on input line 
+190.
+
+(c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/ufplmbb
+.fd
+File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
+)
+
+LaTeX Warning: Command \textunderscore invalid in math mode on input line 190.
+
+[7] [8
+
+]
+Chapter 4.
+[9] [10
+
+]
+Chapter 5.
+[11] [12
+
+]
+Chapter 6.
+[13] [14
+
+]
+Chapter 7.
+[15] [16
+
+]
+Chapter 8.
+[17] [18
+
+]
+Chapter 9.
+[19] [20]
+Appendix A.
+
+LaTeX Warning: Empty bibliography on input line 323.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 327.
+[21
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 327.
+(./thesis.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 327.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 327.
+Package rerunfilecheck Info: File `thesis.out' has not changed.
+(rerunfilecheck)             Checksum: 1D82D230512048110127963D62C01A22;1259.
+Package logreq Info: Writing requests to 'thesis.run.xml'.
+\openout1 = `thesis.run.xml'.
+
+ )
+(\end occurred inside a group at level 1)
+
+### semi simple group (level 1) entered at line 102 (\begingroup)
+### bottom level 
+Here is how much of TeX's memory you used:
+ 18629 strings out of 482913
+ 325505 string characters out of 5957308
+ 1050425 words of memory out of 5000000
+ 33407 multiletter control sequences out of 15000+600000
+ 635469 words of font info for 205 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 49i,12n,49p,1005b,12849s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/en
+c/dvips/base/8r.enc}<c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTe
+X/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/TengMCing/AppD
+ata/Roaming/TinyTeX/texmf-dist/fonts/type1/public/mathpazo/fplmbb.pfb><c:/Users
+/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/bera/fvsb8a.pf
+b><c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/ber
+a/fvsr8a.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1
+/urw/palatino/uplb8a.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist
+/fonts/type1/urw/palatino/uplr8a.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTe
+X/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on thesis.pdf (24 pages, 169237 bytes).
+PDF statistics:
+ 272 PDF objects out of 1000 (max. 8388607)
+ 234 compressed objects within 3 object streams
+ 52 named destinations out of 1000 (max. 500000)
+ 44718 words of extra memory for PDF output out of 51595 (max. 10000000)
+

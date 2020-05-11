@@ -2183,19 +2183,6 @@
     <bcf:datasource type="file" datatype="bibtex">thesisrefs.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">Brown59</bcf:citekey>
-    <bcf:citekey order="2">Brown63</bcf:citekey>
-    <bcf:citekey order="3">Holt57</bcf:citekey>
-    <bcf:citekey order="4">Winters60</bcf:citekey>
-    <bcf:citekey order="5">MH79</bcf:citekey>
-    <bcf:citekey order="6">MH79</bcf:citekey>
-    <bcf:citekey order="7">Metal82</bcf:citekey>
-    <bcf:citekey order="8">Metal82</bcf:citekey>
-    <bcf:citekey order="9">CKOS01</bcf:citekey>
-    <bcf:citekey order="10">OKS97</bcf:citekey>
-    <bcf:citekey order="11">OKS97</bcf:citekey>
-    <bcf:citekey order="12">HKSG02</bcf:citekey>
-    <bcf:citekey order="13">HKSG02</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">
