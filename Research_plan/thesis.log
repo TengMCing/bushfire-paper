@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.16)  12 MAY 2020 08:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.16)  13 MAY 2020 07:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -990,7 +990,7 @@ LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
 (Font)              scaled to size 12.9599pt on input line 34.
 LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
 (Font)              scaled to size 15.55188pt on input line 34.
-<figures/crest.jpg, id=88, 509.905pt x 553.06625pt>
+<figures/crest.jpg, id=92, 509.905pt x 553.06625pt>
 File: figures/crest.jpg Graphic file (type jpg)
 <use figures/crest.jpg>
 Package pdftex.def Info: figures/crest.jpg  used on input line 34.
@@ -1072,29 +1072,40 @@ Chapter 2.
 ]
 Chapter 3.
 
-Overfull \hbox (40.38799pt too wide) in paragraph at lines 119--132
+Overfull \hbox (40.38799pt too wide) in paragraph at lines 118--131
  [][] 
  []
 
 [5] [6]
 
-LaTeX Warning: Command \textunderscore invalid in math mode on input line 190.
+LaTeX Warning: Command \textunderscore invalid in math mode on input line 199.
 
 LaTeX Font Info:    Trying to load font information for U+fplmbb on input line 
-190.
+199.
 
 (c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/ufplmbb
 .fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 )
 
-LaTeX Warning: Command \textunderscore invalid in math mode on input line 190.
+LaTeX Warning: Command \textunderscore invalid in math mode on input line 199.
 
-[7] [8
+<figures/Shiny_app_data_Conceptual_ERD.jpeg, id=167, 505.89pt x 546.1203pt>
+File: figures/Shiny_app_data_Conceptual_ERD.jpeg Graphic file (type jpg)
+<use figures/Shiny_app_data_Conceptual_ERD.jpeg>
+Package pdftex.def Info: figures/Shiny_app_data_Conceptual_ERD.jpeg  used on in
+put line 211.
+(pdftex.def)             Requested size: 505.88875pt x 546.11896pt.
 
-]
+Overfull \hbox (79.0974pt too wide) in paragraph at lines 211--212
+ [][] 
+ []
+
+[7] [8 <./figures/Shiny_app_data_Conceptual_ERD.jpeg>]
 Chapter 4.
-[9] [10
+[9
+
+] [10
 
 ]
 Chapter 5.
@@ -1117,18 +1128,18 @@ Chapter 9.
 [19] [20]
 Appendix A.
 
-LaTeX Warning: Empty bibliography on input line 323.
+LaTeX Warning: Empty bibliography on input line 345.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 327.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 349.
 [21
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 327.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 349.
 (./thesis.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 327.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 327.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 349.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 349.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 1D82D230512048110127963D62C01A22;1259.
+(rerunfilecheck)             Checksum: 3DBC2A935D3845E0E6A6718C703A04C1;1347.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
@@ -1138,13 +1149,13 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 18629 strings out of 482913
- 325505 string characters out of 5957308
- 1050441 words of memory out of 5000000
- 33407 multiletter control sequences out of 15000+600000
- 635469 words of font info for 205 fonts, out of 8000000 for 9000
+ 18654 strings out of 482913
+ 325991 string characters out of 5957308
+ 1051583 words of memory out of 5000000
+ 33416 multiletter control sequences out of 15000+600000
+ 636101 words of font info for 213 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 49i,12n,49p,1005b,12849s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 49i,12n,49p,1005b,12851s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/en
 c/dvips/base/8r.enc}<c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/font
 s/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTe
@@ -1156,10 +1167,10 @@ a/fvsr8a.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1
 /urw/palatino/uplb8a.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist
 /fonts/type1/urw/palatino/uplr8a.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTe
 X/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (24 pages, 169111 bytes).
+Output written on thesis.pdf (24 pages, 342553 bytes).
 PDF statistics:
- 272 PDF objects out of 1000 (max. 8388607)
- 234 compressed objects within 3 object streams
- 52 named destinations out of 1000 (max. 500000)
- 44718 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 280 PDF objects out of 1000 (max. 8388607)
+ 241 compressed objects within 3 object streams
+ 54 named destinations out of 1000 (max. 500000)
+ 44731 words of extra memory for PDF output out of 51595 (max. 10000000)
 

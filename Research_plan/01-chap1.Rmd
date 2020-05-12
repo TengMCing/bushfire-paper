@@ -47,7 +47,7 @@ In order to answer the reserach questions, this research will use mutiple geospa
 
 Two methods were performed to collect necessary datasets, including retrieve files from servers and crawl data from websites. For reproducibility purpose, only public data will be used in this research. 
 
-To obtain fire history, we used the hotspots data from JAXA’s Himawari-8 satellite. This satellite is positioned in geostationary orbit at 140 degrees east longitude, and the revisit period is 10-minute. Its management system - JAXA's P-Tree system, provides WildFire observation product with 2km spatial resolution. However, it is a beta version product and the data is not quality assured (P-Tree System, 2020).
+To obtain fire history, we used the hotspots data from JAXA’s Himawari-8 satellite. This satellite is positioned in geostationary orbit at 140 degrees east longitude, and the revisit period is 10-minute. Its management system - JAXA's P-Tree system, provides WildFire observation product with 2km spatial resolution. (P-Tree System, 2020).
 
 Weather data were collected from the Australian Bureau of Meteorology, by using an R package - Bomrang. Due to the limitation of APIs provided by the package, we crawled data from BOM's website for extra information. 
 
@@ -100,6 +100,8 @@ An R package sf (Edzer, 2020) has been used to convert all geospatial data into 
 To preprocess the hotspots data, we selected the observations in Australia from the full disk. Meanwhile, hotspots with irradiance under 100 watt per square metre will be deleted. We restricted our study to hotspots that have significant firepower. An hour id has been assigned to each observation range from 1 to T, represents the relative time the hotspot being observed.
 On top of the tidy hotspots data, a clustering algorithm was developed to identify fire clusters. Details about the algorithm can be found in table \ref{tab:clustering}. 
 
+By using this algorithm, we assigned each hotspot a cluster membership which we called *fire_id*. Meanwhile, we recorded the characteristics of each cluster including its centroid, starting time, ending time and movement. The inspiration behind this algorithm is the real world bushfire behaviour which can be summarised as two hyperparameters, the distance of spread in each hour and the lifetime of fire since it not being detected, represented by $r_0$ and $t_0$ respectively. These two hyperparameters have been used to determine if a new hotspot belongs to an existing or new cluster.
+
 \newpage
 
 \normalfont
@@ -143,6 +145,11 @@ On top of the tidy hotspots data, a clustering algorithm was developed to identi
 \end{align*}
 \end{table}
 
+## Conceptual Entity Relationship Diagram
+
+In Figure \ref{fig:ERD}, we present the conceptual entity relationship diagram for the data model will be used in both data modelling and shiny app development.
+
+![Conceptual ERD for the shiny app data model \label{fig:ERD}](figures/Shiny_app_data_Conceptual_ERD.jpeg)
 
 # Exploratory data analysis
 

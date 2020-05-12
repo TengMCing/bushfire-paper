@@ -96,8 +96,7 @@ To obtain fire history, we used the hotspots data from JAXA's Himawari-8
 satellite. This satellite is positioned in geostationary orbit at 140
 degrees east longitude, and the revisit period is 10-minute. Its
 management system - JAXA's P-Tree system, provides WildFire observation
-product with 2km spatial resolution. However, it is a beta version
-product and the data is not quality assured (P-Tree System, 2020).
+product with 2km spatial resolution. (P-Tree System, 2020).
 
 Weather data were collected from the Australian Bureau of Meteorology,
 by using an R package - Bomrang. Due to the limitation of APIs provided
@@ -146,6 +145,16 @@ hotspot being observed. On top of the tidy hotspots data, a clustering
 algorithm was developed to identify fire clusters. Details about the
 algorithm can be found in table \ref{tab:clustering}.
 
+By using this algorithm, we assigned each hotspot a cluster membership
+which we called \emph{fire\_id}. Meanwhile, we recorded the
+characteristics of each cluster including its centroid, starting time,
+ending time and movement. The inspiration behind this algorithm is the
+real world bushfire behaviour which can be summarised as two
+hyperparameters, the distance of spread in each hour and the lifetime of
+fire since it not being detected, represented by \(r_0\) and \(t_0\)
+respectively. These two hyperparameters have been used to determine if a
+new hotspot belongs to an existing or new cluster.
+
 \newpage
 
 \normalfont
@@ -189,6 +198,19 @@ algorithm can be found in table \ref{tab:clustering}.
 &\rule{150mm}{0.5mm}
 \end{align*}
 \end{table}
+
+\section{Conceptual Entity Relationship
+Diagram}\label{conceptual-entity-relationship-diagram}
+
+In Figure \ref{fig:ERD}, we present the conceptual entity relationship
+diagram for the data model will be used in both data modelling and shiny
+app development.
+
+\begin{figure}
+\centering
+\includegraphics{figures/Shiny_app_data_Conceptual_ERD.jpeg}
+\caption{Conceptual ERD for the shiny app data model \label{fig:ERD}}
+\end{figure}
 
 \chapter{Exploratory data analysis}\label{exploratory-data-analysis}
 
