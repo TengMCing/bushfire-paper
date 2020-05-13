@@ -41,19 +41,25 @@ This research aims to answer the following questions:
 
 # Data collection and processing
 
-In order to answer the reserach questions, this research will use mutiple geospatial datasets and weather datasets.
+There are numerous open source data sets available that are collated to provide the data to address the research questions. The main data resource that differs from that used in the literature is the satellite data that records hotspots. The next sections describe how the data is accessed, and and pre-processed for later analysis. 
 
 ## Sources
 
-Two methods were performed to collect necessary datasets, including retrieve files from servers and crawl data from websites. For reproducibility purpose, only public data will be used in this research. 
+Table \ref{tab:datasetinfo} summarises the data sources. 
 
-To obtain fire history, we used the hotspots data from JAXA’s Himawari-8 satellite. This satellite is positioned in geostationary orbit at 140 degrees east longitude, and the revisit period is 10-minute. Its management system - JAXA's P-Tree system, provides WildFire observation product with 2km spatial resolution. (P-Tree System, 2020).
 
+<!--Two methods were performed to collect necessary datasets, including retrieve files from servers and crawl data from websites. For reproducibility purpose, only public data will be used in this research. -->
+
+<!-- hotspot -->
+Hotspot data is downloaded from the JAXA’s Himawari-8 satellite. This satellite is positioned in geostationary orbit at 140 degrees east longitude, and the revisit period is 10-minute. Its management system - JAXA's P-Tree system, provides WildFire observation product with 2km spatial resolution. (P-Tree System, 2020). Details on how to download this data are provided by [ozjim post]. 
+
+<!-- Weather -->
 Weather data were collected from the Australian Bureau of Meteorology, by using an R package - Bomrang. Due to the limitation of APIs provided by the package, we crawled data from BOM's website for extra information. 
 
+<!-- fuel layer -->
 To characterise the fuel we used forest of Australia (2018) from the Australian Bureau of Agriculture and Resource Economics and Sciences. It is a fuel layer contains the vegetation information across Australia.
 
-Information on the datasets not covered above can be found in Table \ref{tab:datasetinfo}. 
+<!-- paragraph on each data source -->
 
 ```{r datasets, results='asis'}
 datasets_info = data.frame(name = c("Hotspots data - JAXA’s Himawari-8 satellite",
@@ -95,14 +101,17 @@ knitr::kable(datasets_info, 'latex',
 
 ## Pre-processing
 
-An R package sf (Edzer, 2020) has been used to convert all geospatial data into simple features. We then used Tidyverse (Hadley et al., 2020) as a data wrangling tool to manipulate data. 
+<!-- Data types -->
+The hotspot data is csv format, which can be processed generally with the tidyverse tools (Hadley et al., 2020) in R. Map data is presented as geospatial object, which can be processed using the tools in the `sf` (Edzer, 2020). Weather?
 
+<!-- hotspot clustering -->
+<!-- why? --> 
 To preprocess the hotspots data, we selected the observations in Australia from the full disk. Meanwhile, hotspots with irradiance under 100 watt per square metre will be deleted. We restricted our study to hotspots that have significant firepower. An hour id has been assigned to each observation range from 1 to T, represents the relative time the hotspot being observed.
 On top of the tidy hotspots data, a clustering algorithm was developed to identify fire clusters. Details about the algorithm can be found in table \ref{tab:clustering}. 
 
 By using this algorithm, we assigned each hotspot a cluster membership which we called *fire_id*. Meanwhile, we recorded the characteristics of each cluster including its centroid, starting time, ending time and movement. The inspiration behind this algorithm is the real world bushfire behaviour which can be summarised as two hyperparameters, the distance of spread in each hour and the lifetime of fire since it not being detected, represented by $r_0$ and $t_0$ respectively. These two hyperparameters have been used to determine if a new hotspot belongs to an existing or new cluster.
 
-\newpage
+<!--\newpage-->
 
 \normalfont
 \begin{table}
@@ -145,11 +154,17 @@ By using this algorithm, we assigned each hotspot a cluster membership which we 
 \end{align*}
 \end{table}
 
-## Conceptual Entity Relationship Diagram
+## Compiled data
 
-In Figure \ref{fig:ERD}, we present the conceptual entity relationship diagram for the data model will be used in both data modelling and shiny app development.
+The end result of the data pre-processing  is a set  of data tables, that are related by indexes.  Figure \ref{fig:ERD} shows these tables and the indexes which allow information to be compared across tables. Technically, this figure is called a conceptual entity relationship diagram. It will be useful for describing the data model to be used in both modelling and web interface for communicating fire risk.
 
-![Conceptual ERD for the shiny app data model \label{fig:ERD}](figures/Shiny_app_data_Conceptual_ERD.jpeg)
+<!-- Figurecaptions need  these pieces:
+1. What is this figure about?
+2. What are the specific details
+3. The most important thing the reader should take away
+-->
+
+![Entity relationship diagram illustrating the relational tables of the compiled data. Tables correspond to processed hotspot data, weather, local facilities like CFA sites. This data structure is useful for the data modeling and web app development.  \label{fig:ERD}](figures/Shiny_app_data_Conceptual_ERD.jpeg)
 
 # Exploratory data analysis
 

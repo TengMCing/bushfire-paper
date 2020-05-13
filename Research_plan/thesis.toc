@@ -1,45 +1,45 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {1}Statement of the topic}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {1}Statement of the topic}{1}{chapter.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.2}Research aim and questions}{1}{section.1.2}%
+\contentsline {section}{\numberline {1.2}Research aim and questions}{1}{section.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.3}Research plan}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.3}Research plan}{2}{section.1.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1.4}Scope of research}{2}{section.1.4}%
+\contentsline {section}{\numberline {1.4}Scope of research}{2}{section.1.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {2}Literature Review}{3}{chapter.2}%
+\contentsline {chapter}{\numberline {2}Literature Review}{3}{chapter.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Data collection and processing}{5}{chapter.3}%
+\contentsline {chapter}{\numberline {3}Data collection and processing}{5}{chapter.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Sources}{5}{section.3.1}%
+\contentsline {section}{\numberline {3.1}Sources}{5}{section.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Pre-processing}{6}{section.3.2}%
+\contentsline {section}{\numberline {3.2}Pre-processing}{6}{section.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}Conceptual Entity Relationship Diagram}{7}{section.3.3}%
+\contentsline {section}{\numberline {3.3}Compiled data}{8}{section.3.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Exploratory data analysis}{9}{chapter.4}%
+\contentsline {chapter}{\numberline {4}Exploratory data analysis}{11}{chapter.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Modelling}{11}{chapter.5}%
+\contentsline {chapter}{\numberline {5}Modelling}{13}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Predicting ignition method}{11}{section.5.1}%
+\contentsline {section}{\numberline {5.1}Predicting ignition method}{13}{section.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Modelling fire risk}{11}{section.5.2}%
+\contentsline {section}{\numberline {5.2}Modelling fire risk}{13}{section.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Timeline}{13}{chapter.6}%
+\contentsline {chapter}{\numberline {6}Timeline}{15}{chapter.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}Supplementary materials}{15}{chapter.7}%
+\contentsline {chapter}{\numberline {7}Supplementary materials}{17}{chapter.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {8}Biblography}{17}{chapter.8}%
+\contentsline {chapter}{\numberline {8}Biblography}{19}{chapter.8}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {9}Words from last week}{19}{chapter.9}%
+\contentsline {chapter}{\numberline {9}Words from last week}{21}{chapter.9}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9.1}Data}{19}{section.9.1}%
+\contentsline {section}{\numberline {9.1}Data}{21}{section.9.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9.2}Methodology}{19}{section.9.2}%
+\contentsline {section}{\numberline {9.2}Methodology}{21}{section.9.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {9.3}Preliminary Results}{20}{section.9.3}%
+\contentsline {section}{\numberline {9.3}Preliminary Results}{22}{section.9.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {A}Additional stuff}{21}{appendix.A}%
+\contentsline {chapter}{\numberline {A}Additional stuff}{23}{appendix.A}
