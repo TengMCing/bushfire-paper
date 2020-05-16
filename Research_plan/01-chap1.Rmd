@@ -10,13 +10,26 @@ library(tidyverse)
 library(kableExtra)
 ```
 
+```{r}
+options(tinytex.verbose = TRUE)
+```
+
+
 # Statement of the topic {#ch:intro}
 
 Along with the extreme heatwave in Australia 2019-2020, one of the most devastating bushfire season in history had been witnessed. Lighting strikes and arson were been discussed among pubilc as the main cause of this disaster. This research will explore the methods of fire ignition during 2019-2020 Australia bushfires season and provide a model to predict the fire risk of neighbourhoods. Hotspots data from the JAXA’s Himawari-8 satellite and weather data from the Australian Bureau of Meteorology will be used in ignition identification and bushfire danger estimation. In addition, an interactive web application embeds with research outcomes will be built for data visualization purpose.
 
 ## Motivation
 
-\<left blank\>
+In Australia, numerous occasions of bushfires cause losses of properties and life every year. Recorded since Hobart bushfires in 1967, the insurance claimed for building losses was greater than $A10 million (McAneney, Chen & Pitman, 2009) McAneney, Chen and Pitman (2009) show in their research that the average number of buildings had been destroyed by bushfire per year is 84, accounting for 20% of total building losses in hazard events.
+
+
+The Australian bushfire season in 2019-2020, compared with other major bushfires in history, had a severer impact on environment and properties.  According to the Parliament of Australia report (2020) on this devastating bushfire season, 3094 houses had been destroyed during this crisis and burnt land was over 17M hectares. These two figures are the highest in history. Fortunately, only 33 people including firefighters died comparing to 173 in Black Saturday and 47 in Ash Wednesday (Parliament of Australia, 2020).
+
+
+Therefore, understanding what caused the 2019-2020 Australian bushfires is extremely important which may provide us with information for future legislation and fire risk management.
+
+Another motivation for us to conduct this research is the difficulty of finding the cause of bushfire in Australia. Beale and Jones (2009) state in their research that only 58.9% of the cause of fires is known. In the known cases, the percentage of deliberate and suspicious ignitions is around 50%. Besides, 35% of known cases are caused by accidents and 6% of known cases are caused by nature, for example, lightning. Provide probability information on the cause of bushfires may help investigators in practice. 
 
 
 ## Research aim and questions
@@ -24,12 +37,31 @@ Along with the extreme heatwave in Australia 2019-2020, one of the most devastat
 This research aims to answer the following questions:
   
   1. How to find the ignition methods during 2019-2020 Australia bushfire season?
+    How to identify fire from hotspots data?
+    How to classify the cause of ignition without classes labels?
+    Will likelihood of ignitions increase near the campping site and road?
+    Will likelihood of ignitions increase near lightning strikes?
   2. How to model fire risk of neighbourhoods?
+    Are tree-based models better than Generalized linear model and Generalized additive model in fire risk prediction?
+    How to take into account the temporal patterns and spatial patterns in fire risk modelling?
+    How to apply regularization and add noise in fire risk modelling?
+    
 
 
 ## Research plan
 
-\<left blank\>
+This reasearch will start from data collection. Various datasets will be collected for this research, and the primary datasets will be hotspots data, weather data and map data. 
+
+To understand the ignition of bushfires, a customized clustering algorithm will be developed to convert hotpots data into fire history, which will contain the starting time and coordinates of each fire. This algorithm will mainly involve simulating fire growth, deciding fire boundaries controlled by tolerance and assigning hotspots data to the most probable cluster. After the clustering result being obtained, fire history will be visualized to diagnostic the performance of the algorithm. It will be done by comparing the behaviour of the same fire under different sets of hyperparameters.
+
+Exploratory data analysis of fire history and its relative factors, like weather condition, distance to the nearest road and distance to the nearest recreation site will be performed. Prior knowledge and featuring engineering will be needed to fully understand the relationship. We expect to discover relationships between the ignition of fire with these factors, which can help us identify the cause of bushfires later on. 
+
+In order to examine the sources of fire ignition, different strategies will be used depending on the outcome in the previous section. If the findings from the analysis are strong and directly related to potential sources of fire ignition, hypothesis tests will be conducted to examine the pattern. If the evidence is weak, we will consider developing another clustering algorithm on fire history. This algorithm will be designed to maximize the distance between bushfire started with different causes in a high dimensional space. A probability model then can be built on top of it, which can provide a probabilistic answer for the cause of bushfires during 2019-2020 bushfire season.
+
+Models for predicting fire risk of neighbourhoods will be built using raw hotspots data instead of the fire history because the hotspots data can be considered generated from a partially observable Markov process, and the underlying state is the development of the bushfire. From low complexity models like logistic regression to high complexity models like random forest will be tested.    
+For sharing our research outcome, a shiny app will be built and hosted online. In addition, both static and dynamic visualization tools will be considered using. Due to the nature of Spatio-temporal data, which has at least 3-dimensional features, static map view without faceting can only provide limited information. Meanwhile, faceting map view with time will be limited by the size of caravans. Animation based map view is computationally expensive and distracting though it provides more information. Better ways for visualizing Spatio-temporal data will be explored during the development. The potential product will be an interactive map view with triggers to transform data and manipulate the aesthetics specifications.
+
+
 
 ## Scope of research
 
@@ -37,7 +69,9 @@ This research aims to answer the following questions:
 
 # Literature Review
 
-\<left blank\>
+## Bushfire ignition model
+
+
 
 # Data collection and processing
 
@@ -51,12 +85,19 @@ Table \ref{tab:datasetinfo} summarises the data sources.
 <!--Two methods were performed to collect necessary datasets, including retrieve files from servers and crawl data from websites. For reproducibility purpose, only public data will be used in this research. -->
 
 <!-- hotspot -->
+### Hotspots
+
 Hotspot data is downloaded from the JAXA’s Himawari-8 satellite. This satellite is positioned in geostationary orbit at 140 degrees east longitude, and the revisit period is 10-minute. Its management system - JAXA's P-Tree system, provides WildFire observation product with 2km spatial resolution. (P-Tree System, 2020). Details on how to download this data are provided by [ozjim post]. 
 
 <!-- Weather -->
-Weather data were collected from the Australian Bureau of Meteorology, by using an R package - Bomrang. Due to the limitation of APIs provided by the package, we crawled data from BOM's website for extra information. 
+
+### Weather
+
+Weather data were collected from the Australian Bureau of Meteorology, by using an R package - Bomrang (Adam, Mark, Hugh & Keith, 2020). Due to the limitation of APIs provided by the package, we crawled data from BOM's website for extra information. 
 
 <!-- fuel layer -->
+### Fuel layer
+
 To characterise the fuel we used forest of Australia (2018) from the Australian Bureau of Agriculture and Resource Economics and Sciences. It is a fuel layer contains the vegetation information across Australia.
 
 <!-- paragraph on each data source -->
@@ -67,15 +108,18 @@ datasets_info = data.frame(name = c("Hotspots data - JAXA’s Himawari-8 satelli
                                     "Map - OpenStreetMap",
                                     "Fuel layer - Australian Bureau of Agriculture \\\\ $\\hspace{5mm}$ and Resource Economics and Sciences",
                                     "Victorian CFA fire stations - Department of Environment, \\\\ $\\hspace{5mm}$Land, Water $\\&$ Planning",
-                                    "Victorian Recreation sites - Department of Environment, \\\\ $\\hspace{5mm}$Land, Water $\\&$ Planning"), 
+                                    "Victorian Recreation sites - Department of Environment, \\\\ $\\hspace{5mm}$Land, Water $\\&$ Planning",
+                                    "Fire Origins - Department of Environment, \\\\ $\\hspace{5mm}$Land, Water $\\&$ Planning"), 
                            spatialresolution = c("$0.02^\\circ \\approx 2km$",
                                                  "",
                                                  "2m",
                                                  "100m",
                                                  "20m",
-                                                 "10m"), 
+                                                 "10m",
+                                                 "100m"), 
                            temporalresolution = c("Per 10 minutes",
                                                   "Daily",
+                                                  "",
                                                   "",
                                                   "",
                                                   "",
@@ -85,7 +129,8 @@ datasets_info = data.frame(name = c("Hotspots data - JAXA’s Himawari-8 satelli
                                     "2020",
                                     "2018",
                                     "2020",
-                                    "2020"))
+                                    "2020",
+                                    "1972-2019"))
 
 knitr::kable(datasets_info, 'latex', 
              caption  = 'Data information', 
@@ -102,14 +147,19 @@ knitr::kable(datasets_info, 'latex',
 ## Pre-processing
 
 <!-- Data types -->
-The hotspot data is csv format, which can be processed generally with the tidyverse tools (Hadley et al., 2020) in R. Map data is presented as geospatial object, which can be processed using the tools in the `sf` (Edzer, 2020). Weather?
+### Data types
 
+The hotspot and weather data is csv format, which can be processed generally with the `tidyverse` tools (Wickham et al., 2020) in R. Fuel layer and other map data are presented as geospatial objects, which can be processed using the tools in the `sf` (Pebesma, 2020). 
+
+### hotspots clustering
+
+Hotpots are point data obtained by light detection from the satellite. They are snapshots of bushfires every 10 minutes. However, just like it is hard to identify a single plant from the top view of a grassland, information about individual bushfire can not be directly derived from the raw hotspot data. In order to understand the ignition time and ignition place of each bushfire, we need to separate hotspots into clusters and trace the growth of each cluster. 
 <!-- hotspot clustering -->
 <!-- why? --> 
 To preprocess the hotspots data, we selected the observations in Australia from the full disk. Meanwhile, hotspots with irradiance under 100 watt per square metre will be deleted. We restricted our study to hotspots that have significant firepower. An hour id has been assigned to each observation range from 1 to T, represents the relative time the hotspot being observed.
 On top of the tidy hotspots data, a clustering algorithm was developed to identify fire clusters. Details about the algorithm can be found in table \ref{tab:clustering}. 
 
-By using this algorithm, we assigned each hotspot a cluster membership which we called *fire_id*. Meanwhile, we recorded the characteristics of each cluster including its centroid, starting time, ending time and movement. The inspiration behind this algorithm is the real world bushfire behaviour which can be summarised as two hyperparameters, the distance of spread in each hour and the lifetime of fire since it not being detected, represented by $r_0$ and $t_0$ respectively. These two hyperparameters have been used to determine if a new hotspot belongs to an existing or new cluster.
+By using this algorithm, we assigned each hotspot a cluster membership which we called *fire_id*. Meanwhile, we recorded the characteristics of each cluster including its centroid, starting time, ending time and movement. The inspiration behind this algorithm is the behaviour of real world bushfire which can be summarised as two hyperparameters, the distance of spread in each hour and the lifetime of fire since last observed, represented by $r_0$ and $t_0$ respectively. These two hyperparameters have been used to determine if a new hotspot belongs to an existing or new cluster.
 
 <!--\newpage-->
 
@@ -156,7 +206,7 @@ By using this algorithm, we assigned each hotspot a cluster membership which we 
 
 ## Compiled data
 
-The end result of the data pre-processing  is a set  of data tables, that are related by indexes.  Figure \ref{fig:ERD} shows these tables and the indexes which allow information to be compared across tables. Technically, this figure is called a conceptual entity relationship diagram. It will be useful for describing the data model to be used in both modelling and web interface for communicating fire risk.
+The end result of the data pre-processing is a set of data tables, that are related by indexes.  Figure \ref{fig:ERD} shows these tables and the indexes which allow information to be compared across tables. Technically, this figure is called a conceptual entity relationship diagram. It will be useful for describing the data model to be used in both modelling and web interface for communicating fire risk.
 
 <!-- Figurecaptions need  these pieces:
 1. What is this figure about?
