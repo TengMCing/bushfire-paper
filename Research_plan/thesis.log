@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.5.14)  16 MAY 2020 15:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.5.14)  17 MAY 2020 15:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1066,94 +1066,94 @@ LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
 Chapter 2.
 [5
 
-] [6
+] [6] [7] [8
 
 ]
 Chapter 3.
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 10.79993pt on input line 179.
+(Font)              scaled to size 10.79993pt on input line 247.
 
-Overfull \hbox (40.38799pt too wide) in paragraph at lines 206--220
+Overfull \hbox (40.38799pt too wide) in paragraph at lines 274--288
  [][] 
  []
 
-[7]
-LaTeX Font Info:    Trying to load font information for T1+fvm on input line 22
-7.
+[9]
+LaTeX Font Info:    Trying to load font information for T1+fvm on input line 29
+5.
 (c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bera/t1fvm.fd
 File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 )
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 9.85492pt on input line 227.
+(Font)              scaled to size 9.85492pt on input line 295.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `fvm' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-[8]
+[10]
 
-LaTeX Warning: Command \textunderscore invalid in math mode on input line 298.
+LaTeX Warning: Command \textunderscore invalid in math mode on input line 366.
 
 LaTeX Font Info:    Trying to load font information for U+fplmbb on input line 
-298.
+366.
 
 (c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/ufplmbb
 .fd
 File: ufplmbb.fd 2003/10/30 Fontinst v1.914 font definitions for U/fplmbb.
 )
 
-LaTeX Warning: Command \textunderscore invalid in math mode on input line 298.
+LaTeX Warning: Command \textunderscore invalid in math mode on input line 366.
 
-[9] [10]
-<figures/Shiny_app_data_Conceptual_ERD.jpeg, id=197, 505.89pt x 546.1203pt>
+[11] [12]
+<figures/Shiny_app_data_Conceptual_ERD.jpeg, id=205, 505.89pt x 546.1203pt>
 File: figures/Shiny_app_data_Conceptual_ERD.jpeg Graphic file (type jpg)
 <use figures/Shiny_app_data_Conceptual_ERD.jpeg>
 Package pdftex.def Info: figures/Shiny_app_data_Conceptual_ERD.jpeg  used on in
-put line 312.
+put line 380.
 (pdftex.def)             Requested size: 505.88875pt x 546.11896pt.
 
-Overfull \hbox (79.0974pt too wide) in paragraph at lines 312--316
+Overfull \hbox (79.0974pt too wide) in paragraph at lines 380--384
  [][] 
  []
 
-[11] [12 <./figures/Shiny_app_data_Conceptual_ERD.jpeg>]
+[13] [14 <./figures/Shiny_app_data_Conceptual_ERD.jpeg>]
 Chapter 4.
-[13
+[15
 
-] [14
+] [16
 
 ]
 Chapter 5.
-[15] [16
-
-]
-Chapter 6.
 [17] [18
 
 ]
-Chapter 7.
+Chapter 6.
 [19] [20
 
 ]
-Chapter 8.
+Chapter 7.
 [21] [22
 
 ]
-Chapter 9.
-[23] [24]
-Appendix A.
-
-LaTeX Warning: Empty bibliography on input line 449.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 453.
-[25
+Chapter 8.
+[23] [24
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 453.
+Chapter 9.
+[25] [26]
+Appendix A.
+
+LaTeX Warning: Empty bibliography on input line 517.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 521.
+[27
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 521.
 (./thesis.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 453.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 453.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 521.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 521.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: B1D24C42DA9F06DAFE80479A0B1ABB4D;1395.
+(rerunfilecheck)             Checksum: F1C4F8D16D29597C49B02094F3DB2E3C;1391.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
@@ -1163,11 +1163,11 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 18725 strings out of 482630
- 327212 string characters out of 5951275
- 1050975 words of memory out of 5000000
+ 18742 strings out of 482630
+ 327348 string characters out of 5951275
+ 1050976 words of memory out of 5000000
  33752 multiletter control sequences out of 15000+600000
- 641825 words of font info for 227 fonts, out of 8000000 for 9000
+ 642620 words of font info for 237 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  49i,12n,49p,1005b,12892s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/en
@@ -1182,10 +1182,10 @@ a/fvsb8a.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1
 fonts/type1/urw/palatino/uplb8a.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTeX
 /texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/Users/TengMCing/AppData/Roa
 ming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on thesis.pdf (28 pages, 353916 bytes).
+Output written on thesis.pdf (30 pages, 358527 bytes).
 PDF statistics:
- 313 PDF objects out of 1000 (max. 8388607)
- 269 compressed objects within 3 object streams
- 64 named destinations out of 1000 (max. 500000)
+ 321 PDF objects out of 1000 (max. 8388607)
+ 275 compressed objects within 3 object streams
+ 66 named destinations out of 1000 (max. 500000)
  46275 words of extra memory for PDF output out of 51595 (max. 10000000)
 

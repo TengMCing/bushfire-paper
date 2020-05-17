@@ -69,7 +69,22 @@ For sharing our research outcome, a shiny app will be built and hosted online. I
 
 # Literature Review
 
-## Bushfire ignition model
+The literature review contains two parts. The first part is the historical and recent researches in Australian bushfires modelling. The second part is the existing tools of spatiotemporal data visualization and analysis.
+
+## Bushfires modelling
+
+Existing researches in bushfires modelling can be divided into two main categories, one is simulation modelling, another is analytical modelling. 
+
+In simulation modelling, Keane et al. (2004) have attempted to use landscape fire succession models (LFSMs) to model fire behaviour including fire ignition and fire spread. They are a group of spatial simulation models which taking into account fire and vegetation dynamics. Similarly, Bradstock et al. (2012) used FIRESCAPE model which mainly involved simulating fire behaviours with fuel and weather conditions. Simulation methods are cost-effective and time-effective in modelling bushfires (Clarke et al., 2019). However, Clarke et al. (2019) also stated in their research that ignition likelihood is not well discussed and considered in these models. Besides, these methods seldomly address ignition types of bushfires which we are interested in. Therefore, simulation modelling will not be considered in our bushfire ignition research. 
+
+Alternatively, analytical modelling is a more popular way to build bushfires models. In analytical modelling, the general framework for analysing bushfires ignitions is generalised additive model (GAM). Bates, McCaw and Dowdy (2018) used it for predicting the number of lightning ignitions. Besides, some studies include a logit link to extend the model for bushfires ignition likelihood prediction (Read, Duff and Taylor, 2018; Zhang, Lim and Sharples, 2017). Moreover, mixed-effects had been considered for spatial and weather factors (Duff, Cawson and Harris, 2018). Simpler models were also been used in this field, like multiple linear regression, negative binomial regression and generalised logistic regression (Cheney, Gould, McCaw and Anderson, 2012; Plucinski, McCaw, Gould and Wotton, 2014; Collins, Price and Penman, 2015). Particularly, instead of using a model, some researches performed statistical testing and exploratory data analysis to test certain hypothesises of bushfires (Miller et al., 2017; Dowdy, Fromm and McCarthy, 2017).
+
+Common covariates for ignitions analysis are weather conditions, vegetation types, topographic information and anthropogenic variables. Moreover, various indexes had been used in modelling. Some researches choose to use indexes variables developed by McArthur such as the Forest Fire Danger Index (Clarke et al., 2019; Read et al., 2018), while others choose to use indexes developed by Canadian Forestry Service such as Canadian Fire Weather Index and Drought Code (Plucinski et al., 2014). We doubt that these indexes are irrelevant with fire ignition prediction because they are extracted from weather and vegetation information. However, it may help improve our model performance because it can be viewed as features generated from feature engineering. We will test if these metrics are significant in our research.
+
+Although numerous studies for ignitions analysis have applied semiparametric and parametric methods, little analytics attention has been paid to more complex model such as tree-based model, support vector machine and artificial neural network. These tools are well developed in machine learning, which will be considered in this research.
+
+Most of the existing works of bushfire ignition analysis focus on a certain area such as south-eastern Australia (Clarke et al., 2019), or a certain state such as Victoria (Read, Duff & Taylor, 2018). In this research, we will primarily focus on Victoria but eventually extend the results throughout Australia. In addition, little research has been done in analysing the cause of 2019-2020 bushfires. Due to unknown causes of 2019-2020 bushfires, clustering, which is a rarely considered method in this field, will be used to identify ignition types.
+
 
 
 
