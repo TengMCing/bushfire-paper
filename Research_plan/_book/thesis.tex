@@ -84,6 +84,8 @@ in practice.
 
 \section{Research aim and questions}\label{research-aim-and-questions}
 
+\textless{}in progress\textgreater{}
+
 This research aims to answer the following questions:
 
 \begin{enumerate}
@@ -142,7 +144,8 @@ raw hotspots data instead of the fire history because the hotspots data
 can be considered generated from a partially observable Markov process,
 and the underlying state is the development of the bushfire. From low
 complexity models like logistic regression to high complexity models
-like random forest will be tested.\\
+like random forest will be tested.
+
 For sharing our research outcome, a shiny app will be built and hosted
 online. In addition, both static and dynamic visualization tools will be
 considered using. Due to the nature of Spatio-temporal data, which has
@@ -157,16 +160,9 @@ aesthetics specifications.
 
 \section{Scope of research}\label{scope-of-research}
 
-\textless{}left blank\textgreater{}
+\textless{}in progress\textgreater{}
 
 \chapter{Literature Review}\label{literature-review}
-
-The literature review contains two parts. The first part is the
-historical and recent researches in Australian bushfires modelling. The
-second part is the existing tools of spatiotemporal data visualization
-and analysis.
-
-\section{Bushfires modelling}\label{bushfires-modelling}
 
 Existing researches in bushfires modelling can be divided into two main
 categories, one is simulation modelling, another is analytical
@@ -190,12 +186,12 @@ Alternatively, analytical modelling is a more popular way to build
 bushfires models. In analytical modelling, the general framework for
 analysing bushfires ignitions is generalised additive model (GAM).
 Bates, McCaw and Dowdy (2018) used it for predicting the number of
-lightning ignitions. Besides, some studies include a logit link to
-extend the model for bushfires ignition likelihood prediction (Read,
-Duff and Taylor, 2018; Zhang, Lim and Sharples, 2017). Moreover,
-mixed-effects had been considered for spatial and weather factors (Duff,
-Cawson and Harris, 2018). Simpler models were also been used in this
-field, like multiple linear regression, negative binomial regression and
+lightning ignitions. Some studies include a logit link to extend the
+model for bushfires ignition likelihood prediction (Read, Duff and
+Taylor, 2018; Zhang, Lim and Sharples, 2017). Mixed-effects had also
+been considered for incorporating spatial and weather factors (Duff,
+Cawson and Harris, 2018). Simpler models were been used in this field,
+like multiple linear regression, negative binomial regression and
 generalised logistic regression (Cheney, Gould, McCaw and Anderson,
 2012; Plucinski, McCaw, Gould and Wotton, 2014; Collins, Price and
 Penman, 2015). Particularly, instead of using a model, some researches
@@ -205,20 +201,20 @@ McCarthy, 2017).
 
 Common covariates for ignitions analysis are weather conditions,
 vegetation types, topographic information and anthropogenic variables.
-Moreover, various indexes had been used in modelling. Some researches
-choose to use indexes variables developed by McArthur such as the Forest
-Fire Danger Index (Clarke et al., 2019; Read et al., 2018), while others
+In addition, various indexes had been used in modelling. Some studies
+choose to use index variables developed by McArthur such as Forest Fire
+Danger Index (Clarke et al., 2019; Read et al., 2018), while others
 choose to use indexes developed by Canadian Forestry Service such as
 Canadian Fire Weather Index and Drought Code (Plucinski et al., 2014).
 We doubt that these indexes are irrelevant with fire ignition prediction
 because they are extracted from weather and vegetation information.
 However, it may help improve our model performance because it can be
 viewed as features generated from feature engineering. We will test if
-these metrics are significant in our research.
+index variables are significant in our research.
 
 Although numerous studies for ignitions analysis have applied
 semiparametric and parametric methods, little analytics attention has
-been paid to more complex model such as tree-based model, support vector
+been paid to more complex model like tree-based model, support vector
 machine and artificial neural network. These tools are well developed in
 machine learning, which will be considered in this research.
 
@@ -227,9 +223,7 @@ certain area such as south-eastern Australia (Clarke et al., 2019), or a
 certain state such as Victoria (Read, Duff \& Taylor, 2018). In this
 research, we will primarily focus on Victoria but eventually extend the
 results throughout Australia. In addition, little research has been done
-in analysing the cause of 2019-2020 bushfires. Due to unknown causes of
-2019-2020 bushfires, clustering, which is a rarely considered method in
-this field, will be used to identify ignition types.
+in analysing the cause of 2019-2020 bushfires.
 
 \chapter{Data collection and
 processing}\label{data-collection-and-processing}
@@ -265,6 +259,14 @@ BOM's website for extra information.
 To characterise the fuel we used forest of Australia (2018) from the
 Australian Bureau of Agriculture and Resource Economics and Sciences. It
 is a fuel layer contains the vegetation information across Australia.
+
+\subsection{Fire origins}\label{fire-origins}
+
+Fire origins are the existing records of historical bushfires ignition
+which is downloaded from the Department of Environment, Land, Water
+Planning. This dataset is used to understand the characteristic of each
+type of ignition. It helps us to identify the causes of 2019-2020
+bushfires.
 
 \begin{table}[t]
 
@@ -303,7 +305,7 @@ They are snapshots of bushfires every 10 minutes. However, just like it
 is hard to identify a single plant from the top view of a grassland,
 information about individual bushfire can not be directly derived from
 the raw hotspot data. In order to understand the ignition time and
-ignition place of each bushfire, we need to separate hotspots into
+ignition place of each bushfire, we need to divide hotspots into
 clusters and trace the growth of each cluster. To preprocess the
 hotspots data, we selected the observations in Australia from the full
 disk. Meanwhile, hotspots with irradiance under 100 watt per square
@@ -369,11 +371,12 @@ new hotspot belongs to an existing or new cluster.
 \section{Compiled data}\label{compiled-data}
 
 The end result of the data pre-processing is a set of data tables, that
-are related by indexes. Figure \ref{fig:ERD} shows these tables and the
-indexes which allow information to be compared across tables.
-Technically, this figure is called a conceptual entity relationship
-diagram. It will be useful for describing the data model to be used in
-both modelling and web interface for communicating fire risk.
+are uniquely identify by individual primary key and related by a set of
+foreign keys. Figure \ref{fig:ERD} shows these tables and the key which
+allow information to be compared across tables. Technically, this figure
+is called a conceptual entity relationship diagram. It will be useful
+for describing the data model to be used in both modelling and web
+interface for communicating fire risk.
 
 \begin{figure}
 \centering
@@ -446,64 +449,6 @@ October & Write thesis and prepare the second presentation\\
 \chapter{Supplementary materials}\label{supplementary-materials}
 
 \chapter{Biblography}\label{biblography}
-
-\chapter{Words from last week}\label{words-from-last-week}
-
-\section{Data}\label{data}
-
-\section{Methodology}\label{methodology}
-
-Both supervised and unsupervised learning will be implemented to reach
-the research aims.
-
-To understand the ignition of bushfires, a customized clustering
-algorithm will be developed to convert hotpots data into fire history,
-which will contain the starting time and coordinates of each fire. This
-algorithm will mainly involve simulating fire growth, deciding fire
-boundaries controlled by tolerance and assigning hotspots data to the
-most probable cluster. After the clustering result being obtained, fire
-history will be visualized to diagnostic the performance of the
-algorithm. It will be done by comparing the behaviour of the same fire
-under different sets of hyperparameters.
-
-Exploratory data analysis of fire history and its relative factors, like
-weather condition, distance to the nearest road and distance to the
-nearest recreation site will be performed. Prior knowledge and featuring
-engineering will be needed to fully understand the relationship. We
-expect to discover relationships between the ignition of fire with these
-factors, which can help us identify the cause of bushfires later on.
-
-In order to examine the sources of fire ignition, different strategies
-will be used depending on the outcome in the previous section. If the
-findings from the analysis are strong and directly related to potential
-sources of fire ignition, hypothesis tests will be conducted to examine
-the pattern. If the evidence is weak, we will consider developing
-another clustering algorithm on fire history. This algorithm will be
-designed to maximize the distance between bushfire started with
-different causes in a high dimensional space. A probability model then
-can be built on top of it, which can provide a probabilistic answer for
-the source of bushfire ignition during 2019-2020 bushfire season.
-
-Models for predicting fire risk of neighbourhoods will be built using
-raw hotspots data instead of the fire history because the hotspots data
-can be considered generated from a partially observable Markov decision
-process, and the underlying state is the development of the bushfire.
-From low complexity models like logistic regression to high complexity
-models like deep neural network will be tested.
-
-For sharing our research outcome, a shiny app will be built and hosted
-online. In addition, both static and dynamic visualization tools will be
-considered using. Due to the nature of Spatio-temporal data, which has
-at least 3-dimensional features, static map view without faceting can
-only provide limited information. Meanwhile, faceting map view with time
-will be limited by the size of caravans. Animation based map view is
-computationally expensive and distracting though it provides more
-information. Better ways for visualizing Spatio-temporal data will be
-explored during the development. The potential product will be an
-interactive map view with triggers to transform data and manipulate the
-aesthetics specifications.
-
-\section{Preliminary Results}\label{preliminary-results}
 
 \appendix
 
