@@ -373,12 +373,10 @@ A clustering algorithm was developed to identify fire clusters, and details can 
 
 Figure \ref{fig:mov} shows two fires and their life time movement as computed by the algorithm.
 
-FIXME: Figure 1 here
+\includegraphics[width=5.20833in,height=\textheight]{figures/fire_mov.jpg}
+\#\#\# Compiled data
 
-\hypertarget{compiled-data}{%
-\subsubsection{Compiled data}\label{compiled-data}}
-
-The end result of the data pre-processing is a set of data tables, that are uniquely identified by individual primary key and related by a set of foreign keys. Figure \ref{fig:ERD} shows these tables and the keys which allow information to be compared across tables. Technically, this is called a conceptual entity relationship diagram (CERD). It will be useful for developing the data model to be used in both modelling and a web interface for communicating fire risk.
+The end result of the data pre-processing is a set of data tables, that are uniquely identified by individual primary key and related by a set of foreign keys. Figure \ref{fig:ERD} shows these tables and the keys which allow information to be compared across tables. Technically, this is called a conceptual entity relationship diagram (ERD). It will be useful for developing the data model to be used in both modelling and a web interface for communicating fire risk.
 
 \hypertarget{exploratory-data-analysis}{%
 \subsection{Exploratory data analysis}\label{exploratory-data-analysis}}
@@ -388,27 +386,63 @@ Preliminary examination of the compiled data to examine spatiotemporal trends an
 \hypertarget{modelling}{%
 \subsection{Modelling}\label{modelling}}
 
-In this research, two types of models will be developed and tested. One is the ignition method prediction model, which is used for analysing ignition type of 2019-2020 bushfires and predicting the causes of future bushfires. Another is the fire risk model. It will learn the features of hotspots and predict the probability of hotspots occurrence. The following sections will discuss the plan to develop these two models.
+Two types of models will be developed and tested. One is the ignition method prediction model, which is used for analysing ignition type of 2019-2020 bushfires and predicting the causes of future bushfires. Another is the fire risk model. It will learn the features of hotspots and predict the probability of hotspots occurrence.
 
-\hypertarget{predicting-ignition-method}{%
-\subsection{Predicting ignition method}\label{predicting-ignition-method}}
-
-To analysis and predict the ignition method of bushfires, historical causes of bushfires will be used as training data. The modelling problem will be a multiclass classification problem. Incorporating vegetation, topographic and climate information as independent variables, a group of models will be tested. These include parametric models like the generalized linear model, semiparametric models like the generalized additive model and nonparametric models like random forest, support vector machine and artificial neural network.
-
-\hypertarget{modelling-fire-risk}{%
-\subsection{Modelling fire risk}\label{modelling-fire-risk}}
-
-The framework of fire risk modelling is similar to ignition method prediction. It will be a binary classification problem. The aim of this model is to predict the probability of bushfire ignition in a cell of the grid. The grid will be designed to fit the shape of Victoria with spatial resolution equal to 50km. The training data will be the hotspots data instead of bushfires history. Potential models will be the same as ignition method prediction.
+\begin{itemize}
+\item
+  Predicting ignition method: Historical causes of bushfires will be used as training data. Multiclass response variable models, using vegetation, topographic and climate information as independent variables, will be developed and assessed. Statistical models, generalized linear model, and generalized additive model will be compared with these computational models, random forest, support vector machine and artificial neural networks.
+\item
+  Modelling fire risk: The framework of fire risk modelling is similar to ignition method prediction. It will be a binary classification problem. The aim of this model is to predict the probability of bushfire ignition in a cell of the grid. The grid will be designed to fit the shape of Victoria with spatial resolution equal to 50km (Figure \ref{fig:overview}). The training data will be the hotspots data instead of bushfires history. Models considered will be the same as ignition method prediction.
+\end{itemize}
 
 \hypertarget{timeline}{%
 \section{Timeline}\label{timeline}}
 
-The research plan for this semseter can be found in Table \ref{tab:timeline1}. Future research plan can be found in Table \ref{tab:timeline2}.
+Table \ref{tab:timeline1} summarises the work done to date. Table \ref{tab:timeline2} maps out the plan for completing the thesis research.
+
+\begin{table}[!h]
+
+\caption{\label{tab:timeline1}Research plan till week 9}
+\centering
+\begin{tabular}[t]{ll}
+\toprule
+Timeline & Tasks\\
+\midrule
+Week 2 & Geographic data background reading\\
+Week 3 & Collect Remote sensing data (JAXA himawari-8 satellite) and\\
+ & explore BOM weather data APIs (Bomrang)\\
+Week 4 & Collect Road Map (OpenStreetMap) and\\
+ & read articles in SpatioTemporal data visualization and modelling\\
+\addlinespace
+Week 5 & Develop clustering algorithm for remote sensing data\\
+Week 6 & Test diferent hyperparameters for clusetring\\
+Week 7 & Exploratory data analysis on fire clusters and data integration\\
+Week 8 & Feature planning for the shiny app\\
+week 9 & Write research proposal and prepare the first presentation\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!h]
+
+\caption{\label{tab:timeline2}Research plan since June}
+\centering
+\begin{tabular}[t]{ll}
+\toprule
+Timeline & Tasks\\
+\midrule
+June - July & Modelling fire ignition and fire risk\\
+August & Consolidate findings and create mockups of the shiny app\\
+September & Develop the shiny app and perform different levels of testing\\
+October & Write thesis and prepare the second presentation\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \hypertarget{expected-outcomes}{%
 \section{Expected outcomes}\label{expected-outcomes}}
 
-In addition, an interactive web application embeds with research outcomes will be built for data visualization purpose.
+It is expected that we will have probabilistic predictions for ignition cause for the 2019-2020 for each of the fires identified from the hotspot data. A useable model of fire risk will be produced and made accessible in an interactive web application.
 
 \newpage
 
@@ -436,12 +470,6 @@ Fire Origins - Department of Environment, \\ $\hspace{5mm}$Land, Water $\&$ Plan
 \bottomrule
 \end{tabular}
 \end{table}
-
-\begin{figure}
-\centering
-\includegraphics[width=5.20833in,height=\textheight]{figures/fire_mov.jpg}
-\caption{The movement path and hotspots map shows the bushfire behaviour of bushfire ``454'' and bushfire ``1420'', which is two clusters from the results of clustering algorithm. The triangle is the ignition point of bushfire and the rectangle is the extinguish point. The black line is the movement of bushfire centeroid. points with red color and larger size are hotspots with higher firepower which is measured by watt per square metre. We can know that bushfires ignited with low firepower, and will getting hotter when time pass, then finally extinguish with not enough fuel. \label{fig:mov}}
-\end{figure}
 
 \normalfont
 \begin{table}
@@ -495,45 +523,6 @@ Fire Origins - Department of Environment, \\ $\hspace{5mm}$Land, Water $\&$ Plan
 \includegraphics[width=5.20833in,height=\textheight]{figures/number_of_ignitions.jpg}
 \caption{The grid map illustrating the general situation of Victoria during 2019-2020 Australia bushfire season. The severest time for Victoria was December when the massive amount of bushfires ignited in Eastern Victoria. Places like East Gippsland suffered from this devastating crisis. \label{fig:overview}}
 \end{figure}
-
-\begin{table}[!h]
-
-\caption{\label{tab:timeline1}Research plan till week 9}
-\centering
-\begin{tabular}[t]{ll}
-\toprule
-Timeline & Tasks\\
-\midrule
-Week 2 & Geographic data background reading\\
-Week 3 & Collect Remote sensing data (JAXA himawari-8 satellite) and\\
- & explore BOM weather data APIs (Bomrang)\\
-Week 4 & Collect Road Map (OpenStreetMap) and\\
- & read articles in SpatioTemporal data visualization and modelling\\
-\addlinespace
-Week 5 & Develop clustering algorithm for remote sensing data\\
-Week 6 & Test diferent hyperparameters for clusetring\\
-Week 7 & Exploratory data analysis on fire clusters and data integration\\
-Week 8 & Feature planning for the shiny app\\
-week 9 & Write research proposal and prepare the first presentation\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}[!h]
-
-\caption{\label{tab:timeline2}Research plan since June}
-\centering
-\begin{tabular}[t]{ll}
-\toprule
-Timeline & Tasks\\
-\midrule
-June - July & Modelling fire ignition and fire risk\\
-August & Consolidate findings and create mockups of the shiny app\\
-September & Develop the shiny app and perform different levels of testing\\
-October & Write thesis and prepare the second presentation\\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \printbibliography
 

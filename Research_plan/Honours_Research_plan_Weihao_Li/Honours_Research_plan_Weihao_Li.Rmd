@@ -104,11 +104,10 @@ A clustering algorithm was developed to identify fire clusters, and details can 
 
 Figure \ref{fig:mov} shows two fires and their life time movement as computed by the algorithm. 
 
-FIXME: Figure 1 here
-
+![The movement path and hotspots map shows the bushfire behaviour of bushfire "454" and bushfire "1420", which is two clusters from the results of clustering algorithm. The triangle is the ignition point of bushfire and the rectangle is the extinguish point. The black line is the movement of bushfire centeroid. points with red color and larger size are hotspots with higher firepower which is measured by watt per square metre. We can know that bushfires ignited with low firepower, and will getting hotter when time pass, then finally extinguish with not enough fuel. \label{fig:mov}](figures/fire_mov.jpg){width=500px}
 ### Compiled data
 
-The end result of the data pre-processing is a set of data tables, that are uniquely identified by individual primary key and related by a set of foreign keys.  Figure \ref{fig:ERD} shows these tables and the keys which allow information to be compared across tables. Technically, this is called a conceptual entity relationship diagram (CERD). It will be useful for developing the data model to be used in both modelling and  a web interface for communicating fire risk.
+The end result of the data pre-processing is a set of data tables, that are uniquely identified by individual primary key and related by a set of foreign keys.  Figure \ref{fig:ERD} shows these tables and the keys which allow information to be compared across tables. Technically, this is called a conceptual entity relationship diagram (ERD). It will be useful for developing the data model to be used in both modelling and  a web interface for communicating fire risk.
 
 ## Exploratory data analysis
 
@@ -120,24 +119,54 @@ Preliminary examination of the compiled data to examine spatiotemporal trends an
 
 ## Modelling
 
-In this research, two types of models will be developed and tested. One is the ignition method prediction model, which is used for analysing ignition type of 2019-2020 bushfires and predicting the causes of future bushfires. Another is the fire risk model. It will learn the features of hotspots and predict the probability of hotspots occurrence. The following sections will discuss the plan to develop these two models.
+Two types of models will be developed and tested. One is the ignition method prediction model, which is used for analysing ignition type of 2019-2020 bushfires and predicting the causes of future bushfires. Another is the fire risk model. It will learn the features of hotspots and predict the probability of hotspots occurrence. 
 
-## Predicting ignition method
+- Predicting ignition method: Historical causes of bushfires will be used as training data. Multiclass response variable models, using vegetation, topographic and climate information as independent variables, will be developed and assessed. Statistical models, generalized linear model, and generalized additive model will be compared with these computational models, random forest, support vector machine and artificial neural networks. 
 
-To analysis and predict the ignition method of bushfires, historical causes of bushfires will be used as training data. The modelling problem will be a multiclass classification problem. Incorporating vegetation, topographic and climate information as independent variables, a group of models will be tested. These include parametric models like the generalized linear model, semiparametric models like the generalized additive model and nonparametric models like random forest, support vector machine and artificial neural network. 
-
-## Modelling fire risk
-
-The framework of fire risk modelling is similar to ignition method prediction. It will be a binary classification problem. The aim of this model is to predict the probability of bushfire ignition in a cell of the grid. The grid will be designed to fit the shape of Victoria with spatial resolution equal to 50km. The training data will be the hotspots data instead of bushfires history. Potential models will be the same as ignition method prediction.
+- Modelling fire risk: The framework of fire risk modelling is similar to ignition method prediction. It will be a binary classification problem. The aim of this model is to predict the probability of bushfire ignition in a cell of the grid. The grid will be designed to fit the shape of Victoria with spatial resolution equal to 50km (Figure \ref{fig:overview}). The training data will be the hotspots data instead of bushfires history. Models considered will be the same as ignition method prediction.
 
 # Timeline
 
-The research plan for this semseter can be found in Table \ref{tab:timeline1}. Future research plan can be found in Table \ref{tab:timeline2}.
+Table \ref{tab:timeline1} summarises the work done to date. Table \ref{tab:timeline2} maps out the plan for completing the thesis research.
 
+```{r timeline, results='asis'}
+timeline = data.frame(Timeline = c("Week 2","Week 3","", "Week 4","", "Week 5", "Week 6", "Week 7","Week 8", "week 9"),
+                      Tasks = c("Geographic data background reading",
+                                "Collect Remote sensing data (JAXA himawari-8 satellite) and",
+                                "explore BOM weather data APIs (Bomrang)",
+                                "Collect Road Map (OpenStreetMap) and",
+                                "read articles in SpatioTemporal data visualization and modelling",
+                                "Develop clustering algorithm for remote sensing data",
+                                "Test diferent hyperparameters for clusetring",
+                                "Exploratory data analysis on fire clusters and data integration",
+                                "Feature planning for the shiny app",
+                                "Write research proposal and prepare the first presentation"))
+
+
+knitr::kable(timeline, "latex",
+             caption = "Research plan till week 9",
+             label = "timeline1",
+             booktabs = TRUE,
+             escape = FALSE) %>%
+  kable_styling(latex_options = "hold_position")
+  
+```
+
+```{r}
+timeline = data.frame(Timeline = c("June - July", "August", "September", "October"),
+                      Tasks = c("Modelling fire ignition and fire risk", "Consolidate findings and create mockups of the shiny app", "Develop the shiny app and perform different levels of testing", "Write thesis and prepare the second presentation")) 
+
+knitr::kable(timeline, "latex",
+             caption = "Research plan since June",
+             label = "timeline2",
+             booktabs = TRUE,
+             escape = FALSE) %>%
+  kable_styling(latex_options = "hold_position")
+```
 
 # Expected outcomes
 
-In addition, an interactive web application embeds with research outcomes will be built for data visualization purpose.
+It is expected that we will have probabilistic predictions for ignition cause for the 2019-2020 for each of the fires identified from the hotspot data. A useable model of fire risk will be produced and made accessible in  an interactive web application.
 
 \newpage
 
@@ -184,7 +213,7 @@ knitr::kable(datasets_info, 'latex',
 
 ```
 
-![The movement path and hotspots map shows the bushfire behaviour of bushfire "454" and bushfire "1420", which is two clusters from the results of clustering algorithm. The triangle is the ignition point of bushfire and the rectangle is the extinguish point. The black line is the movement of bushfire centeroid. points with red color and larger size are hotspots with higher firepower which is measured by watt per square metre. We can know that bushfires ignited with low firepower, and will getting hotter when time pass, then finally extinguish with not enough fuel. \label{fig:mov}](figures/fire_mov.jpg){width=500px}
+
 
 \normalfont
 \begin{table}
@@ -232,37 +261,3 @@ knitr::kable(datasets_info, 'latex',
 ![The grid map illustrating the general situation of Victoria during 2019-2020 Australia bushfire season. The severest time for Victoria was December when the massive amount of bushfires ignited in Eastern Victoria. Places like East Gippsland suffered from this devastating crisis. \label{fig:overview}](figures/number_of_ignitions.jpg){width=500px}
 
 
-```{r timeline, results='asis'}
-timeline = data.frame(Timeline = c("Week 2","Week 3","", "Week 4","", "Week 5", "Week 6", "Week 7","Week 8", "week 9"),
-                      Tasks = c("Geographic data background reading",
-                                "Collect Remote sensing data (JAXA himawari-8 satellite) and",
-                                "explore BOM weather data APIs (Bomrang)",
-                                "Collect Road Map (OpenStreetMap) and",
-                                "read articles in SpatioTemporal data visualization and modelling",
-                                "Develop clustering algorithm for remote sensing data",
-                                "Test diferent hyperparameters for clusetring",
-                                "Exploratory data analysis on fire clusters and data integration",
-                                "Feature planning for the shiny app",
-                                "Write research proposal and prepare the first presentation"))
-
-
-knitr::kable(timeline, "latex",
-             caption = "Research plan till week 9",
-             label = "timeline1",
-             booktabs = TRUE,
-             escape = FALSE) %>%
-  kable_styling(latex_options = "hold_position")
-  
-```
-
-```{r}
-timeline = data.frame(Timeline = c("June - July", "August", "September", "October"),
-                      Tasks = c("Modelling fire ignition and fire risk", "Consolidate findings and create mockups of the shiny app", "Develop the shiny app and perform different levels of testing", "Write thesis and prepare the second presentation")) 
-
-knitr::kable(timeline, "latex",
-             caption = "Research plan since June",
-             label = "timeline2",
-             booktabs = TRUE,
-             escape = FALSE) %>%
-  kable_styling(latex_options = "hold_position")
-```
