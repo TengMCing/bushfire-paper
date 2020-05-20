@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.8)  20 MAY 2020 18:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.8)  20 MAY 2020 18:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1571,7 +1571,7 @@ ction with package mdbch, on input line 287.
 Package mathdesign/mdbch Warning: Package 'amsfonts' shouldn't be used in conjo
 nction with package mdbch, on input line 287.
 
-<MBSportrait.pdf, id=71, 213.79875pt x 90.3375pt>
+<MBSportrait.pdf, id=67, 213.79875pt x 90.3375pt>
 File: MBSportrait.pdf Graphic file (type pdf)
 <use MBSportrait.pdf>
 Package pdftex.def Info: MBSportrait.pdf  used on input line 288.
@@ -1793,94 +1793,94 @@ Package Fancyhdr Warning: \headheight is too small (15.0pt):
 
 [7]
 LaTeX Font Info:    Font shape `T1/mdbch/b/n' will be
-(Font)              scaled to size 10.51207pt on input line 424.
+(Font)              scaled to size 10.51207pt on input line 421.
 LaTeX Font Info:    Font shape `T1/mdbch/m/n' will be
-(Font)              scaled to size 8.64006pt on input line 426.
+(Font)              scaled to size 8.64006pt on input line 423.
 LaTeX Font Info:    Font shape `OT1/mdbch/m/n' will be
-(Font)              scaled to size 8.64006pt on input line 427.
+(Font)              scaled to size 8.64006pt on input line 424.
 LaTeX Font Info:    Font shape `OT1/mdbch/m/n' will be
-(Font)              scaled to size 4.80003pt on input line 427.
+(Font)              scaled to size 4.80003pt on input line 424.
 LaTeX Font Info:    Font shape `OML/mdbch/m/it' will be
-(Font)              scaled to size 8.64006pt on input line 427.
+(Font)              scaled to size 8.64006pt on input line 424.
 
 Package microtype Warning: I cannot find a protrusion list for font
 (microtype)                `OML/mdbch/m/it/9'. Switching off
-(microtype)                protrusion for this font on input line 427.
+(microtype)                protrusion for this font on input line 424.
 
 LaTeX Font Info:    Font shape `OML/mdbch/m/it' will be
-(Font)              scaled to size 4.80003pt on input line 427.
+(Font)              scaled to size 4.80003pt on input line 424.
 LaTeX Font Info:    Font shape `OMS/mdbch/m/n' will be
-(Font)              scaled to size 8.64006pt on input line 427.
+(Font)              scaled to size 8.64006pt on input line 424.
 
 Package microtype Warning: I cannot find a protrusion list for font
 (microtype)                `OMS/mdbch/m/n/9'. Switching off
-(microtype)                protrusion for this font on input line 427.
+(microtype)                protrusion for this font on input line 424.
 
 LaTeX Font Info:    Font shape `OMS/mdbch/m/n' will be
-(Font)              scaled to size 4.80003pt on input line 427.
+(Font)              scaled to size 4.80003pt on input line 424.
 LaTeX Font Info:    Font shape `OMX/mdbch/m/n' will be
-(Font)              scaled to size 8.64006pt on input line 427.
+(Font)              scaled to size 8.64006pt on input line 424.
 LaTeX Font Info:    Font shape `OMX/mdbch/m/n' will be
-(Font)              scaled to size 4.80003pt on input line 427.
+(Font)              scaled to size 4.80003pt on input line 424.
 LaTeX Font Info:    Font shape `OML/mdbch/m/n' will be
-(Font)              scaled to size 8.64006pt on input line 427.
+(Font)              scaled to size 8.64006pt on input line 424.
 
 Package microtype Warning: I cannot find a protrusion list for font
 (microtype)                `OML/mdbch/m/n/9'. Switching off
-(microtype)                protrusion for this font on input line 427.
+(microtype)                protrusion for this font on input line 424.
 
 LaTeX Font Info:    Font shape `OML/mdbch/m/n' will be
-(Font)              scaled to size 4.80003pt on input line 427.
+(Font)              scaled to size 4.80003pt on input line 424.
 LaTeX Font Info:    Font shape `MDA/mdbch/m/n' will be
-(Font)              scaled to size 8.64006pt on input line 427.
+(Font)              scaled to size 8.64006pt on input line 424.
 LaTeX Font Info:    Font shape `MDA/mdbch/m/n' will be
-(Font)              scaled to size 4.80003pt on input line 427.
+(Font)              scaled to size 4.80003pt on input line 424.
 LaTeX Font Info:    Font shape `MDB/mdbch/m/n' will be
-(Font)              scaled to size 8.64006pt on input line 427.
+(Font)              scaled to size 8.64006pt on input line 424.
 LaTeX Font Info:    Font shape `MDB/mdbch/m/n' will be
-(Font)              scaled to size 4.80003pt on input line 427.
+(Font)              scaled to size 4.80003pt on input line 424.
 LaTeX Font Info:    Font shape `OT1/mdbch/b/n' will be
-(Font)              scaled to size 8.64006pt on input line 427.
+(Font)              scaled to size 8.64006pt on input line 424.
 LaTeX Font Info:    Font shape `OT1/mdbch/b/n' will be
-(Font)              scaled to size 4.80003pt on input line 427.
+(Font)              scaled to size 4.80003pt on input line 424.
 LaTeX Font Info:    Font shape `OML/mdbch/b/it' will be
-(Font)              scaled to size 8.64006pt on input line 427.
+(Font)              scaled to size 8.64006pt on input line 424.
 LaTeX Font Info:    Font shape `OML/mdbch/b/it' will be
-(Font)              scaled to size 4.80003pt on input line 427.
+(Font)              scaled to size 4.80003pt on input line 424.
 LaTeX Font Info:    Font shape `OMS/mdbch/b/n' will be
-(Font)              scaled to size 8.64006pt on input line 427.
+(Font)              scaled to size 8.64006pt on input line 424.
 LaTeX Font Info:    Font shape `OMS/mdbch/b/n' will be
-(Font)              scaled to size 4.80003pt on input line 427.
+(Font)              scaled to size 4.80003pt on input line 424.
 LaTeX Font Info:    Font shape `OMX/mdbch/b/n' will be
-(Font)              scaled to size 8.64006pt on input line 427.
+(Font)              scaled to size 8.64006pt on input line 424.
 LaTeX Font Info:    Font shape `OMX/mdbch/b/n' will be
-(Font)              scaled to size 4.80003pt on input line 427.
-<figures/fire_mov.jpg, id=147, 722.7pt x 446.3877pt>
+(Font)              scaled to size 4.80003pt on input line 424.
+<figures/fire_mov.jpg, id=139, 722.7pt x 446.3877pt>
 File: figures/fire_mov.jpg Graphic file (type jpg)
 <use figures/fire_mov.jpg>
-Package pdftex.def Info: figures/fire_mov.jpg  used on input line 445.
+Package pdftex.def Info: figures/fire_mov.jpg  used on input line 442.
 (pdftex.def)             Requested size: 376.40164pt x 232.49075pt.
 LaTeX Font Info:    Font shape `T1/mdbch/m/n' will be
-(Font)              scaled to size 7.68005pt on input line 487.
+(Font)              scaled to size 7.68005pt on input line 484.
 LaTeX Font Info:    Font shape `T1/mdbch/m/n' will be
-(Font)              scaled to size 5.76004pt on input line 487.
+(Font)              scaled to size 5.76004pt on input line 484.
 
-LaTeX Warning: Command \textunderscore invalid in math mode on input line 487.
+LaTeX Warning: Command \textunderscore invalid in math mode on input line 484.
 
 
-LaTeX Warning: Command \textunderscore invalid in math mode on input line 487.
+LaTeX Warning: Command \textunderscore invalid in math mode on input line 484.
 
-<figures/Shiny_app_data_Conceptual_ERD.jpeg, id=148, 460.8417pt x 499.1448pt>
+<figures/Shiny_app_data_Conceptual_ERD.jpeg, id=140, 460.8417pt x 499.1448pt>
 File: figures/Shiny_app_data_Conceptual_ERD.jpeg Graphic file (type jpg)
 <use figures/Shiny_app_data_Conceptual_ERD.jpeg>
 Package pdftex.def Info: figures/Shiny_app_data_Conceptual_ERD.jpeg  used on in
-put line 492.
+put line 489.
 (pdftex.def)             Requested size: 455.27133pt x 493.11145pt.
-<figures/number_of_ignitions.jpg, id=149, 505.89pt x 505.89pt>
+<figures/number_of_ignitions.jpg, id=141, 505.89pt x 505.89pt>
 File: figures/number_of_ignitions.jpg Graphic file (type jpg)
 <use figures/number_of_ignitions.jpg>
 Package pdftex.def Info: figures/number_of_ignitions.jpg  used on input line 49
-8.
+5.
 (pdftex.def)             Requested size: 376.41377pt x 376.41377pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1889,9 +1889,9 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-LaTeX Warning: Empty bibliography on input line 541.
+LaTeX Warning: Empty bibliography on input line 538.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 543.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 540.
 
 Package Fancyhdr Warning: \headheight is too small (15.0pt): 
  Make it at least 24.74995pt.
@@ -1927,24 +1927,24 @@ Package Fancyhdr Warning: \headheight is too small (15.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [12]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 543.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 540.
 (./Honours_Research_plan_Weihao_Li.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 543.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 543.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 540.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 540.
 Package rerunfilecheck Info: File `Honours_Research_plan_Weihao_Li.out' has not
  changed.
-(rerunfilecheck)             Checksum: 32E37064C7A4A89DF8880AD1FB589756;3064.
+(rerunfilecheck)             Checksum: 3959E4C0B488107FC947C1F8FBF6FDD6;2714.
 Package logreq Info: Writing requests to 'Honours_Research_plan_Weihao_Li.run.x
 ml'.
 \openout1 = `Honours_Research_plan_Weihao_Li.run.xml'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 543.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 540.
  ) 
 Here is how much of TeX's memory you used:
- 33839 strings out of 492649
- 577022 string characters out of 6129623
+ 33835 strings out of 492649
+ 576886 string characters out of 6129623
  1030345 words of memory out of 5000000
- 37022 multiletter control sequences out of 15000+600000
+ 37020 multiletter control sequences out of 15000+600000
  637566 words of font info for 279 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  43i,12n,92p,10467b,790s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1961,11 +1961,11 @@ ublic/mathdesign/mdbch/md-chr7y.pfb></usr/local/texlive/2018/texmf-dist/fonts/t
 ype1/public/mathdesign/mdbch/md-chr8t.pfb></usr/local/texlive/2018/texmf-dist/f
 onts/type1/public/mathdesign/mdbch/md-chri7m.pfb></usr/local/texlive/2018/texmf
 -dist/fonts/type1/public/mathdesign/mdbch/md-chrma.pfb>
-Output written on Honours_Research_plan_Weihao_Li.pdf (12 pages, 1051365 bytes)
+Output written on Honours_Research_plan_Weihao_Li.pdf (12 pages, 1050983 bytes)
 .
 PDF statistics:
- 229 PDF objects out of 1000 (max. 8388607)
- 197 compressed objects within 2 object streams
- 57 named destinations out of 1000 (max. 500000)
- 37021 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 223 PDF objects out of 1000 (max. 8388607)
+ 191 compressed objects within 2 object streams
+ 55 named destinations out of 1000 (max. 500000)
+ 37013 words of extra memory for PDF output out of 42996 (max. 10000000)
 

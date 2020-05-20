@@ -112,9 +112,11 @@ The end result of the data pre-processing is a set of data tables, that are uniq
 
 ## Exploratory data analysis
 
-### Overview of 2019-2020 Australia bushfire season
+<!-- ### Overview of 2019-2020 Australia bushfire season
 
-Figure \ref{fig:overview} sfsdfs
+Figure \ref{fig:overview} sfsdfs-->
+
+Preliminary examination of the compiled data to examine spatiotemporal trends and relationships between variables with be conducted using graphical and numerical summaries. 
 
 ## Modelling
 
