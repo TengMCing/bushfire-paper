@@ -37,18 +37,22 @@ Another motivation for us to conduct this research is the difficulty of finding 
 \<in progress\>
 
 This research aims to answer the following questions:
-  
-  1. How to find the ignition methods during 2019-2020 Australia bushfire season?
-    How to identify fire from hotspots data?
-    How to classify the cause of ignition without classes labels?
-    Will likelihood of ignitions increase near the campping site and road?
-    Will likelihood of ignitions increase near lightning strikes?
-  2. How to model fire risk of neighbourhoods?
-    Are tree-based models better than Generalized linear model and Generalized additive model in fire risk prediction?
-    How to take into account the temporal patterns and spatial patterns in fire risk modelling?
-    How to apply regularization and add noise in fire risk modelling?
-    
 
+  1. How to clustering bushfires from hotspots data?
+  
+  2. How to find the ignition methods during 2019-2020 Australia bushfire season?
+  
+    a. How to identify the cause of ignition without classes labels?
+    b. What is the characteristics of 2019-2020 bushfires comparing to historical bushfires?
+  
+  3. How to model fire risk of neighbourhoods?
+  
+    a. Is fire indexes useful for fire prediction?
+    b. Will likelihood of ignitions increase near the campping site and road?
+    c. Are nonparametric models better than Generalized linear model and Generalized additive model in fire risk prediction?
+    d. How to take into account the temporal patterns and spatial patterns in fire risk modelling?
+    e. How to apply regularization and add noise in fire risk modelling?
+    
 
 ## Research plan
 
@@ -68,6 +72,8 @@ For sharing our research outcome, a shiny app will be built and hosted online. I
 
 ## Scope of research
 
+In this research, we will primarily focus on Victoria but eventually extend the results throughout Australia. The study area of this reserach will be limited to bushfires since 2000, especially 2019-2020 bushfires. What else?
+
 \<in progress\>
 
 # Literature Review
@@ -82,11 +88,7 @@ Common covariates for ignitions analysis are weather conditions, vegetation type
 
 Although numerous studies for ignitions analysis have applied semiparametric and parametric methods, little analytics attention has been paid to more complex model like tree-based model, support vector machine and artificial neural network. These tools are well developed in machine learning, which will be considered in this research.
 
-Most of the existing works of bushfire ignition analysis focus on a certain area such as south-eastern Australia (Clarke et al., 2019), or a certain state such as Victoria (Read, Duff & Taylor, 2018). In this research, we will primarily focus on Victoria but eventually extend the results throughout Australia. In addition, little research has been done in analysing the cause of 2019-2020 bushfires.
-
-
-
-
+Most of the existing works of bushfire ignition analysis focus on a certain area such as south-eastern Australia (Clarke et al., 2019), or a certain state such as Victoria (Read, Duff & Taylor, 2018). Little of existing works have applied prediction across Ausralia.
 
 # Data collection and processing
 
@@ -238,15 +240,54 @@ The end result of the data pre-processing is a set of data tables, that are uniq
 
 # Exploratory data analysis
 
+## Overview of 2019-2020 Australia bushfire season
+
+![The grid map illustrating the general situation of Victoria during 2019-2020 Australia bushfire season. The severest time for Victoria was December when the massive amount of bushfires ignited in Eastern Victoria. Places like East Gippsland suffered from this devastating crisis. ](figures/number_of_ignitions.jpg){width=500px}
+
+## weather condition
+![The densities plot of Weather conditions illustrating the relationship between bushfire ignitions and maximum temperature, minimum temperature and global solar exposure respectively. Bushfires ignition tends to happen when the maximum temperature and the global solar exposure are higher than normal. This relationship is useful for ignition prediction. \label{fig:weather-conditions}](figures/current_weather_condition.jpg){width=500px}
+
+![The densities plot of weather conditions illustrating the relationship between historical lightning-ignition bushfires and 2019-2020 bushfires. Historical lightning-ignition bushfires occurred under higher temperature but lower global solar exposure than 2019-2020 bushfires. It tells us that 2019-2020 bushfires are probabaly not only caused by lightning.](figures/history_weather_condition.jpg){width=500px}
+
+![The densities plot of weather conditions illustrating the relationship between lightning-ignition bushfires and other casued bushfires. Lightning-ignition bushfires occurred under high temperature but not neccssary high global solar exposure. It is useful for ignition type classification.](figures/his_lightning.jpg){width=500px}
+
+## Distance to the nearest road and recreation site
+
+![The densities plot of distance to the nearest recreation site and the nearest road shows the importance of these two variables. Simulation draws are random simulated from Victoria, which assumes bushfires can occur anywhere. The observed draws of distance to the nearest road is not significantly different with simulated draws, which suggests that this variable is not useful for ignition type classification in most of the time. Observed bushfires are closer to the camping site, which implies camping sites have higher fire risk.](figures/dist_to_camp_and_road.jpg){width=500px}
+
+
+
+![The waffle plot of distance of fire ignitions to the nearest recreation site shows the possibility of human lighted bushfires. Only 1% of ignitions within the 1km radius of recreation sites, and only 3% within 3km radius. The chance of human lighted fire is high.](figures/dist_to_camp_waffle.jpg){width=500px}
+
+![The waffle plot of distance of fire ignitions to the nearest road illustrating the possibility of human ingnited. 13% of the distance less than 100m, which suggests high probability of accidentally or deliberately lighting. Notice that 50% of fires are very close to road (less than 500m), which means they are accessible for firefighters. ](figures/dist_to_road_waffle.jpg){width=500px}
+
+## Fire cluster movement
+
+![The movement path and hotspots map shows the bushfire behaviour of bushfire "454" and bushfire "1420", which is two clusters from the results of clustering algorithm. The triangle is the ignition point of bushfire and the rectangle is the extinguish point. The black line is the movement of bushfire centeroid. points with red color and larger size are hotspots with higher firepower which is measured by watt per square metre. We can know that bushfires ignited with low firepower, and will getting hotter when time pass, then finally extinguish with not enough fuel.  ](figures/fire_mov.jpg){width=500px}
+
+Which plot should I keep? What other plots should I include in this chapter?
+
+
 # Modelling
 
 \<plan\>
+
+In this research, two type of models will be developed and tested. One is ignition method prediction model, which is used for analysing ignition type of 2019-2020 bushfires and predicting the causes of future bushfires. Another is fire risk model. It will learn the features of hotspots, and predict the probability of hotspots occurrence at a paticular time and place. The following sections will discuss the plan to develop these two models.
 
 ## Predicting ignition method
 
 \<plan\>
 
+To analysis and predict ignition method of bushfires, historical causes of bushfires will be used as traning data.
+The modelling problem will be a multiclass classification problem. Incorporating vegetation, topographic, anthropogenic and climate information as independent variables, a group of models will be tested. These include parametric models like generalized linear model, semiparametric models like generalized additive model and nonparametric models like random forest, support vector machine and artificial neural network. 
+
+Statistical inference will be performed for testing the differences between human lighted bushfires and ligntning-ignition bushfires.
+
+"Differences between historical bushfires and 2019-2020 bushfires will be taken into account?"
+
 ## Modelling fire risk
+
+The framework of fire risk modelling is simialr to ignition method prediction. It will still be a classification problem, but a binary classification problem instead. The aim of this model is to predict the probability of bushfire ignition in a given grid at a given time. The grid will be designed to fit the shape of Victoria and has spatial resolution equal to 50km. The training data will be the hotspots data instead of the bushfire history. Potential models will be the same as ignition method prediction.
 
 \<plan\>
 
