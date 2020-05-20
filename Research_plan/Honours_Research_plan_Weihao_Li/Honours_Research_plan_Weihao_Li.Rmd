@@ -1,5 +1,5 @@
 ---
-title: "Using Remote Sensing Data to Understand Fire Ignition during the 2019-2020 Australia Bushfire Season"
+title: "Using Remote Sensing Data to Understand Fire Ignition During the 2019-2020 Australia Bushfire Season"
 author:
 - familyname: Li
   othernames: Weihao
@@ -8,12 +8,12 @@ author:
   correspondingauthor: true
   qualifications: EBS Honours student
 department: Department of\newline Econometrics &\newline Business Statistics
-organization: Honours research project
+organization: supervised by Prof. Di Cook
 bibliography: references.bib
 biblio-style: authoryear-comp
 linestretch: 1.5
 output:
-  MonashEBSTemplates::report:
+  MonashEBSTemplates::researchplan:
     fig_caption: yes
     fig_height: 5
     fig_width: 8
