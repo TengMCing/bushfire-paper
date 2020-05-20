@@ -272,22 +272,20 @@ Which plot should I keep? What other plots should I include in this chapter?
 
 \<plan\>
 
-In this research, two type of models will be developed and tested. One is ignition method prediction model, which is used for analysing ignition type of 2019-2020 bushfires and predicting the causes of future bushfires. Another is fire risk model. It will learn the features of hotspots, and predict the probability of hotspots occurrence at a paticular time and place. The following sections will discuss the plan to develop these two models.
+In this research, two types of models will be developed and tested. One is the ignition method prediction model, which is used for analysing ignition type of 2019-2020 bushfires and predicting the causes of future bushfires. Another is the fire risk model. It will learn the features of hotspots and predict the probability of hotspots occurrence at a particular time and place. The following sections will discuss the plan to develop these two models.
 
 ## Predicting ignition method
 
 \<plan\>
 
-To analysis and predict ignition method of bushfires, historical causes of bushfires will be used as traning data.
-The modelling problem will be a multiclass classification problem. Incorporating vegetation, topographic, anthropogenic and climate information as independent variables, a group of models will be tested. These include parametric models like generalized linear model, semiparametric models like generalized additive model and nonparametric models like random forest, support vector machine and artificial neural network. 
+To analysis and predict the ignition method of bushfires, historical causes of bushfires will be used as training data. The modelling problem will be a multiclass classification problem. Incorporating vegetation, topographic, anthropogenic and climate information as independent variables, a group of models will be tested. These include parametric models like the generalized linear model, semiparametric models like the generalized additive model and nonparametric models like random forest, support vector machine and artificial neural network. 
 
-Statistical inference will be performed for testing the differences between human lighted bushfires and ligntning-ignition bushfires.
-
-"Differences between historical bushfires and 2019-2020 bushfires will be taken into account?"
+The statistical inference will be performed for testing the differences between human lighted bushfires and lightning-ignition bushfires.
 
 ## Modelling fire risk
 
-The framework of fire risk modelling is simialr to ignition method prediction. It will still be a classification problem, but a binary classification problem instead. The aim of this model is to predict the probability of bushfire ignition in a given grid at a given time. The grid will be designed to fit the shape of Victoria and has spatial resolution equal to 50km. The training data will be the hotspots data instead of the bushfire history. Potential models will be the same as ignition method prediction.
+The framework of fire risk modelling is similar to ignition method prediction. It will still be a classification problem, but a binary classification problem instead. The aim of this model is to predict the probability of bushfire ignition in a given grid at a given time. The grid will be designed to fit the shape of Victoria and with spatial resolution equal to 50km. The training data will be the hotspots data instead of bushfires history. Potential models will be the same as ignition method prediction.
+
 
 \<plan\>
 
