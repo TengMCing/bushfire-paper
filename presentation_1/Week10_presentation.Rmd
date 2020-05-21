@@ -1,0 +1,78 @@
+---
+title: "Using Remote Sensing Data to Understand Fire Ignition During the 2019-2020 Australia Bushfire Season"
+author: "Weihao Li"
+email: "wlii0039@student.monash.edu"
+date: "22nd May 2020"
+pdflink: ""
+bgimg: "images/Werombi_Bushfire.jpg"
+output:
+  xaringan::moon_reader:
+    css:
+      - ninjutsu 
+      - "assets/animate.css"
+      - "assets/monash-logo.css"
+      - "assets/monash-brand.css"
+      - "assets/monash-fonts.css"
+      - "assets/styles.css" # small improvements
+      - "assets/custom.css" # add your own CSS here!
+      - "assets/demo.css" # this should be removed
+    self_contained: false 
+    seal: false 
+    chakra: 'libs/remark-latest.min.js'
+    lib_dir: libs
+    includes:
+      in_header: "assets/custom.html"
+    mathjax: "assets/mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    nature:
+      highlightStyle: github 
+      highlightLanguage: r 
+      highlightLines: true
+      highlightSpans: false 
+      countIncrementalSlides: false
+      slideNumberFormat: '%current%/%total%'
+      navigation:
+        scroll: false 
+        touch: true
+        click: false
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r titleslide, child="components/titleslide.Rmd"}
+```
+
+
+.footnote[https://upload.wikimedia.org/wikipedia/commons/9/9a/Werombi_Bushfire.jpg]
+---
+# Introduction
+
+
+---
+# Research aims and	questions
+
+---
+# Review of literature
+
+```{r cars, echo = TRUE}
+summary(cars)
+```
+
+---
+# Project	design
+
+```{r pressure}
+plot(pressure)
+```
+
+---
+# Timeline
+
+---
+# Expected outcomes
+
+---
+```{r endslide, child="components/endslide.Rmd"}
+```
