@@ -48,6 +48,7 @@ library(tidyverse)
 # Introduction
 
 
+
 ---
 # Research aims and	questions
 
@@ -111,12 +112,20 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 
 
 ---
-# Project Design
+# Project design
 ## Spatiotemporal clustering
 
----
-#Project design
+.grid[
 
+1. Connect adjacent points (3km)
+2. If there is a connected nearest known centroid, join its group
+3. Otherwise, create a new group
+4. Compute centroid for each group
+5. Keep the group alive until no activities for 24 hours
+6. Repeat this process
+  
+<img src="images/cluster.gif" alt="Trulli" style="width:100%">
+]
 ---
 
 #Project design
