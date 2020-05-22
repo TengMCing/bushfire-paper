@@ -12,12 +12,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
     -->
     <link rel="icon" href="images/favicon.ico"  type='image/x-icon'/>
-    <link rel="stylesheet" href="assets/animate.css" type="text/css" />
-    <link rel="stylesheet" href="assets/monash-logo.css" type="text/css" />
-    <link rel="stylesheet" href="assets/monash-brand.css" type="text/css" />
-    <link rel="stylesheet" href="assets/monash-fonts.css" type="text/css" />
-    <link rel="stylesheet" href="assets/styles.css" type="text/css" />
-    <link rel="stylesheet" href="assets/custom.css" type="text/css" />
+    <link rel="stylesheet" href="assets\animate.css" type="text/css" />
+    <link rel="stylesheet" href="assets\monash-logo.css" type="text/css" />
+    <link rel="stylesheet" href="assets\monash-brand.css" type="text/css" />
+    <link rel="stylesheet" href="assets\monash-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="assets\styles.css" type="text/css" />
+    <link rel="stylesheet" href="assets\custom.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -124,27 +124,50 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 
 
 ---
-class: split-60
-# Project	design
+# Project Design
+&lt;div class="grid" style="margin-top:10px;"&gt;
+  &lt;div class="gird-col"&gt;
+    &lt;h2&gt;Data collection&lt;/h2&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Hotspots - Himawari-8 satellite&lt;/li&gt;
+      &lt;li&gt;Weather - Bureau of Meteorology&lt;/li&gt;
+      &lt;li&gt;Fuel layer - Forest of Australia&lt;/li&gt;
+      &lt;li&gt;Fire origins - DELWP&lt;/li&gt;
+      &lt;li&gt;Roads - OpenStreetMap&lt;/li&gt;
+      &lt;li&gt;Recreation sites - DELWP&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;h2&gt;Data Preprocessing&lt;/h2&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Spatiotemporal clustering&lt;/li&gt;
+    &lt;/ul&gt;
+    
+  &lt;/div&gt;
+  &lt;div class="gird-col"&gt;
+    &lt;img src="images/bomrang.png" alt="Trulli" style="width:26%;margin-bottom:2px;"&gt;
+    &lt;img src="images/tidyverse.png" alt="Trulli" style="width:30%;margin-bottom:2px;"&gt;
+    &lt;img src="images/sf.gif" alt="Trulli" style="width:30%;margin-bottom:2px;"&gt;
+    &lt;figure style="width:30%;margin-bottom:2px;margin-top:2px;display:inline-block;padding:0px;text-align: center;"&gt;
+      &lt;img src="images/delwp2.png" alt="Trulli" style="width:100%;margin-bottom:10px;display:block;"&gt;
+      &lt;img src="images/forest.svg" alt="Trulli" style="width:100%;margin-bottom:10px;"&gt;
+      &lt;img src="images/osm.png" alt="Trulli" style="width:100%;margin-bottom:20px;display:block;"&gt;
+      &lt;figcaption style="font-size:15px"&gt;OpenStreetMap&lt;/figcaption&gt;
+    &lt;/figure&gt; 
+    &lt;figure style="width:30%;margin:0px;margin-bottom:2px;display:inline-block;padding:0px;"&gt;
+      &lt;img src="images/hot.jpg" alt="Trulli" style="width:100%"&gt;
+      &lt;figcaption style="font-size:15px"&gt;Liftoff of the H-IIA rocket carrying Himawari 8 on October 7, 2014&lt;/figcaption&gt;
+    &lt;/figure&gt;
+     
+  &lt;/div&gt;
+&lt;/div&gt;
 
-.column[
-## Data collection
 
-&lt;img src="images/bomrang.png" alt="Trulli" style="width:15%;float:right;"&gt;
 
-- Hotspots - JAXA’s Himawari-8 satellite
-- Weather - Bureau of Meteorology
-- Fuel layer - Forest of Australia
-- Fire origins - DELWP
-- Roads - OpenStreetMap
-- Recreation sites - DELWP
-]
-.column[
-## Data Preprocessing
-&lt;img src="images/tidyverse.png" alt="Trulli" style="width:16.5%;float:right;"&gt;
-&lt;img src="images/sf.gif" alt="Trulli" style="width:16.5%;float:right;"&gt;
-- Spatiotemporal clustering
-]
+---
+# Project Design
+## Spatiotemporal clustering
+
+---
+#Project design
 
 ---
 
@@ -157,7 +180,7 @@ class: split-60
 ]
 
 ---
-# Project	design
+#Project	design
 ## Modelling
 
 - Ignition method prediction model:
@@ -355,24 +378,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
+})();</script>
 
 <script>
 (function() {

@@ -74,26 +74,50 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 
 
 ---
-class: split-60
+# Project Design
+<div class="grid" style="margin-top:10px;">
+  <div class="gird-col">
+    <h2>Data collection</h2>
+    <ul>
+      <li>Hotspots - Himawari-8 satellite</li>
+      <li>Weather - Bureau of Meteorology</li>
+      <li>Fuel layer - Forest of Australia</li>
+      <li>Fire origins - DELWP</li>
+      <li>Roads - OpenStreetMap</li>
+      <li>Recreation sites - DELWP</li>
+    </ul>
+    <h2>Data Preprocessing</h2>
+    <ul>
+      <li>Spatiotemporal clustering</li>
+    </ul>
+    
+  </div>
+  <div class="gird-col">
+    <img src="images/bomrang.png" alt="Trulli" style="width:26%;margin-bottom:2px;">
+    <img src="images/tidyverse.png" alt="Trulli" style="width:30%;margin-bottom:2px;">
+    <img src="images/sf.gif" alt="Trulli" style="width:30%;margin-bottom:2px;">
+    <figure style="width:30%;margin-bottom:2px;margin-top:2px;display:inline-block;padding:0px;text-align: center;">
+      <img src="images/delwp2.png" alt="Trulli" style="width:100%;margin-bottom:10px;display:block;">
+      <img src="images/forest.svg" alt="Trulli" style="width:100%;margin-bottom:10px;">
+      <img src="images/osm.png" alt="Trulli" style="width:100%;margin-bottom:20px;display:block;">
+      <figcaption style="font-size:15px">OpenStreetMap</figcaption>
+    </figure> 
+    <figure style="width:30%;margin:0px;margin-bottom:2px;display:inline-block;padding:0px;">
+      <img src="images/hot.jpg" alt="Trulli" style="width:100%">
+      <figcaption style="font-size:15px">Liftoff of the H-IIA rocket carrying Himawari 8 on October 7, 2014</figcaption>
+    </figure>
+     
+  </div>
+</div>
 
-.column[
-## Data collection
 
-<img src="images/bomrang.png" alt="Trulli" style="width:15%;float:right;">
 
-- Hotspots - JAXA’s Himawari-8 satellite
-- Weather - Bureau of Meteorology
-- Fuel layer - Forest of Australia
-- Fire origins - DELWP
-- Roads - OpenStreetMap
-- Recreation sites - DELWP
-]
-.column[
-## Data Preprocessing
-<img src="images/tidyverse.png" alt="Trulli" style="width:16.5%;float:right;">
-<img src="images/sf.gif" alt="Trulli" style="width:16.5%;float:right;">
-- Spatiotemporal clustering
-]
+---
+# Project Design
+## Spatiotemporal clustering
+
+---
+#Project design
 
 ---
 
@@ -106,7 +130,7 @@ class: split-60
 ]
 
 ---
-# Project	design
+#Project	design
 ## Modelling
 
 - Ignition method prediction model:
