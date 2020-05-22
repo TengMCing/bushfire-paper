@@ -53,14 +53,30 @@ library(tidyverse)
 ---
 # Research aims and	questions
 
+__The overall research aim is to provide probabilistic estimates of the cause of fire ignition for the 2019-2020 bushfires.__ 
+--
+
+1. Using satellite hotspots data can we detect ignition time and location? 
+--
+
+2. Can data from other sources including vegetation, weather, proximity to road and recreation site help to inform ignition type?
+--
+
+3. How do the characteristics of 2019-2020 bushfires compare to historical bushfires?
+--
+
+4. Can we make a useful model for the fire risk across Australia? What predictors including fire indexes, proximity to road and recreation site, weather and vegetation are useful for modelling fire risk? 
+
+
 ---
 # Review of literature
 
 
 
 ---
-# Project	design
+class: split-60
 
+.column[
 ## Data collection
 
 <img src="images/bomrang.png" alt="Trulli" style="width:15%;float:right;">
@@ -71,11 +87,13 @@ library(tidyverse)
 - Fire origins - DELWP
 - Roads - OpenStreetMap
 - Recreation sites - DELWP
-
+]
+.column[
 ## Data Preprocessing
 <img src="images/tidyverse.png" alt="Trulli" style="width:16.5%;float:right;">
 <img src="images/sf.gif" alt="Trulli" style="width:16.5%;float:right;">
 - Spatiotemporal clustering
+]
 
 ---
 
@@ -102,7 +120,8 @@ library(tidyverse)
 ---
 # Timeline
 
-- Research plan till week 9
+
+## Completed work
 
 
 ```{r timeline, results='asis'}
@@ -123,7 +142,8 @@ knitr::kable(timeline,'html') %>%
 ```
 
 
-- Research plan since June
+
+## Research plan 
 
 
 ```{r}
@@ -133,6 +153,7 @@ timeline = data.frame(Timeline = c("June - July", "August", "September", "Octobe
 knitr::kable(timeline,'html') %>%
   kableExtra::kable_styling(font_size = 18, position = "left")
 ```
+
 
 ---
 # Expected outcomes

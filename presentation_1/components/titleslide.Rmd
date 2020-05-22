@@ -33,9 +33,10 @@ count: false
 
 .bottom_abs.width100[
 
-Author: *`r rmarkdown::metadata$author`* 
+*`r rmarkdown::metadata$author`* 
 
-EBS Honours student
+EBS Honours student,
+Supervised by Prof. Di Cook
 
 Department of Econometrics and Business Statistics
 

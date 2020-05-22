@@ -12,12 +12,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
     -->
     <link rel="icon" href="images/favicon.ico"  type='image/x-icon'/>
-    <link rel="stylesheet" href="assets\animate.css" type="text/css" />
-    <link rel="stylesheet" href="assets\monash-logo.css" type="text/css" />
-    <link rel="stylesheet" href="assets\monash-brand.css" type="text/css" />
-    <link rel="stylesheet" href="assets\monash-fonts.css" type="text/css" />
-    <link rel="stylesheet" href="assets\styles.css" type="text/css" />
-    <link rel="stylesheet" href="assets\custom.css" type="text/css" />
+    <link rel="stylesheet" href="assets/animate.css" type="text/css" />
+    <link rel="stylesheet" href="assets/monash-logo.css" type="text/css" />
+    <link rel="stylesheet" href="assets/monash-brand.css" type="text/css" />
+    <link rel="stylesheet" href="assets/monash-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="assets/styles.css" type="text/css" />
+    <link rel="stylesheet" href="assets/custom.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -61,9 +61,10 @@ count: false
 
 .bottom_abs.width100[
 
-Author: *Weihao Li* 
+*Weihao Li* 
 
-EBS Honours student
+EBS Honours student,
+Supervised by Prof. Di Cook
 
 Department of Econometrics and Business Statistics
 
@@ -102,14 +103,31 @@ Department of Econometrics and Business Statistics
 ---
 # Research aims and	questions
 
+__The overall research aim is to provide probabilistic estimates of the cause of fire ignition for the 2019-2020 bushfires.__ 
+--
+
+1. Using satellite hotspots data can we detect ignition time and location? 
+--
+
+2. Can data from other sources including vegetation, weather, proximity to road and recreation site help to inform ignition type?
+--
+
+3. How do the characteristics of 2019-2020 bushfires compare to historical bushfires?
+--
+
+4. Can we make a useful model for the fire risk across Australia? What predictors including fire indexes, proximity to road and recreation site, weather and vegetation are useful for modelling fire risk? 
+
+
 ---
 # Review of literature
 
 
 
 ---
+class: split-60
 # Project	design
 
+.column[
 ## Data collection
 
 &lt;img src="images/bomrang.png" alt="Trulli" style="width:15%;float:right;"&gt;
@@ -120,11 +138,13 @@ Department of Econometrics and Business Statistics
 - Fire origins - DELWP
 - Roads - OpenStreetMap
 - Recreation sites - DELWP
-
+]
+.column[
 ## Data Preprocessing
 &lt;img src="images/tidyverse.png" alt="Trulli" style="width:16.5%;float:right;"&gt;
 &lt;img src="images/sf.gif" alt="Trulli" style="width:16.5%;float:right;"&gt;
 - Spatiotemporal clustering
+]
 
 ---
 
@@ -151,7 +171,8 @@ Department of Econometrics and Business Statistics
 ---
 # Timeline
 
-- Research plan till week 9
+
+## Completed work
 
 
 &lt;table class="table" style="font-size: 18px; "&gt;
@@ -198,7 +219,8 @@ Department of Econometrics and Business Statistics
 &lt;/table&gt;
 
 
-- Research plan since June
+
+## Research plan 
 
 
 &lt;table class="table" style="font-size: 18px; "&gt;
@@ -228,6 +250,7 @@ Department of Econometrics and Business Statistics
 &lt;/tbody&gt;
 &lt;/table&gt;
 
+
 ---
 # Expected outcomes
 
@@ -242,9 +265,12 @@ count: false
 
 &lt;br&gt;&lt;br&gt;
 
-# That's it!
+## Acknowledgements
 
-# Q&amp;A time
+Slides produced using [Rmarkdown]() with [xaringan]() styling. Raw files for slides, research report and data analysis are available on [MY GITHUB]()
+
+# Questions?
+
 
 &lt;br&gt; 
 &lt;a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;&lt;img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /&gt;&lt;/a&gt;&lt;br /&gt;This work is licensed under a &lt;a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"&gt;Creative Commons Attribution-ShareAlike 4.0 International License&lt;/a&gt;.
@@ -329,7 +355,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {
