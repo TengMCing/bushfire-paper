@@ -227,4 +227,13 @@ blockquote {
   border: 5px solid black;
 }
 
+.without-left-right-margin{
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
 
+th, td {
+  border-bottom: 1px solid #ddd;
+}

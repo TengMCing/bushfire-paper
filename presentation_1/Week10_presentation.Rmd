@@ -15,7 +15,6 @@ output:
       - "assets/monash-fonts.css"
       - "assets/styles.css" # small improvements
       - "assets/custom.css" # add your own CSS here!
-      - "assets/demo.css" # this should be removed
     self_contained: false 
     seal: false 
     chakra: 'libs/remark-latest.min.js'
@@ -39,6 +38,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
 ```
 
 ```{r titleslide, child="components/titleslide.Rmd"}
@@ -56,19 +56,83 @@ knitr::opts_chunk$set(echo = FALSE)
 ---
 # Review of literature
 
-```{r cars, echo = TRUE}
-summary(cars)
-```
+
 
 ---
 # Project	design
 
-```{r pressure}
-plot(pressure)
-```
+## Data collection
+
+<img src="images/bomrang.png" alt="Trulli" style="width:15%;float:right;">
+
+- Hotspots - JAXA’s Himawari-8 satellite
+- Weather - Bureau of Meteorology
+- Fuel layer - Forest of Australia
+- Fire origins - DELWP
+- Roads - OpenStreetMap
+- Recreation sites - DELWP
+
+## Data Preprocessing
+<img src="images/tidyverse.png" alt="Trulli" style="width:16.5%;float:right;">
+<img src="images/sf.gif" alt="Trulli" style="width:16.5%;float:right;">
+- Spatiotemporal clustering
+
+---
+
+#Project design
+## Clustering result
+
+
+.without-left-right-margin[
+  <img src="images/fire_mov2.jpg" alt="Trulli" style="width:100%">
+]
+
+---
+# Project	design
+## Modelling
+
+- Ignition method prediction model:
+
+  bla, bla, bla
+  
+- Fire risk model:
+
+  bla, bla, bla
 
 ---
 # Timeline
+
+- Research plan till week 9
+
+
+```{r timeline, results='asis'}
+timeline = data.frame(Timeline = c("Week 2","Week 3", "Week 4", "Week 5", "Week 6", "Week 7","Week 8", "week 9"),
+                      Tasks = c("Geographic data background reading",
+                                "Collect Remote sensing data (JAXA himawari-8 satellite) and explore BOM weather data APIs (Bomrang)",
+                                "Collect Road Map (OpenStreetMap) and read articles in SpatioTemporal data visualization and modelling",
+                                "Develop clustering algorithm for remote sensing data",
+                                "Test diferent hyperparameters for clusetring",
+                                "Exploratory data analysis on fire clusters and data integration",
+                                "Feature planning for the shiny app",
+                                "Write research proposal and prepare the first presentation"))
+
+
+knitr::kable(timeline,'html') %>%
+  kableExtra::kable_styling(font_size = 18, position = "left")
+  
+```
+
+
+- Research plan since June
+
+
+```{r}
+timeline = data.frame(Timeline = c("June - July", "August", "September", "October"),
+                      Tasks = c("Modelling fire ignition and fire risk", "Consolidate findings and create mockups of the shiny app", "Develop the shiny app and perform different levels of testing", "Write thesis and prepare the second presentation")) 
+
+knitr::kable(timeline,'html') %>%
+  kableExtra::kable_styling(font_size = 18, position = "left")
+```
 
 ---
 # Expected outcomes
