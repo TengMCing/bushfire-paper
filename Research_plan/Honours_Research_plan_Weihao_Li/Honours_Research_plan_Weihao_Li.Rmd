@@ -71,7 +71,7 @@ Most of the existing work on bushfire ignition cause focuses on south-eastern Au
 
 ## Data collection
 
-A focus of this work is to utilise open-source data, and collate these data sets to provide a data fusion with which to tackle the research questions. The motivating data source is satellite hotspots, which is different from what has been analysed previously in the literature.  This data is collated with weather records, fuel layer, location of roads and recreation sites, and historical data on ignition cause. The details of each and a Table \ref{tab:datasetinfo} providing links to the data sources is provided in the Appendix.
+A focus of this work is to utilise open-source data, and collate these data sets to provide a data fusion with which to tackle the research questions. The motivating data source is satellite hotspots, which is different from what has been analysed previously in the literature.  This data is collated with weather records, fuel layer, location of roads and recreation sites, and historical data on ignition cause.  The spatial and temporal details of each dataset is provied in table \ref{tab:datasetinfo}. Descriptions and links to the data sources can be found in table \ref{tab:datadescription}. These two tables are provided in the Appendix.
 
 
 ## Data preprocessing
@@ -158,30 +158,15 @@ It is expected that we will have probabilistic predictions for ignition cause fo
 
 # Appendix A {-}
 
-## Summary of data sources
-
-- Hotspots: Hotspot data is downloaded from the JAXA’s Himawari-8 satellite. This satellite is positioned in geostationary orbit at 140 degrees east longitude, and the revisit period is 10-minute. Its management system - JAXA's P-Tree system, provides WildFire observation product with 2km spatial resolution. [@jaxa]. Details on how to download this data are provided by @hotspots on his GitHub Gist page. 
-
-- Weather: Weather data were collected from the Australian Bureau of Meteorology, by using an R package - Bomrang [@R-bomrang]. Due to the limitation of APIs provided by the package, we crawled data from BOM's website for extra information. 
-
-
-- Fuel layer: To characterise the fuel we used forest of Australia from @forest. It is a fuel layer contains the vegetation information across Australia.
-
-
-- Fire origins: Fire origins are the existing records of historical bushfires ignition which is downloaded from @fireorigin. This dataset is used to understand the characteristic of each type of ignition.  It helps us to identify the causes of 2019-2020 bushfires.
-
-- Roads: Roads map are features contained in OpenStreetMap provided by @OpenStreetMap. OpenStreetMap is an open-source project provides detailed geographic information across the world. The road map we used includes different classes of roads, ranges from the motorway to the residential road.
-
-- Recreation sites: Recreation sites are location information of picnic and camping sites within Victorian forest, which is downloaded from @recreation.
 
 ```{r datasets, results='asis'}
-datasets_info = data.frame(name = c("Hotspots data - JAXA’s Himawari-8 satellite",
-                                    "Weather data - Australian Bureau of Meteorology",
-                                    "Map - OpenStreetMap",
-                                    "Fuel layer - Australian Bureau of Agriculture \\\\ $\\hspace{5mm}$ and Resource Economics and Sciences",
-                                    "Victorian CFA fire stations - Department of Environment, \\\\ $\\hspace{5mm}$Land, Water $\\&$ Planning",
-                                    "Victorian Recreation sites - Department of Environment, \\\\ $\\hspace{5mm}$Land, Water $\\&$ Planning",
-                                    "Fire Origins - Department of Environment, \\\\ $\\hspace{5mm}$Land, Water $\\&$ Planning"), 
+datasets_info = data.frame(name = c("Hotspots data",
+                                    "Weather data",
+                                    "Road Map",
+                                    "Fuel layer",
+                                    "Victorian CFA fire stations",
+                                    "Victorian Recreation sites",
+                                    "Fire Origins"), 
                            spatialresolution = c("$0.02^\\circ \\approx 2km$",
                                                  "",
                                                  "2m",
@@ -209,11 +194,31 @@ knitr::kable(datasets_info, 'latex',
              label = "datasetinfo",
              booktabs = TRUE,
              col.names = c("Data set name", "Spatial Resolution", "Temporal resolution", "Time"),
-             escape = FALSE) %>%
-  kable_styling(font_size = 9)
+             escape = FALSE) 
 
 ```
 
+```{r datadescription}
+data.frame(Dataset = c("Hotspots data",
+                                         "Weather data",
+                                         "Fuel layer",
+                                         "Fire Origins",
+                                         "Road Map",
+                                         "Victorian Recreation sites",
+                       "Victorian CFA fire stations"),
+                             Description = c("Hotspot data is downloaded from \\textcite{jaxa}. Details on how to download this data are provided by \\textcite{hotspots}",
+                                             "Weather data were collected from the Australian Bureau of Meteorology, by using an R package - Bomrang \\parencite{R-bomrang}",
+                                             "To characterise the fuel we used forest of Australia from \\textcite{forest}",
+                                             "Fire origins are the existing records of historical bushfires ignition which is downloaded from \\textcite{fireorigin}",
+                                             "Roads map are features contained in OpenStreetMap provided by \\textcite{OpenStreetMap}",
+                                             "Recreation sites are location information of picnic and camping sites within Victorian forest, which is downloaded from \\textcite{recreation}",
+                                             "CFA stations are location information of CFA fire station within Victoria, which is downloaded from \\textcite{cfa}")) %>%
+  knitr::kable('latex',
+              label = "datadescription",
+              caption="Description of datasets",
+              escape = FALSE)  %>%
+  column_spec(2, width = "30em")
+```
 
 
 
