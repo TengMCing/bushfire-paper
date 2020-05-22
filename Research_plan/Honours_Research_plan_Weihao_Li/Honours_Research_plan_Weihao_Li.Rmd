@@ -43,7 +43,7 @@ The research is also motivated by the lack of knowledge about the cause of bushf
 
 # Research aims and	questions
 
-<!--Australia 2019-2020 experience one of the most devastating bushfire seasons in history. How these fires started it's an important question in order to manage future hazard events. Lightning strikes and arson were been discussed publicly. REPEAT OF WHAT IS SAID ABOVE--> This research will explore the potential methods of fire ignition during 2019-2020 Australia bushfires season based on the new availability of satellite data, and provide a model to predict the fire risk for locations around the country. Hotspots data from the JAXA’s Himawari-8 satellite, will be combined with weather data from the Australian Bureau of Meteorology, and other data on roads, recreation sites, vegetation,  to study locations of fire ignition and predict bushfire risk. Satellite data provides the opportunity to more objectively study ignition locations, particularly in less accessible regions.
+<!--Australia 2019-2020 experience one of the most devastating bushfire seasons in history. How these fires started it's an important question in order to manage future hazard events. Lightning strikes and arson were been discussed publicly. REPEAT OF WHAT IS SAID ABOVE--> This research will explore the potential methods of fire ignition during 2019-2020 Australia bushfires season based on the new availability of satellite data, and provide a model to predict the fire risk for locations around the country. Hotspots data from the JAXA’s Himawari-8 satellite will be combined with weather data from the Australian Bureau of Meteorology, and other data on roads, recreation sites, vegetation,  to study locations of fire ignition and predict bushfire risk. Satellite data provides the opportunity to more objectively study ignition locations, particularly in less accessible regions.
 
 The overall research aim is to provide probabilistic estimates of the cause of fire ignition for the 2019-2020 bushfires. Several smaller research questions that will be addressed are:
 
@@ -71,8 +71,7 @@ Most of the existing work on bushfire ignition cause focuses on south-eastern Au
 
 ## Data collection
 
-A focus of this work is to utilise open-source data, and collate these data sets to provide a data fusion with which to tackle the research questions. The motivating data source is satellite hotspots, which is different from what has been analysed previously in the literature.  This data is collated with weather records, fuel layer, location of roads and recreation sites, and historical data on ignition cause.  The spatial and temporal details of each dataset is provied in table \ref{tab:datasetinfo}. Descriptions and links to the data sources can be found in table \ref{tab:datadescription}. These two tables are provided in the Appendix.
-
+A focus of this work is to utilise open-source data, and collate these data sets to provide a data fusion with which to tackle the research questions. The motivating data source is satellite hotspots, which is different from what has been analysed previously in the literature.  This data is collated with weather records, fuel layer, location of roads and recreation sites, and historical data on ignition cause. The spatial and temporal details of each dataset are provided in table \ref{tab:datasetinfo}. Descriptions and links to the data sources can be found in table \ref{tab:datadescription}. These two tables are provided in the Appendix.
 
 ## Data preprocessing
 
@@ -82,7 +81,7 @@ The hotspot and weather data is in CSV format, which can be processed generally 
 
 ### Identifying unique fires using spatiotemporal clustering
 
-Hotpots are light detections from the satellite, provided at 10 minute intervals. To study ignition, it needs to be processed to identify the start, indicate the likelihood of being the same fire, and track the movement of a fire. Not all hotspots are fires, and the recommended threshold of firepower over 100 (irradiance over 100 watts per square metre) is used to filter the data. Only data recorded after the published fire restrictions dates are used. 
+Hotpots are light detections from the satellite, provided at 10-minute intervals. To study ignition, it needs to be processed to identify the start, indicate the likelihood of being the same fire, and track the movement of a fire. Not all hotspots are fires, and the recommended threshold of firepower over 100 (irradiance over 100 watts per square metre) is used to filter the data. Only data recorded after the published fire restrictions dates are used. 
 
 <!--However, just like it is hard to identify a single plant from the top view of a grassland, information about individual bushfire can not be directly derived from the raw hotspot data. In order to understand the ignition time and ignition place of each bushfire, we need to divide hotspots into clusters and trace the growth of each cluster. --> 
 
@@ -90,7 +89,7 @@ Hotpots are light detections from the satellite, provided at 10 minute intervals
 
 A clustering algorithm was developed to identify fire clusters, and details can be found in Table \ref{tab:clustering}. Each hotspot will be assigned a cluster membership which we called *fire_id*. Other characteristics of each fire id including its centroid, starting time, ending time and movement are recorded. The motivation for this algorithm is the behaviour of real bushfire which can be summarised as two parameters, the potential distance a fire can spread in an hour, and the time a fire can stay smouldering but undetectable before flaring up again, represented by $r_0$ and $t_0$, respectively. These two parameters have been used to determine if a new hotspot belongs to an existing or new cluster.
 
-Figure \ref{fig:mov} shows two fires and their life time movement as computed by the algorithm. 
+Figure \ref{fig:mov} shows two fires and their lifetime movement as computed by the algorithm. 
 
 ### Compiled data
 
@@ -110,7 +109,7 @@ Two types of models will be developed and tested. One is the ignition method pre
 
 - Predicting ignition method: Historical causes of bushfires will be used as training data. Multi-class response variable models, using vegetation, topographic and climate information as independent variables, will be developed and assessed. Statistical models, generalized linear model, and generalized additive model will be compared with these computational models, random forest, support vector machine and artificial neural networks. 
 
-- Modelling fire risk: The framework of fire risk modelling is similar to ignition method prediction. It will be a binary classification problem. The aim of this model is to predict the probability of bushfire ignition in a cell of the grid. The grid will be designed to fit the shape of Victoria with spatial resolution equal to 50km (Figure \ref{fig:overview}). The training data will be the hotspots data instead of bushfires history. Models considered will be the same as ignition method prediction.
+- Modelling fire risk: The framework of fire risk modelling is similar to ignition method prediction. It will be a binary classification problem. This model aims to predict the probability of bushfire ignition in a cell of the grid. The grid will be designed to fit the shape of Victoria with spatial resolution equal to 50km (Figure \ref{fig:overview}). The training data will be the hotspots data instead of bushfires history. Models considered will be the same as ignition method prediction.
 
 # Timeline
 
@@ -119,12 +118,12 @@ Table \ref{tab:timeline1} summarises the work done to date. Table \ref{tab:timel
 ```{r timeline, results='asis'}
 timeline = data.frame(Timeline = c("Week 2","Week 3","", "Week 4","", "Week 5", "Week 6", "Week 7","Week 8", "week 9"),
                       Tasks = c("Geographic data background reading",
-                                "Collect Remote sensing data (JAXA himawari-8 satellite) and",
+                                "Collect Remote sensing data (JAXA Himawari-8 satellite) and",
                                 "explore BOM weather data APIs (Bomrang)",
                                 "Collect Road Map (OpenStreetMap) and",
                                 "read articles in SpatioTemporal data visualization and modelling",
                                 "Develop clustering algorithm for remote sensing data",
-                                "Test diferent hyperparameters for clustering",
+                                "Test different hyperparameters for clustering",
                                 "Exploratory data analysis on fire clusters and data integration",
                                 "Feature planning for the shiny app",
                                 "Write research proposal and prepare the first presentation"))
@@ -140,7 +139,7 @@ knitr::kable(timeline, "latex",
 
 ```{r}
 timeline = data.frame(Timeline = c("June - July", "August", "September", "October"),
-                      Tasks = c("Modelling fire ignition and fire risk", "Consolidate findings and create mock-ups of the shiny app", "Develop the shiny app and perform different levels of testing", "Write thesis and prepare the second presentation")) 
+                      Tasks = c("Modelling fire ignition and fire risk", "Consolidate findings and create mock-ups of the shiny app", "Develop the shiny app and perform different levels of testing", "Write my thesis and prepare the second presentation")) 
 
 knitr::kable(timeline, "latex",
              caption = "Research plan",
@@ -223,7 +222,7 @@ data.frame(Dataset = c("Hotspots data",
 
 
 
-![The movement path and hotspots map shows the bushfire behaviour of bushfire "454" and bushfire "1420", which is two clusters from the results of clustering algorithm. The triangle is the ignition point of bushfire and the rectangle is the extinguish point. The black line is the movement of bushfire centeroid. points with red color and larger size are hotspots with higher firepower which is measured by watt per square metre. We can know that bushfires ignited with low firepower, and will getting hotter when time pass, then finally extinguish with not enough fuel. \label{fig:mov}](figures/fire_mov.jpg){width=500px}
+![The movement path and hotspots map shows the bushfire behaviour of bushfire "454" and bushfire "1420", which is two clusters from the results of the clustering algorithm. The triangle is the ignition point of bushfire and the rectangle is the extinguish point. The black line is the movement of bushfire centroid. Points with red color and larger size are hotspots with higher firepower which is measured by watt per square metre. We can know that bushfires ignited with low firepower, and will get hotter when time pass, then finally extinguish with not enough fuel. \label{fig:mov}](figures/fire_mov.jpg){width=500px}
 
 
 \normalfont
@@ -243,8 +242,8 @@ data.frame(Dataset = c("Hotspots data",
 &~~~~~~~~~~~~~~~~\text{centroids and time from last updated}\\[-1\jot]
 &~~1:~~\text{select subset }H_c \in \text{H where Hour\textunderscore id == 1}\\[-1\jot]
 &~~2:~~\text{calculate distance matrix D for Coordinates in }H_c \\[-1\jot]
-&~~3:~~\text{assign 1 to a zero adjacency matrix A for where D} \leq r_0~~//~~\text{hotspots with relative}\\[-1\jot]
-&~~~~~~~~~\text{distance less or equal to }r_0~\text{will be considered belong to the same cluster} \\[-1\jot]
+&~~3:~~\text{assign 1 to a zero adjacency matrix A for where D} \leq r_0~~//~~\text{hotspots with a relative}\\[-1\jot]
+&~~~~~~~~~\text{distance less or equal to }r_0~\text{will be considered belonging to the same cluster} \\[-1\jot]
 &~~4:~~\text{create undirected unweighted graph G from A}\\[-1\jot]
 &~~5:~~\text{record memberships of G to K}\\[-1\jot]
 &~~6:~~\text{record clusters classes to Fire\textunderscore id and record clusters centroids to Coordinates of F}\\[-1\jot]
@@ -267,7 +266,7 @@ data.frame(Dataset = c("Hotspots data",
 \end{align*}
 \end{table}
 
-![Entity relationship diagram illustrating the relational tables of the compiled data. Tables correspond to processed hotspot data, weather, local facilities like CFA sites. This data structure is useful for the data modeling and web app development.  \label{fig:ERD}](figures/Shiny_app_data_Conceptual_ERD.jpeg)
+![Entity relationship diagram illustrating the relational tables of the compiled data. Tables correspond to processed hotspot data, weather, local facilities like CFA sites. This data structure is useful for data modelling and web app development.  \label{fig:ERD}](figures/Shiny_app_data_Conceptual_ERD.jpeg)
 
 ![The grid map illustrating the general situation of Victoria during 2019-2020 Australia bushfire season. The severest time for Victoria was December when the massive amount of bushfires ignited in Eastern Victoria. Places like East Gippsland suffered from this devastating crisis. \label{fig:overview}](figures/number_of_ignitions.jpg){width=500px}
 
