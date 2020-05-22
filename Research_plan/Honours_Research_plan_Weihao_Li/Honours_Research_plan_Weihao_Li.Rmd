@@ -65,7 +65,7 @@ Common covariates for ignition analysis are weather conditions, vegetation types
 
 Although numerous studies for ignitions analysis have applied semi-parametric and parametric methods, little analytics attention has been paid to more complex models like the tree-based model, support vector machine and artificial neural network. These tools are well developed in machine learning, which will also be considered for this research.
 
-Most of the existing works of bushfire ignition analysis focus on certain areas such as south-eastern Australia [@clarke2019developing], or a certain state such as Victoria [@read2018lightning]. Little of existing works have applied prediction across Australia.
+Most of the existing work on bushfire ignition cause focuses on south-eastern Australia [@clarke2019developing], and Victoria [@read2018lightning]. Models have not been applied across Australia.
 
 # Project	design
 
@@ -95,11 +95,11 @@ The hotspot and weather data is in CSV format, which can be processed generally 
 
 ### Identifying unique fires using spatiotemporal clustering
 
-Hotpots are point data obtained by light detection from the satellite. They are snapshots of bushfires every 10 minutes. In order to study ignition, the data needs to be processed to identify the start, and movement of a fire. 
+Hotpots are light detections from the satellite, provided at 10 minute intervals. To study ignition, it needs to be processed to identify the start, indicate the likelihood of being the same fire, and track the movement of a fire. Not all hotspots are fires, and the recommended threshold of firepower over 100 (irradiance over 100 watts per square metre) is used to filter the data. Only data recorded after the published fire restrictions dates are used. 
 
 <!--However, just like it is hard to identify a single plant from the top view of a grassland, information about individual bushfire can not be directly derived from the raw hotspot data. In order to understand the ignition time and ignition place of each bushfire, we need to divide hotspots into clusters and trace the growth of each cluster. --> 
 
-The initial steps in the processing were to subset to only Australian locations, keep only hotspots above a threshold firepower (irradiance over 100 watts per square metre), and set the starting time to be when annual fire restrictions were lifted.  <!--To preprocess the hotspots data, we selected the observations in Australia from the full disk. Meanwhile, hotspots with irradiance under 100 watt per square metre will be deleted. We restricted our study to hotspots that have significant firepower. An hour id has been assigned to each observation range from 1 to T, represents the relative time the hotspot being observed.-->
+<!-- The initial steps in the processing were to subset to only Australian locations, keep only hotspots above a threshold firepower (irradiance over 100 watts per square metre), and set the starting time to be when annual fire restrictions were lifted.  To preprocess the hotspots data, we selected the observations in Australia from the full disk. Meanwhile, hotspots with irradiance under 100 watt per square metre will be deleted. We restricted our study to hotspots that have significant firepower. An hour id has been assigned to each observation range from 1 to T, represents the relative time the hotspot being observed.-->
 
 A clustering algorithm was developed to identify fire clusters, and details can be found in Table \ref{tab:clustering}. Each hotspot will be assigned a cluster membership which we called *fire_id*. Other characteristics of each fire id including its centroid, starting time, ending time and movement are recorded. The motivation for this algorithm is the behaviour of real bushfire which can be summarised as two parameters, the potential distance a fire can spread in an hour, and the time a fire can stay smouldering but undetectable before flaring up again, represented by $r_0$ and $t_0$, respectively. These two parameters have been used to determine if a new hotspot belongs to an existing or new cluster.
 
