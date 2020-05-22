@@ -33,7 +33,9 @@ count: false
 
 .bottom_abs.width100[
 
-Author: *`r rmarkdown::metadata$author`* - EBS Honours student
+Author: *`r rmarkdown::metadata$author`* 
+
+EBS Honours student
 
 Department of Econometrics and Business Statistics
 
