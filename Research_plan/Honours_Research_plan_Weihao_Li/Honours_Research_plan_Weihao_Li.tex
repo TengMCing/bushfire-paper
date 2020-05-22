@@ -27,7 +27,7 @@
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage{geometry}
 \geometry{a4paper, centering, text={16cm,24cm}}
-\usepackage[style=authoryear-comp,]{biblatex}
+\usepackage[style=apa,]{biblatex}
 \addbibresource{references.bib}
 \usepackage{longtable,booktabs}
 % Fix footnotes in tables (requires footnote package)
@@ -290,18 +290,18 @@
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-In Australia, bushfires have historically caused massive loss of property and life. Since the 1967 Hobart bushfires, the insurance claims for building losses was greater than \$A10 million (McAneney, Chen \& Pitman, 2009).
-The Australian bushfire season in 2019-2020, compared with other major bushfires in history, had a more devastating impact on the environment and properties. According to the Parliament of Australia report (2020) in this past bushfire season, 3094 houses have been destroyed and over 17M hectares of land burned. These two figures are the highest in history. Fortunately, only 33 people including firefighters died compared to 173 in the Black Saturday fires and 47 in Ash Wednesday fires (Parliament of Australia, 2020).
+In Australia, bushfires have historically caused massive loss of property and life. Since the 1967 Hobart bushfires, the insurance claims for building losses was greater than \$A10 million \autocite{mcaneney2009100}.
+The Australian bushfire season in 2019-2020, compared with other major bushfires in history, had a more devastating impact on the environment and properties. According to the report of \textcite{LisaRichardsNigelBrew2020} published by Parliament of Australia, 3094 houses have been destroyed and over 17M hectares of land burned in the last bushfire season. These two figures are the highest in history. Fortunately, only 33 people including firefighters died compared to 173 in the Black Saturday fires and 47 in Ash Wednesday fires \autocite{LisaRichardsNigelBrew2020}.
 Understanding the cause of the 2019-2020 Australian bushfires is a crucial step to provide information for future policy and fire risk management.
 
-The research is also motivated by the lack of knowledge about the cause of bushfire in Australia. Beale and Jones (2009) state in their research that the cause is only known for 58.9\% of fires. Historically, about 50\% are due to deliberate and suspicious ignitions, 35\% by accidents and 6\% natural, such as lightning. Providing a probable cause for bushfires may help investigators in practice.
+The research is also motivated by the lack of knowledge about the cause of bushfire in Australia. \textcite{beale2011preventing} state in their research that the cause is only known for 58.9\% of fires. Historically, about 50\% are due to deliberate and suspicious ignitions, 35\% by accidents and 6\% natural, such as lightning. Providing a probable cause for bushfires may help investigators in practice.
 
 \hypertarget{research-aims-and-questions}{%
 \section{Research aims and questions}\label{research-aims-and-questions}}
 
 This research will explore the potential methods of fire ignition during 2019-2020 Australia bushfires season based on the new availability of satellite data, and provide a model to predict the fire risk for locations around the country. Hotspots data from the JAXA's Himawari-8 satellite, will be combined with weather data from the Australian Bureau of Meteorology, and other data on roads, recreation sites, vegetation, to study locations of fire ignition and predict bushfire risk. Satellite data provides the opportunity to more objectively study ignition locations, particularly in less accessible regions.
 
-The overall research question is whether we can provide a probablistic estimate of aim of the cause of fire ignition for the 2019-2020 bushfires. Several smaller research questions that will help towards th overall aim are:
+The overall research question is whether we can provide a probabilistic estimate of aim of the cause of fire ignition for the 2019-2020 bushfires. Several smaller research questions that will help towards the overall aim are:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -321,15 +321,15 @@ The overall research question is whether we can provide a probablistic estimate 
 
 Existing research on bushfire modelling can be divided into two main categories: simulation and analytical modelling.
 
-In simulation modelling, Keane et al.~(2004) develop landscape fire succession models (LFSMs) to simulate fire behaviour spatially, including fire ignition and fire spread, and accountinf for fire and vegetation dynamics. Bradstock et al.~(2012) used a model called FIRESCAPE which involved simulating fire behaviours with fuel and weather conditions. Simulation methods are cost-effective and time-effective ways to model bushfires, but ignition cause is not considered (Clarke et al., 2019). These methods seldomly address the ignition types that we are interested in.
+In simulation modelling, \textcite{keane2004classification} develop landscape fire succession models (LFSMs) to simulate fire behaviour spatially, including fire ignition and fire spread, and accounting for fire and vegetation dynamics. \textcite{bradstock2012wildfires} used a model called FIRESCAPE which involved simulating fire behaviours with fuel and weather conditions. Simulation methods are cost-effective and time-effective ways to model bushfires, but ignition cause is not considered \autocite{clarke2019developing}. These methods seldomly address the ignition types that we are interested in.
 
-Analytical modelling is another common way to build bushfires models. The general framework for analysing bushfires ignitions is a generalised additive model (GAM). Bates, McCaw and Dowdy (2018) used it for predicting the number of lightning ignitions. Some studies include a logit link(FIXME: why is this different to previous sentence) to extend the model for bushfires ignition cause prediction (Read, Duff and Taylor, 2018; Zhang, Lim and Sharples, 2017). Mixed-effect models have also been considered to incorporate spatial dependence and weather factors (Duff, Cawson and Harris, 2018). Simpler models have also been used, including multiple linear regression, negative binomial regression and generalised logistic regression (Cheney, Gould, McCaw and Anderson, 2012; Plucinski, McCaw, Gould and Wotton, 2014; Collins, Price and Penman, 2015). Particularly, instead of using a model, some researches performed statistical testing and exploratory data analysis to test hypotheses about bushfires (Miller et al., 2017; Dowdy, Fromm and McCarthy, 2017).
+Analytical modelling is another common way to build bushfires models. The general framework for analysing bushfires ignitions is a generalised additive model (GAM). \textcite{bates2018exploratory} used it with a Gaussian distribution for predicting the number of lightning ignitions. Some studies implemented GAM with a multinomial distribution to predict ignition probability \autocite{read2018lightning,zhang2017wildfire}. Mixed-effect models have also been considered to incorporate spatial dependence and weather factors \autocite{duff2018dryness}. Simpler models have also been used, including multiple linear regression, negative binomial regression and generalised logistic regression \autocite{cheney2012predicting,plucinski2014predicting,collins2015spatial}. Particularly, instead of using a model, some researches performed statistical testing and exploratory data analysis to test hypotheses about bushfires \autocite{miller2017electrically,dowdy2017pyrocumulonimbus}.
 
-Common covariates for ignition analysis are weather conditions, vegetation types, topographic information and anthropogenic variables. In addition, various fire danger indexes have been used in modelling. Some studies choose to use index variables developed by McArthur such as Forest Fire Danger Index (Clarke et al., 2019; Read et al., 2018), while others choose to use indexes developed by Canadian Forestry Service such as Canadian Fire Weather Index and Drought Code (Plucinski et al., 2014). We doubt that these indexes are useful for fire ignition prediction because they are extracted from weather and vegetation information. However, it may help improve our model performance because it can be viewed as generated from feature engineering.
+Common covariates for ignition analysis are weather conditions, vegetation types, topographic information and anthropogenic variables. In addition, various fire danger indexes have been used in modelling. Some studies choose to use index variables developed by McArthur such as Forest Fire Danger Index \autocite{clarke2019developing,read2018lightning}, while others choose to use indexes developed by Canadian Forestry Service such as Canadian Fire Weather Index and Drought Code \autocite{plucinski2014predicting}. We doubt that these indexes are useful for fire ignition prediction because they are extracted from weather and vegetation information. However, it may help improve our model performance because it can be viewed as generated from feature engineering.
 
-Although numerous studies for ignitions analysis have applied semiparametric and parametric methods, little analytics attention has been paid to more complex models like the tree-based model, support vector machine and artificial neural network. These tools are well developed in machine learning, which will also be considered for this research.
+Although numerous studies for ignitions analysis have applied semi-parametric and parametric methods, little analytics attention has been paid to more complex models like the tree-based model, support vector machine and artificial neural network. These tools are well developed in machine learning, which will also be considered for this research.
 
-Most of the existing works of bushfire ignition analysis focus on a certain areas such as south-eastern Australia (Clarke et al., 2019), or a certain state such as Victoria (Read, Duff \& Taylor, 2018). Little of existing works have applied prediction across Australia.
+Most of the existing works of bushfire ignition analysis focus on certain areas such as south-eastern Australia \autocite{clarke2019developing}, or a certain state such as Victoria \autocite{read2018lightning}. Little of existing works have applied prediction across Australia.
 
 \hypertarget{project-design}{%
 \section{Project design}\label{project-design}}
@@ -337,21 +337,21 @@ Most of the existing works of bushfire ignition analysis focus on a certain area
 \hypertarget{data-collection}{%
 \subsection{Data collection}\label{data-collection}}
 
-A focus of this work is to utilise open source data, and collate these data sets to provide a data fusion with which to tackle the research questions. The motivating data source is satellite hotspots, which is different from what has been analysed previously in the literature. The next paragraphics describe how this and other data is accessed, and pre-processed for later analysis. Table \ref{tab:datasetinfo} summarises the data sources.
+A focus of this work is to utilise open-source data, and collate these data sets to provide a data fusion with which to tackle the research questions. The motivating data source is satellite hotspots, which is different from what has been analysed previously in the literature. The next paragraphs describe how this and other data is accessed, and pre-processed for later analysis. Table \ref{tab:datasetinfo} summarises the data sources.
 
 \begin{itemize}
 \item
-  Hotspots: Hotspot data is downloaded from the JAXA's Himawari-8 satellite. This satellite is positioned in geostationary orbit at 140 degrees east longitude, and the revisit period is 10-minute. Its management system - JAXA's P-Tree system, provides WildFire observation product with 2km spatial resolution. (P-Tree System, 2020). Details on how to download this data are provided by {[}ozjim post{]}.
+  Hotspots: Hotspot data is downloaded from the JAXA's Himawari-8 satellite. This satellite is positioned in geostationary orbit at 140 degrees east longitude, and the revisit period is 10-minute. Its management system - JAXA's P-Tree system, provides WildFire observation product with 2km spatial resolution. \autocite{jaxa}. Details on how to download this data are provided by \textcite{hotspots} on his GitHub Gist page.
 \item
-  Weather: Weather data were collected from the Australian Bureau of Meteorology, by using an R package - Bomrang (Adam, Mark, Hugh \& Keith, 2020). Due to the limitation of APIs provided by the package, we crawled data from BOM's website for extra information.
+  Weather: Weather data were collected from the Australian Bureau of Meteorology, by using an R package - Bomrang \autocite{R-bomrang}. Due to the limitation of APIs provided by the package, we crawled data from BOM's website for extra information.
 \item
-  Fuel layer: To characterise the fuel we used forest of Australia (2018) from the Australian Bureau of Agriculture and Resource Economics and Sciences. It is a fuel layer contains the vegetation information across Australia.
+  Fuel layer: To characterise the fuel we used forest of Australia from \textcite{forest}. It is a fuel layer contains the vegetation information across Australia.
 \item
-  Fire origins: Fire origins are the existing records of historical bushfires ignition which is downloaded from the Department of Environment, Land, Water Planning. This dataset is used to understand the characteristic of each type of ignition. It helps us to identify the causes of 2019-2020 bushfires.
+  Fire origins: Fire origins are the existing records of historical bushfires ignition which is downloaded from \textcite{fireorigin}. This dataset is used to understand the characteristic of each type of ignition. It helps us to identify the causes of 2019-2020 bushfires.
 \item
-  Roads: FIXME
+  Roads: Roads map are features contained in OpenStreetMap provided by \textcite{OpenStreetMap}. OpenStreetMap is an open-source project provides detailed geographic information across the world. The road map we used includes different classes of roads, ranges from the motorway to the residential road.
 \item
-  Recreation sites: FIXME
+  Recreation sites: Recreation sites are location information of picnic and camping sites within Victorian forest, which is downloaded from \textcite{recreation}.
 \end{itemize}
 
 \hypertarget{data-preprocessing}{%
@@ -360,21 +360,21 @@ A focus of this work is to utilise open source data, and collate these data sets
 \hypertarget{data-types}{%
 \subsubsection{Data types}\label{data-types}}
 
-The hotspot and weather data is in CSV format, which can be processed generally with the \texttt{tidyverse} tools (Wickham et al., 2020) in R. Fuel layer and other map data are presented as geospatial objects, which can be processed using the tools in the \texttt{sf} (Pebesma, 2020).
+The hotspot and weather data is in CSV format, which can be processed generally with the \texttt{tidyverse} \autocite{R-tidyverse} tools in R \autocite{R}. Fuel layer and other map data are presented as geospatial objects, which can be processed using the tools in the \texttt{sf} \autocite{R-sf}.
 
 \hypertarget{identifying-unique-fires-using-spatiotemporal-clustering}{%
 \subsubsection{Identifying unique fires using spatiotemporal clustering}\label{identifying-unique-fires-using-spatiotemporal-clustering}}
 
 Hotpots are point data obtained by light detection from the satellite. They are snapshots of bushfires every 10 minutes. In order to study ignition, the data needs to be processed to identify the start, and movement of a fire.
 
-The initial steps in the processing were to subset to only Australian locations, keep only hotspots above a threshold firepower (irradiance over 100 watt per square metre), and set the starting time to be when annual fire restrictions were lifted.
+The initial steps in the processing were to subset to only Australian locations, keep only hotspots above a threshold firepower (irradiance over 100 watts per square metre), and set the starting time to be when annual fire restrictions were lifted.
 
-A clustering algorithm was developed to identify fire clusters, and details can be found in Table \ref{tab:clustering}. Each hotspot a cluster membership which we called \emph{fire\_id}. Other characteristics of each fire id including its centroid, starting time, ending time and movement are recorded. The motivation for algorithm is the behaviour of real bushfire which can be summarised as two parameters, the potential distance a fire can spread in an hour, and the time a fire can stay smouldering but undetectable before flaring up again, represented by \(r_0\) and \(t_0\), respectively. These two parameters have been used to determine if a new hotspot belongs to an existing or new cluster.
+A clustering algorithm was developed to identify fire clusters, and details can be found in Table \ref{tab:clustering}. Each hotspot will be assigned a cluster membership which we called \emph{fire\_id}. Other characteristics of each fire id including its centroid, starting time, ending time and movement are recorded. The motivation for this algorithm is the behaviour of real bushfire which can be summarised as two parameters, the potential distance a fire can spread in an hour, and the time a fire can stay smouldering but undetectable before flaring up again, represented by \(r_0\) and \(t_0\), respectively. These two parameters have been used to determine if a new hotspot belongs to an existing or new cluster.
 
 Figure \ref{fig:mov} shows two fires and their life time movement as computed by the algorithm.
 
-\includegraphics[width=5.20833in,height=\textheight]{figures/fire_mov.jpg}
-\#\#\# Compiled data
+\hypertarget{compiled-data}{%
+\subsubsection{Compiled data}\label{compiled-data}}
 
 The end result of the data pre-processing is a set of data tables, that are uniquely identified by individual primary key and related by a set of foreign keys. Figure \ref{fig:ERD} shows these tables and the keys which allow information to be compared across tables. Technically, this is called a conceptual entity relationship diagram (ERD). It will be useful for developing the data model to be used in both modelling and a web interface for communicating fire risk.
 
@@ -390,7 +390,7 @@ Two types of models will be developed and tested. One is the ignition method pre
 
 \begin{itemize}
 \item
-  Predicting ignition method: Historical causes of bushfires will be used as training data. Multiclass response variable models, using vegetation, topographic and climate information as independent variables, will be developed and assessed. Statistical models, generalized linear model, and generalized additive model will be compared with these computational models, random forest, support vector machine and artificial neural networks.
+  Predicting ignition method: Historical causes of bushfires will be used as training data. Multi-class response variable models, using vegetation, topographic and climate information as independent variables, will be developed and assessed. Statistical models, generalized linear model, and generalized additive model will be compared with these computational models, random forest, support vector machine and artificial neural networks.
 \item
   Modelling fire risk: The framework of fire risk modelling is similar to ignition method prediction. It will be a binary classification problem. The aim of this model is to predict the probability of bushfire ignition in a cell of the grid. The grid will be designed to fit the shape of Victoria with spatial resolution equal to 50km (Figure \ref{fig:overview}). The training data will be the hotspots data instead of bushfires history. Models considered will be the same as ignition method prediction.
 \end{itemize}
@@ -400,7 +400,7 @@ Two types of models will be developed and tested. One is the ignition method pre
 
 Table \ref{tab:timeline1} summarises the work done to date. Table \ref{tab:timeline2} maps out the plan for completing the thesis research.
 
-\begin{table}[!h]
+\begin{table}
 
 \caption{\label{tab:timeline1}Research plan till week 9}
 \centering
@@ -415,7 +415,7 @@ Week 4 & Collect Road Map (OpenStreetMap) and\\
  & read articles in SpatioTemporal data visualization and modelling\\
 \addlinespace
 Week 5 & Develop clustering algorithm for remote sensing data\\
-Week 6 & Test diferent hyperparameters for clusetring\\
+Week 6 & Test diferent hyperparameters for clustering\\
 Week 7 & Exploratory data analysis on fire clusters and data integration\\
 Week 8 & Feature planning for the shiny app\\
 week 9 & Write research proposal and prepare the first presentation\\
@@ -423,7 +423,7 @@ week 9 & Write research proposal and prepare the first presentation\\
 \end{tabular}
 \end{table}
 
-\begin{table}[!h]
+\begin{table}
 
 \caption{\label{tab:timeline2}Research plan since June}
 \centering
@@ -432,7 +432,7 @@ week 9 & Write research proposal and prepare the first presentation\\
 Timeline & Tasks\\
 \midrule
 June - July & Modelling fire ignition and fire risk\\
-August & Consolidate findings and create mockups of the shiny app\\
+August & Consolidate findings and create mock-ups of the shiny app\\
 September & Develop the shiny app and perform different levels of testing\\
 October & Write thesis and prepare the second presentation\\
 \bottomrule
@@ -442,7 +442,7 @@ October & Write thesis and prepare the second presentation\\
 \hypertarget{expected-outcomes}{%
 \section{Expected outcomes}\label{expected-outcomes}}
 
-It is expected that we will have probabilistic predictions for ignition cause for the 2019-2020 for each of the fires identified from the hotspot data. A useable model of fire risk will be produced and made accessible in an interactive web application.
+It is expected that we will have probabilistic predictions for ignition cause for each of the fires identified from the hotspot data during 2019-2020 Australian bushfire season. A usable model of fire risk will be produced and made accessible in an interactive web application.
 
 \newpage
 
@@ -470,6 +470,12 @@ Fire Origins - Department of Environment, \\ $\hspace{5mm}$Land, Water $\&$ Plan
 \bottomrule
 \end{tabular}
 \end{table}
+
+\begin{figure}
+\centering
+\includegraphics[width=5.20833in,height=\textheight]{figures/fire_mov.jpg}
+\caption{The movement path and hotspots map shows the bushfire behaviour of bushfire ``454'' and bushfire ``1420'', which is two clusters from the results of clustering algorithm. The triangle is the ignition point of bushfire and the rectangle is the extinguish point. The black line is the movement of bushfire centeroid. points with red color and larger size are hotspots with higher firepower which is measured by watt per square metre. We can know that bushfires ignited with low firepower, and will getting hotter when time pass, then finally extinguish with not enough fuel. \label{fig:mov}}
+\end{figure}
 
 \normalfont
 \begin{table}
@@ -500,12 +506,12 @@ Fire Origins - Department of Environment, \\ $\hspace{5mm}$Land, Water $\&$ Plan
 &11:~~~~~~~~\text{append Coordinates from }F_c~\text{to}~H_c\\[-1\jot]
 &12:~~~~~~~~\text{repeat step 2 - 4}\\[-1\jot]
 &12:~~~~~~~~\textbf{for}~~h_i = \text{each hotspot in }H_c~~\textbf{do}\\[-1\jot]
-&13:~~~~~~~~~~~~~~\textbf{if}~~h_i~\text{share the same membership as one of active clusers in }F_c~~\textbf{then}\\[-1\jot]
-&14:~~~~~~~~~~~~~~~~~~~~\text{copy the corresponding Fire\textunderscore id of the nearest active cluser to K}\\[-1\jot]
+&13:~~~~~~~~~~~~~~\textbf{if}~~h_i~\text{share the same membership as one of active clusters in }F_c~~\textbf{then}\\[-1\jot]
+&14:~~~~~~~~~~~~~~~~~~~~\text{copy the corresponding Fire\textunderscore id of the nearest active cluster to K}\\[-1\jot]
 &15:~~~~~~~~~~~~~~\textbf{else}~~\text{copy the membership from G to K}\\[-1\jot]
 &16:~~~~~~~~~~~~~~\textbf{end if}\\[-1\jot]
 &17:~~~~~~~~\textbf{end for}\\[-1\jot]
-&18:~~~~~~~~\text{update F for clusters involed in current timestamp and reset corresponding}\\[-1\jot]
+&18:~~~~~~~~\text{update F for clusters involved in current time-stamp and reset corresponding}\\[-1\jot]
 &~~~~~~~~~~~~~~~\text{Active to }t_0\\[-1\jot]
 &19:~~\textbf{end for}\\[-1\jot]
 &\rule{150mm}{0.5mm}
@@ -523,6 +529,8 @@ Fire Origins - Department of Environment, \\ $\hspace{5mm}$Land, Water $\&$ Plan
 \includegraphics[width=5.20833in,height=\textheight]{figures/number_of_ignitions.jpg}
 \caption{The grid map illustrating the general situation of Victoria during 2019-2020 Australia bushfire season. The severest time for Victoria was December when the massive amount of bushfires ignited in Eastern Victoria. Places like East Gippsland suffered from this devastating crisis. \label{fig:overview}}
 \end{figure}
+
+\clearpage
 
 \printbibliography
 

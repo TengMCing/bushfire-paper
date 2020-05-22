@@ -59,11 +59,11 @@ Existing research on bushfire modelling can be divided into two main categories:
 
 In simulation modelling, @keane2004classification develop landscape fire succession models (LFSMs) to simulate fire behaviour spatially, including fire ignition and fire spread, and accounting for fire and vegetation dynamics. @bradstock2012wildfires used a model called FIRESCAPE which involved simulating fire behaviours with fuel and weather conditions. Simulation methods are cost-effective and time-effective ways to model bushfires, but ignition cause is not considered [@clarke2019developing].  These methods seldomly address the ignition types that we are interested in. <!--Therefore, simulation modelling will not be considered in our bushfire ignition research.--> 
 
-Analytical modelling is another common way to build bushfires models. The general framework for analysing bushfires ignitions is a generalised additive model (GAM). @bates2018exploratory used it with a gaussian distribution for predicting the number of lightning ignitions. Some studies implemented GAM with a multinomial distribution to predict ignition probability [@read2018lightning;@zhang2017wildfire]. Mixed-effect models have also been considered to incorporate spatial dependence and weather factors [@duff2018dryness]. Simpler models have also been used, including multiple linear regression, negative binomial regression and generalised logistic regression [@cheney2012predicting;@plucinski2014predicting;@collins2015spatial]. Particularly, instead of using a model, some researches performed statistical testing and exploratory data analysis to test hypotheses about bushfires [@miller2017electrically;@dowdy2017pyrocumulonimbus].
+Analytical modelling is another common way to build bushfires models. The general framework for analysing bushfires ignitions is a generalised additive model (GAM). @bates2018exploratory used it with a Gaussian distribution for predicting the number of lightning ignitions. Some studies implemented GAM with a multinomial distribution to predict ignition probability [@read2018lightning;@zhang2017wildfire]. Mixed-effect models have also been considered to incorporate spatial dependence and weather factors [@duff2018dryness]. Simpler models have also been used, including multiple linear regression, negative binomial regression and generalised logistic regression [@cheney2012predicting;@plucinski2014predicting;@collins2015spatial]. Particularly, instead of using a model, some researches performed statistical testing and exploratory data analysis to test hypotheses about bushfires [@miller2017electrically;@dowdy2017pyrocumulonimbus].
 
 Common covariates for ignition analysis are weather conditions, vegetation types, topographic information and anthropogenic variables. In addition, various fire danger indexes have been used in modelling. Some studies choose to use index variables developed by McArthur such as Forest Fire Danger Index [@clarke2019developing;@read2018lightning], while others choose to use indexes developed by Canadian Forestry Service such as Canadian Fire Weather Index and Drought Code [@plucinski2014predicting]. We doubt that these indexes are useful for fire ignition prediction because they are extracted from weather and vegetation information. However, it may help improve our model performance because it can be viewed as generated from feature engineering. 
 
-Although numerous studies for ignitions analysis have applied semiparametric and parametric methods, little analytics attention has been paid to more complex models like the tree-based model, support vector machine and artificial neural network. These tools are well developed in machine learning, which will also be considered for this research.
+Although numerous studies for ignitions analysis have applied semi-parametric and parametric methods, little analytics attention has been paid to more complex models like the tree-based model, support vector machine and artificial neural network. These tools are well developed in machine learning, which will also be considered for this research.
 
 Most of the existing works of bushfire ignition analysis focus on certain areas such as south-eastern Australia [@clarke2019developing], or a certain state such as Victoria [@read2018lightning]. Little of existing works have applied prediction across Australia.
 
@@ -121,7 +121,7 @@ Preliminary examination of the compiled data to examine spatiotemporal trends an
 
 Two types of models will be developed and tested. One is the ignition method prediction model, which is used for analysing ignition type of 2019-2020 bushfires and predicting the causes of future bushfires. Another is the fire risk model. It will learn the features of hotspots and predict the probability of hotspots occurrence. 
 
-- Predicting ignition method: Historical causes of bushfires will be used as training data. Multiclass response variable models, using vegetation, topographic and climate information as independent variables, will be developed and assessed. Statistical models, generalized linear model, and generalized additive model will be compared with these computational models, random forest, support vector machine and artificial neural networks. 
+- Predicting ignition method: Historical causes of bushfires will be used as training data. Multi-class response variable models, using vegetation, topographic and climate information as independent variables, will be developed and assessed. Statistical models, generalized linear model, and generalized additive model will be compared with these computational models, random forest, support vector machine and artificial neural networks. 
 
 - Modelling fire risk: The framework of fire risk modelling is similar to ignition method prediction. It will be a binary classification problem. The aim of this model is to predict the probability of bushfire ignition in a cell of the grid. The grid will be designed to fit the shape of Victoria with spatial resolution equal to 50km (Figure \ref{fig:overview}). The training data will be the hotspots data instead of bushfires history. Models considered will be the same as ignition method prediction.
 
@@ -137,7 +137,7 @@ timeline = data.frame(Timeline = c("Week 2","Week 3","", "Week 4","", "Week 5", 
                                 "Collect Road Map (OpenStreetMap) and",
                                 "read articles in SpatioTemporal data visualization and modelling",
                                 "Develop clustering algorithm for remote sensing data",
-                                "Test diferent hyperparameters for clusetring",
+                                "Test diferent hyperparameters for clustering",
                                 "Exploratory data analysis on fire clusters and data integration",
                                 "Feature planning for the shiny app",
                                 "Write research proposal and prepare the first presentation"))
@@ -153,7 +153,7 @@ knitr::kable(timeline, "latex",
 
 ```{r}
 timeline = data.frame(Timeline = c("June - July", "August", "September", "October"),
-                      Tasks = c("Modelling fire ignition and fire risk", "Consolidate findings and create mockups of the shiny app", "Develop the shiny app and perform different levels of testing", "Write thesis and prepare the second presentation")) 
+                      Tasks = c("Modelling fire ignition and fire risk", "Consolidate findings and create mock-ups of the shiny app", "Develop the shiny app and perform different levels of testing", "Write thesis and prepare the second presentation")) 
 
 knitr::kable(timeline, "latex",
              caption = "Research plan since June",
@@ -164,7 +164,7 @@ knitr::kable(timeline, "latex",
 
 # Expected outcomes
 
-It is expected that we will have probabilistic predictions for ignition cause for each of the fires identified from the hotspot data during 2019-2020 Australian bushfire season. A useable model of fire risk will be produced and made accessible in  an interactive web application.
+It is expected that we will have probabilistic predictions for ignition cause for each of the fires identified from the hotspot data during 2019-2020 Australian bushfire season. A usable model of fire risk will be produced and made accessible in  an interactive web application.
 
 \newpage
 
@@ -247,12 +247,12 @@ knitr::kable(datasets_info, 'latex',
 &11:~~~~~~~~\text{append Coordinates from }F_c~\text{to}~H_c\\[-1\jot]
 &12:~~~~~~~~\text{repeat step 2 - 4}\\[-1\jot]
 &12:~~~~~~~~\textbf{for}~~h_i = \text{each hotspot in }H_c~~\textbf{do}\\[-1\jot]
-&13:~~~~~~~~~~~~~~\textbf{if}~~h_i~\text{share the same membership as one of active clusers in }F_c~~\textbf{then}\\[-1\jot]
-&14:~~~~~~~~~~~~~~~~~~~~\text{copy the corresponding Fire\textunderscore id of the nearest active cluser to K}\\[-1\jot]
+&13:~~~~~~~~~~~~~~\textbf{if}~~h_i~\text{share the same membership as one of active clusters in }F_c~~\textbf{then}\\[-1\jot]
+&14:~~~~~~~~~~~~~~~~~~~~\text{copy the corresponding Fire\textunderscore id of the nearest active cluster to K}\\[-1\jot]
 &15:~~~~~~~~~~~~~~\textbf{else}~~\text{copy the membership from G to K}\\[-1\jot]
 &16:~~~~~~~~~~~~~~\textbf{end if}\\[-1\jot]
 &17:~~~~~~~~\textbf{end for}\\[-1\jot]
-&18:~~~~~~~~\text{update F for clusters involed in current timestamp and reset corresponding}\\[-1\jot]
+&18:~~~~~~~~\text{update F for clusters involved in current time-stamp and reset corresponding}\\[-1\jot]
 &~~~~~~~~~~~~~~~\text{Active to }t_0\\[-1\jot]
 &19:~~\textbf{end for}\\[-1\jot]
 &\rule{150mm}{0.5mm}
