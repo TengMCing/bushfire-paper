@@ -45,7 +45,7 @@ The research is also motivated by the lack of knowledge about the cause of bushf
 
 <!--Australia 2019-2020 experience one of the most devastating bushfire seasons in history. How these fires started it's an important question in order to manage future hazard events. Lightning strikes and arson were been discussed publicly. REPEAT OF WHAT IS SAID ABOVE--> This research will explore the potential methods of fire ignition during 2019-2020 Australia bushfires season based on the new availability of satellite data, and provide a model to predict the fire risk for locations around the country. Hotspots data from the JAXA’s Himawari-8 satellite, will be combined with weather data from the Australian Bureau of Meteorology, and other data on roads, recreation sites, vegetation,  to study locations of fire ignition and predict bushfire risk. Satellite data provides the opportunity to more objectively study ignition locations, particularly in less accessible regions.
 
-The overall research question is whether we can provide a probabilistic estimate of aim of the cause of fire ignition for the 2019-2020 bushfires. Several smaller research questions that will help towards the overall aim are:
+The overall research aim is to provide probabilistic estimates of the cause of fire ignition for the 2019-2020 bushfires. Several smaller research questions that will be addressed are:
 
   1. Using satellite hotspots data can we detect ignition time and location? 
   2. Can data from other sources including vegetation, weather, proximity to road and recreation site help to inform ignition type?

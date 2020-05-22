@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.8)  22 MAY 2020 13:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.8)  22 MAY 2020 13:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1989,7 +1989,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 537.
 Here is how much of TeX's memory you used:
  34503 strings out of 492649
  591730 string characters out of 6129623
- 1070119 words of memory out of 5000000
+ 1071119 words of memory out of 5000000
  37619 multiletter control sequences out of 15000+600000
  639930 words of font info for 306 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -2007,7 +2007,7 @@ ublic/mathdesign/mdbch/md-chr7y.pfb></usr/local/texlive/2018/texmf-dist/fonts/t
 ype1/public/mathdesign/mdbch/md-chr8t.pfb></usr/local/texlive/2018/texmf-dist/f
 onts/type1/public/mathdesign/mdbch/md-chri7m.pfb></usr/local/texlive/2018/texmf
 -dist/fonts/type1/public/mathdesign/mdbch/md-chrma.pfb>
-Output written on Honours_Research_plan_Weihao_Li.pdf (14 pages, 2635193 bytes)
+Output written on Honours_Research_plan_Weihao_Li.pdf (14 pages, 2635189 bytes)
 .
 PDF statistics:
  300 PDF objects out of 1000 (max. 8388607)
