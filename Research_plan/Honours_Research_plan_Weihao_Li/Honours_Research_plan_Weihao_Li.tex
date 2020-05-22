@@ -337,22 +337,7 @@ Most of the existing work on bushfire ignition cause focuses on south-eastern Au
 \hypertarget{data-collection}{%
 \subsection{Data collection}\label{data-collection}}
 
-A focus of this work is to utilise open-source data, and collate these data sets to provide a data fusion with which to tackle the research questions. The motivating data source is satellite hotspots, which is different from what has been analysed previously in the literature. The next paragraphs describe how this and other data is accessed, and pre-processed for later analysis. Table \ref{tab:datasetinfo} summarises the data sources.
-
-\begin{itemize}
-\item
-  Hotspots: Hotspot data is downloaded from the JAXA's Himawari-8 satellite. This satellite is positioned in geostationary orbit at 140 degrees east longitude, and the revisit period is 10-minute. Its management system - JAXA's P-Tree system, provides WildFire observation product with 2km spatial resolution. \autocite{jaxa}. Details on how to download this data are provided by \textcite{hotspots} on his GitHub Gist page.
-\item
-  Weather: Weather data were collected from the Australian Bureau of Meteorology, by using an R package - Bomrang \autocite{R-bomrang}. Due to the limitation of APIs provided by the package, we crawled data from BOM's website for extra information.
-\item
-  Fuel layer: To characterise the fuel we used forest of Australia from \textcite{forest}. It is a fuel layer contains the vegetation information across Australia.
-\item
-  Fire origins: Fire origins are the existing records of historical bushfires ignition which is downloaded from \textcite{fireorigin}. This dataset is used to understand the characteristic of each type of ignition. It helps us to identify the causes of 2019-2020 bushfires.
-\item
-  Roads: Roads map are features contained in OpenStreetMap provided by \textcite{OpenStreetMap}. OpenStreetMap is an open-source project provides detailed geographic information across the world. The road map we used includes different classes of roads, ranges from the motorway to the residential road.
-\item
-  Recreation sites: Recreation sites are location information of picnic and camping sites within Victorian forest, which is downloaded from \textcite{recreation}.
-\end{itemize}
+A focus of this work is to utilise open-source data, and collate these data sets to provide a data fusion with which to tackle the research questions. The motivating data source is satellite hotspots, which is different from what has been analysed previously in the literature. This data is collated with weather records, fuel layer, location of roads and recreation sites, and historical data on ignition cause. The details of each and a Table \ref{tab:datasetinfo} providing links to the data sources is provided in the Appendix.
 
 \hypertarget{data-preprocessing}{%
 \subsection{Data preprocessing}\label{data-preprocessing}}
@@ -400,7 +385,7 @@ Table \ref{tab:timeline1} summarises the work done to date. Table \ref{tab:timel
 
 \begin{table}
 
-\caption{\label{tab:timeline1}Research plan till week 9}
+\caption{\label{tab:timeline1}Completed work}
 \centering
 \begin{tabular}[t]{ll}
 \toprule
@@ -423,7 +408,7 @@ week 9 & Write research proposal and prepare the first presentation\\
 
 \begin{table}
 
-\caption{\label{tab:timeline2}Research plan since June}
+\caption{\label{tab:timeline2}Research plan}
 \centering
 \begin{tabular}[t]{ll}
 \toprule
@@ -447,6 +432,24 @@ It is expected that we will have probabilistic predictions for ignition cause fo
 \hypertarget{appendix-a}{%
 \section*{Appendix A}\label{appendix-a}}
 \addcontentsline{toc}{section}{Appendix A}
+
+\hypertarget{summary-of-data-sources}{%
+\subsection{Summary of data sources}\label{summary-of-data-sources}}
+
+\begin{itemize}
+\item
+  Hotspots: Hotspot data is downloaded from the JAXA's Himawari-8 satellite. This satellite is positioned in geostationary orbit at 140 degrees east longitude, and the revisit period is 10-minute. Its management system - JAXA's P-Tree system, provides WildFire observation product with 2km spatial resolution. \autocite{jaxa}. Details on how to download this data are provided by \textcite{hotspots} on his GitHub Gist page.
+\item
+  Weather: Weather data were collected from the Australian Bureau of Meteorology, by using an R package - Bomrang \autocite{R-bomrang}. Due to the limitation of APIs provided by the package, we crawled data from BOM's website for extra information.
+\item
+  Fuel layer: To characterise the fuel we used forest of Australia from \textcite{forest}. It is a fuel layer contains the vegetation information across Australia.
+\item
+  Fire origins: Fire origins are the existing records of historical bushfires ignition which is downloaded from \textcite{fireorigin}. This dataset is used to understand the characteristic of each type of ignition. It helps us to identify the causes of 2019-2020 bushfires.
+\item
+  Roads: Roads map are features contained in OpenStreetMap provided by \textcite{OpenStreetMap}. OpenStreetMap is an open-source project provides detailed geographic information across the world. The road map we used includes different classes of roads, ranges from the motorway to the residential road.
+\item
+  Recreation sites: Recreation sites are location information of picnic and camping sites within Victorian forest, which is downloaded from \textcite{recreation}.
+\end{itemize}
 
 \begin{table}
 
