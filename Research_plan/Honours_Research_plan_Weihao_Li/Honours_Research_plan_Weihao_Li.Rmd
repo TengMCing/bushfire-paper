@@ -36,7 +36,7 @@ library(kableExtra)
 # Introduction
 
 In Australia, bushfires have historically caused massive loss of property and life. Since the 1967 Hobart bushfires, the insurance claims for building losses were greater than $A10 million [@mcaneney2009100]. <!-- McAneney, Chen and Pitman (2009) show in their research that the average number of buildings had been destroyed by bushfire per year is 84, accounting for 20% of total building losses in hazard events.-->
-The 2019-2020 Australian bushfires, compared with other major bushfires in history, had a more devastating impact on the environment and properties.  According to a report by @LisaRichardsNigelBrew2020, published by the Parliament of Australia, 3094 houses were destroyed and over 17M hectares of land burned. These two figures are the highest in history. Fortunately, less  lives were lost: 33 (including firefighters) compared to 173 in the Black Saturday fires and 47 in Ash Wednesday fires [@LisaRichardsNigelBrew2020].
+The 2019-2020 Australian bushfires, compared with other major bushfires in history, had a more devastating impact on the environment and properties.  According to a report by @LisaRichardsNigelBrew2020, published by the Parliament of Australia, 3094 houses were destroyed and over 17M hectares of land burned. These two figures are the highest in history. Fortunately, less  lives were lost: 33 (including fire fighters) compared to 173 in the Black Saturday fires and 47 in Ash Wednesday fires [@LisaRichardsNigelBrew2020].
 
 The research is also motivated by the lack of knowledge about the cause of bushfire in Australia. @beale2011preventing state in their research that the cause is only known for 58.9% of fires. Historically, about 50% are due to deliberate and suspicious ignitions, 35% by accidents and 6% natural, such as lightning. Understanding the cause of the 2019-2020 Australian bushfires is a crucial step to provide information for future policy and fire risk management.
 
@@ -73,7 +73,7 @@ Most of the existing work on bushfire ignition cause focuses on south-eastern Au
 
 A focus of this work is to utilise open-source data, and collate these data sets to provide a data fusion with which to tackle the research questions. The motivating data source is satellite hotspots, which is different from what has been analysed previously in the literature.  This data is collated with weather records, fuel layer, location of roads and recreation sites, and historical data on ignition cause. The spatial and temporal details of each dataset are provided in Table \ref{tab:datasetinfo}. Descriptions and links to the data sources can be found in Table \ref{tab:datadescription}. These two tables are provided in the Appendix.
 
-## Data preprocessing
+## Data pre-processing
 
 ### Data types
 
@@ -81,11 +81,11 @@ The hotspot and weather data is in CSV format, which can be processed generally 
 
 ### Identifying unique fires using spatiotemporal clustering
 
-Hotpots are light detections from the satellite, provided at 10-minute intervals. To study ignition, it needs to be processed to identify the start, indicate the likelihood of being the same fire, and track the movement of a fire. Not all hotspots are fires, and the recommended threshold of firepower over 100 (irradiance over 100 watts per square metre) is used to filter the data. Only data recorded after the published fire restrictions dates are used. 
+Hotpots are light detections from the satellite, provided at 10-minute intervals. To study ignition, it needs to be processed to identify the start, indicate the likelihood of being the same fire, and track the movement of a fire. Not all hotspots are fires, and the recommended threshold of fire power over 100 (irradiance over 100 watts per square metre) is used to filter the data. Only data recorded after the published fire restrictions dates are used. 
 
 <!--However, just like it is hard to identify a single plant from the top view of a grassland, information about individual bushfire can not be directly derived from the raw hotspot data. In order to understand the ignition time and ignition place of each bushfire, we need to divide hotspots into clusters and trace the growth of each cluster. --> 
 
-<!-- The initial steps in the processing were to subset to only Australian locations, keep only hotspots above a threshold firepower (irradiance over 100 watts per square metre), and set the starting time to be when annual fire restrictions were lifted.  To preprocess the hotspots data, we selected the observations in Australia from the full disk. Meanwhile, hotspots with irradiance under 100 watt per square metre will be deleted. We restricted our study to hotspots that have significant firepower. An hour id has been assigned to each observation range from 1 to T, represents the relative time the hotspot being observed.-->
+<!-- The initial steps in the processing were to subset to only Australian locations, keep only hotspots above a threshold fire power (irradiance over 100 watts per square metre), and set the starting time to be when annual fire restrictions were lifted.  To preprocess the hotspots data, we selected the observations in Australia from the full disk. Meanwhile, hotspots with irradiance under 100 watt per square metre will be deleted. We restricted our study to hotspots that have significant fire power. An hour id has been assigned to each observation range from 1 to T, represents the relative time the hotspot being observed.-->
 
 A clustering algorithm was developed to group hotspots into unique fires. The details are in Table \ref{tab:clustering} in the Appendix. Each hotspot will be assigned a cluster membership which is called the *fire_id*. Other characteristics of each fire, including its centroid, starting time, ending time and movement are recorded. The motivation for this algorithm is bushfire dynamics which can be summarised using two parameters, the potential distance a fire can spread in an hour, and the time a fire can stay smouldering but undetectable by satellite before flaring up again, represented by $r_0$ and $t_0$, respectively. These two parameters have been used to determine if a new hotspot belongs to an existing or new cluster.
 
@@ -93,7 +93,7 @@ Figure \ref{fig:mov} shows two fires and their lifetime movement as computed by 
 
 
 
-![The movement path and hotspots map shows the bushfire behaviour of bushfire "454" and bushfire "1420", which is two clusters from the results of the clustering algorithm. The triangle is the ignition point of bushfire and the rectangle is the extinguish point. The black line is the movement of bushfire centroid. Points with red color and larger size are hotspots with higher firepower which is measured by watt per square metre. We can know that bushfires ignited with low firepower, and will get hotter when time pass, then finally extinguish with not enough fuel. \label{fig:mov}](figures/fire_mov.jpg){width=500px}
+![The movement path and hotspots map shows the bushfire behaviour of bushfire "454" and bushfire "1420", which is two clusters from the results of the clustering algorithm. The triangle is the ignition point of bushfire and the rectangle is the extinguish point. The black line is the movement of bushfire centroid. Points with red color and larger size are hotspots with higher fire power which is measured by watt per square metre. We can know that bushfires ignited with low fire power, and will get hotter when time pass, then finally extinguish with not enough fuel. \label{fig:mov}](figures/fire_mov.jpg){width=500px}
 
 ### Compiled data
 
@@ -109,7 +109,7 @@ Preliminary examination of the compiled data to examine spatiotemporal trends an
 
 ## Modelling
 
-Two types of models will be developed and tested. One is the ignition method prediction model, which is used for analysing ignition type of 2019-2020 bushfires and predicting the causes of future bushfires. Another is the fire risk model. It will learn the features of hotspots and predict the probability of a future hotspot accurring. 
+Two types of models will be developed and tested. One is the ignition method prediction model, which is used for analysing ignition type of 2019-2020 bushfires and predicting the causes of future bushfires. Another is the fire risk model. It will learn the features of hotspots and predict the probability of a future hotspot occurring. 
 
 - Predicting ignition method: Historical causes of bushfires will be used as training data. Multi-class response variable models, using vegetation, topographic and climate information as independent variables, will be developed and assessed. Statistical models, generalized linear model, and generalized additive model will be compared with these computational models, random forest, support vector machine and artificial neural networks. 
 
