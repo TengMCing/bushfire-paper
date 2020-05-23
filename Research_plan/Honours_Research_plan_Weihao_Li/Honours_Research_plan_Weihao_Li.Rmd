@@ -35,11 +35,11 @@ library(kableExtra)
 
 # Introduction
 
-In Australia, bushfires have historically caused massive loss of property and life. Since the 1967 Hobart bushfires, the insurance claims for building losses was greater than $A10 million [@mcaneney2009100]. <!-- McAneney, Chen and Pitman (2009) show in their research that the average number of buildings had been destroyed by bushfire per year is 84, accounting for 20% of total building losses in hazard events.-->
-The Australian bushfire season in 2019-2020, compared with other major bushfires in history, had a more devastating impact on the environment and properties.  According to the report of @LisaRichardsNigelBrew2020 published by Parliament of Australia, 3094 houses have been destroyed and over 17M hectares of land burned in the last bushfire season. These two figures are the highest in history. Fortunately, only 33 people including firefighters died compared to 173 in the Black Saturday fires and 47 in Ash Wednesday fires [@LisaRichardsNigelBrew2020].
-Understanding the cause of the 2019-2020 Australian bushfires is a crucial step to provide information for future policy and fire risk management.
+In Australia, bushfires have historically caused massive loss of property and life. Since the 1967 Hobart bushfires, the insurance claims for building losses were greater than $A10 million [@mcaneney2009100]. <!-- McAneney, Chen and Pitman (2009) show in their research that the average number of buildings had been destroyed by bushfire per year is 84, accounting for 20% of total building losses in hazard events.-->
+The 2019-2020 Australian bushfires, compared with other major bushfires in history, had a more devastating impact on the environment and properties.  According to a report by @LisaRichardsNigelBrew2020, published by the Parliament of Australia, 3094 houses were destroyed and over 17M hectares of land burned. These two figures are the highest in history. Fortunately, less  lives were lost: 33 (including firefighters) compared to 173 in the Black Saturday fires and 47 in Ash Wednesday fires [@LisaRichardsNigelBrew2020].
 
-The research is also motivated by the lack of knowledge about the cause of bushfire in Australia. @beale2011preventing state in their research that the cause is only known for 58.9% of fires. Historically, about 50% are due to deliberate and suspicious ignitions, 35% by accidents and 6% natural, such as lightning. Providing a probable cause for bushfires may help investigators in practice.
+The research is also motivated by the lack of knowledge about the cause of bushfire in Australia. @beale2011preventing state in their research that the cause is only known for 58.9% of fires. Historically, about 50% are due to deliberate and suspicious ignitions, 35% by accidents and 6% natural, such as lightning. Understanding the cause of the 2019-2020 Australian bushfires is a crucial step to provide information for future policy and fire risk management.
+
 
 # Research aims and	questions
 
