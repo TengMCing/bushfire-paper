@@ -47,7 +47,25 @@ library(tidyverse)
 ---
 # Introduction
 
+.grid[
 
+<div style="font-size:18pt">
+<h2>2019-2020 bushfire season</h2>
+<p>
+<b style="font-size:24pt">Impact</b><br>
+3094 houses were destroyed, 33 people died and over 17M hectares of land burned (Lisa Richards, Nigel Brew, & Smith, L., 2020).<br>
+<br>
+<b style="font-size:24pt">Cause</b><br>
+The cause of this disaster is still under investigation.
+Hisotrically, the cause is only known for 58.9% of bushfires. More specifically, about 50% are due to deliberate and suspicious ignitions, 35% by accidents and 6% by natural (Beale and Jones, 2011).
+</p>
+</div>
+
+<img src="images/bushfire1.jpg" alt="Trulli" style="width:30%;height:auto">
+<img src="images/bushfire2.jpg" alt="Trulli" style="width:53%;height:auto">
+<img src="images/number_of_ignitions.jpg" alt="Trulli" style="width:100%;height:auto">
+
+]
 
 ---
 # Research aims and	questions
@@ -82,7 +100,7 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 1. There are also other models forms: simulation modelling, GAM with mixed-effect, negative binomial regression, etc.
 --
 
-1. Common covariates for ignition analysis are
+2. Common covariates for ignition analysis are
 
     a. weather conditions, 
 --
@@ -96,10 +114,11 @@ __The overall research aim is to provide probabilistic estimates of the cause of
     d. anthropogenic variables
 --
 
-2. Alouthgh semi-parametric and parametric methods are well studied in this field, little use of machine learning models has been made.
+3. Alouthgh semi-parametric and parametric methods are well studied in this field, little use of machine learning models has been made.
 --
 
-3. 2019-2020 bushfires are recent hazard events, little existing work has discussed their causes.
+4. 2019-2020 bushfires are recent hazard events, little existing work has discussed their causes.
+
 
 
 
@@ -242,6 +261,10 @@ A usable model of fire risk will be produced and made accessible in an interacti
 .font_small[
 Bushfire - https://upload.wikimedia.org/wikipedia/commons/9/9a/Werombi_Bushfire.jpg
 
+Bushfire_road - https://en.wikipedia.org/wiki/File:Bells_Line_of_Road_Bushfire_Damage_JAN2020.jpg
+
+Bushfire_house - h<span>ttp</span>s://en.wikipedia.org/wiki/File:Home__&_Machinery_Shed_Destroyed.jpg
+
 Himawari-8 - https://upload.wikimedia.org/wikipedia/commons/e/e0/H-IIA_F25_launching_Himawari-8.jpg
 
 Bomrang - https://github.com/ropensci/bomrang/blob/master/man/figures/logo.png
@@ -255,6 +278,14 @@ SF - https://user-images.githubusercontent.com/520851/34887433-ce1d130e-f7c6-11e
 Tidyverse - https://raw.githubusercontent.com/tidyverse/tidyverse/master/man/figures/logo.png
 
 Deparment of Agriculture - https://www.agriculture.gov.au/themes/custom/agriculture_base/images/abares-logo.svg
+]
+
+## References
+
+.font_small[
+Lisa Richards, Nigel Brew, & Smith, L. (2020). 2019-20 Australian bushfires-frequently asked questions: a quick guide. Parliament of Australia. https://www.aph.gov.au/About_Parliament/Parliamentary_Departments/Parliamentary_Library/pubs/rp/rp1920/Quick_Guides/AustralianBushfires
+
+Beale, J, & Jones, W. (2011). Preventing and reducing bushfire arson in australia: A review of what is known. Fire technology, 47(2), 507–518.
 ]
 
 ---
