@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.8)  23 MAY 2020 13:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2019.4.8)  23 MAY 2020 13:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1792,22 +1792,27 @@ Package Fancyhdr Warning: \headheight is too small (15.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [4]
-LaTeX Font Info:    Try loading font information for TS1+mdbch on input line 37
-5.
-(/usr/local/texlive/2018/texmf-dist/tex/latex/mathdesign/mdbch/ts1mdbch.fd
-File: ts1mdbch.fd 2013/08/29 Fontinst v1.933 font definitions for TS1/mdbch.
-)
-LaTeX Font Info:    Font shape `TS1/mdbch/m/n' will be
-(Font)              scaled to size 10.51207pt on input line 375.
+<figures/fire_mov.jpg, id=147, 722.7pt x 650.43pt>
+File: figures/fire_mov.jpg Graphic file (type jpg)
+<use figures/fire_mov.jpg>
+Package pdftex.def Info: figures/fire_mov.jpg  used on input line 360.
+(pdftex.def)             Requested size: 376.40164pt x 338.76147pt.
 LaTeX Font Info:    Font shape `T1/mdbch/b/n' will be
-(Font)              scaled to size 10.51207pt on input line 387.
+(Font)              scaled to size 10.51207pt on input line 361.
 
 Package Fancyhdr Warning: \headheight is too small (15.0pt): 
  Make it at least 24.74995pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[5]
+[5 <./figures/fire_mov.jpg>]
+LaTeX Font Info:    Try loading font information for TS1+mdbch on input line 38
+1.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/mathdesign/mdbch/ts1mdbch.fd
+File: ts1mdbch.fd 2013/08/29 Fontinst v1.933 font definitions for TS1/mdbch.
+)
+LaTeX Font Info:    Font shape `TS1/mdbch/m/n' will be
+(Font)              scaled to size 10.51207pt on input line 381.
 
 Package Fancyhdr Warning: \headheight is too small (15.0pt): 
  Make it at least 24.74995pt.
@@ -1815,15 +1820,17 @@ Package Fancyhdr Warning: \headheight is too small (15.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [6]
-Overfull \hbox (3.33772pt too wide) in paragraph at lines 459--478
+
+Package Fancyhdr Warning: \headheight is too small (15.0pt): 
+ Make it at least 24.74995pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[7]
+Overfull \hbox (3.33772pt too wide) in paragraph at lines 465--484
  [][] 
  []
 
-<figures/fire_mov.jpg, id=179, 722.7pt x 650.43pt>
-File: figures/fire_mov.jpg Graphic file (type jpg)
-<use figures/fire_mov.jpg>
-Package pdftex.def Info: figures/fire_mov.jpg  used on input line 482.
-(pdftex.def)             Requested size: 376.40164pt x 338.76147pt.
 LaTeX Font Info:    Font shape `T1/mdbch/m/n' will be
 (Font)              scaled to size 7.68005pt on input line 524.
 LaTeX Font Info:    Font shape `T1/mdbch/m/n' will be
@@ -1834,32 +1841,25 @@ LaTeX Warning: Command \textunderscore invalid in math mode on input line 524.
 
 LaTeX Warning: Command \textunderscore invalid in math mode on input line 524.
 
-<figures/Shiny_app_data_Conceptual_ERD.jpeg, id=180, 460.8417pt x 499.1448pt>
+<figures/Shiny_app_data_Conceptual_ERD.jpeg, id=185, 460.8417pt x 499.1448pt>
 File: figures/Shiny_app_data_Conceptual_ERD.jpeg Graphic file (type jpg)
 <use figures/Shiny_app_data_Conceptual_ERD.jpeg>
 Package pdftex.def Info: figures/Shiny_app_data_Conceptual_ERD.jpeg  used on in
 put line 529.
 (pdftex.def)             Requested size: 455.27133pt x 493.11145pt.
-<figures/number_of_ignitions.jpg, id=181, 505.89pt x 505.89pt>
+<figures/number_of_ignitions.jpg, id=186, 4136.45375pt x 2413.015pt>
 File: figures/number_of_ignitions.jpg Graphic file (type jpg)
 <use figures/number_of_ignitions.jpg>
 Package pdftex.def Info: figures/number_of_ignitions.jpg  used on input line 53
 5.
-(pdftex.def)             Requested size: 376.41377pt x 376.41377pt.
+(pdftex.def)             Requested size: 451.66612pt x 263.48103pt.
 
 Package Fancyhdr Warning: \headheight is too small (15.0pt): 
  Make it at least 24.74995pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[7]
-
-Package Fancyhdr Warning: \headheight is too small (15.0pt): 
- Make it at least 24.74995pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[8 <./figures/fire_mov.jpg>]
+[8]
 
 Package Fancyhdr Warning: \headheight is too small (15.0pt): 
  Make it at least 24.74995pt.
@@ -1923,13 +1923,6 @@ Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 543.
 Package rerunfilecheck Info: File `Honours_Research_plan_Weihao_Li.out' has not
  changed.
 (rerunfilecheck)             Checksum: 8B1FC14D17A7A7854FF237ADDD28FFDE;2317.
-
-LaTeX Warning: There were undefined references.
-
-
-Package biblatex Warning: Please rerun LaTeX.
-(biblatex)                Page breaks have changed.
-
 Package logreq Info: Writing requests to 'Honours_Research_plan_Weihao_Li.run.x
 ml'.
 \openout1 = `Honours_Research_plan_Weihao_Li.run.xml'.
@@ -1937,11 +1930,11 @@ ml'.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 543.
  ) 
 Here is how much of TeX's memory you used:
- 34352 strings out of 492649
- 589355 string characters out of 6129623
- 1072291 words of memory out of 5000000
- 37543 multiletter control sequences out of 15000+600000
- 621061 words of font info for 226 fonts, out of 8000000 for 9000
+ 34383 strings out of 492649
+ 590077 string characters out of 6129623
+ 1072187 words of memory out of 5000000
+ 37570 multiletter control sequences out of 15000+600000
+ 621296 words of font info for 229 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,12n,99p,10467b,3975s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/ly1/texnansi.enc}{/usr/lo
@@ -1957,7 +1950,7 @@ ublic/mathdesign/mdbch/md-chr7y.pfb></usr/local/texlive/2018/texmf-dist/fonts/t
 ype1/public/mathdesign/mdbch/md-chr8t.pfb></usr/local/texlive/2018/texmf-dist/f
 onts/type1/public/mathdesign/mdbch/md-chri7m.pfb></usr/local/texlive/2018/texmf
 -dist/fonts/type1/public/mathdesign/mdbch/md-chrma.pfb>
-Output written on Honours_Research_plan_Weihao_Li.pdf (14 pages, 2634410 bytes)
+Output written on Honours_Research_plan_Weihao_Li.pdf (14 pages, 2490495 bytes)
 .
 PDF statistics:
  306 PDF objects out of 1000 (max. 8388607)
