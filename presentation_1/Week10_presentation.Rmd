@@ -70,7 +70,7 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 ---
 # Review of literature
 
-- Generalised additive model(GAM) is the common model for fire ignition prediction.
+- **Generalised additive model**(GAM) is the common model for fire ignition prediction.
 
     eg. $$E(Y_t) = \beta_0 + f_1(x_{1,t}) + f_2(x_{2,t}) + ... + f_m(x_{m,t})\\Y_t:\text{ Number of ignitions in an area at time t}$$
     
@@ -99,7 +99,7 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 2. Alouthgh semi-parametric and parametric methods are well studied in this field, little use of machine learning models has been made.
 --
 
-3. 2019-2020 bushfires are recent hazard events, few existing works have discussed their causes.
+3. 2019-2020 bushfires are recent hazard events, little existing work has discussed their causes.
 
 
 
@@ -170,15 +170,27 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 
 ---
 #Project	design
-## Modelling
+## Plan for modelling
 
-- Ignition method prediction model:
+1. **Ignition method prediction model**
 
-  bla, bla, bla
+  *Training data*: Historical causes of bushfires
   
-- Fire risk model:
+  *Response variable*: Ignition types (Multi-class) 
+  
+  *Independent variables*: vegetation, topographic and climate information
+  
+  *Model forms:* statistical models and computational models
+  
+2. **Fire risk model**
 
-  bla, bla, bla
+  *Training data*: Hotpots data
+  
+  *Response variable*: Ignition probability
+  
+  *spatial resolution:* 50km 
+  
+  *Model forms and independent variables*: similar as above
 
 ---
 # Timeline
