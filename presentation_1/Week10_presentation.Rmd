@@ -181,7 +181,8 @@ __The overall research aim is to provide probabilistic estimates of the cause of
   *Independent variables*: vegetation, topographic and climate information
   
   *Model forms:* statistical models and computational models
-  
+--
+
 2. **Fire risk model**
 
   *Training data*: Hotpots data
@@ -232,6 +233,13 @@ knitr::kable(timeline,'html') %>%
 
 ---
 # Expected outcomes
+## Ignition cause
+It is expected that we will have probabilistic predictions for ignition cause for each of the fires
+identified from the hotspot data during 2019-2020 Australian bushfire season. 
+## Fire risk
+A usable model of fire risk will be produced and made accessible in an interactive web application
+
+
 
 ---
 ##Figure Source 
