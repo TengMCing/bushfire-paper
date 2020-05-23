@@ -103,11 +103,11 @@ Department of Econometrics and Business Statistics
 &lt;h2&gt;2019-2020 bushfire season&lt;/h2&gt;
 &lt;p&gt;
 &lt;b style="font-size:24pt"&gt;Impact&lt;/b&gt;&lt;br&gt;
-3094 houses were destroyed, 33 people died and over 17M hectares of land burned (Lisa Richards, Nigel Brew, &amp; Smith, L., 2020).&lt;br&gt;
+3094 houses were destroyed, 33 people died and over 17M hectares of land burned.&lt;br&gt;
 &lt;br&gt;
 &lt;b style="font-size:24pt"&gt;Cause&lt;/b&gt;&lt;br&gt;
 The cause of this disaster is still under investigation.
-Hisotrically, the cause is only known for 58.9% of bushfires. More specifically, about 50% are due to deliberate and suspicious ignitions, 35% by accidents and 6% by natural (Beale and Jones, 2011).
+Hisotrically, the cause is only known for 58.9% of bushfires. More specifically, about 50% are due to deliberate and suspicious ignitions, 35% by accidents and 6% by natural.
 &lt;/p&gt;
 &lt;/div&gt;
 
@@ -138,30 +138,34 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 ---
 # Review of literature
 
-- **Generalised additive model**(GAM) is the common model for fire ignition prediction.
 
-    eg. `$$E(Y_t) = \beta_0 + f_1(x_{1,t}) + f_2(x_{2,t}) + ... + f_m(x_{m,t})\\Y_t:\text{ Number of ignitions in an area at time t}$$`
+- &lt;b&gt;Generalised additive model&lt;/b&gt;(GAM) is the common model for fire ignition prediction. &lt;small style="font-size:14pt"&gt;(Bates, McCaw, &amp; Dowdy; Read, Duff, &amp; Taylor, 2018; Zhang, Lim, &amp; Sharples, 2017)&lt;/small&gt;
+
+.font_small[
+eg. `$$E(Y_t) = \beta_0 + f_1(\text{Location}) + f_2(\text{Yearly rainfall}_{t}) + ... + f_m(x_{m,t})\\Y_t:\text{ Number of ignitions in an area in year t}$$`&lt;br&gt;
     
-    or `$$g(E(Y_t)) = \beta_0 + f_1(x_{1,t}) + f_2(x_{2,t}) + ... + f_m(x_{m,t})\\Y_t:\text{ Ignition probability of bushfire in an area at time t}$$`
+or `$$g(E(Y_t)) = \beta_0 + f_1(\text{Location}) + f_2(\text{Vegetation Index}) + ... + f_m(x_{m})\\Y_t:\text{ Ignition probability of bushfire for a location}$$`
+]
+--
+
+
+- The Common covariates for ignition analysis are
+
+.font_my[
+1. Weather conditions (eg. rainfall, temperature)
+
+2. Vegetation information (eg. Forest height, Forest crown cover)
+
+3. Topographic information (eg. Elevation, Slope)
+
+4. Anthropogenic variables (eg. Distance to road, Population density)
+]
+
 
 ---
 # Review of literature
 
-1. There are also other models forms: simulation modelling, GAM with mixed-effect, negative binomial regression, etc.
---
-
-2. Common covariates for ignition analysis are
-
-    a. weather conditions, 
---
-
-    b. vegetation types, 
---
-
-    c. topographic information and
---
-
-    d. anthropogenic variables
+1. There are also other models for ignition analysis: simulation modelling, GAM with mixed-effect, negative binomial regression, etc.
 --
 
 3. Alouthgh semi-parametric and parametric methods are well studied in this field, little use of machine learning models has been made.
@@ -178,14 +182,14 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 &lt;div class="grid" style="margin-top:10px;"&gt;
   &lt;div class="gird-col"&gt;
     &lt;h2&gt;Data collection&lt;/h2&gt;
-    &lt;ul&gt;
-      &lt;li&gt;Hotspots - Himawari-8 satellite&lt;/li&gt;
-      &lt;li&gt;Weather - Bureau of Meteorology&lt;/li&gt;
-      &lt;li&gt;Fuel layer - Forest of Australia&lt;/li&gt;
-      &lt;li&gt;Fire origins - DELWP&lt;/li&gt;
-      &lt;li&gt;Roads - OpenStreetMap&lt;/li&gt;
-      &lt;li&gt;Recreation sites - DELWP&lt;/li&gt;
-    &lt;/ul&gt;
+    &lt;ol style="font-size:18pt"&gt;
+      &lt;li&gt;Hotspots - Himawari-8 satellite - (2km, per 10 mins)&lt;/li&gt;
+      &lt;li&gt;Weather - Bureau of Meteorology - (Daily)&lt;/li&gt;
+      &lt;li&gt;Fuel layer - Forest of Australia - (100m)&lt;/li&gt;
+      &lt;li&gt;Fire origins - DELWP - (100m)&lt;/li&gt;
+      &lt;li&gt;Roads - OpenStreetMap - (2m)&lt;/li&gt;
+      &lt;li&gt;Recreation sites - DELWP - (10m)&lt;/li&gt;
+    &lt;/ol&gt;
     &lt;h2&gt;Data Pre-processing&lt;/h2&gt;
     &lt;ul&gt;
       &lt;li&gt;Spatiotemporal clustering&lt;/li&gt;
@@ -193,19 +197,25 @@ __The overall research aim is to provide probabilistic estimates of the cause of
     
   &lt;/div&gt;
   &lt;div class="gird-col"&gt;
-    &lt;img src="images/bomrang.png" alt="Trulli" style="width:26%;margin-bottom:2px;"&gt;
-    &lt;img src="images/tidyverse.png" alt="Trulli" style="width:30%;margin-bottom:2px;"&gt;
-    &lt;img src="images/sf.gif" alt="Trulli" style="width:30%;margin-bottom:2px;"&gt;
-    &lt;figure style="width:30%;margin-bottom:2px;margin-top:2px;display:inline-block;padding:0px;text-align: center;"&gt;
-      &lt;img src="images/delwp2.png" alt="Trulli" style="width:100%;margin-bottom:10px;display:block;"&gt;
-      &lt;img src="images/forest.svg" alt="Trulli" style="width:100%;margin-bottom:10px;"&gt;
-      &lt;img src="images/osm.png" alt="Trulli" style="width:100%;margin-bottom:20px;display:block;"&gt;
-      &lt;figcaption style="font-size:15px"&gt;OpenStreetMap&lt;/figcaption&gt;
-    &lt;/figure&gt; 
-    &lt;figure style="width:30%;margin:0px;margin-bottom:2px;display:inline-block;padding:0px;"&gt;
-      &lt;img src="images/hot.jpg" alt="Trulli" style="width:100%"&gt;
-      &lt;figcaption style="font-size:15px"&gt;Liftoff of the H-IIA rocket carrying Himawari 8 on October 7, 2014&lt;/figcaption&gt;
+    &lt;figure style="width:40%;margin:0px;margin-bottom:2px;display:inline-block;padding:0px;text-align: center;"&gt;
+    &lt;img src="images/hotspots_example-1.gif" style="width:100%"&gt;
+    &lt;figcaption style="font-size:15pt"&gt;Hotspots data&lt;/figcaption&gt;
     &lt;/figure&gt;
+    &lt;figure style="width:50%;margin:0px;margin-bottom:2px;display:inline-block;padding:0px;text-align: center;"&gt;
+    &lt;img src="images/plot_stations_in_map-1.png" style="width:100%"&gt;
+    &lt;figcaption style="font-size:15pt"&gt;Weather stations&lt;/figcaption&gt;
+    &lt;/figure&gt;
+    &lt;figure style="width:60%;margin:0px;margin-bottom:2px;display:inline-block;padding:0px;"&gt;
+      &lt;img src="images/forest.png" alt="Trulli" style="width:100%"&gt;
+      &lt;figcaption style="font-size:15px"&gt;Australia's forest cover and forest type distribution&lt;/figcaption&gt;
+    &lt;/figure&gt;
+    &lt;figure style="width:30%;margin:0px;margin-bottom:2px;display:inline-block;padding:0px;"&gt;
+      &lt;img src="images/sf.gif" alt="Trulli" style="width:100%"&gt;
+      &lt;figcaption style="font-size:15px"&gt;Simple Features for R&lt;/figcaption&gt;
+    &lt;/figure&gt;
+    
+    
+    
      
   &lt;/div&gt;
 &lt;/div&gt;
@@ -218,12 +228,14 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 
 .grid[
 
-1. Connect adjacent points (3km)
-2. For each point, if there is a &lt;u&gt;connected&lt;/u&gt; &lt;u&gt;nearest&lt;/u&gt; &lt;u&gt;known&lt;/u&gt; centroid, join its group
-3. Otherwise, create a new group
-4. Compute centroid for each group
-5. Keep the group alive until no activities for 24 hours
-6. Repeat this process
+1. Divide hotspots by hour
+2. Start from first hour 
+3. Connect adjacent points (3km)
+4. For each point, if there is a &lt;u&gt;connected&lt;/u&gt; &lt;u&gt;nearest&lt;/u&gt; &lt;u&gt;actived&lt;/u&gt; centroid, join its group
+5. Otherwise, create a new group
+6. Compute centroid for each group
+7. Keep the group active until there is no new hotspots joining the group for 24 hours
+8. Repeat this process to the last hour
   
 &lt;img src="images/cluster.gif" alt="Trulli" style="width:100%"&gt;
 ]
@@ -241,27 +253,54 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 #Project	design
 ## Plan for modelling
 
-1. **Ignition method prediction model**
 
-  *Training data*: Historical causes of bushfires
-  
-  *Response variable*: Ignition types (Multi-class) 
-  
-  *Independent variables*: vegetation, topographic and climate information
-  
-  *Model forms:* statistical models and computational models
---
 
-2. **Fire risk model**
+.grid[
+.font_my_2[
+&lt;ul&gt; &lt;li&gt;&lt;b&gt;Ignition method prediction model&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;
 
-  *Training data*: Hotpots data
+  **Aim**: analyse ignition type of 2019-2020 bushfires and predict the causes of future bushfires
   
-  *Response variable*: Ignition probability
+  **Training data**: Historical causes of bushfires
   
-  *spatial resolution:* 50km 
+  **Response variable**: Ignition types (Multi-class) 
   
-  *Model forms and independent variables*: similar as above
+  **Independent variables**: vegetation, topographic, anthropogenic and climate information
+  
+  **Models that will be developed and assessed**: 
+    
+  1. statistical models 
+  
+    a. Generalized linear model (baseline model)
+    
+    b. Generalized additive model
+    
+  2. computational models
+  
+    a. Random forest
+    
+    b. Support vector machine
+    
+    c. Artificial neural networks
+]
 
+.font_my_2[
+
+&lt;ul&gt; &lt;li&gt;&lt;b&gt;Fire risk model&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;
+
+  **Aim**:  learn the features of hotspots and predict the probability of a future hotspot occurring
+
+  **Training data**: Hotpots data
+  
+  **Response variable**: Ignition probability
+  
+  **Spatial resolution for prediction**: 50km (see below)
+  
+  **Models and independent variables**: similar as ignition method prediction model
+  
+  &lt;img src="images/grid.jpg" style="width:55%"&gt;
+]
+]
 ---
 # Timeline
 
@@ -269,7 +308,10 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 ## Completed work
 
 
-&lt;table class="table" style="font-size: 18px; "&gt;
+&lt;br&gt;
+
+
+&lt;table class="table" style="font-size: 18px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt; Timeline &lt;/th&gt;
@@ -298,10 +340,17 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 
 
 
+&lt;br&gt;
+
+
+
 ## Research plan 
 
 
-&lt;table class="table" style="font-size: 18px; "&gt;
+&lt;br&gt;
+
+
+&lt;table class="table" style="font-size: 18px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style="text-align:left;"&gt; Timeline &lt;/th&gt;
@@ -315,7 +364,7 @@ __The overall research aim is to provide probabilistic estimates of the cause of
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; August &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Consolidate findings and create mockups of the shiny app &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Consolidate findings and create mock-ups of the shiny app &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; September &lt;/td&gt;
@@ -348,29 +397,27 @@ Bushfire_road - https://en.wikipedia.org/wiki/File:Bells_Line_of_Road_Bushfire_D
 
 Bushfire_house - h&lt;span&gt;ttp&lt;/span&gt;s://en.wikipedia.org/wiki/File:Home__&amp;_Machinery_Shed_Destroyed.jpg
 
-Himawari-8 - https://upload.wikimedia.org/wikipedia/commons/e/e0/H-IIA_F25_launching_Himawari-8.jpg
-
-Bomrang - https://github.com/ropensci/bomrang/blob/master/man/figures/logo.png
-
-DELWP - https://www2.delwp.vic.gov.au/__data/assets/git_bridge/0015/177/deploy/mysource_files/logo-copy.png
-
-OSM - https://wiki.openstreetmap.org/wiki/File:Public-images-osm_logo.png
-
 SF - https://user-images.githubusercontent.com/520851/34887433-ce1d130e-f7c6-11e7-83fc-d60ad4fae6bd.gif
 
-Tidyverse - https://raw.githubusercontent.com/tidyverse/tidyverse/master/man/figures/logo.png
 
-Deparment of Agriculture - https://www.agriculture.gov.au/themes/custom/agriculture_base/images/abares-logo.svg
+Forest - https://www.agriculture.gov.au/abares/forestsaustralia/forest-data-maps-and-tools/spatial-data/forest-cover
 ]
 
-## References
+## Major references
+.font_my_2[
 
-.font_small[
-Lisa Richards, Nigel Brew, &amp; Smith, L. (2020). 2019-20 Australian bushfires-frequently asked questions: a quick guide. Parliament of Australia. https://www.aph.gov.au/About_Parliament/Parliamentary_Departments/Parliamentary_Library/pubs/rp/rp1920/Quick_Guides/AustralianBushfires
+Bates, BC, McCaw, L, &amp; Dowdy, AJ. (2018). Exploratory analysis of lightning-ignited wildfires in the warren region, western australia. Journal of environmental management, 225, 336–345.
 
-Beale, J, &amp; Jones, W. (2011). Preventing and reducing bushfire arson in australia: A review of what is known. Fire technology, 47(2), 507–518.
+Read, N, Duff, TJ, &amp; Taylor, PG. (2018). A lightning-caused wildfire ignition forecasting model for
+operational use. Agricultural and Forest Meteorology, 253, 233–246.
+
+Zhang, Y, Lim, S, &amp; Sharples, JJ. (2017). Wildfire occurrence patterns in ecoregions of new south
+wales and australian capital territory, australia. Natural Hazards, 87(1), 415–435.
+
+Collins, KM, Price, OF, &amp; Penman, TD. (2015). Spatial patterns of wildfire ignitions in south-eastern
+australia. International Journal of Wildland Fire, 24(8), 1098–1108.
+
 ]
-
 ---
 
 background-image: url(images/Werombi_Bushfire.jpg)

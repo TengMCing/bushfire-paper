@@ -238,3 +238,10 @@ th, td {
   border-bottom: 1px solid #ddd;
 }
 
+.font_my {
+  font-size: 20pt;
+}
+
+.font_my_2 {
+  font-size: 16pt;
+}
