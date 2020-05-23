@@ -9,7 +9,7 @@ count: false
 
 ## Acknowledgements
 
-Slides produced using [Rmarkdown]() with [xaringan]() styling. Raw files for slides, research report and data analysis are available on [MY GITHUB]()
+Slides produced using [Rmarkdown](https://github.com/rstudio/rmarkdown) with [xaringan](https://github.com/yihui/xaringan) styling. Raw files for slides, research report and data analysis are available on [MY GITHUB](https://github.com/TengMCing/bushfire-paper)
 
 # Questions?
 

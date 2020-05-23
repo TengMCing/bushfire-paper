@@ -70,11 +70,39 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 ---
 # Review of literature
 
-1. Generalised additive model is the common model for fire ignition prediction.
-2. The key part is how to 
+- Generalised additive model(GAM) is the common model for fire ignition prediction.
+
+    eg. $$E(Y_t) = \beta_0 + f_1(x_{1,t}) + f_2(x_{2,t}) + ... + f_m(x_{m,t})\\Y_t:\text{ Number of ignitions in an area at time t}$$
+    
+    or $$g(E(Y_t)) = \beta_0 + f_1(x_{1,t}) + f_2(x_{2,t}) + ... + f_m(x_{m,t})\\Y_t:\text{ Ignition probability of bushfire in an area at time t}$$
+
+---
+# Review of literature
+
+1. There are also other models forms: simulation modelling, GAM with mixed-effect, negative binomial regression, etc.
 --
 
-2. sdfsdf
+1. Common covariates for ignition analysis are
+
+    a. weather conditions, 
+--
+
+    b. vegetation types, 
+--
+
+    c. topographic information and
+--
+
+    d. anthropogenic variables
+--
+
+2. Alouthgh semi-parametric and parametric methods are well studied in this field, little use of machine learning models has been made.
+--
+
+3. 2019-2020 bushfires are recent hazard events, few existing works have discussed their causes.
+
+
+
 
 ---
 # Project design
@@ -89,7 +117,7 @@ __The overall research aim is to provide probabilistic estimates of the cause of
       <li>Roads - OpenStreetMap</li>
       <li>Recreation sites - DELWP</li>
     </ul>
-    <h2>Data Preprocessing</h2>
+    <h2>Data Pre-processing</h2>
     <ul>
       <li>Spatiotemporal clustering</li>
     </ul>
@@ -122,7 +150,7 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 .grid[
 
 1. Connect adjacent points (3km)
-2. For each poin, if there is a <u>connected</u> <u>nearest</u> <u>known</u> centroid, join its group
+2. For each point, if there is a <u>connected</u> <u>nearest</u> <u>known</u> centroid, join its group
 3. Otherwise, create a new group
 4. Compute centroid for each group
 5. Keep the group alive until no activities for 24 hours
