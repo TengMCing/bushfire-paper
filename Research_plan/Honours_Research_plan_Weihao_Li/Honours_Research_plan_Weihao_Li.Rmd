@@ -48,7 +48,7 @@ The research is also motivated by the lack of knowledge about the cause of bushf
 The overall research aim is to provide probabilistic estimates of the cause of fire ignition for the 2019-2020 bushfires. Several smaller research questions that will be addressed are:
 
   1. Using satellite hotspots data can we detect ignition time and location? 
-  2. Can data from other sources including vegetation, weather, proximity to road and recreation site help to inform ignition type?
+  2. Can data from other sources including vegetation, weather, proximity to road and recreation sites help to inform ignition type?
   3. How do the characteristics of 2019-2020 bushfires compare to historical bushfires?
   4. Can we make a useful model for the fire risk across Australia? What predictors including fire indexes, proximity to road and recreation site, weather and vegetation are useful for modelling fire risk? 
 
