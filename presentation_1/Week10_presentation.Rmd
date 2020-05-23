@@ -70,10 +70,14 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 ---
 # Review of literature
 
+1. Generalised additive model is the common model for fire ignition prediction.
+2. The key part is how to 
+--
 
+2. sdfsdf
 
 ---
-# Project Design
+# Project design
 <div class="grid" style="margin-top:10px;">
   <div class="gird-col">
     <h2>Data collection</h2>
@@ -118,7 +122,7 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 .grid[
 
 1. Connect adjacent points (3km)
-2. If there is a connected nearest known centroid, join its group
+2. For each poin, if there is a <u>connected</u> <u>nearest</u> <u>known</u> centroid, join its group
 3. Otherwise, create a new group
 4. Compute centroid for each group
 5. Keep the group alive until no activities for 24 hours
