@@ -272,7 +272,7 @@ or $$g(E(Y)) = \beta_0 + f_1(\text{Location}) + f_2(\text{Vegetation Index}) + .
   
   **Response variable**: Ignition types (Multi-class) 
   
-  **Independent variables**: vegetation, topographic, anthropogenic and climate information
+  **Covariates**: vegetation, topographic, anthropogenic and climate information
   
   **Models that will be developed and assessed**: 
     
@@ -303,7 +303,7 @@ or $$g(E(Y)) = \beta_0 + f_1(\text{Location}) + f_2(\text{Vegetation Index}) + .
   
   **Spatial resolution for prediction**: 50km (see below)
   
-  **Models and independent variables**: similar to ignition method prediction model
+  **Models and covariates**: similar to ignition method prediction model
   
   <img src="images/grid.jpg" style="width:55%">
 ]
@@ -355,15 +355,20 @@ knitr::kable(timeline,'html') %>%
 ---
 # Expected outcomes
 
-1. We will be able to detect the ignition time and location using our clustering algorithm. 
+1. It is expected that ignition time and location will be detected by our clustering algorithm using remote sensing data. 
+--
 
-2. It is expected that we will have probabilistic predictions for ignition cause for each of the fires
+2. Besides, we will have probabilistic predictions for ignition cause for each of the fires
 identified from the hotspot data during 2019-2020 Australian bushfire season. 
+--
 
-3. A usable model of fire risk will be produced and made accessible in an interactive web application.
+3. Prediction for Fire risk of neighbourhoods will be able to produced and made accessible in an interactive web application.
+--
 
+4. The difference in the prediction performance addressing to our topic between statistical models and computational models will be discovered. 
+--
 
-
+5. Variable importance will be obtained via model assessment and helps up to decide which variable is useful for ignition prediction.
 ---
 ##Figure Source 
 .font_small[
@@ -380,18 +385,17 @@ Forest - https://www.agriculture.gov.au/abares/forestsaustralia/forest-data-maps
 ]
 
 ## Major references
+
 .font_my_2[
 
 Bates, BC, McCaw, L, & Dowdy, AJ. (2018). Exploratory analysis of lightning-ignited wildfires in the warren region, western australia. Journal of environmental management, 225, 336–345.
 
-Read, N, Duff, TJ, & Taylor, PG. (2018). A lightning-caused wildfire ignition forecasting model for
-operational use. Agricultural and Forest Meteorology, 253, 233–246.
+Read, N, Duff, TJ, & Taylor, PG. (2018). A lightning-caused wildfire ignition forecasting model for operational use. Agricultural and Forest Meteorology, 253, 233–246
 
-Zhang, Y, Lim, S, & Sharples, JJ. (2017). Wildfire occurrence patterns in ecoregions of new south
-wales and australian capital territory, australia. Natural Hazards, 87(1), 415–435.
+Zhang, Y, Lim, S, & Sharples, JJ. (2017). Wildfire occurrence patterns in ecoregions of new south wales and australian capital territory, australia. Natural Hazards, 87(1), 415–435.
 
-Collins, KM, Price, OF, & Penman, TD. (2015). Spatial patterns of wildfire ignitions in south-eastern
-australia. International Journal of Wildland Fire, 24(8), 1098–1108.
+
+Collins, KM, Price, OF, & Penman, TD. (2015). Spatial patterns of wildfire ignitions in south-eastern australia. International Journal of Wildland Fire, 24(8), 1098–1108.
 
 ]
 ---
