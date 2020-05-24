@@ -191,7 +191,7 @@ or $$g(E(Y)) = \beta_0 + f_1(\text{Location}) + f_2(\text{Vegetation Index}) + .
 
 ---
 # Project design
-## Clustering - 2. The alogrithm start from the first hour
+## Clustering - 2. The algorithm starts from the first hour
 
 <img src="images/gif/h1-1-1.jpg" style="width:80%">
 
@@ -203,13 +203,13 @@ or $$g(E(Y)) = \beta_0 + f_1(\text{Location}) + f_2(\text{Vegetation Index}) + .
 
 ---
 # Project design
-## Clustering - 4. Create a new group for each <u>connected</u> graph and compute centroid
+## Clustering - 4. Create a new group for each <u>connected</u> graph and compute centroids
 
 <img src="images/gif/h1-3-1.jpg" style="width:80%">
 
 ---
 # Project design
-## Clustering - 5. Next, the alogrithm select the hotspots in the second hour
+## Clustering - 5. Next, the algorithm selects the hotspots in the second hour
 
 <img src="images/gif/h2-1-2.jpg" style="width:80%">
 
