@@ -447,6 +447,11 @@ plot(sim_graph)
 
 
 ```{r}
-
+ggplot()+
+  geom_point(data = points, aes(x,y, col="First hour"), size=3)+
+  geom_point(data = points_2, aes(x,y,col="Second Hour"), size=3)
+ggsave("two_hour.jpg", dpi=600)+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
 ```
 

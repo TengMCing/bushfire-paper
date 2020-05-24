@@ -57,7 +57,7 @@ library(tidyverse)
 <br>
 <b style="font-size:24pt">Cause</b><br>
 The cause of this disaster is still under investigation.
-Hisotrically, the cause is only known for 58.9% of bushfires. More specifically, about 50% are due to deliberate and suspicious ignitions, 35% by accidents and 6% by natural.
+Historically, the cause is only known for 58.9% of bushfires. More specifically, about 50% are due to deliberate and suspicious ignitions, 35% by accidents and 6% by natural.
 </p>
 </div>
 
@@ -79,10 +79,7 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 2. Can data from other sources including vegetation, weather, proximity to road and recreation site help to inform ignition type?
 --
 
-3. How do the characteristics of 2019-2020 bushfires compare to historical bushfires?
---
-
-4. Can we make a useful model for the fire risk across Australia? What predictors including fire indexes, proximity to road and recreation site, weather and vegetation are useful for modelling fire risk? 
+3. Can we make a useful model for the fire risk across Australia? What predictors including fire indexes, proximity to road and recreation site, weather and vegetation are useful for modelling fire risk? 
 
 
 ---
@@ -92,9 +89,9 @@ __The overall research aim is to provide probabilistic estimates of the cause of
 - <b>Generalised additive model</b>(GAM) is the common model for fire ignition prediction. <small style="font-size:14pt">(Bates, McCaw, & Dowdy; Read, Duff, & Taylor, 2018; Zhang, Lim, & Sharples, 2017)</small>
 
 .font_small[
-eg. $$E(Y_t) = \beta_0 + f_1(\text{Location}) + f_2(\text{Yearly rainfall}_{t}) + ... + f_m(x_{m,t})\\Y_t:\text{ Number of ignitions in an area in year t}$$<br>
+eg. $$E(Y_{a,t}) = \beta_0 + f_1(\text{Area}) + f_2(\text{Yearly rainfall}_{t}) + ... + f_m(x_{m,t})\\Y_t:\text{ Number of ignitions in an area } a \text{ in year } t$$<br>
     
-or $$g(E(Y_t)) = \beta_0 + f_1(\text{Location}) + f_2(\text{Vegetation Index}) + ... + f_m(x_{m})\\Y_t:\text{ Ignition probability of bushfire for a location}$$
+or $$g(E(Y)) = \beta_0 + f_1(\text{Location}) + f_2(\text{Vegetation Index}) + ... + f_m(x_{m})\\Y:\text{ Ignition probability of bushfire}$$
 ]
 --
 
@@ -108,7 +105,7 @@ or $$g(E(Y_t)) = \beta_0 + f_1(\text{Location}) + f_2(\text{Vegetation Index}) +
 
 3. Topographic information (eg. Elevation, Slope)
 
-4. Anthropogenic variables (eg. Distance to road, Population density)
+4. Anthropogenic variables (eg. Proximity to road, Population density)
 ]
 
 
@@ -159,10 +156,7 @@ or $$g(E(Y_t)) = \beta_0 + f_1(\text{Location}) + f_2(\text{Vegetation Index}) +
       <img src="images/forest.png" alt="Trulli" style="width:100%">
       <figcaption style="font-size:15px">Australia's forest cover and forest type distribution</figcaption>
     </figure>
-    <figure style="width:30%;margin:0px;margin-bottom:2px;display:inline-block;padding:0px;">
-      <img src="images/sf.gif" alt="Trulli" style="width:100%">
-      <figcaption style="font-size:15px">Simple Features for R</figcaption>
-    </figure>
+
     
     
     
@@ -175,21 +169,82 @@ or $$g(E(Y_t)) = \beta_0 + f_1(\text{Location}) + f_2(\text{Vegetation Index}) +
 ---
 # Project design
 ## Spatiotemporal clustering
-
+.font_my[
 .grid[
-
 1. Divide hotspots by hour
-2. Start from first hour 
-3. Connect adjacent points (3km)
-4. For each point, if there is a <u>connected</u> <u>nearest</u> <u>actived</u> centroid, join its group
-5. Otherwise, create a new group
+2. Start from the first hour 
+3. Connect adjacent hotspots and <u>active</u> centroids (3km)
+4. For each point, if there is a <u>connected</u> <u>nearest</u> <u>active</u> centroid, join its group
+5. Otherwise, create a new group for each <u>connected</u> graph
 6. Compute centroid for each group
-7. Keep the group active until there is no new hotspots joining the group for 24 hours
+7. Keep the group active until there is no new hotspots join the group within 24 hours
 8. Repeat this process to the last hour
-  
+ 
 <img src="images/cluster.gif" alt="Trulli" style="width:100%">
 ]
+]
 ---
+# Project design
+## Clustering - 1. Divide hotspots into subsets by hour
+
+<img src="images/gif/two_hour.jpg" style="width:80%">
+
+---
+# Project design
+## Clustering - 2. The alogrithm start from the first hour
+
+<img src="images/gif/h1-1-1.jpg" style="width:80%">
+
+---
+# Project design
+## Clustering - 3. Connect adjacent hotspots (3km)
+
+<img src="images/gif/h1-2-1.jpg" style="width:80%">
+
+---
+# Project design
+## Clustering - 4. Create a new group for each <u>connected</u> graph and compute centroid
+
+<img src="images/gif/h1-3-1.jpg" style="width:80%">
+
+---
+# Project design
+## Clustering - 5. Next, the alogrithm select the hotspots in the second hour
+
+<img src="images/gif/h2-1-2.jpg" style="width:80%">
+
+---
+# Project design
+## Clustering - 6. combine hotspots with <u>active</u> centroids
+
+<img src="images/gif/h2-2-2.jpg" style="width:80%">
+
+---
+# Project design
+## Clustering - 7. Connect adjacent hotspots and centroids (3km)
+
+<img src="images/gif/h2-3-2.jpg" style="width:80%">
+
+---
+# Project design
+## Clustering - 8. find the <u>connected</u> <u>nearest</u> <u>active</u> centroid for each hotspot
+
+<img src="images/gif/h2-4-2.jpg" style="width:80%">
+
+---
+# Project design
+## Clustering - 9. Assign group number and compute centroid for each group
+
+<img src="images/gif/h2-6-4.jpg" style="width:80%">
+
+---
+# Project design
+## Clustering - 10. The algorithm goes on till the last hour
+
+<img src="images/gif/h2-7-2.jpg" style="width:80%">
+
+---
+
 
 #Project design
 ## Clustering result
@@ -200,7 +255,9 @@ or $$g(E(Y_t)) = \beta_0 + f_1(\text{Location}) + f_2(\text{Vegetation Index}) +
 ]
 
 ---
-#Project	design
+
+
+#Project design
 ## Plan for modelling
 
 
@@ -297,11 +354,13 @@ knitr::kable(timeline,'html') %>%
 
 ---
 # Expected outcomes
-## Ignition cause
-It is expected that we will have probabilistic predictions for ignition cause for each of the fires
+
+1. We will be able to detect the ignition time and location using our clustering algorithm. 
+
+2. It is expected that we will have probabilistic predictions for ignition cause for each of the fires
 identified from the hotspot data during 2019-2020 Australian bushfire season. 
-## Fire risk
-A usable model of fire risk will be produced and made accessible in an interactive web application
+
+3. A usable model of fire risk will be produced and made accessible in an interactive web application.
 
 
 
