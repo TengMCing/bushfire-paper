@@ -36,7 +36,7 @@ count: false
 *`r rmarkdown::metadata$author`* 
 
 EBS Honours student,
-Supervised by Prof. Di Cook
+Supervised by Dianne Cook and Emily Dodwell
 
 Department of Econometrics and Business Statistics
 

@@ -8,7 +8,7 @@ author:
   correspondingauthor: true
   qualifications: EBS Honours student
 department: Department of\newline Econometrics &\newline Business Statistics
-organization: for Honours, supervised by Prof. Di Cook
+organization: for Honours, supervised by Dianne Cook and Emily Dodwell
 bibliography: references.bib
 biblio-style: apa
 linestretch: 1.5
@@ -157,7 +157,6 @@ knitr::kable(timeline, "latex",
 It is expected that we will have probabilistic predictions for ignition cause for each of the fires identified from the hotspot data during 2019-2020 Australian bushfire season. A usable model of fire risk will be produced and made accessible in  an interactive web application.
 
 \newpage
-
 
 # Appendix A {-}
 

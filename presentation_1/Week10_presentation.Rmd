@@ -303,7 +303,7 @@ or $$g(E(Y)) = \beta_0 + f_1(\text{Location}) + f_2(\text{Vegetation Index}) + .
   
   **Spatial resolution for prediction**: 50km (see below)
   
-  **Models and independent variables**: similar as ignition method prediction model
+  **Models and independent variables**: similar to ignition method prediction model
   
   <img src="images/grid.jpg" style="width:55%">
 ]
