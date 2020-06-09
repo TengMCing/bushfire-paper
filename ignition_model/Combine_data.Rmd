@@ -1,0 +1,83 @@
+---
+title: "Untitled"
+author: "Weihao Li"
+date: "2020.06.09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(sf)
+library(tidyverse)
+library(raster)
+library(rnaturalearth)
+au_map = ne_states(country = 'Australia', returnclass = 'sf')
+vic_map = au_map[7,]
+```
+
+
+```{r}
+# read in fire origins
+fire_o = st_read('SDM714629/ll_gda94/sde_shape/whole/VIC/FIRE/layer/fire_history_origin.shp')
+```
+
+```{r}
+# filter fire from 2000
+fire_o = fire_o[fire_o$FIRE_START > "2000-01-01",]
+fire_o = st_transform(fire_o, crs = 4326)
+```
+
+```{r}
+# read in forest 2018
+forest = raster('aus_for18_publish/aus_for18_publish/aus_for18/z001001.adf')
+```
+
+```{r}
+# extract coordinates information
+fire_points = st_coordinates(fire_o) %>%
+  as.data.frame()
+
+# reproject to epsg:3577
+fire_points = SpatialPoints(fire_points, proj4string=CRS("+init=epsg:4326")) %>%
+  spTransform(projection(forest))
+
+# extract ID of rects
+fire_forest_index = extract(forest, fire_points)
+
+# NA
+not_matched = which(is.na(fire_forest_index))
+```
+
+
+```{r}
+length(not_matched)
+ggplot()+
+  geom_sf(data = vic_map)+
+  geom_sf(data = fire_o[not_matched,])
+```
+
+```{r}
+# access attributes
+fire_forest_info = levels(forest) %>% 
+  as.data.frame()
+
+fire_forest_info = fire_forest_info %>%
+  .[fire_forest_index,] %>%
+  as_tibble()
+```
+
+```{r}
+# join back to fire_o
+for (variable in names(fire_forest_info)){
+  fire_o[[variable]] = fire_forest_info[[variable]]
+}
+```
+
+```{r}
+fire_o[fire_o$FOR_CAT != 'Non forest',]
+```
+
+
+
+
+
