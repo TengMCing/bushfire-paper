@@ -77,6 +77,9 @@ for (variable in names(fire_forest_info)){
 fire_o[fire_o$FOR_CAT != 'Non forest',]
 ```
 
+```{r}
+plot(forest, "FOR_CODE")
+```
 
 
 
