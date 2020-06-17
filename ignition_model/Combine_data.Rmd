@@ -11,25 +11,38 @@ library(sf)
 library(tidyverse)
 library(raster)
 library(rnaturalearth)
+library(bomrang)
+library(lubridate)
 au_map = ne_states(country = 'Australia', returnclass = 'sf')
 vic_map = au_map[7,]
 ```
 
+# get fire origins
 
 ```{r}
 # read in fire origins
-fire_o = st_read('SDM714629/ll_gda94/sde_shape/whole/VIC/FIRE/layer/fire_history_origin.shp')
+fire_o = st_read('Data/SDM714629/ll_gda94/sde_shape/whole/VIC/FIRE/layer/fire_history_origin.shp')
 ```
 
 ```{r}
 # filter fire from 2000
 fire_o = fire_o[fire_o$FIRE_START > "2000-01-01",]
 fire_o = st_transform(fire_o, crs = 4326)
+temp = st_coordinates(fire_o)
+fire_o$lon = temp[,1]
+fire_o$lat = temp[,2]
 ```
 
 ```{r}
+# We got 18344 obs
+dim(fire_o)
+```
+
+# Join fuel layer
+
+```{r}
 # read in forest 2018
-forest = raster('aus_for18_publish/aus_for18_publish/aus_for18/z001001.adf')
+forest = raster('Data/aus_for18_publish/aus_for18_publish/aus_for18/z001001.adf')
 ```
 
 ```{r}
@@ -50,6 +63,7 @@ not_matched = which(is.na(fire_forest_index))
 
 
 ```{r}
+# 80 not matched points
 length(not_matched)
 ggplot()+
   geom_sf(data = vic_map)+
@@ -74,6 +88,7 @@ for (variable in names(fire_forest_info)){
 ```
 
 ```{r}
+# 6033 being deleted, 12311 left
 fire_o[fire_o$FOR_CAT != 'Non forest',]
 ```
 
@@ -81,6 +96,151 @@ fire_o[fire_o$FOR_CAT != 'Non forest',]
 plot(forest, "FOR_CODE")
 ```
 
+# Join weather data
 
+```{r}
+weather = read_csv("Data/weather.csv")
+weather = weather[,-1]
+weather$date = make_date(year = weather$year, month = weather$month, day = weather$day)
+```
 
+```{r}
+
+fire_o = fire_o %>%
+  rowwise() %>%
+  mutate(ns = list(sweep_for_stations(latlon = c(lat, lon))[1:5,1]))
+```
+
+```{r}
+fire_o = fire_o %>%
+  mutate(ns_1 = unlist(ns[1]), ns_2 = unlist(ns[2]), ns_3 = unlist(ns[3]), ns_4 = unlist(ns[4]), ns_5 = unlist(ns[5])) %>%
+  select(-ns)
+```
+
+```{r}
+head(fire_o)
+```
+
+```{r}
+fire_o = fire_o %>%
+  mutate(ns_1 = as.numeric(ns_1), ns_2 = as.numeric(ns_2), ns_3 = as.numeric(ns_3), ns_4 =as.numeric(ns_4), ns_5 = as.numeric(ns_5))
+```
+
+```{r}
+fire_o$ID = 1:nrow(fire_o)
+
+temp = fire_o %>%
+  select(ID, FIRE_START, ns_1) %>%
+  left_join(weather, by = c('FIRE_START' = 'date', 'ns_1' = 'station_number'))
+```
+
+```{r}
+fire_o$ns_1_rainfall = !is.na(temp$rainfall)
+fire_o$ns_1_temp = !is.na(temp$min_temperature)
+fire_o$ns_1_solar = !is.na(temp$solar_exposure)
+
+fire_o = fire_o %>%
+  mutate(ns_rainfall = ifelse(ns_1_rainfall, ns_1, NA), ns_temp = ifelse(ns_1_temp, ns_1, NA), ns_solar = ifelse(ns_1_solar, ns_1, NA)) %>%
+  select(-ns_1_rainfall,-ns_1_temp,-ns_1_solar)
+
+```
+
+```{r}
+temp2 = fire_o[!complete.cases(select(fire_o, ns_rainfall:ns_solar)),]
+
+temp = temp2 %>%
+  select(ID, FIRE_START, ns_2) %>%
+  left_join(weather, by = c('FIRE_START' = 'date', 'ns_2' = 'station_number'))
+
+temp2$ns_2_rainfall = !is.na(temp$rainfall)
+temp2$ns_2_temp = !is.na(temp$min_temperature)
+temp2$ns_2_solar = !is.na(temp$solar_exposure)
+
+temp2 = temp2 %>%
+  mutate(ns_rainfall = ifelse(ns_2_rainfall&is.na(ns_rainfall), ns_2, ns_rainfall), ns_temp = ifelse(ns_2_temp&is.na(ns_temp), ns_2, ns_temp), ns_solar = ifelse(ns_2_solar&is.na(ns_solar), ns_2, ns_solar)) %>%
+  select(-ns_2_rainfall,-ns_2_temp,-ns_2_solar) %>%
+  select(ID, ns_rainfall2 = ns_rainfall, ns_temp2 = ns_temp, ns_solar2 = ns_solar)
+
+fire_o = left_join(fire_o, temp2, by = c('ID' = 'ID')) %>%
+  mutate(ns_rainfall = ifelse(is.na(ns_rainfall), ns_rainfall2, ns_rainfall), ns_temp = ifelse(is.na(ns_temp), ns_temp2, ns_temp), ns_solar = ifelse(is.na(ns_solar), ns_solar2, ns_solar)) %>%
+  select(-ns_rainfall2, -ns_temp2, -ns_solar2)
+```
+
+```{r}
+temp2 = fire_o[!complete.cases(select(fire_o, ns_rainfall:ns_solar)),]
+
+temp = temp2 %>%
+  select(ID, FIRE_START, ns_3) %>%
+  left_join(weather, by = c('FIRE_START' = 'date', 'ns_3' = 'station_number'))
+
+temp2$ns_3_rainfall = !is.na(temp$rainfall)
+temp2$ns_3_temp = !is.na(temp$min_temperature)
+temp2$ns_3_solar = !is.na(temp$solar_exposure)
+
+temp2 = temp2 %>%
+  mutate(ns_rainfall = ifelse(ns_3_rainfall&is.na(ns_rainfall), ns_3, ns_rainfall), ns_temp = ifelse(ns_3_temp&is.na(ns_temp), ns_3, ns_temp), ns_solar = ifelse(ns_3_solar&is.na(ns_solar), ns_3, ns_solar)) %>%
+  select(-ns_3_rainfall,-ns_3_temp,-ns_3_solar) %>%
+  select(ID, ns_rainfall3 = ns_rainfall, ns_temp3 = ns_temp, ns_solar3 = ns_solar)
+
+fire_o = left_join(fire_o, temp2, by = c('ID' = 'ID')) %>%
+  mutate(ns_rainfall = ifelse(is.na(ns_rainfall), ns_rainfall3, ns_rainfall), ns_temp = ifelse(is.na(ns_temp), ns_temp3, ns_temp), ns_solar = ifelse(is.na(ns_solar), ns_solar3, ns_solar)) %>%
+  select(-ns_rainfall3, -ns_temp3, -ns_solar3)
+```
+
+```{r}
+temp2 = fire_o[!complete.cases(select(fire_o, ns_rainfall:ns_solar)),]
+
+temp = temp2 %>%
+  select(ID, FIRE_START, ns_4) %>%
+  left_join(weather, by = c('FIRE_START' = 'date', 'ns_4' = 'station_number'))
+
+temp2$ns_4_rainfall = !is.na(temp$rainfall)
+temp2$ns_4_temp = !is.na(temp$min_temperature)
+temp2$ns_4_solar = !is.na(temp$solar_exposure)
+
+temp2 = temp2 %>%
+  mutate(ns_rainfall = ifelse(ns_4_rainfall&is.na(ns_rainfall), ns_4, ns_rainfall), ns_temp = ifelse(ns_4_temp&is.na(ns_temp), ns_4, ns_temp), ns_solar = ifelse(ns_4_solar&is.na(ns_solar), ns_4, ns_solar)) %>%
+  select(-ns_4_rainfall,-ns_4_temp,-ns_4_solar) %>%
+  select(ID, ns_rainfall4 = ns_rainfall, ns_temp4 = ns_temp, ns_solar4 = ns_solar)
+
+fire_o = left_join(fire_o, temp2, by = c('ID' = 'ID')) %>%
+  mutate(ns_rainfall = ifelse(is.na(ns_rainfall), ns_rainfall4, ns_rainfall), ns_temp = ifelse(is.na(ns_temp), ns_temp4, ns_temp), ns_solar = ifelse(is.na(ns_solar), ns_solar4, ns_solar)) %>%
+  select(-ns_rainfall4, -ns_temp4, -ns_solar4)
+```
+
+```{r}
+temp2 = fire_o[!complete.cases(select(fire_o, ns_rainfall:ns_solar)),]
+
+temp = temp2 %>%
+  select(ID, FIRE_START, ns_5) %>%
+  left_join(weather, by = c('FIRE_START' = 'date', 'ns_5' = 'station_number'))
+
+temp2$ns_5_rainfall = !is.na(temp$rainfall)
+temp2$ns_5_temp = !is.na(temp$min_temperature)
+temp2$ns_5_solar = !is.na(temp$solar_exposure)
+
+temp2 = temp2 %>%
+  mutate(ns_rainfall = ifelse(ns_5_rainfall&is.na(ns_rainfall), ns_5, ns_rainfall), ns_temp = ifelse(ns_5_temp&is.na(ns_temp), ns_5, ns_temp), ns_solar = ifelse(ns_5_solar&is.na(ns_solar), ns_5, ns_solar)) %>%
+  select(-ns_5_rainfall,-ns_5_temp,-ns_5_solar) %>%
+  select(ID, ns_rainfall5 = ns_rainfall, ns_temp5 = ns_temp, ns_solar5 = ns_solar)
+
+fire_o = left_join(fire_o, temp2, by = c('ID' = 'ID')) %>%
+  mutate(ns_rainfall = ifelse(is.na(ns_rainfall), ns_rainfall5, ns_rainfall), ns_temp = ifelse(is.na(ns_temp), ns_temp5, ns_temp), ns_solar = ifelse(is.na(ns_solar), ns_solar5, ns_solar)) %>%
+  select(-ns_rainfall5, -ns_temp5, -ns_solar5)
+
+fire_o = fire_o %>%
+  select(-(ns_1:ns_5))
+```
+
+```{r}
+fire_o = left_join(fire_o, select(weather, date, station_number, rainfall, period), by = c('FIRE_START' = 'date', 'ns_rainfall' = 'station_number'))
+
+fire_o = left_join(fire_o, select(weather, date, station_number, min_temperature, accum_days_min, max_temperature, accum_days_max), by = c('FIRE_START' = 'date', 'ns_temp' = 'station_number'))
+
+fire_o = left_join(fire_o, select(weather, date, station_number, solar_exposure), by = c('FIRE_START' = 'date', 'ns_temp' = 'station_number'))
+```
+
+```{r}
+
+```
 
