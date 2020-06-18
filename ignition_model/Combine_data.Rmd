@@ -87,38 +87,33 @@ for (variable in names(fire_forest_info)){
 }
 ```
 
-```{r}
-# 6033 being deleted, 12311 left
-fire_o[fire_o$FOR_CAT != 'Non forest',]
-```
-
-```{r}
-plot(forest, "FOR_CODE")
-```
 
 # Join weather data
 
 ```{r}
+# read in weather data
 weather = read_csv("Data/weather.csv")
 weather = weather[,-1]
 weather$date = make_date(year = weather$year, month = weather$month, day = weather$day)
 ```
 
 ```{r}
-
+# get the 5 nearest stations
 fire_o = fire_o %>%
   rowwise() %>%
-  mutate(ns = list(sweep_for_stations(latlon = c(lat, lon))[1:5,1]))
+  mutate(ns = list(filter(sweep_for_stations(latlon = c(lat, lon)), state == "VIC")[1:5,1]))
 ```
 
 ```{r}
+# unlist the 5 stations
 fire_o = fire_o %>%
   mutate(ns_1 = unlist(ns[1]), ns_2 = unlist(ns[2]), ns_3 = unlist(ns[3]), ns_4 = unlist(ns[4]), ns_5 = unlist(ns[5])) %>%
   select(-ns)
 ```
 
 ```{r}
-head(fire_o)
+# 18344 rows
+fire_o
 ```
 
 ```{r}
@@ -127,8 +122,10 @@ fire_o = fire_o %>%
 ```
 
 ```{r}
+# assign unique id to each row
 fire_o$ID = 1:nrow(fire_o)
 
+# Check if the data in that station availabe
 temp = fire_o %>%
   select(ID, FIRE_START, ns_1) %>%
   left_join(weather, by = c('FIRE_START' = 'date', 'ns_1' = 'station_number'))
@@ -146,6 +143,7 @@ fire_o = fire_o %>%
 ```
 
 ```{r}
+# check for the incompleted cases
 temp2 = fire_o[!complete.cases(select(fire_o, ns_rainfall:ns_solar)),]
 
 temp = temp2 %>%
@@ -167,6 +165,7 @@ fire_o = left_join(fire_o, temp2, by = c('ID' = 'ID')) %>%
 ```
 
 ```{r}
+# third time
 temp2 = fire_o[!complete.cases(select(fire_o, ns_rainfall:ns_solar)),]
 
 temp = temp2 %>%
@@ -188,6 +187,7 @@ fire_o = left_join(fire_o, temp2, by = c('ID' = 'ID')) %>%
 ```
 
 ```{r}
+# fourth time
 temp2 = fire_o[!complete.cases(select(fire_o, ns_rainfall:ns_solar)),]
 
 temp = temp2 %>%
@@ -209,6 +209,7 @@ fire_o = left_join(fire_o, temp2, by = c('ID' = 'ID')) %>%
 ```
 
 ```{r}
+# fifth time
 temp2 = fire_o[!complete.cases(select(fire_o, ns_rainfall:ns_solar)),]
 
 temp = temp2 %>%
@@ -233,6 +234,7 @@ fire_o = fire_o %>%
 ```
 
 ```{r}
+# join the weather infomation on that day
 fire_o = left_join(fire_o, select(weather, date, station_number, rainfall, period), by = c('FIRE_START' = 'date', 'ns_rainfall' = 'station_number'))
 
 fire_o = left_join(fire_o, select(weather, date, station_number, min_temperature, accum_days_min, max_temperature, accum_days_max), by = c('FIRE_START' = 'date', 'ns_temp' = 'station_number'))
@@ -241,6 +243,683 @@ fire_o = left_join(fire_o, select(weather, date, station_number, solar_exposure)
 ```
 
 ```{r}
+fire_o = select(fire_o, -period, -accum_days_min, -accum_days_max)
+```
 
+```{r}
+# calculate days since last rain
+temp = select(fire_o, ID, FIRE_START, ns_rainfall) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_rainfall)),]
+
+last_rain = select(temp, FIRE_START, ID)
+last_rain$last_rain = NA
+
+for (i in 0:90){
+  temp2 = temp
+  temp2$FIRE_START = temp2$FIRE_START - i
+  
+  temp3 = left_join(temp2, select(weather, date, station_number, rainfall), by = c("FIRE_START" = 'date', 'ns_rainfall' = 'station_number')) %>%
+    rename(date = FIRE_START)
+  
+  temp3$rainfall = ifelse(is.na(temp3$rainfall), 0, temp3$rainfall)
+
+  
+  last_rain = left_join(last_rain, temp3, by = c("ID" = "ID")) %>%
+    mutate(last_rain = ifelse((is.na(last_rain)) & (rainfall>0), FIRE_START - date, last_rain)) %>%
+    select(ID, FIRE_START, last_rain)
+
+}
+
+fire_o = left_join(fire_o, select(last_rain, ID, last_rain), by = "ID")
+
+```
+
+
+```{r}
+# rainfall in last 7 days
+temp = select(fire_o, ID, FIRE_START, ns_rainfall) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_rainfall)),]
+
+temp2 = temp
+
+for (i in 1:6){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+temp2 = left_join(temp2, select(weather, station_number, date, rainfall), by = c("FIRE_START" = "date", "ns_rainfall" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(rainfall_7day = sum(rainfall, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-rainfall, -ns_rainfall)
+
+fire_o = left_join(fire_o, temp2, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+
+```
+
+```{r}
+# rainfall in last 14 days
+temp = select(fire_o, ID, FIRE_START, ns_rainfall) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_rainfall)),]
+
+temp2 = temp
+
+for (i in 1:13){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+temp2 = left_join(temp2, select(weather, station_number, date, rainfall), by = c("FIRE_START" = "date", "ns_rainfall" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(rainfall_14day = sum(rainfall, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-rainfall, -ns_rainfall)
+
+fire_o = left_join(fire_o, temp2, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# rainfall in last 21 days
+temp = select(fire_o, ID, FIRE_START, ns_rainfall) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_rainfall)),]
+
+temp2 = temp
+
+for (i in 1:20){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+temp2 = left_join(temp2, select(weather, station_number, date, rainfall), by = c("FIRE_START" = "date", "ns_rainfall" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(rainfall_21day = sum(rainfall, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-rainfall, -ns_rainfall)
+
+fire_o = left_join(fire_o, temp2, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# rainfall in last 28 days
+temp = select(fire_o, ID, FIRE_START, ns_rainfall) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_rainfall)),]
+
+temp2 = temp
+
+for (i in 1:27){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+temp2 = left_join(temp2, select(weather, station_number, date, rainfall), by = c("FIRE_START" = "date", "ns_rainfall" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(rainfall_28day = sum(rainfall, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-rainfall, -ns_rainfall)
+
+fire_o = left_join(fire_o, temp2, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# rainfall in last 60 days
+temp = select(fire_o, ID, FIRE_START, ns_rainfall) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_rainfall)),]
+
+temp2 = temp
+
+for (i in 1:59){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+temp2 = left_join(temp2, select(weather, station_number, date, rainfall), by = c("FIRE_START" = "date", "ns_rainfall" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(rainfall_60day = sum(rainfall, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-rainfall, -ns_rainfall)
+
+fire_o = left_join(fire_o, temp2, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# rainfall in last 90 days
+temp = select(fire_o, ID, FIRE_START, ns_rainfall) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_rainfall)),]
+
+temp2 = temp
+
+for (i in 1:89){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+temp2 = left_join(temp2, select(weather, station_number, date, rainfall), by = c("FIRE_START" = "date", "ns_rainfall" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(rainfall_90day = sum(rainfall, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-rainfall, -ns_rainfall)
+
+fire_o = left_join(fire_o, temp2, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# rainfall in last 180 days
+temp = select(fire_o, ID, FIRE_START, ns_rainfall) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_rainfall)),]
+
+temp2 = temp
+
+for (i in 1:179){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+temp2 = left_join(temp2, select(weather, station_number, date, rainfall), by = c("FIRE_START" = "date", "ns_rainfall" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(rainfall_180day = sum(rainfall, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-rainfall, -ns_rainfall)
+
+fire_o = left_join(fire_o, temp2, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# rainfall in last 360 days
+temp = select(fire_o, ID, FIRE_START, ns_rainfall) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_rainfall)),]
+
+temp2 = temp
+
+for (i in 1:359){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+temp2 = left_join(temp2, select(weather, station_number, date, rainfall), by = c("FIRE_START" = "date", "ns_rainfall" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(rainfall_360day = sum(rainfall, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-rainfall, -ns_rainfall)
+
+fire_o = left_join(fire_o, temp2, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# temp in last 7 days
+temp = select(fire_o, ID, FIRE_START, ns_temp) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_temp)),]
+
+temp2 = temp
+
+for (i in 1:6){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+# min_temp
+temp3 = left_join(temp2, select(weather, station_number, date, min_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(min_temperature_7day = min(min_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-min_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+
+# max_temp
+temp3 = left_join(temp2, select(weather, station_number, date, max_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(max_temperature_7day = max(max_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-max_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# temp in last 14 days
+temp = select(fire_o, ID, FIRE_START, ns_temp) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_temp)),]
+
+temp2 = temp
+
+for (i in 1:13){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+# min_temp
+temp3 = left_join(temp2, select(weather, station_number, date, min_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(min_temperature_14day = min(min_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-min_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+
+# max_temp
+temp3 = left_join(temp2, select(weather, station_number, date, max_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(max_temperature_14day = max(max_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-max_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# temp in last 21 days
+temp = select(fire_o, ID, FIRE_START, ns_temp) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_temp)),]
+
+temp2 = temp
+
+for (i in 1:20){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+# min_temp
+temp3 = left_join(temp2, select(weather, station_number, date, min_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(min_temperature_21day = min(min_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-min_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+
+# max_temp
+temp3 = left_join(temp2, select(weather, station_number, date, max_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(max_temperature_21day = max(max_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-max_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# temp in last 28 days
+temp = select(fire_o, ID, FIRE_START, ns_temp) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_temp)),]
+
+temp2 = temp
+
+for (i in 1:27){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+# min_temp
+temp3 = left_join(temp2, select(weather, station_number, date, min_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(min_temperature_28day = min(min_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-min_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+
+# max_temp
+temp3 = left_join(temp2, select(weather, station_number, date, max_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(max_temperature_28day = max(max_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-max_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# temp in last 60 days
+temp = select(fire_o, ID, FIRE_START, ns_temp) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_temp)),]
+
+temp2 = temp
+
+for (i in 1:59){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+# min_temp
+temp3 = left_join(temp2, select(weather, station_number, date, min_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(min_temperature_60day = min(min_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-min_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+
+# max_temp
+temp3 = left_join(temp2, select(weather, station_number, date, max_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(max_temperature_60day = max(max_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-max_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# temp in last 90 days
+temp = select(fire_o, ID, FIRE_START, ns_temp) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_temp)),]
+
+temp2 = temp
+
+for (i in 1:89){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+# min_temp
+temp3 = left_join(temp2, select(weather, station_number, date, min_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(min_temperature_90day = min(min_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-min_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+
+# max_temp
+temp3 = left_join(temp2, select(weather, station_number, date, max_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(max_temperature_90day = max(max_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-max_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+
+```{r}
+# temp in last 180 days
+temp = select(fire_o, ID, FIRE_START, ns_temp) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_temp)),]
+
+temp2 = temp
+
+for (i in 1:179){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+# min_temp
+temp3 = left_join(temp2, select(weather, station_number, date, min_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(min_temperature_180day = min(min_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-min_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+
+# max_temp
+temp3 = left_join(temp2, select(weather, station_number, date, max_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(max_temperature_180day = max(max_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-max_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+
+```{r}
+# temp in last 360 days
+temp = select(fire_o, ID, FIRE_START, ns_temp) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_temp)),]
+
+temp2 = temp
+
+for (i in 1:359){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+# min_temp
+temp3 = left_join(temp2, select(weather, station_number, date, min_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(min_temperature_360day = min(min_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-min_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+
+# max_temp
+temp3 = left_join(temp2, select(weather, station_number, date, max_temperature), by = c("FIRE_START" = "date", "ns_temp" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(max_temperature_360day = max(max_temperature, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-max_temperature, -ns_temp)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+
+```{r}
+# solar exposure in last 7 days
+temp = select(fire_o, ID, FIRE_START, ns_solar) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_solar)),]
+
+temp2 = temp
+
+for (i in 1:6){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+
+temp3 = left_join(temp2, select(weather, station_number, date, solar_exposure), by = c("FIRE_START" = "date", "ns_solar" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(solar_exposure_7day = sum(solar_exposure, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-solar_exposure, -ns_solar)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# solar exposure in last 14 days
+temp = select(fire_o, ID, FIRE_START, ns_solar) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_solar)),]
+
+temp2 = temp
+
+for (i in 1:13){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+
+temp3 = left_join(temp2, select(weather, station_number, date, solar_exposure), by = c("FIRE_START" = "date", "ns_solar" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(solar_exposure_14day = sum(solar_exposure, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-solar_exposure, -ns_solar)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# solar exposure in last 21 days
+temp = select(fire_o, ID, FIRE_START, ns_solar) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_solar)),]
+
+temp2 = temp
+
+for (i in 1:20){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+
+temp3 = left_join(temp2, select(weather, station_number, date, solar_exposure), by = c("FIRE_START" = "date", "ns_solar" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(solar_exposure_21day = sum(solar_exposure, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-solar_exposure, -ns_solar)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# solar exposure in last 28 days
+temp = select(fire_o, ID, FIRE_START, ns_solar) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_solar)),]
+
+temp2 = temp
+
+for (i in 1:27){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+
+temp3 = left_join(temp2, select(weather, station_number, date, solar_exposure), by = c("FIRE_START" = "date", "ns_solar" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(solar_exposure_28day = sum(solar_exposure, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-solar_exposure, -ns_solar)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# solar exposure in last 60 days
+temp = select(fire_o, ID, FIRE_START, ns_solar) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_solar)),]
+
+temp2 = temp
+
+for (i in 1:59){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+
+temp3 = left_join(temp2, select(weather, station_number, date, solar_exposure), by = c("FIRE_START" = "date", "ns_solar" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(solar_exposure_60day = sum(solar_exposure, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-solar_exposure, -ns_solar)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# solar exposure in last 90 days
+temp = select(fire_o, ID, FIRE_START, ns_solar) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_solar)),]
+
+temp2 = temp
+
+for (i in 1:89){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+
+temp3 = left_join(temp2, select(weather, station_number, date, solar_exposure), by = c("FIRE_START" = "date", "ns_solar" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(solar_exposure_90day = sum(solar_exposure, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-solar_exposure, -ns_solar)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# solar exposure in last 180 days
+temp = select(fire_o, ID, FIRE_START, ns_solar) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_solar)),]
+
+temp2 = temp
+
+for (i in 1:179){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+
+temp3 = left_join(temp2, select(weather, station_number, date, solar_exposure), by = c("FIRE_START" = "date", "ns_solar" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(solar_exposure_180day = sum(solar_exposure, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-solar_exposure, -ns_solar)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+# solar exposure in last 360 days
+temp = select(fire_o, ID, FIRE_START, ns_solar) %>% 
+  .[complete.cases(select(fire_o, ID, FIRE_START, ns_solar)),]
+
+temp2 = temp
+
+for (i in 1:359){
+  temp3 = temp
+  temp3$FIRE_START = temp3$FIRE_START - i
+  
+  temp2 = bind_rows(temp2, temp3)
+}
+
+
+temp3 = left_join(temp2, select(weather, station_number, date, solar_exposure), by = c("FIRE_START" = "date", "ns_solar" = "station_number")) %>%
+  group_by(ID) %>%
+  mutate(solar_exposure_360day = sum(solar_exposure, na.rm = TRUE)) %>%
+  ungroup() %>%
+  select(-solar_exposure, -ns_solar)
+
+fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START"))
+```
+
+```{r}
+st_write(fire_o, 'training.shp')
 ```
 
