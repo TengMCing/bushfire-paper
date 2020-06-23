@@ -8,9 +8,9 @@
 - [ ] Join weather data
   - [x] rainfall, temperature and solar exposure
   - [ ] other features
-- [ ] Join recreation site
-- [ ] Join CFA fire station
-- [ ] Join Road map   
+- [x] Join recreation site
+- [x] Join CFA fire station
+- [x] Join Road map   
 
 # Exploratory data analysis
 

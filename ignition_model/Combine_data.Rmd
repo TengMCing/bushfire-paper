@@ -923,3 +923,66 @@ fire_o = left_join(fire_o, temp3, by = c("ID" = "ID", "FIRE_START" = "FIRE_START
 st_write(fire_o, 'training.shp')
 ```
 
+```{r}
+fire_o = st_read("training.shp")
+```
+
+```{r}
+fire_o %>%
+  as_tibble()
+```
+
+```{r}
+cfa = st_read("Data/SDM697752/ll_gda94/sde_shape/whole/VIC/VMFEAT/layer/geomark_point.shp")
+```
+
+```{r}
+cfa = cfa %>% filter(FEATSUBTYP == "fire station")
+```
+
+```{r}
+cfa = st_transform(cfa, crs = 4326)
+```
+
+
+```{r}
+nearest_index = st_nearest_feature(fire_o$geometry, cfa$geometry)
+temp = st_distance(fire_o$geometry, cfa$geometry[nearest_index], by_element = TRUE)
+fire_o$dist_cfa = as.numeric(temp)
+rm(cfa)
+```
+
+```{r}
+camp = st_read("Data/SDM698290/ll_gda94/sde_shape/whole/VIC/FORESTS/layer/recweb_site.shp")
+```
+
+```{r}
+camp = st_transform(camp, crs = 4326)
+nearest_index = st_nearest_feature(fire_o$geometry, camp$geometry)
+temp = st_distance(fire_o$geometry, camp$geometry[nearest_index], by_element = TRUE)
+fire_o$dist_camp = as.numeric(temp)
+rm(camp)
+```
+
+```{r}
+road = st_read("Data/australia-latest-free.shp/gis_osm_roads_free_1.shp")
+```
+
+```{r}
+roads_in_vic = st_intersects(vic_map$geometry, road$geometry)
+road = road[roads_in_vic[[1]],]
+```
+
+```{r}
+nearest_index = st_nearest_feature(fire_o$geometry, road$geometry)
+temp = st_distance(fire_o$geometry, road$geometry[nearest_index], by_element = TRUE)
+fire_o$dist_road = as.numeric(temp)
+rm(road)
+```
+
+```{r}
+st_write(fire_o, "training2.shp")
+```
+
+
+
