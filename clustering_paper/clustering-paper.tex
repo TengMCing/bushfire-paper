@@ -1,0 +1,129 @@
+% !TeX root = RJwrapper.tex
+\title{A clustering algorithm to organize satellite hotspots data for the
+purpose of tracking bushfires remotely}
+\author{by Weihao Li, Emily Dodwell, Dianne Cook}
+
+\maketitle
+
+\abstract{%
+An abstract of less than 150 words.
+}
+
+\hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
+
+\begin{itemize}
+\tightlist
+\item
+  What is the data, generic structure
+\item
+  Lit review: Spatio-temporal clustering. Algorithms for tracking
+  movement.
+\item
+  Bushfire literature review?
+\end{itemize}
+
+\hypertarget{algorithm}{%
+\subsection{Algorithm}\label{algorithm}}
+
+\hypertarget{data-pre-processing}{%
+\subsubsection{Data pre-processing}\label{data-pre-processing}}
+
+\begin{Schunk}
+\begin{figure}
+\includegraphics[width=0.8\linewidth]{clustering_paper_files/figure-latex/hotspots-1} \caption[Hotspot locations in Victoria during2019-2020 season]{Hotspot locations in Victoria during2019-2020 season.}\label{fig:hotspots}
+\end{figure}
+\end{Schunk}
+
+\hypertarget{steps}{%
+\subsubsection{Steps}\label{steps}}
+
+(Code in clustering.R does this, needs cleaning up)
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Divide hotspots by hour
+\item
+  Start from the first hour
+\item
+  Connect adjacent hotspots and active centroids (3km)
+\item
+  For each point, if there is a connected nearest active centroid, join
+  its group
+\item
+  Otherwise, create a new group for each connected graph
+\item
+  Compute centroid for each group
+\item
+  Keep the group active until there is no new hotspots join the group
+  within 24 hours
+\item
+  Repeat this process to the last hour
+\end{enumerate}
+
+\begin{Schunk}
+\begin{figure}
+\includegraphics[width=1\linewidth]{clustering_paper_files/figure-latex/clusters-1} \caption[Main clusters in one area over time]{Main clusters in one area over time.}\label{fig:clusters}
+\end{figure}
+\end{Schunk}
+
+\hypertarget{effects-of-parameter-choices}{%
+\subsubsection{Effects of parameter
+choices}\label{effects-of-parameter-choices}}
+
+\hypertarget{using-the-resulting-data}{%
+\subsection{Using the resulting data}\label{using-the-resulting-data}}
+
+\hypertarget{determining-the-ignition-point-and-time-for-individual-fires}{%
+\subsubsection{Determining the ignition point and time for individual
+fires}\label{determining-the-ignition-point-and-time-for-individual-fires}}
+
+\hypertarget{tracking-fire-movement}{%
+\subsubsection{Tracking fire movement}\label{tracking-fire-movement}}
+
+\hypertarget{allocating-resources-for-future-fire-prevention}{%
+\subsubsection{Allocating resources for future fire
+prevention}\label{allocating-resources-for-future-fire-prevention}}
+
+Merging data with camp sites, CFA, roads, \ldots{}
+
+\hypertarget{summary}{%
+\subsection{Summary}\label{summary}}
+
+\hypertarget{acknowledgements}{%
+\subsection{Acknowledgements}\label{acknowledgements}}
+
+\begin{itemize}
+\tightlist
+\item
+  The code and files to reproduce this work are at XXX
+\item
+  Data on hotspots can be downloaded from XXX
+\end{itemize}
+
+\bibliography{RJreferences}
+
+
+\address{%
+Weihao Li\\
+Monash University\\
+line 1\\ line 2\\
+}
+\href{mailto:wlii0039@student.monash.edu}{\nolinkurl{wlii0039@student.monash.edu}}
+
+\address{%
+Emily Dodwell\\
+AT\&T\\
+line 1\\ line 2\\
+}
+\href{mailto:emily@research.att.com}{\nolinkurl{emily@research.att.com}}
+
+\address{%
+Dianne Cook\\
+Monash University\\
+line 1\\ line 2\\
+}
+\href{mailto:dicook@monash.edu}{\nolinkurl{dicook@monash.edu}}
+

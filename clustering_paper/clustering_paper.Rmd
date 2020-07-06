@@ -1,0 +1,117 @@
+---
+title: A clustering algorithm to organize satellite hotspots data for the purpose of tracking bushfires remotely
+author:
+  - name: Weihao Li
+    affiliation: Monash University
+    address:
+    - line 1
+    - line 2
+    email:  wlii0039@student.monash.edu
+  - name: Emily Dodwell
+    affiliation: AT&T
+    address:
+    - line 1
+    - line 2
+    email:  emily@research.att.com
+  - name: Dianne Cook
+    affiliation: Monash University
+    address:
+    - line 1
+    - line 2
+    email:  dicook@monash.edu
+abstract: >
+  An abstract of less than 150 words.
+preamble: |
+  % Any extra LaTeX you need in the preamble
+output: rticles::rjournal_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  cache=FALSE, 
+  message=FALSE, 
+  warning=FALSE, 
+  fig.retina = 3, 
+  out.width="80%")
+```
+
+```{r libraries}
+library(tidyverse)
+library(ggthemes)
+library(sf)
+library(ggpubr)
+```
+
+## Introduction
+
+- What is the data, generic structure
+- Lit review: Spatio-temporal clustering. Algorithms for tracking movement.
+- Bushfire literature review?
+
+## Algorithm 
+
+### Data pre-processing
+
+```{r hotspots, fig.cap="Hotspot locations in Victoria during2019-2020 season." }
+load("data/vic_map.rda")
+load("data/hotspots_VIC.rda")
+ggplot() + 
+  geom_sf(data=vic_map) + 
+  geom_sf(data=hotspots_VIC) + 
+  theme_map()
+```
+
+### Steps
+
+(Code in clustering.R does this, needs cleaning up)
+
+1. Divide hotspots by hour
+2. Start from the first hour 
+3. Connect adjacent hotspots and <u>active</u> centroids (3km)
+4. For each point, if there is a <u>connected</u> <u>nearest</u> <u>active</u> centroid, join its group
+5. Otherwise, create a new group for each <u>connected</u> graph
+6. Compute centroid for each group
+7. Keep the group active until there is no new hotspots join the group within 24 hours
+8. Repeat this process to the last hour
+
+```{r clusters, out.width="100%", fig.cap="Main clusters in one area over time."}
+# Small subset for illustration
+load("data/output_3km.rda")
+output_3km <- output_3km %>%
+  mutate(fire_id_3km = factor(fire_id_3km))
+
+output_3km %>% filter(fire_id_3km %in% c(2, 4, 5, 7, 12)) %>%
+  ggplot(aes(x=lon, y=lat, colour=fire_id_3km)) + geom_point() + 
+  facet_wrap(~hour_id) + 
+  xlab("") + ylab("") +
+  theme(legend.position = "none")
+```
+
+
+### Effects of parameter choices
+
+## Using the resulting data 
+
+### Determining the ignition point and time for individual fires
+
+### Tracking fire movement
+
+### Allocating resources for future fire prevention
+
+Merging data with camp sites, CFA, roads, ... 
+
+## Summary
+
+
+<!--
+This file is only a basic article template. For full details of _The R Journal_ style and information on how to prepare your article for submission, see the [Instructions for Authors](https://journal.r-project.org/share/author-guide.pdf).
+-->
+
+## Acknowledgements
+
+- The code and files to reproduce this work are at XXX
+- Data on hotspots can be downloaded from XXX
+
+
+\bibliography{RJreferences}
