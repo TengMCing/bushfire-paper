@@ -1,0 +1,301 @@
+---
+title: "data_int"
+author: "Weihao Li"
+date: "2020-03-23"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# load libraries
+
+```{r 'load_packages', warning = FALSE, message = FALSE}
+library(tidyverse)
+library(sf)
+library(furrr)
+library(lubridate)
+library(rnaturalearth)
+library(gganimate)
+library(bomrang)
+```
+
+# data summary
+
+- [x] hostpots data 
+    - [x] from 2015-07 to now
+- [ ] weather data
+    - [x] daily rainfall
+    - [x] daily temperature
+    - [x] daily solar exposure
+    - [ ] lightning data
+    - [ ] wind data
+- [ ] road maps
+    - [x] VIC main road maps
+    - [ ] minor road maps
+- [ ] recreation site
+    - [x] VIC recreation site
+- [ ] CFA
+    - [x] VIC CFA stations location
+    - [ ] CFA bushfire (not up to date)
+
+
+# hotspot data
+
+data serverd on [P-Tree system](ftp://ftp.ptree.jaxa.jp/pub/himawari/L3/WLF/bet)
+From 2015-07 to now
+
+```{r 'define_read_hotspot'}
+read_hotspot <- function(directory = "data/Himawari-8", from = '20190501', to = '20190701'){
+  ### include from, exclude to
+  
+  fls = list.files(directory, full.names = TRUE)
+  fls_short = list.files("data/Himawari-8", full.names = FALSE)
+  fls_filter = (fls_short > paste('H08', from, sep = '_')) & (fls_short < paste('H08', to, sep = '_'))
+  fls = fls[fls_filter]
+  all = map(fls, read_csv, quote="'")
+  d = bind_rows(all)
+  return(d)
+  
+}
+```
+
+```{r 'read_hotspots', warning = FALSE, message = FALSE}
+hotspots = read_hotspot(directory = "data/Himawari-8", from = '20190501', to = '20190701')
+```
+
+```{r 'get_au_hotspots'}
+# apply australia coordinates 
+hotspots_au = hotspots %>%
+  filter(between(lon, 112, 155)) %>% 
+  filter(between(lat, -44, -10))
+
+```
+
+```{r 'fire_power_filter'}
+
+firepower_threshold = 100 #threshold for firepower
+
+hotspots_au = hotspots_au %>%
+  filter(firepower > firepower_threshold)
+
+```
+
+```{r 'hotspots_example'}
+
+au_map = ne_states(country = 'Australia', returnclass = 'sf') #get au map
+samples = select(hotspots_au, `#obstime`, lon, lat, firepower)
+
+p = ggplot(samples) +
+  geom_sf(data = au_map) +
+  geom_point(aes(group = `#obstime`, x = lon, y = lat, size = firepower), color = 'red', alpha = 0.2) + 
+  transition_time(`#obstime`) +
+  exit_fade() +
+  enter_fade() +
+  labs(title = 'Time: {frame_time}') +
+  theme_bw()
+
+animate(p)
+
+```
+
+# Weather data
+
+```{r 'get_stations_ids'}
+# get all stations and sorted by distance from MEL
+station_ids = sweep_for_stations(latlon = c(-37.8136, 144.9631))
+```
+
+```{r 'filter_VIC_stations'}
+# filter VIC stations
+VIC_station_ids = station_ids %>%
+  filter(state == 'VIC')
+```
+
+```{r 'plot_stations_in_map'}
+ggplot(VIC_station_ids) +
+  geom_sf(data = au_map, fill = "grey", colour = "black")+
+  coord_sf(ylim = c(-40,-34), xlim = c(140,150)) +
+  geom_point(aes(x = lon, y = lat), color = 'blue') +
+  theme_bw() +
+  ggtitle('VIC weather stations')
+```
+
+```{r 'define_get_historical_weather'}
+
+get_comprehensive_historical_weather <- function(station_id){
+
+# requst weather data
+rain_record = get_historical(station_id, type = "rain")
+min_record = get_historical(station_id, type = "min")
+max_record = get_historical(station_id, type = "max")
+solar_record = get_historical(station_id, type = "solar")
+
+# keep useful information
+rain_record = select(rain_record, -quality, -product_code)
+min_record = select(min_record, -quality, -product_code)
+max_record = select(max_record, -quality, -product_code)
+solar_record = select(solar_record, -product_code)
+
+# combine data
+t = full_join(rain_record, max_record, by = c('year','month','day','station_number'))
+t = full_join(t, min_record, by = c('year','month','day','station_number'))
+t = full_join(t, solar_record, by = c('year','month','day','station_number'))
+
+return(t)
+}
+
+
+```
+
+```{r 'get_historical_weather_example'}
+
+weather_ex = get_comprehensive_historical_weather(VIC_station_ids$site[1])
+weather_ex$date = as_date(paste(weather_ex$year,weather_ex$month,weather_ex$day,sep = '-'))
+```
+
+```{r 'show_weather_data'}
+ggplot(filter(weather_ex, !is.na(rainfall))) +
+  geom_line(aes(x = yday(date), y = rainfall)) +
+  facet_wrap(~year)
+```
+
+```{r 'forecast_data'}
+# used for finding the nearest forecast town
+towns <- sweep_for_forecast_towns(latlon = c(-37.8136, 144.9631)) 
+```
+
+```{r 'towns_filter'}
+VIC_towns <- towns %>%
+  rowwise() %>%
+  filter(grepl('VIC', aac))
+```
+
+```{r 'plot_forecast_towns'}
+ggplot(VIC_towns) +
+  geom_sf(data = au_map, fill = "grey", colour = "black")+
+  coord_sf(ylim = c(-40,-34), xlim = c(140,150)) +
+  geom_point(aes(x = lon, y = lat), color = 'blue') +
+  theme_bw() +
+  ggtitle('VIC forecast towns')
+  
+```
+
+```{r 'get_forecast_data'}
+# you will get a dataframe with 7-day weather forecast in the future
+VIC_forecast = get_precis_forecast(state = 'VIC')
+```
+
+
+# Road data
+
+[VIC_road_geometry](https://discover.data.vic.gov.au/dataset/victorian-road-geometry)
+
+```{r 'define_read_VIC_road_map'}
+read_VIC_road_map = function(directory = 'data/road_geometry'){
+  fls = list.files(directory, full.names = TRUE)
+  all = map(fls, read_csv, quote="'")
+  for (i in seq(length(all))){
+    all[[i]] <- all[[i]] %>%
+      mutate(DIRECTION = as.character(DIRECTION))
+  }
+  d = bind_rows(all)
+  return(d)
+}
+```
+
+
+```{r 'read_VIC_road_map', message=FALSE, warning=FALSE}
+VIC_road_map = read_VIC_road_map()
+```
+
+```{r 'show_road_map'}
+# main road only
+
+ggplot(VIC_road_map) +
+  geom_sf(data = au_map, fill = "grey", colour = "black")+
+  coord_sf(ylim = c(-40,-34), xlim = c(140,150)) +
+  geom_segment(aes(x = S_LONGITUDE, y = S_LATITUDE, xend = E_LONGITUDE, yend = E_LATITUDE), color = 'blue') +
+  theme_bw() +
+  ggtitle('VIC road map')
+```
+
+# CFA
+
+[VIC CFA stations location](https://discover.data.vic.gov.au/dataset/cfa-fire-station-vmfeat-geomark_point)
+
+```{r 'read_cfa_position_map'}
+shape = st_read("SDM697752/ll_gda94/sde_shape/whole/VIC/VMFEAT/layer/geomark_point.shp")
+shape = shape %>% filter(FEATSUBTYP == "fire station")
+```
+
+```{r 'extract_stations_coordinates'}
+stations = shape %>% 
+  mutate(lon = st_coordinates(shape)[, 1],
+         lat = st_coordinates(shape)[, 2]) %>%
+  dplyr::select(name = NAME, lon, lat) %>%
+  filter(!is.na(name))
+
+```
+
+
+```{r 'show_fire_stations_map'}
+ggplot(stations) +
+  geom_sf(data = au_map, fill = "grey", colour = "black")+
+  coord_sf(ylim = c(-40,-34), xlim = c(140,150)) +
+  geom_point(aes(x = lon, y = lat), color = 'blue', size =0.3)  +
+  theme_bw() +
+  ggtitle('VIC fire stations')
+```
+
+# Recreation Site
+
+[VIC recreation site location](https://discover.data.vic.gov.au/dataset/recreation-sites)
+
+```{r 'read_recreation_site_data'}
+recreation = st_read("SDM698290\\ll_gda94\\sde_shape\\whole\\VIC\\FORESTS\\layer\\recweb_site.shp")
+
+```
+
+```{r 'show_recreation_map'}
+ggplot(recreation) +
+  geom_sf(data = au_map, fill = "grey", colour = "black")+
+  coord_sf(ylim = c(-40,-34), xlim = c(140,150)) +
+  geom_point(aes(x = LONGITUDE, y = LATITUDE), fill ='red', color = 'white', pch=21, alpha = 0.5, size = 3)+
+  theme_bw() +
+  ggtitle('VIC recreation site')
+  
+```
+
+# bushfire cases
+
+```{r 'read_fire_history'}
+fire_history = st_read("SDM697447\\ll_gda94\\sde_shape\\whole\\VIC\\FIRE\\layer\\fire_history.shp")
+bushfire_history = fire_history %>% 
+  filter(FIRETYPE == 'BUSHFIRE')
+bushfire_history = as.data.frame(bushfire_history)
+```
+
+```{r 'bushfire_data_processing'}
+bushfire_history = arrange(bushfire_history, desc(START_DATE))
+bushfire_location = bushfire_history$geometry
+```
+
+```{r 'show_fire_map'}
+# many obs are from the same bushfire
+ggplot() +
+  geom_sf(data = au_map, fill = "grey", colour = "black")+
+  geom_sf(data = bushfire_location[1:1000], fill = 'red', color = 'black') +
+  coord_sf(ylim = c(-40,-34), xlim = c(140,150)) +
+  theme_bw() +
+  ggtitle('VIC last 1000 bushfire obs (last one: 2019-05-07)')
+```
+
+
+
