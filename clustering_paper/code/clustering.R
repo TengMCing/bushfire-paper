@@ -1,21 +1,29 @@
 #*****************************************************************************************#
-# Clustering Algorithm for remote sensing hotspots data                                   #
+# Clustering Algorithm for hotspots data                                                  #
 #                                                                                         #
 # Default:                                                                                #
 #                                                                                         #
-#   hotspots_clustering(x, method = "null", adj_distance = 3e3, active_time = 24)         #
+#   hotspots_clustering(con, method = "null", adj_distance = 3e3, active_time = 24,       #
+#                       fire_mov_dir = "", memory_saving = FALSE, save_point = 1000)      #
 #                                                                                         #
 # Arguments:                                                                              #
 #                                                                                         #
-#   con:           a dbConnect() (SQLite) object represents the hotspots data with four   #
-#                  columns, id, lon, lat and timestamp_id.                                #
-#   table_name:    a table name of where the hotspots data stored in the database.        #
+#   con:           a dbConnect() (SQLite) object.                                         #
+#   table_name:    a table name of the hotspots data. It should contains 4 and only 4     #
+#                  columns, which are id, lon, lat and time_id                            #                                     
 #   method:        clustering method. Either "null", "mean_r", or 'max_r'.                #
-#   adj_distance:  distance (0 to 1e5 m) for two vertices to be considered as adjacent.   #                                                                               #
+#   adj_distance:  distance (0 to 1e5 m) for two vertices to be considered as adjacent.   #                                                                               
 #   active_time:   units of time a clusters remain active.                                #
-#   fire_mov_dir:  a database dir to store fire movement result. Database will be rewrite.#
-#   memory_saving: (TRUE or FALSE) occasionally save data to database to save memory      #
-#   save_point:    only useful when memory_saving is TRUE. save data per number of steps  # 
+#   fire_mov_dir:  a database dir to store fire movement result. Database will be         #
+#                  overwritten.                                                           #
+#   memory_saving: (TRUE or FALSE) occasionally save data to database to release memory.  #
+#   save_point:    only useful when memory_saving is TRUE. save data per 'save_point'     #
+#                  number of steps.                                                       #
+#                                                                                         #
+# Value:                                                                                  #
+#                                                                                         #
+#   A clusteringResult class inherit from list with a customize print method. It contains # 
+#   clstuering result and other attributes used in this algorithm.                        #
 #*****************************************************************************************#
 
 hotspots_clustering <- function(con,
