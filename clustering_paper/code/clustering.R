@@ -1,303 +1,420 @@
-# Load libraries
-library(tidyverse)
-library(sf)
-library(furrr)
-library(lubridate)
-library(rnaturalearth)
-library(igraph)
+#*****************************************************************************************#
+# Clustering Algorithm for remote sensing hotspots data                                   #
+#                                                                                         #
+# Default:                                                                                #
+#                                                                                         #
+#   hotspots_clustering(x, method = "null", adj_distance = 3e3, active_time = 24)         #
+#                                                                                         #
+# Arguments:                                                                              #
+#                                                                                         #
+#   con:           a dbConnect() (SQLite) object represents the hotspots data with four   #
+#                  columns, id, lon, lat and timestamp_id.                                #
+#   table_name:    a table name of where the hotspots data stored in the database.        #
+#   method:        clustering method. Either "null", "mean_r", or 'max_r'.                #
+#   adj_distance:  distance (0 to 1e5 m) for two vertices to be considered as adjacent.   #                                                                               #
+#   active_time:   units of time a clusters remain active.                                #
+#   fire_mov_dir:  a database dir to store fire movement result. Database will be rewrite.#
+#   memory_saving: (TRUE or FALSE) occasionally save data to database to save memory      #
+#   save_point:    only useful when memory_saving is TRUE. save data per number of steps  # 
+#*****************************************************************************************#
 
-# Read hotspots data
-# Note data directory is one up from paper directory, for now
-read_hotspot <- function(directory = "data/Himawari-8", from = '20190501', to = '20190701'){
-  ### include from, exclude to
+hotspots_clustering <- function(con,
+                                table_name = "",
+                                method = "null",
+                                adj_distance = 3e3,
+                                active_time = 24,
+                                fire_mov_dir = "",
+                                memory_saving = FALSE,
+                                save_point = 200){
   
-  fls = list.files(directory, full.names = TRUE)
-  fls_short = list.files("data/Himawari-8", full.names = FALSE)
-  fls_filter = (fls_short > paste('H08', from, sep = '_')) & (fls_short < paste('H08', to, sep = '_'))
-  fls = fls[fls_filter]
-  all = map(fls, read_csv, quote="'")
-  d = bind_rows(all)
-  return(d)
-}
-# hotspots = read_hotspot(from = "20191001", to ="20200331")
-# Small set of data to test it
-hotspots = read_hotspot(from = "20200201", to ="20200203")
-
-# Data pre-processing
-# filter au
-hotspots = hotspots %>%
-  filter(between(lon, 112, 155)) %>% 
-  filter(between(lat, -44, -10))
-
-# Make a map
-au_map = ne_states(country = 'Australia', returnclass = 'sf') #get au map
-ggplot(au_map) + geom_sf()
-
-vic_map <- au_map %>% filter(name == "Victoria")
-ggplot(vic_map) + geom_sf()
-
-# Only keep most likely to be bushfires
-hotspots = hotspots %>%
-  filter(firepower > 100)
-
-# Extract hotspots for Australia, and label with state name
-hotspots = st_as_sf(x = hotspots, coords = c('lon','lat'))
-st_crs(hotspots) = 4326
-tab = st_intersects(au_map$geometry, hotspots$geometry)
-hotspots$state = ''
-for (i in seq(1,nrow(au_map))) {
-  hotspots$state[tab[[i]]] = au_map$name[i]
-}
-
-unidentified_point = hotspots[hotspots$state == '',]
-tab2 = st_nearest_feature(unidentified_point$geometry, au_map$geometry)
-hotspots$state[hotspots$state == ''] = au_map$name[tab2]
-
-hotspots$year = year(hotspots$`#obstime`)
-hotspots$month = month(hotspots$`#obstime`)
-hotspots$day = day(hotspots$`#obstime`)
-hotspots$week = week(hotspots$`#obstime`)
-hotspots$hour = hour(hotspots$`#obstime`)
-
-# filter VIC
-hotspots_VIC = hotspots %>%
-  filter(state == "Victoria")
-ggplot() + geom_sf(data=vic_map) + geom_sf(data=hotspots_VIC)
-
-# assign hour index for data
-hotspots_VIC$hour_id = hotspots_VIC %>%
-  group_indices(year, month, day, hour)
-
-hotspots_VIC$obs_id = 1:nrow(hotspots_VIC)
-temp_fire_id = c()
-temp_obs_id = c()
-
-first_hour = filter(hotspots_VIC, hour_id == 1) %>%
-  select(obs_id, year, month, day, hour_id, geometry)
-
-ggplot() + geom_sf(data=vic_map) + geom_sf(data=first_hour)
-
-# calculate spatial distance matrix of first hour, units in metres
-dist_matrix = matrix(as.numeric(st_distance(first_hour$geometry, first_hour$geometry)),
-                     ncol=nrow(first_hour))
-
-# if the distance between two points is less than 3 km, create an edge between them
-neighbors = (dist_matrix < 3000) # creates logical matrix
-
-# create graph by adjacency matrix
-first_graph = graph.adjacency(neighbors, mode = 'undirected')
-
-# Plot it on a map
-plot(first_graph)
-
-# compute clusters
-cluster_result = clusters(first_graph)
-
-# assign membership to each point
-first_hour$fire_id = cluster_result$membership
-
-# record centers for each hour
-group_centers = list()
-
-# compute the centroid of each group
-group_centers[[1]] = as.data.frame(st_coordinates(first_hour)) %>%
-  mutate(fire_id = first_hour$fire_id) %>%
-  group_by(fire_id) %>%
-  summarise(lon = mean(X), lat = mean(Y))
-
-group_centers[[1]] = st_as_sf(x = group_centers[[1]], coords = c("lon","lat"), crs = 4326)
-group_centers[[1]]$active = 0
-
-# assign the fire id back to the master data set
-temp_fire_id = c(temp_fire_id, first_hour$fire_id)
-temp_obs_id = c(temp_obs_id, first_hour$obs_id)
-
-# match current_fire_id with previous_center_current_id
-# if find mutiple previous_center, assign the nearest one
-match_muti_fire = function(current_fire_id, previous_center_current_id, dist_matrix){
-  
-  # all pairs of two vectors
-  tb = expand.grid(current_fire_id, previous_center_current_id)
-  
-  # mark pairs that have same group id
-  tb$var3 = tb$Var1 == tb$Var2
-  tb = tb$var3
-  
-  # turn this comparison into a matrix
-  mat_a = matrix(tb, nrow = length(current_fire_id))
-  
-  # get the corresponding distrance matrix
-  mat_b = dist_matrix[1:length(current_fire_id),(length(current_fire_id)+1):dim(dist_matrix)[2]]
-  
-  if (is.vector(mat_b)) {mat_b = matrix(mat_b, nrow = length(current_fire_id)) }
-  
-  # safe check
-  if (all(dim(mat_a) != dim(mat_b))) {stop("different dim between dist_matrix and membership comparison matrix")}
-  
-  # combine two matrices
-  mat_c = mat_a * mat_b
-  
-  # function to find row positive min
-  find_positive_min = function(x){
-    if (sum(x) == 0){
-      return(NA)
-    }
-    return(which(x==min(x[x>0]))[1])
+  # Overwrite fire movement database
+  if (memory_saving) {
+    if (file.exists(fire_mov_dir)) file.remove(fire_mov_dir)
+    table_count = 0
   }
   
-  # for each row, find the positive min
-  result = apply(mat_c, 1, FUN = find_positive_min)
+  if (table_name == "") stop("Argument table_name is missing")
   
-  # safe check
-  if (is.vector(result) == FALSE) {
-    print(result)
-    stop("result is not a vector")
+  if (!DBI::dbExistsTable(con, table_name)){
+    stop(paste0(table_name, "does not exist"))
+  }
+  
+  if (any(DBI::dbListFields(con, table_name) != c("id", "lon", "lat", "time_id"))){
+    stop("fields name do not match with 'id, lon, lat, time_id'")
+  }
+  
+  if (!method %in% c("null", "mean_r", "max_r")){
+    stop(paste0("invaild method ", method))
+  }
+  
+  # Get the max timestamp
+  max_time <- tbl(con, sql(paste0("SELECT MAX(time_id) FROM ", table_name))) %>%
+    collect() %>%
+    .[[1]]
+  
+  if (!((is.atomic(max_time)) & (length(max_time == 1)))) stop("max_time contains more than 1 value")
+  
+  # Get number of rows
+  max_obs <- tbl(con, sql(paste0("SELECT COUNT(time_id) FROM ", table_name))) %>%
+    collect() %>%
+    .[[1]]
+  
+  if (!((is.atomic(max_obs)) & (length(max_obs == 1)))) stop("max_obs contains more than 1 value")
+  
+  # Set up progress bar
+  pb <- progress::progress_bar$new(format = "[:bar] :current/:total (:percent) eta: :eta", 
+                                   total = max_time)
+  pb$tick(0)
+  pb$tick(1)
+  
+  # Initialize hotspots memberships
+  fire_id <- c()
+  id <- c()
+  
+  # Algorithm start from the first timestamp
+  # Select the first timestamp data
+  current_time_data <- tbl(con, table_name) %>% 
+    filter(time_id == 1) %>%
+    collect()
+  
+  if (nrow(current_time_data) == 0) stop("There is no data in the table")
+  
+  # Compute the distance matrix
+  dist_matrix <- current_time_data %>%
+    select(lon, lat) %>%
+    geodist::geodist()
+  
+  if (!is.matrix(dist_matrix)) stop("distance matrix is not a matrix")
+  
+  # Create adjacency matrix
+  adj_matrix <- dist_matrix <= adj_distance
+  
+  # Create graph from adjacency matrix
+  current_graph <- graph.adjacency(adj_matrix, mode = 'undirected')
+  
+  # Compute clusters
+  current_clusters = clusters(current_graph)
+  
+  # Assign membership to each point
+  current_time_data$fire_id <- current_clusters$membership
+  
+  # Assign the fire_id to a vector
+  fire_id <- c(fire_id, current_time_data$fire_id)
+  id <- c(id, current_time_data$id)
+  fire_move_ls <- vector(mode = "list", length = max_time)
+  
+  # Compute the centroid of each group
+  fire_mov <- current_time_data %>%
+    group_by(fire_id) %>%
+    summarise(r = calc_r(lon, lat),
+              lon = mean(lon), 
+              lat = mean(lat),
+              mean_r = as.numeric(stringr::str_split(r, ",")[[1]][1]),
+              max_r = as.numeric(stringr::str_split(r, ",")[[1]][2])) %>%
+    ungroup() %>%
+    mutate(active = 0) %>%
+    mutate(time_id = 1) %>%
+    arrange(fire_id) %>%
+    select(-r)
+  
+  
+  # Store fire movement in list
+  fire_move_ls[[1]] <- fire_mov %>%
+    select(-active)
+  
+  
+  for (i in 2:max_time){
+    
+    pb$tick(1)
+    
+    # Let the `active` minus 1
+    fire_mov$active <- fire_mov$active - 1
+    
+    # Get the current timestamp hotspots data
+    current_time_data <- tbl(con, table_name) %>% 
+      filter(time_id == i) %>%
+      collect()
+    
+    if (nrow(current_time_data) == 0) stop(paste0("There is no data in timestamp", i))
+    
+    # Get the active fire center
+    active_group <- filter(fire_mov, active > -active_time)
+    
+    # Get row number
+    total_current_obs <- nrow(current_time_data)
+    total_active_group <- nrow(active_group)
+    total_current_points <- total_current_obs + total_active_group
+    
+    # Append the groups geometry to the hotspots geometry
+    if (total_active_group > 0){
+      geom_info <- current_time_data %>%
+        select(lon, lat) %>%
+        bind_rows(select(active_group, lon, lat))
+    } else {
+      geom_info <- current_time_data %>%
+        select(lon, lat)
+    }
+    
+    # Compute the dist matrix
+    dist_matrix <- geodist::geodist(geom_info)
+    
+    if (!is.matrix(dist_matrix)) stop("distance matrix is not a matrix")
+    
+    # Create adjacency matrix
+    adj_matrix <- dist_matrix <= adj_distance
+    
+    
+    # Apply algorithm using nominated method
+    if ((total_active_group > 0) & (method %in% c("mean_r", "max_r"))){
+      addition_metric <- active_group[[method]]
+      
+      # Extract distance matrix between hotspots and active groups
+      partialA <- dist_matrix[1:total_current_obs,
+                              (total_current_obs + 1):total_current_points,
+                              drop = FALSE]
+      
+      # Extract radius from active groups
+      partialB <- matrix(rep(addition_metric, total_current_obs),
+                         nrow = total_current_obs,
+                         byrow = TRUE)
+      
+      if (all(dim(partialA) != dim(partialB))) stop("unmatched matrices")
+      
+      # Decide the adjacency partial matrix
+      partialC <- (partialA <= partialB) + (partialA <= adj_distance)
+      partialC <- partialC > 0
+      
+      # Reassign the adjacency matrix
+      adj_matrix[1:total_current_obs,
+                 (total_current_obs + 1):total_current_points] <- partialC
+      
+    }
+    
+    # Create graph from adjacency matrix
+    current_graph <- graph.adjacency(adj_matrix, mode = 'undirected') 
+    
+    # Compute clusters
+    current_clusters = clusters(current_graph)
+    
+    # Assign membership to each point
+    current_time_data$fire_id <- current_clusters$membership[1:total_current_obs]
+    
+    # Adjust fire_id for hotspots
+    if (total_active_group > 0){
+      active_group$new_fire_id <- current_clusters$membership[(total_current_obs + 1):total_current_points]
+      
+      # Expand all combination between memberships of hotspots and active groups
+      combination_tbl <- expand.grid(current_time_data$fire_id, active_group$new_fire_id)
+      
+      # A vector to represent matched membership
+      combination_tbl <- combination_tbl$Var1 == combination_tbl$Var2
+      
+      # Turn this to a matrix
+      mat_a <- matrix(combination_tbl, nrow = total_current_obs)
+      
+      # Extract distance matrix
+      mat_b <- dist_matrix[1:total_current_obs,(total_current_obs + 1):total_current_points]
+      if (is.vector(mat_b)) {mat_b <- matrix(mat_b, nrow = total_current_obs) }
+      
+      if (all(dim(mat_a) != dim(mat_b))) stop("unmatched matrices")
+      
+      # Combine membership matrix and distance matrix
+      mat_c <- mat_a * mat_b
+      
+      if (sum(mat_c < 0) > 0) stop("mat_c contains negative value")
+      if (anyNA(mat_c)) stop("mat_c contains NA")
+      
+      # Find positive min for each row
+      nearest_active_group <- apply(mat_c,
+                                    1,
+                                    FUN = function(x){
+                                      ifelse(sum(x) == 0,
+                                             0,
+                                             which(x == min(x[x > 0]))[1])
+                                    })
+      
+      if (anyNA(nearest_active_group)) stop("nearest_active_group contians NA")
+      if (!is.atomic(nearest_active_group)) stop("nearest_active_group is not a vector")
+      
+      # Assign nearest active group fire_id to hotspots
+      if (sum(nearest_active_group > 0) > 0){
+        
+        hotspots_index <- which(nearest_active_group > 0)
+        active_group_index <- nearest_active_group[hotspots_index]
+        
+        current_time_data$fire_id[hotspots_index] <- active_group$fire_id[active_group_index]
+      }
+      
+    }
+    
+    
+    # Adjust membership label
+    if (total_active_group > 0){
+      index <- -hotspots_index
+    } else {
+      index <- 1:total_current_obs
+    }
+    
+    temp_membership <- current_time_data$fire_id[index]
+    
+    # Let membership start from 1 and common difference equal to 1
+    if (length(temp_membership) > 0) {
+      temp_membership <- data.frame(temp_membership = temp_membership) %>%
+        group_indices(temp_membership)
+      
+      # Add the total known group
+      temp_membership <- temp_membership + max(fire_mov$fire_id)
+      
+      # Assign them back to hotspots
+      current_time_data$fire_id[index] <- temp_membership
+    }
+    
+    # Process fire movement
+    current_fire_mov <- current_time_data %>%
+      group_by(fire_id) %>%
+      summarise(r = calc_r(lon, lat),
+                lon = mean(lon), 
+                lat = mean(lat),
+                mean_r = as.numeric(stringr::str_split(r, ",")[[1]][1]),
+                max_r = as.numeric(stringr::str_split(r, ",")[[1]][2])) %>%
+      ungroup() %>%
+      mutate(active = 0) %>%
+      mutate(time_id = i) %>%
+      arrange(fire_id) %>%
+      select(-r)
+    
+    if (any(duplicated(current_fire_mov$fire_id))) stop("duplicated fire_id found")
+    
+    # Update information in fire_mov
+    fire_mov <- fire_mov %>%
+      filter(!(fire_id %in% current_fire_mov$fire_id))
+    fire_mov <- bind_rows(fire_mov, current_fire_mov)
+    fire_mov <- arrange(fire_mov, fire_id)
+    fire_mov <- mutate(fire_mov, time_id = i)
+    
+    # Store fire movement in list
+    fire_move_ls[[i]] <- current_fire_mov %>%
+      select(-active)
+    
+    # Assign the fire_id to a vector
+    fire_id <- c(fire_id, current_time_data$fire_id)
+    id <- c(id, current_time_data$id)
+    
+    # Saving memory by occasionally writing to database
+    if ((i %% save_point == 0) & (memory_saving)){
+      
+      my_fire_db <- DBI::dbConnect(RSQLite::SQLite(), fire_mov_dir)
+      
+      temp_fire_move <- fire_move_ls %>%
+        reduce(rbind)
+      
+      table_count <- table_count + 1
+      
+      if (nrow(temp_fire_move) > 0) {
+        DBI::dbWriteTable(my_fire_db, paste0("FIRE_MOV", table_count), temp_fire_move)
+      }
+      
+      rm(temp_fire_move)
+      
+      for (j in 1:i){
+        fire_move_ls[[j]] <- tibble()
+      }
+      
+      RSQLite::dbDisconnect(my_fire_db)
+      
+    } 
+  }
+  
+  
+  if (memory_saving){
+    
+    my_fire_db <- DBI::dbConnect(RSQLite::SQLite(), fire_mov_dir)
+    
+    temp_fire_move <- fire_move_ls %>%
+      reduce(rbind)
+    
+    table_count <- table_count + 1
+    
+    if (nrow(temp_fire_move) > 0) {
+      DBI::dbWriteTable(my_fire_db, paste0("FIRE_MOV", table_count), temp_fire_move)
+    }
+    
+    rm(temp_fire_move)
+    
+    RSQLite::dbDisconnect(my_fire_db)
+    
+  } else {
+    
+    # Store fire movement in nominated database
+    message(paste0('Saving fire movement to DIR: "', fire_mov_dir,'"'))
+    
+    fire_move_ls <- fire_move_ls %>%
+      reduce(rbind)
+    
+    if (file.exists(fire_mov_dir)) file.remove(fire_mov_dir) 
+    
+    my_fire_db <- DBI::dbConnect(RSQLite::SQLite(), fire_mov_dir)
+    
+    DBI::dbWriteTable(my_fire_db, "FIRE_MOV", fire_move_ls)
+    
+    RSQLite::dbDisconnect(my_fire_db)
     
   }
   
-  # return the index vector
+  
+  
+  result <- list(fire_id = fire_id,
+                 method = method,
+                 adj_distance = adj_distance,
+                 active_time = active_time,
+                 timestamps = max_time,
+                 fire_mov_dir = fire_mov_dir)
+  
+  class(result) <- c("clusteringResult", class(result))
+  
   return(result)
 }
 
-max_hour = max(hotspots_VIC$hour_id)
-for (i in seq(2, max_hour)){
+
+
+# Result print method for better presentation
+print.clusteringResult <- function(x){
   
-  # copy the centers info from last hour
-  group_centers[[i]] = group_centers[[i-1]]
-  # let the active minus 1
-  group_centers[[i]]$active = group_centers[[i]]$active - 1
-  
-  
-  # get the current hour hotspots data
-  current_hour = filter(hotspots_VIC, hour_id == i) %>%
-    select(obs_id, geometry)
-  
-  # get the active fire center
-  active_group = filter(group_centers[[i]], active > -24)
-  
-  # append the center geometry to the hotspots geometry vector
-  if (nrow(active_group)>0){
-    geom_info = c(current_hour$geometry, active_group$geometry)
-  } else {
-    geom_info = current_hour$geometry
-  }
-  
-  
-  # compute the dist matrix
-  dist_matrix = matrix(as.numeric(st_distance(geom_info, geom_info)),ncol =nrow(current_hour)+nrow(active_group))
-  
-  # connect two points if they have less than 3000m distance
-  neighbors = (dist_matrix<3000) 
-  
-  # use the adjancency to create a graph
-  current_graph = graph.adjacency(neighbors, mode = 'undirected')
-  
-  # find the components in the graph
-  cluster_result = clusters(current_graph)
-  
-  # get the membership for the hotspots
-  current_fire_id = cluster_result$membership[1:nrow(current_hour)]
-  
-  current_hour$fire_id = NA
-  
-  # get the membership for the active centers
-  if (nrow(active_group)>0){
-    previous_center_current_id = cluster_result$membership[(nrow(current_hour)+1):length(cluster_result$membership)]
-    
-    # if the hotspots share the same group as active centers, assign those hotspots a previous fire_id
-    assign_ids = match_muti_fire(current_fire_id, previous_center_current_id, dist_matrix)
-    if (all(is.na(assign_ids))) {
-      current_hour$fire_id = NA
-    } else {
-      current_hour$fire_id =  active_group$fire_id[assign_ids]
-    }
-    
-  }
-  
-  # hotspots that doesn't in the same group as active centers will have a missing value, we need to assign them new fire id
-  
-  # we first get the membership of those points
-  temp_membership = current_fire_id[is.na(current_hour$fire_id)]
-  
-  # we need to slightly adjust the membership to make it start from 1 and common difference equal to 1
-  temp_membership = data.frame(temp_membership = temp_membership) %>%
-    group_indices(temp_membership)
-  # and add the total number of fire we knew
-  temp_membership = temp_membership + nrow(group_centers[[i]])
-  
-  
-  # assign them back to those missing entries
-  current_hour$fire_id[is.na(current_hour$fire_id)] = temp_membership
-  
-  
-  # now all the current hour points has a fire id, we can recompute the centers
-  current_centers = as.data.frame(st_coordinates(current_hour)) %>%
-    mutate(fire_id = current_hour$fire_id) %>%
-    group_by(fire_id) %>%
-    summarise(lon = mean(X), lat = mean(Y))
-  
-  # mark those fire as active
-  current_centers$active = 0
-  current_centers = st_as_sf(x = current_centers, coords = c("lon","lat"), crs = 4326)
-  
-  # replace the center info
-  group_centers[[i]] = group_centers[[i]] %>%
-    filter(!(fire_id %in% current_centers$fire_id))
-  group_centers[[i]] = rbind(group_centers[[i]], current_centers)
-  group_centers[[i]] = arrange(group_centers[[i]], fire_id)
-  
-  # assign the fire id back to master data set
-  temp_fire_id = c(temp_fire_id, current_hour$fire_id)
-  temp_obs_id = c(temp_obs_id, current_hour$obs_id)
-  
+  cat('*-------------------------------------------*\n')
+  cat('')
+  cat('Results of hotspots clustering:\n')
+  cat('\n')
+  cat('  Observations:       ', length(x$fire_id),      '\n')
+  cat('  Clusters:           ', max(x$fire_id),         '\n')
+  cat('  Timestamps:         ', x$timestamps,           '\n')
+  cat('  Adjacency Distance: ', x$adj_distance,         '\n')
+  cat('  Active Time:        ', x$active_time,          '\n')
+  cat('  Method:             ', x$method,               '\n')
+  cat('  Fire Movement DIR:  ', x$fire_mov_dir,         '\n')
+  cat('\n')
+  cat('*-------------------------------------------*\n')
+
 }
 
-myfun = function(x,y){
-  temp = as.data.frame(st_coordinates(x)) %>%
-    mutate(hour_id = y)
-  temp = temp %>%
-    mutate(fire_id = 1:nrow(temp))
-  temp
+
+
+# Function to calculate mean and max distance to the centroid
+calc_r <- function(lon, lat){
+  cen_lon <- mean(lon)
+  cen_lat <- mean(lat)
+  centroid <- data.frame(lon = cen_lon, lat = cen_lat)
+  points <- data.frame(lon = lon, lat = lat)
+  dist_vector <- geodist::geodist(points, centroid)
+  
+  paste(format(mean(dist_vector), digits = 3), 
+        format(max(dist_vector), digits = 3),
+        sep = ",") %>%
+    return()
 }
 
-center_move = imap(group_centers, ~myfun(.x,.y)) %>%
-  reduce(rbind)
 
-hotspots_VIC$fire_id_3km = temp_fire_id
-output_3km = as.data.frame(hotspots_VIC) %>%
-  select(`#obstime`, firepower, state, year, month, day, week, hour, hour_id, obs_id, fire_id_3km)
-temp = as.data.frame(st_coordinates(hotspots_VIC))
-output_3km$lon = temp$X
-output_3km$lat = temp$Y
 
-# Plot it - small subset in time
-ggplot() + geom_sf(data=vic_map) +
-  geom_point(data=output_3km %>% filter(hour_id < 5), 
-             aes(x=lon, y=lat, colour=factor(fire_id_3km))) +
-  facet_wrap(~hour_id)
 
-# Now over time, choose a prevalent cluster first
-output_3km %>% count(fire_id_3km, sort=TRUE)
-output_3km %>% filter(fire_id_3km == 12) %>%
-  ggplot(aes(x=hour_id, y=1)) + geom_point()
-
-# Over space, on local scale
-output_3km %>% filter(fire_id_3km == 12) %>%
-  ggplot(aes(x=lon, y=lat)) + geom_point() + 
-  facet_wrap(~hour_id)
-
-# Show two, and more
-# 1, 8, 9 different location
-output_3km %>% filter(fire_id_3km %in% c(2, 4, 5, 7, 12)) %>%
-  ggplot(aes(x=lon, y=lat, colour=factor(fire_id_3km))) + geom_point() + 
-  facet_wrap(~hour_id)
-
-save(output_3km, file="clustering_paper/data/output_3km.rda")
-save(vic_map, file="clustering_paper/data/vic_map.rda")
-save(hotspots_VIC, file="clustering_paper/data/hotspots_VIC.rda")
-
-write.csv(output_3km, 'data/hotspots_3km.csv', row.names = FALSE)
-write.csv(center_move, 'data/fire_3km.csv', row.names = FALSE)
 
 
 
