@@ -31,3 +31,25 @@ Value:
 ## main.R
 
 Examples of hyperparameters for this algorithm can be found in this script. Combining with the algorithm, this script can handle enormous clustering task like grouping 1 million hotspots across Australia in 30 minutes. If it only works on hotspots in Victoria, running time will reduce to only 3 mins.
+
+## Packages
+
+```r
+tidyverse
+sf
+furrr
+lubridate
+rnaturalearth
+igraph
+here
+DBI
+RSQLite
+progress
+```
+
+## Data
+
+[ptree](https://www.eorc.jaxa.jp/ptree/index.html)
+
+jaxa himawari-8 satellite hotspots data
+

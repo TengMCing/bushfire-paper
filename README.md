@@ -33,7 +33,7 @@ VIC recreation site location data
 
 CFA fire station location data
 
-VIC historical fire on public land data
+Fire Origins - Current and Historical
 
 [osm - GeoFabrik](http://download.geofabrik.de/australia-oceania.html)
 
@@ -42,6 +42,10 @@ openstreetmap data for AU
 [FOA 2018](https://www.agriculture.gov.au/abares/forestsaustralia/forest-data-maps-and-tools/spatial-data/forest-cover)
 
 Forest of Australia 2018
+
+[Near-Surface Wind Speed](https://data.csiro.au/dap/landingpage?pid=csiro%3AWind_Speed)
+
+Near-Surface Wind Speed - CSRIO
 
 ## Folders in this repository
 
