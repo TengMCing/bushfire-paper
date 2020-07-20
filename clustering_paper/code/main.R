@@ -62,11 +62,14 @@ target_area = target_area[1:8]
 cl_dist <-  3000
 
 # Clustering method
-cl_method <-  c("mean", 'max', 'null')
+cl_method <-  c("mean_r", 'max_r', 'null')
 cl_method <-  cl_method[3]
 
 # Output dir
 my_fire_mov <- "data/fire_mov.sqlite"
+
+# Active time
+cl_active_time <- 24
 
 
 ####################################################################
@@ -203,15 +206,16 @@ test <- hotspots_clustering(con = my_db,
                             table_name = "HOTSPOTS",
                             method = cl_method,
                             adj_distance = cl_dist,
-                            active_time = 24,
+                            active_time = cl_active_time,
                             fire_mov_dir = my_fire_mov,
                             memory_saving = FALSE)
+
 
 # *-------------------------------------------*
 # Results of hotspots clustering:
 #   
 #   Observations:        1010794 
-#   Clusters:            76870 
+#   Clusters:            76929 
 #   Timestamps:          3722 
 #   Adjacency Distance:  3000 
 #   Active Time:         24 

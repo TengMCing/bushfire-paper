@@ -257,10 +257,12 @@ hotspots_clustering <- function(con,
     
     
     # Adjust membership label
+    index <- 1:total_current_obs
+    
     if (total_active_group > 0){
-      index <- -hotspots_index
-    } else {
-      index <- 1:total_current_obs
+      if (length(which(nearest_active_group > 0)) > 0){
+        index <- -which(nearest_active_group > 0)
+      }
     }
     
     temp_membership <- current_time_data$fire_id[index]
@@ -330,7 +332,12 @@ hotspots_clustering <- function(con,
       
       RSQLite::dbDisconnect(my_fire_db)
       
-    } 
+    }
+    
+    
+    
+    
+    ## end of one iteration of for loop
   }
   
   

@@ -9,7 +9,7 @@ Victoria hotspost data with corresponding clusters id using parameters shown bel
 Results of hotspots clustering:
 
   Observations:        75936 
-  Clusters:            1746 
+  Clusters:            1820 
   Timestamps:          1284 
   Adjacency Distance:  3000 
   Active Time:         24 
