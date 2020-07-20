@@ -32,6 +32,10 @@ Value:
 
 Examples of hyperparameters for this algorithm can be found in this script. Combining with the algorithm, this script can handle enormous clustering task like grouping 1 million hotspots across Australia in 30 minutes. If it only works on hotspots in Victoria, running time will reduce to only 3 mins.
 
+## grid.R
+
+Produce all results using interested combinations of hyperparameters
+
 ## Packages
 
 ```r
