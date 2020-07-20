@@ -143,7 +143,7 @@ hotspots_clustering <- function(con,
       filter(time_id == i) %>%
       collect()
     
-    if (nrow(current_time_data) == 0) stop(paste0("There is no data in timestamp", i))
+    if (nrow(current_time_data) == 0) next
     
     # Get the active fire center
     active_group <- filter(fire_mov, active > -active_time)

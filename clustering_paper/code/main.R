@@ -156,9 +156,14 @@ data_preparation <- function(start_date = start_date,
   hotspots$week <-  week(hotspots$`#obstime`)
   hotspots$hour <-  hour(hotspots$`#obstime`)
   
-  hotspots$hour_id <- hotspots %>%
-    group_indices(year,month,day,hour)
+  hotspots <- arrange(hotspots, year, month, day, hour)
   
+  hotspots$hour_id <- difftime(hotspots$`#obstime`, min(hotspots$`#obstime`), units = "hour") %>%
+    as.numeric() %>%
+    round() %>%
+    as.integer()
+  
+  hotspots$hour_id <- hotspots$hour_id + 1
   
   print('Hotspots data preprocessing finished!')
   
@@ -215,8 +220,8 @@ test <- hotspots_clustering(con = my_db,
 # Results of hotspots clustering:
 #   
 #   Observations:        1010794 
-#   Clusters:            76929 
-#   Timestamps:          3722 
+#   Clusters:            85848 
+#   Timestamps:          4321 
 #   Adjacency Distance:  3000 
 #   Active Time:         24 
 #   Method:              null 

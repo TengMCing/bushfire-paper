@@ -154,9 +154,14 @@ data_preparation <- function(start_date = start_date,
   hotspots$week <-  week(hotspots$`#obstime`)
   hotspots$hour <-  hour(hotspots$`#obstime`)
   
-  hotspots$hour_id <- hotspots %>%
-    group_indices(year,month,day,hour)
+  hotspots <- arrange(hotspots, year, month, day, hour)
   
+  hotspots$hour_id <- difftime(hotspots$`#obstime`, min(hotspots$`#obstime`), units = "hour") %>%
+    as.numeric() %>%
+    round() %>%
+    as.integer()
+  
+  hotspots$hour_id <- hotspots$hour_id + 1
   
   print('Hotspots data preprocessing finished!')
   
