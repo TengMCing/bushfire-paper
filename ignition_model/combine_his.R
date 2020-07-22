@@ -668,6 +668,7 @@ month6 <- rep(0, nrow(trim_fire_o))
 month12 <- rep(0, nrow(trim_fire_o))
 month24 <- rep(0, nrow(trim_fire_o))
 
+wind_record[wind_record<0] <- NA
 
 # process monthly wind speed for this month, last month, last 3 month, last 6 month, last year and last 2 years
 
@@ -679,10 +680,10 @@ for (i in 1:nrow(trim_fire_o)){
   temp <- wind_record[(k-24):k,i]
   month0[i] <- temp[25]
   month1[i] <- temp[24]
-  month3[i] <- mean(temp[22:24])
-  month6[i] <- mean(temp[19:24])
-  month12[i] <- mean(temp[13:24])
-  month24[i] <- mean(temp[1:24])
+  month3[i] <- mean(temp[22:24], na.rm = TRUE)
+  month6[i] <- mean(temp[19:24], na.rm = TRUE)
+  month12[i] <- mean(temp[13:24], na.rm = TRUE)
+  month24[i] <- mean(temp[1:24], na.rm = TRUE)
 }
 
 fire_o$aws_m0 <- month0
