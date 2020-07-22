@@ -92,18 +92,25 @@ For the second and the later timestamps, the algorithm first combined
 centroids of active groups with the hotspots data in the corresponding
 timestamps. It then calculated geodesic distances matrix, filled
 adjacency matrix and constructed graph as before. There was an
-additional step which was to find the nearest active groups within the
-same component for each points. If a point shared a same component with
+additional step which was to find the nearest active group within the
+same component for each point. If a point shared the same component with
 active groups, it would be assigned with the membership of the nearest
 active group. Otherwise, points shared with the same component would be
 assigned with a new membership. Therefore, points in one component would
 not necessary had the same membership if there were more than one active
-groups within a component.
+groups within a component. All centroids of active groups and new group
+would then be recalculated and updated using only the current timestamps
+hotspots data. Their ``active'' attributes were set to be 0.
 
-Data manipulation was done by using package \texttt{dplyr}. Geodesic
-distances matrix is calculated using package \texttt{geodist}. Graph
+This algorithm worked till the last timestamps. The end result was a
+vector of memberships with length equal to number of rows in hotspots
+data and a time-series record of all groups.
 
-which had the same dimension as the geodesic distances matrix.
+For computational performance, we stored the hostpots data in a SQLite
+database. Relevant operation was done by using packages \texttt{DBI} and
+\texttt{RSQLite}. Geodesic distances matrix was calculated using package
+\texttt{geodist}. Graph operation was done by using package
+\texttt{igraph}.
 
 The code implemented this algorithm is ``clustering.R''.
 
