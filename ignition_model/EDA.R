@@ -67,8 +67,12 @@ for (each_variable in names(training)){
   }
 }
 
+p <- training %>%
+  select_if(is.numeric) %>%
+  select(-dist_camp, -dist_road, -dist_cfa) %>%
+  ggcorr(nbreaks = 7)
 
+p <- p + ggtitle("Correlation Matrix")
 
-
-
+ggsave(paste0("plots/", "corr", ".jpeg"), plot = p, width = 12, height = 8)
 
