@@ -6,334 +6,77 @@ knit: "bookdown::render_book"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, cache=TRUE)
 # Load any R packages you need here
-library(tidyverse)
-library(kableExtra)
+library(forecast)
+library(ggplot2)
 ```
 
-```{r}
-options(tinytex.verbose = TRUE)
+# Introduction {#ch:intro}
+
+This is where you introduce the main ideas of your thesis, and an overview of the context and background.
+
+Later chapters should be divided into coherent pieces describing your analysis. The final chapter should provide some concluding remarks, discussion, ideas for future research, and so on. Appendixes can contain additional material that don't fit into any chapters, but that you want to put on record. For example, additional tables, output, etc.
+
+## Rmarkdown
+
+In this template, the rest of the chapter shows how to use Rmarkdown. The big advantage of using Rmarkdown is that it allows you to include your R code directly into your thesis, to ensure there are no errors in copying and pasting, and that everything is reproducible. It also helps you stay better organized.
+
+For details on using _R Markdown_ see <http://rmarkdown.rstudio.com>.
+
+## Data
+
+Included in this template is a file called `sales.csv`.  This contains quarterly data on Sales and Advertising budget for a small company over the period 1981--2005. It also contains the GDP (gross domestic product) over the same period. All series have been adjusted for inflation.  We can load in this data set using the following command:
+
+```{r loaddata, echo=TRUE}
+sales <- ts(read.csv("data/sales.csv")[,-1], start=1981, frequency=4)
 ```
 
+Any data you use in your thesis can go into the data directory. The data should be in exactly the format you obtained it. Do no editing or manipulation of the data outside of R. Any data munging should be scripted in R and form part of your thesis files (possibly hidden in the output).
 
-# Statement of the topic {#ch:intro}
+## Figures
 
-Along with the extreme heatwave in Australia 2019-2020, one of the most devastating bushfire season in history had been witnessed. Lighting strikes and arson were been discussed among pubilc as the main cause of this disaster. This research will explore the methods of fire ignition during 2019-2020 Australia bushfires season and provide a model to predict the fire risk of neighbourhoods. Hotspots data from the JAXA’s Himawari-8 satellite and weather data from the Australian Bureau of Meteorology will be used in ignition identification and bushfire danger estimation. In addition, an interactive web application embeds with research outcomes will be built for data visualization purpose.
+Figure \ref{fig:deaths} shows time plots of the data we just loaded. Notice how figure captions and references work. Chunk names can be used as figure labels with `fig:` prefixed. Never manually type figure numbers, as they can change when you add or delete figures. This way, the figure numbering is always correct.
 
-## Motivation
-
-In Australia, numerous occasions of bushfires cause losses of properties and life every year. Recorded since Hobart bushfires in 1967, the insurance claimed for building losses was greater than $A10 million (McAneney, Chen & Pitman, 2009) McAneney, Chen and Pitman (2009) show in their research that the average number of buildings had been destroyed by bushfire per year is 84, accounting for 20% of total building losses in hazard events.
-
-
-The Australian bushfire season in 2019-2020, compared with other major bushfires in history, had a severer impact on environment and properties.  According to the Parliament of Australia report (2020) on this devastating bushfire season, 3094 houses had been destroyed during this crisis and burnt land was over 17M hectares. These two figures are the highest in history. Fortunately, only 33 people including firefighters died comparing to 173 in Black Saturday and 47 in Ash Wednesday (Parliament of Australia, 2020).
-
-
-Therefore, understanding what caused the 2019-2020 Australian bushfires is extremely important which may provide us with information for future legislation and fire risk management.
-
-Another motivation for us to conduct this research is the difficulty of finding the cause of bushfire in Australia. Beale and Jones (2009) state in their research that only 58.9% of the cause of fires is known. In the known cases, the percentage of deliberate and suspicious ignitions is around 50%. Besides, 35% of known cases are caused by accidents and 6% of known cases are caused by nature, for example, lightning. Provide probability information on the cause of bushfires may help investigators in practice. 
-
-
-## Research aim and questions
-
-\<in progress\>
-
-This research aims to answer the following questions:
-
-  1. How to clustering bushfires from hotspots data?
-  
-  2. How to find the ignition methods during 2019-2020 Australia bushfire season?
-  
-    a. How to identify the cause of ignition without classes labels?
-    b. What is the characteristics of 2019-2020 bushfires comparing to historical bushfires?
-  
-  3. How to model fire risk of neighbourhoods?
-  
-    a. Is fire indexes useful for fire prediction?
-    b. Will likelihood of ignitions increase near the campping site and road?
-    c. Are nonparametric models better than Generalized linear model and Generalized additive model in fire risk prediction?
-    d. How to take into account the temporal patterns and spatial patterns in fire risk modelling?
-    e. How to apply regularization and add noise in fire risk modelling?
-    
-
-## Research plan
-
-This reasearch will start from data collection. Various datasets will be collected for this research, and the primary datasets will be hotspots data, weather data and map data. 
-
-To understand the ignition of bushfires, a customized clustering algorithm will be developed to convert hotpots data into fire history, which will contain the starting time and coordinates of each fire. This algorithm will mainly involve simulating fire growth, deciding fire boundaries controlled by tolerance and assigning hotspots data to the most probable cluster. After the clustering result being obtained, fire history will be visualized to diagnostic the performance of the algorithm. It will be done by comparing the behaviour of the same fire under different sets of hyperparameters.
-
-Exploratory data analysis of fire history and its relative factors, like weather condition, distance to the nearest road and distance to the nearest recreation site will be performed. Prior knowledge and featuring engineering will be needed to fully understand the relationship. We expect to discover relationships between the ignition of fire with these factors, which can help us identify the cause of bushfires later on. 
-
-In order to examine the sources of fire ignition, different strategies will be used depending on the outcome in the previous section. If the findings from the analysis are strong and directly related to potential sources of fire ignition, hypothesis tests will be conducted to examine the pattern. If the evidence is weak, we will consider developing another clustering algorithm on fire history. This algorithm will be designed to maximize the distance between bushfire started with different causes in a high dimensional space. A probability model then can be built on top of it, which can provide a probabilistic answer for the cause of bushfires during 2019-2020 bushfire season.
-
-Models for predicting fire risk of neighbourhoods will be built using raw hotspots data instead of the fire history because the hotspots data can be considered generated from a partially observable Markov process, and the underlying state is the development of the bushfire. From low complexity models like logistic regression to high complexity models like random forest will be tested.
-
-For sharing our research outcome, a shiny app will be built and hosted online. In addition, both static and dynamic visualization tools will be considered using. Due to the nature of Spatio-temporal data, which has at least 3-dimensional features, static map view without faceting can only provide limited information. Meanwhile, faceting map view with time will be limited by the size of caravans. Animation based map view is computationally expensive and distracting though it provides more information. Better ways for visualizing Spatio-temporal data will be explored during the development. The potential product will be an interactive map view with triggers to transform data and manipulate the aesthetics specifications.
-
-
-
-## Scope of research
-
-In this research, we will primarily focus on Victoria but eventually extend the results throughout Australia. The study area of this reserach will be limited to bushfires since 2000, especially 2019-2020 bushfires. What else?
-
-\<in progress\>
-
-# Literature Review
-
-Existing researches in bushfires modelling can be divided into two main categories, one is simulation modelling, another is analytical modelling. 
-
-In simulation modelling, Keane et al. (2004) have attempted to use landscape fire succession models (LFSMs) to model fire behaviour including fire ignition and fire spread. They are a group of spatial simulation models which taking into account fire and vegetation dynamics. Similarly, Bradstock et al. (2012) used FIRESCAPE model which mainly involved simulating fire behaviours with fuel and weather conditions. Simulation methods are cost-effective and time-effective in modelling bushfires (Clarke et al., 2019). However, Clarke et al. (2019) also stated in their research that ignition likelihood is not well discussed and considered in these models. Besides, these methods seldomly address ignition types of bushfires which we are interested in. Therefore, simulation modelling will not be considered in our bushfire ignition research. 
-
-Alternatively, analytical modelling is a more popular way to build bushfires models. In analytical modelling, the general framework for analysing bushfires ignitions is generalised additive model (GAM). Bates, McCaw and Dowdy (2018) used it for predicting the number of lightning ignitions. Some studies include a logit link to extend the model for bushfires ignition likelihood prediction (Read, Duff and Taylor, 2018; Zhang, Lim and Sharples, 2017). Mixed-effects had also been considered for incorporating spatial and weather factors (Duff, Cawson and Harris, 2018). Simpler models were been used in this field, like multiple linear regression, negative binomial regression and generalised logistic regression (Cheney, Gould, McCaw and Anderson, 2012; Plucinski, McCaw, Gould and Wotton, 2014; Collins, Price and Penman, 2015). Particularly, instead of using a model, some researches performed statistical testing and exploratory data analysis to test certain hypothesises of bushfires (Miller et al., 2017; Dowdy, Fromm and McCarthy, 2017).
-
-Common covariates for ignitions analysis are weather conditions, vegetation types, topographic information and anthropogenic variables. In addition, various indexes had been used in modelling. Some studies choose to use index variables developed by McArthur such as Forest Fire Danger Index (Clarke et al., 2019; Read et al., 2018), while others choose to use indexes developed by Canadian Forestry Service such as Canadian Fire Weather Index and Drought Code (Plucinski et al., 2014). We doubt that these indexes are irrelevant with fire ignition prediction because they are extracted from weather and vegetation information. However, it may help improve our model performance because it can be viewed as features generated from feature engineering. We will test if index variables are significant in our research.
-
-Although numerous studies for ignitions analysis have applied semiparametric and parametric methods, little analytics attention has been paid to more complex model like tree-based model, support vector machine and artificial neural network. These tools are well developed in machine learning, which will be considered in this research.
-
-Most of the existing works of bushfire ignition analysis focus on a certain area such as south-eastern Australia (Clarke et al., 2019), or a certain state such as Victoria (Read, Duff & Taylor, 2018). Little of existing works have applied prediction across Ausralia.
-
-# Data collection and processing
-
-There are numerous open source data sets available that are collated to provide the data to address the research questions. The main data resource that differs from that used in the literature is the satellite data that records hotspots. The next sections describe how the data is accessed, and and pre-processed for later analysis. 
-
-## Sources
-
-Table \ref{tab:datasetinfo} summarises the data sources. 
-
-
-<!--Two methods were performed to collect necessary datasets, including retrieve files from servers and crawl data from websites. For reproducibility purpose, only public data will be used in this research. -->
-
-<!-- hotspot -->
-### Hotspots
-
-Hotspot data is downloaded from the JAXA’s Himawari-8 satellite. This satellite is positioned in geostationary orbit at 140 degrees east longitude, and the revisit period is 10-minute. Its management system - JAXA's P-Tree system, provides WildFire observation product with 2km spatial resolution. (P-Tree System, 2020). Details on how to download this data are provided by [ozjim post]. 
-
-<!-- Weather -->
-
-### Weather
-
-Weather data were collected from the Australian Bureau of Meteorology, by using an R package - Bomrang (Adam, Mark, Hugh & Keith, 2020). Due to the limitation of APIs provided by the package, we crawled data from BOM's website for extra information. 
-
-<!-- fuel layer -->
-### Fuel layer
-
-To characterise the fuel we used forest of Australia (2018) from the Australian Bureau of Agriculture and Resource Economics and Sciences. It is a fuel layer contains the vegetation information across Australia.
-
-
-### Fire origins
-
-Fire origins are the existing records of historical bushfires ignition which is downloaded from the Department of Environment, Land, Water Planning. This dataset is used to understand the characteristic of each type of ignition.  It helps us to identify the causes of 2019-2020 bushfires.
-
-<!-- paragraph on each data source -->
-
-```{r datasets, results='asis'}
-datasets_info = data.frame(name = c("Hotspots data - JAXA’s Himawari-8 satellite",
-                                    "Weather data - Australian Bureau of Meteorology",
-                                    "Map - OpenStreetMap",
-                                    "Fuel layer - Australian Bureau of Agriculture \\\\ $\\hspace{5mm}$ and Resource Economics and Sciences",
-                                    "Victorian CFA fire stations - Department of Environment, \\\\ $\\hspace{5mm}$Land, Water $\\&$ Planning",
-                                    "Victorian Recreation sites - Department of Environment, \\\\ $\\hspace{5mm}$Land, Water $\\&$ Planning",
-                                    "Fire Origins - Department of Environment, \\\\ $\\hspace{5mm}$Land, Water $\\&$ Planning"), 
-                           spatialresolution = c("$0.02^\\circ \\approx 2km$",
-                                                 "",
-                                                 "2m",
-                                                 "100m",
-                                                 "20m",
-                                                 "10m",
-                                                 "100m"), 
-                           temporalresolution = c("Per 10 minutes",
-                                                  "Daily",
-                                                  "",
-                                                  "",
-                                                  "",
-                                                  "",
-                                                  ""),
-                           time = c("2015-2020",
-                                    "2019-2020",
-                                    "2020",
-                                    "2018",
-                                    "2020",
-                                    "2020",
-                                    "1972-2019"))
-
-knitr::kable(datasets_info, 'latex', 
-             caption  = 'Data information', 
-             label = "datasetinfo",
-             booktabs = TRUE,
-             col.names = c("Data set name", "Spatial Resolution", "Temporal resolution", "Time"),
-             escape = FALSE) %>%
-  kable_styling(font_size = 9)
-
+```{r deaths, message=FALSE, fig.cap="Quarterly sales, advertising and GDP data."}
+autoplot(sales, facets=TRUE, ylab="", xlab="Year")
 ```
 
+## Results from analyses
 
+We can fit a dynamic regression model to the sales data.
 
-## Pre-processing
-
-<!-- Data types -->
-### Data types
-
-The hotspot and weather data is csv format, which can be processed generally with the `tidyverse` tools (Wickham et al., 2020) in R. Fuel layer and other map data are presented as geospatial objects, which can be processed using the tools in the `sf` (Pebesma, 2020). 
-
-### hotspots clustering
-
-Hotpots are point data obtained by light detection from the satellite. They are snapshots of bushfires every 10 minutes. However, just like it is hard to identify a single plant from the top view of a grassland, information about individual bushfire can not be directly derived from the raw hotspot data. In order to understand the ignition time and ignition place of each bushfire, we need to divide hotspots into clusters and trace the growth of each cluster. 
-<!-- hotspot clustering -->
-<!-- why? --> 
-To preprocess the hotspots data, we selected the observations in Australia from the full disk. Meanwhile, hotspots with irradiance under 100 watt per square metre will be deleted. We restricted our study to hotspots that have significant firepower. An hour id has been assigned to each observation range from 1 to T, represents the relative time the hotspot being observed.
-On top of the tidy hotspots data, a clustering algorithm was developed to identify fire clusters. Details about the algorithm can be found in table \ref{tab:clustering}. 
-
-By using this algorithm, we assigned each hotspot a cluster membership which we called *fire_id*. Meanwhile, we recorded the characteristics of each cluster including its centroid, starting time, ending time and movement. The inspiration behind this algorithm is the behaviour of real world bushfire which can be summarised as two hyperparameters, the distance of spread in each hour and the lifetime of fire since last observed, represented by $r_0$ and $t_0$ respectively. These two hyperparameters have been used to determine if a new hotspot belongs to an existing or new cluster.
-
-<!--\newpage-->
-
-\normalfont
-\begin{table}
-\caption{\label{tab:clustering}A clustering algorithm for hotspots}
-\begin{align*}
-&\rule{150mm}{0.5mm}\\[-1\jot]
-&\textbf{Algorithm 1 Hotspots clutering}\\[-1\jot]
-&\rule{150mm}{0.5mm}\\[-1\jot]
-&\textbf{input: }~~~~\text{Hotspots dataset H : (Hour}\textunderscore \text{id}^{(n)} \text{, Coordinates}^{(n)} \text{), n = 1, 2, ... N}\\[-1\jot]
-&~~~~~~~~~~~~~~~~\text{An empty dataset F : (Fire\textunderscore id}^{(m)} \text{, Coordinates}^{(m)} \text{, Active}^{(m)} \text{), m = 1, 2, ...}\\[-1\jot]
-&~~~~~~~~~~~~~~~~\text{An empty vector K} \in \mathbb{N}_1^n\\[-1\jot]
-&~~~~~~~~~~~~~~~~\text{A distance hyperparameter }r_0 \in \mathbb{R}^+\\[-1\jot]
-&~~~~~~~~~~~~~~~~\text{A time hyperparameter }t_0 \in \mathbb{N}^+\\[-1\jot]
-&\textbf{output: }~~\text{A vector K} \in \mathbb{N}_1^n~\text{contains memberships of hotspots}\\[-1\jot]
-&~~~~~~~~~~~~~~~~\text{A dataset F contains fire clusters information including memberships, latest}\\[-1\jot]
-&~~~~~~~~~~~~~~~~\text{centroids and time from last updated}\\[-1\jot]
-&~~1:~~\text{select subset }H_c \in \text{H where Hour\textunderscore id == 1}\\[-1\jot]
-&~~2:~~\text{calculate distance matrix D for Coordinates in }H_c \\[-1\jot]
-&~~3:~~\text{assign 1 to a zero adjacency matrix A for where D} \leq r_0~~//~~\text{hotspots with relative}\\[-1\jot]
-&~~~~~~~~~\text{distance less or equal to }r_0~\text{will be considered belong to the same cluster} \\[-1\jot]
-&~~4:~~\text{create undirected unweighted graph G from A}\\[-1\jot]
-&~~5:~~\text{record memberships of G to K}\\[-1\jot]
-&~~6:~~\text{record clusters classes to Fire\textunderscore id and record clusters centroids to Coordinates of F}\\[-1\jot]
-&~~7:~~\text{set Active in F to }t_0~~//~~\text{Active clusters are fire being observed in the last }t_0~\text{hour}\\[-1\jot]
-&~~8:~~\textbf{for}~~\text{hour = 2, ... T}~~\textbf{do} \\[-1\jot]
-&~~9:~~~~~~~~\text{let Active -1 and select subset }F_c \in \text{F where Active} \geq 0\\[-1\jot]
-&10:~~~~~~~~\text{select subset }H_c \in \text{H where Hour\textunderscore id == hour}\\[-1\jot]
-&11:~~~~~~~~\text{append Coordinates from }F_c~\text{to}~H_c\\[-1\jot]
-&12:~~~~~~~~\text{repeat step 2 - 4}\\[-1\jot]
-&12:~~~~~~~~\textbf{for}~~h_i = \text{each hotspot in }H_c~~\textbf{do}\\[-1\jot]
-&13:~~~~~~~~~~~~~~\textbf{if}~~h_i~\text{share the same membership as one of active clusers in }F_c~~\textbf{then}\\[-1\jot]
-&14:~~~~~~~~~~~~~~~~~~~~\text{copy the corresponding Fire\textunderscore id of the nearest active cluser to K}\\[-1\jot]
-&15:~~~~~~~~~~~~~~\textbf{else}~~\text{copy the membership from G to K}\\[-1\jot]
-&16:~~~~~~~~~~~~~~\textbf{end if}\\[-1\jot]
-&17:~~~~~~~~\textbf{end for}\\[-1\jot]
-&18:~~~~~~~~\text{update F for clusters involed in current timestamp and reset corresponding}\\[-1\jot]
-&~~~~~~~~~~~~~~~\text{Active to }t_0\\[-1\jot]
-&19:~~\textbf{end for}\\[-1\jot]
-&\rule{150mm}{0.5mm}
-\end{align*}
-\end{table}
-
-## Compiled data
-
-The end result of the data pre-processing is a set of data tables, that are uniquely identify by individual primary key and related by a set of foreign keys.  Figure \ref{fig:ERD} shows these tables and the key which allow information to be compared across tables. Technically, this figure is called a conceptual entity relationship diagram. It will be useful for describing the data model to be used in both modelling and web interface for communicating fire risk.
-
-<!-- Figurecaptions need  these pieces:
-1. What is this figure about?
-2. What are the specific details
-3. The most important thing the reader should take away
--->
-
-![Entity relationship diagram illustrating the relational tables of the compiled data. Tables correspond to processed hotspot data, weather, local facilities like CFA sites. This data structure is useful for the data modeling and web app development.  \label{fig:ERD}](figures/Shiny_app_data_Conceptual_ERD.jpeg)
-
-# Exploratory data analysis
-
-## Overview of 2019-2020 Australia bushfire season
-
-![The grid map illustrating the general situation of Victoria during 2019-2020 Australia bushfire season. The severest time for Victoria was December when the massive amount of bushfires ignited in Eastern Victoria. Places like East Gippsland suffered from this devastating crisis. ](figures/number_of_ignitions.jpg){width=500px}
-
-## weather condition
-![The densities plot of Weather conditions illustrating the relationship between bushfire ignitions and maximum temperature, minimum temperature and global solar exposure respectively. Bushfires ignition tends to happen when the maximum temperature and the global solar exposure are higher than normal. This relationship is useful for ignition prediction. \label{fig:weather-conditions}](figures/current_weather_condition.jpg){width=500px}
-
-![The densities plot of weather conditions illustrating the relationship between historical lightning-ignition bushfires and 2019-2020 bushfires. Historical lightning-ignition bushfires occurred under higher temperature but lower global solar exposure than 2019-2020 bushfires. It tells us that 2019-2020 bushfires are probabaly not only caused by lightning.](figures/history_weather_condition.jpg){width=500px}
-
-![The densities plot of weather conditions illustrating the relationship between lightning-ignition bushfires and other casued bushfires. Lightning-ignition bushfires occurred under high temperature but not neccssary high global solar exposure. It is useful for ignition type classification.](figures/his_lightning.jpg){width=500px}
-
-## Distance to the nearest road and recreation site
-
-![The densities plot of distance to the nearest recreation site and the nearest road shows the importance of these two variables. Simulation draws are random simulated from Victoria, which assumes bushfires can occur anywhere. The observed draws of distance to the nearest road is not significantly different with simulated draws, which suggests that this variable is not useful for ignition type classification in most of the time. Observed bushfires are closer to the camping site, which implies camping sites have higher fire risk.](figures/dist_to_camp_and_road.jpg){width=500px}
-
-
-
-![The waffle plot of distance of fire ignitions to the nearest recreation site shows the possibility of human lighted bushfires. Only 1% of ignitions within the 1km radius of recreation sites, and only 3% within 3km radius. The chance of human lighted fire is high.](figures/dist_to_camp_waffle.jpg){width=500px}
-
-![The waffle plot of distance of fire ignitions to the nearest road illustrating the possibility of human ingnited. 13% of the distance less than 100m, which suggests high probability of accidentally or deliberately lighting. Notice that 50% of fires are very close to road (less than 500m), which means they are accessible for firefighters. ](figures/dist_to_road_waffle.jpg){width=500px}
-
-## Fire cluster movement
-
-![The movement path and hotspots map shows the bushfire behaviour of bushfire "454" and bushfire "1420", which is two clusters from the results of clustering algorithm. The triangle is the ignition point of bushfire and the rectangle is the extinguish point. The black line is the movement of bushfire centeroid. points with red color and larger size are hotspots with higher firepower which is measured by watt per square metre. We can know that bushfires ignited with low firepower, and will getting hotter when time pass, then finally extinguish with not enough fuel.  ](figures/fire_mov.jpg){width=500px}
-
-Which plot should I keep? What other plots should I include in this chapter?
-
-
-# Modelling
-
-\<plan\>
-
-In this research, two types of models will be developed and tested. One is the ignition method prediction model, which is used for analysing ignition type of 2019-2020 bushfires and predicting the causes of future bushfires. Another is the fire risk model. It will learn the features of hotspots and predict the probability of hotspots occurrence at a particular time and place. The following sections will discuss the plan to develop these two models.
-
-## Predicting ignition method
-
-\<plan\>
-
-To analysis and predict the ignition method of bushfires, historical causes of bushfires will be used as training data. The modelling problem will be a multiclass classification problem. Incorporating vegetation, topographic, anthropogenic and climate information as independent variables, a group of models will be tested. These include parametric models like the generalized linear model, semiparametric models like the generalized additive model and nonparametric models like random forest, support vector machine and artificial neural network. 
-
-The statistical inference will be performed for testing the differences between human lighted bushfires and lightning-ignition bushfires.
-
-## Modelling fire risk
-
-The framework of fire risk modelling is similar to ignition method prediction. It will still be a classification problem, but a binary classification problem instead. The aim of this model is to predict the probability of bushfire ignition in a given grid at a given time. The grid will be designed to fit the shape of Victoria and with spatial resolution equal to 50km. The training data will be the hotspots data instead of bushfires history. Potential models will be the same as ignition method prediction.
-
-
-\<plan\>
-
-# Timeline
-
-The research plan for this semseter can be found in Table \ref{tab:timeline1}. Future research plan can be found in Table \ref{tab:timeline2}.
-
-```{r timeline, results='asis'}
-timeline = data.frame(Timeline = c("Week 2","Week 3","", "Week 4","", "Week 5", "Week 6", "Week 7","Week 8", "week 9"),
-                      Tasks = c("Geographic data background reading",
-                                "Collect Remote sensing data (JAXA himawari-8 satellite) and",
-                                "explore BOM weather data APIs (Bomrang)",
-                                "Collect Road Map (OpenStreetMap) and",
-                                "read articles in SpatioTemporal data visualization and modelling",
-                                "Develop clustering algorithm for remote sensing data",
-                                "Test diferent hyperparameters for clusetring",
-                                "Exploratory data analysis on fire clusters and data integration",
-                                "Feature planning for the shiny app",
-                                "Write research proposal and prepare the first presentation"))
-
-
-knitr::kable(timeline, "latex",
-             caption = "Research plan till week 9",
-             label = "timeline1",
-             booktabs = TRUE,
-             escape = FALSE) %>%
-  kable_styling(latex_options = "hold_position")
-  
+```{r, echo=FALSE}
+fit <- auto.arima(sales[,"Sales"], xreg=sales[,2:3], D=1)
+if(!identical(fit$arma, c(1L,0L,0L,1L,4L,0L,1L)))
+  stop("Model not ARIMA(1,0,0)(0,1,1)[4]")
+#This is an example of how to put checks into your R code to warn you if something has gone wrong.
 ```
 
-```{r}
-timeline = data.frame(Timeline = c("June - July", "August", "September", "October"),
-                      Tasks = c("Modelling fire ignition and fire risk", "Consolidate findings and create mockups of the shiny app", "Develop the shiny app and perform different levels of testing", "Write thesis and prepare the second presentation")) 
+If $y_t$ denotes the sales in quarter $t$, $x_t$ denotes the corresponding advertising budget and $z_t$ denotes the GDP, then the resulting model is:
+\begin{equation}
+  y_t - y_{t-4} = \beta (x_t-x_{t-4}) + \gamma (z_t-z_{t-4}) + \theta_1 \varepsilon_{t-1} + \Theta_1 \varepsilon_{t-4} + \varepsilon_t
+\end{equation}
+where
+$\beta = `r format(fit[['coef']]['AdBudget'], digits=2, nsmall=2)`$,
+$\gamma = `r format(fit[['coef']]['GDP'], digits=2, nsmall=2)`$,
+$\theta_1 = `r format(fit[['coef']]['ma1'], digits=2, nsmall=2)`$,
+and
+$\Theta_1 = `r format(fit[['coef']]['sma1'], digits=2, nsmall=2)`$.
 
-knitr::kable(timeline, "latex",
-             caption = "Research plan since June",
-             label = "timeline2",
-             booktabs = TRUE,
-             escape = FALSE) %>%
-  kable_styling(latex_options = "hold_position")
+## Tables
+
+Let's assume future advertising spend and GDP are at the current levels. Then forecasts for the next year are given in Table \ref{tab:salesforecasts}.
+
+```{r forecasts, results="asis"}
+currentad <- rep(tail(sales[,"AdBudget"],1),4)
+currentgdp <- rep(tail(sales[,"GDP"],1),4)
+fc <- forecast(fit, xreg=cbind(AdBudget=currentad, GDP=currentgdp))
+knitLatex::xTab(format(as.data.frame(fc), nsmall=1, digits=1),
+   caption.bottom="Forecasts for the next year assuming Advertising budget and GDP are unchanged.",
+   booktabs=TRUE, coldef='lrrrr',
+   label='tab:salesforecasts')
 ```
 
+Again, notice the use of labels and references to automatically generate table numbers. In this case, we need to generate the label ourselves.
 
-# Supplementary materials
-
-# Biblography
-
-
-
-
+The `knitLatex` package is useful for generating tables from R output. Other packages can do similar things including the `kable` function in `knitr` which is somewhat simpler but you have less control over the result. If you use `knitLatex` to generate tables, don't forget to include `results="asis"` in the chunk settings.
 
