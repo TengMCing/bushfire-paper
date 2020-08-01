@@ -1,0 +1,8 @@
+---
+chapter: 8
+knit: "bookdown::render_book"
+---
+
+# Conclusion {#ch:conclusion}
+
+13 [@cfa]

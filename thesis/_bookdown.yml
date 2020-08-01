@@ -3,7 +3,14 @@ language:
   ui:
     chapter_name: "Chapter "
 rmd_files: ["index.Rmd",
-  "01-chap1.Rmd",
-  "02-chap2.Rmd",
-  "A-appA.Rmd"]
+  "01-Abstract.Rmd",
+  "02-Introduction.Rmd",
+  "03-Review_of_literature.Rmd",
+  "04-Data.Rmd",
+  "05-Modelling.Rmd",
+  "06-Results.Rmd",
+  "07-Discussion.Rmd",
+  "08-Conclusion.Rmd",
+  "A-appA.Rmd",
+  "B-appB.Rmd"]
 delete_merged_file: TRUE

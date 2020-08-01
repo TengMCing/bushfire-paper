@@ -1,0 +1,18 @@
+---
+chapter: 4
+knit: "bookdown::render_book"
+---
+
+# Data {#ch:data}
+
+## Data collection
+
+## Data preparation
+
+### Data types
+
+### Identifying unique fires using spatiotemporal clustering
+
+### Compiled data
+
+## Exploratory data analysis

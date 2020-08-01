@@ -1,0 +1,10 @@
+---
+chapter: 7
+knit: "bookdown::render_book"
+---
+
+# Discussion {#ch:discussion}
+
+## Limitation
+
+## Future work

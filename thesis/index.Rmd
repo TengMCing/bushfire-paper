@@ -1,8 +1,8 @@
 ---
-title: 'Thesis title'
+title: 'Using Remote Sensing Data to Understand Fire Ignition During the 2019-2020 Australia Bushfire Season'
 degreetype: 'Bachelor of Commerce (Honours)'
-author: 'Joe Bloggs'
-studentid: 12345678
+author: 'Weihao Li'
+studentid: 28723740
 output: bookdown::pdf_book
 site: bookdown::bookdown_site
 link-citations: yes
