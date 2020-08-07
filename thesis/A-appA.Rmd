@@ -4,8 +4,44 @@ knit: "bookdown::render_book"
 
 \appendix
 
-# Additional stuff
+# Spatio-temporal clustering algorithm
 
-You might put some computer output here, or maybe additional tables.
-
-Note that line 5 must appear before your first appendix. But other appendices can just start like any other chapter.
+\begin{table}
+\caption{\label{tab:clustering}A clustering algorithm for hotspots}
+\begin{align*}
+&\rule{150mm}{0.5mm}\\[-1\jot]
+&\textbf{Algorithm 1 Hotspots clutering}\\[-1\jot]
+&\rule{150mm}{0.5mm}\\[-1\jot]
+&\textbf{input: }~~~~\text{Hotspots dataset H : (Hour}\textunderscore \text{id}^{(n)} \text{, Coordinates}^{(n)} \text{), n = 1, 2, ... N}\\[-1\jot]
+&~~~~~~~~~~~~~~~~\text{An empty dataset F : (Fire\textunderscore id}^{(m)} \text{, Coordinates}^{(m)} \text{, Active}^{(m)} \text{), m = 1, 2, ...}\\[-1\jot]
+&~~~~~~~~~~~~~~~~\text{An empty vector K} \in \mathbb{N}_1^n\\[-1\jot]
+&~~~~~~~~~~~~~~~~\text{A distance hyperparameter }r_0 \in \mathbb{R}^+\\[-1\jot]
+&~~~~~~~~~~~~~~~~\text{A time hyperparameter }t_0 \in \mathbb{N}^+\\[-1\jot]
+&\textbf{output: }~~\text{A vector K} \in \mathbb{N}_1^n~\text{contains memberships of hotspots}\\[-1\jot]
+&~~~~~~~~~~~~~~~~\text{A dataset F contains fire clusters information including memberships, latest}\\[-1\jot]
+&~~~~~~~~~~~~~~~~\text{centroids and time from last updated}\\[-1\jot]
+&~~1:~~\text{select subset }H_c \in \text{H where Hour\textunderscore id == 1}\\[-1\jot]
+&~~2:~~\text{calculate distance matrix D for Coordinates in }H_c \\[-1\jot]
+&~~3:~~\text{assign 1 to a zero adjacency matrix A for where D} \leq r_0~~//~~\text{hotspots with a relative}\\[-1\jot]
+&~~~~~~~~~\text{distance less or equal to }r_0~\text{will be considered belonging to the same cluster} \\[-1\jot]
+&~~4:~~\text{create undirected unweighted graph G from A}\\[-1\jot]
+&~~5:~~\text{record memberships of G to K}\\[-1\jot]
+&~~6:~~\text{record clusters classes to Fire\textunderscore id and record clusters centroids to Coordinates of F}\\[-1\jot]
+&~~7:~~\text{set Active in F to }t_0~~//~~\text{Active clusters are fire being observed in the last }t_0~\text{hour}\\[-1\jot]
+&~~8:~~\textbf{for}~~\text{hour = 2, ... T}~~\textbf{do} \\[-1\jot]
+&~~9:~~~~~~~~\text{let Active -1 and select subset }F_c \in \text{F where Active} \geq 0\\[-1\jot]
+&10:~~~~~~~~\text{select subset }H_c \in \text{H where Hour\textunderscore id == hour}\\[-1\jot]
+&11:~~~~~~~~\text{append Coordinates from }F_c~\text{to}~H_c\\[-1\jot]
+&12:~~~~~~~~\text{repeat step 2 - 4}\\[-1\jot]
+&12:~~~~~~~~\textbf{for}~~h_i = \text{each hotspot in }H_c~~\textbf{do}\\[-1\jot]
+&13:~~~~~~~~~~~~~~\textbf{if}~~h_i~\text{share the same membership as one of active clusters in }F_c~~\textbf{then}\\[-1\jot]
+&14:~~~~~~~~~~~~~~~~~~~~\text{copy the corresponding Fire\textunderscore id of the nearest active cluster to K}\\[-1\jot]
+&15:~~~~~~~~~~~~~~\textbf{else}~~\text{copy the membership from G to K}\\[-1\jot]
+&16:~~~~~~~~~~~~~~\textbf{end if}\\[-1\jot]
+&17:~~~~~~~~\textbf{end for}\\[-1\jot]
+&18:~~~~~~~~\text{update F for clusters involved in current time-stamp and reset corresponding}\\[-1\jot]
+&~~~~~~~~~~~~~~~\text{Active to }t_0\\[-1\jot]
+&19:~~\textbf{end for}\\[-1\jot]
+&\rule{150mm}{0.5mm}
+\end{align*}
+\end{table}
