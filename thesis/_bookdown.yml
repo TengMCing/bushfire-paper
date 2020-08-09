@@ -7,10 +7,11 @@ rmd_files: ["index.Rmd",
   "02-Introduction.Rmd",
   "03-Review_of_literature.Rmd",
   "04-Data.Rmd",
-  "05-Modelling.Rmd",
-  "06-Results.Rmd",
+  "05-Classifier.Rmd",
+  "06-Risk.Rmd",
   "07-Discussion.Rmd",
   "08-Conclusion.Rmd",
   "A-appA.Rmd",
-  "B-appB.Rmd"]
+  "B-appB.Rmd",
+  "C-appC.Rmd"]
 delete_merged_file: TRUE

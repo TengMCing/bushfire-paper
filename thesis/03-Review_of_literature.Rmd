@@ -7,9 +7,9 @@ knit: "bookdown::render_book"
 
 ## Spatio-temporal clustering
 
-To detect ignition time and location of a bushifre from satellite hotspots data, hotspots need to be grouped according to its location and time into meaningful clusters. This can be performed by spatio-temporal clustering.
+To detect ignition time and location of a bushfire from satellite hotspots data, hotspots need to be grouped according to its location and time into meaningful clusters. This can be performed by spatio-temporal clustering.
 
-Spatio-temporal data contains at least 3 dimension which are locations and time. @kisilevich2009spatio in their survey of spatio-temporal clustering algorithms summarised that there were 5 types of point-wise spatio-temporal data, including spatio-temporal events, geo-referenced variable, geo-referenced time series, moving points and trajectories. Table \ref{tab:st} shows that the classification was based on the temporal dimension and the spatial dimension. 
+Spatio-temporal data contains at least 3 dimensions which are locations and time. @kisilevich2009spatio in their survey of spatio-temporal clustering algorithms summarised that there were 5 types of point-wise spatio-temporal data, including spatio-temporal events, geo-referenced variable, geo-referenced time series, moving points and trajectories. Table \ref{tab:st} shows that the classification was based on the temporal dimension and the spatial dimension. 
 
 (ref:sttable) A classification of spatio-temporal point-wise data types [@kisilevich2009spatio]
 
@@ -19,30 +19,30 @@ library(kableExtra)
 data.frame(single = c("ST events", ""), updated = c("Geo-referenced variable", "Moving points"), time = c("Geo-referenced time series", "Trajectories")) %>%
   `rownames<-`(c('Fixed locatoin', 'Dynamic location')) %>%
   knitr::kable(format = "latex", 
-               col.names = c("Single snapshot", "Updated snapshot", "time series"),
+               col.names = c("Single snapshot", "Updated snapshot", "Time series"),
                label = 'st',
                caption = "(ref:sttable)",
                booktabs = TRUE)
 ```
 
-While in satellite hotspots clustering, the data type is even more complicated which by definition in @kisilevich2009spatio's work, each moving object posses a spatial extension with arbitrary size and shape. Although, this type of data didn't being further discussed in their paper due to the complexity, insights of existing clustering algorithm on point-wise spatio-temporal moving object can be gained and applied to hotspots clustering. 
+Meanwhile in satellite hotspots clustering, the data type is even more complicated which by definition in @kisilevich2009spatio's work, each moving object posses a spatial extension with arbitrary size and shape. Although this type of data didn't being further discussed in their paper due to the complexity, insights of existing clustering algorithm on the point-wise spatio-temporal moving object can be gained and applied to hotspots clustering. 
 
-Before performing the clustering algorithm on spatio-temporal data, deciding how to represent the temporal information in a high-dimensional space is challenging [@kisilevich2009spatio]. The end result of the clustering algorithm could be highly sensitive to the temporal resolution. Hence, scaling of the temporal dimension is vary by application.
+Before performing the clustering algorithm on spatio-temporal data, deciding how to represent the temporal information in a high-dimensional space is challenging [@kisilevich2009spatio]. It is because the end result of the clustering algorithm could be highly sensitive to the temporal resolution. Hence, scaling of the temporal dimension is vary by application.
 
-In the late 90's, researchers in University of Munich, proposed an influential density-based algorithms for discovering clusters [@ester1996density]. @ester1996density mentioned 3 difficulties in clustering algorithm which motivated their work: (1) Requirements of domain knowledge to determine the hyperparameters, (2) Arbitrary shape of clusters and (3) Computation efficiency. 
+In the late '90s, researchers in the University of Munich proposed an influential density-based algorithm for discovering clusters [@ester1996density]. @ester1996density mentioned 3 difficulties in clustering algorithm which motivated their work: (1) Requirements of domain knowledge to determine the hyperparameters, (2) Arbitrary shape of clusters and (3) Computation efficiency. 
 
-According to the Density Based Spatial Clustering of Applications with Noise (`DBSCAN`) algorithm, they defined a maximum radius $\epsilon$ to construct densities around each points, which were spheres in the case of 3-dimensional space. Besides, to overcome the impact of noise, at least minimum number of points (`MinPts`) would be contained by the sphere. Finally, intersected spheres would be considered belonging to the same cluster. The time complexity of this algorithm was $O(N log(N))$. More impressively, `DBSCAN` only needed $O(N)$ memory. They had also showed that via visualizing the density of distance to the k-th nearest neighbour from each point, optimal $\epsilon$ and `MinPts` could be chosen.
+According to the Density Based Spatial Clustering of Applications with Noise (`DBSCAN`) algorithm, they defined a maximum radius $\epsilon$ to construct densities around each point, which were spheres in the case of 3-dimensional space. Besides, to overcome the impact of noise, at least minimum number of points (`MinPts`) would be contained by the sphere. Finally, intersected spheres would be considered belonging to the same cluster. The time complexity of this algorithm was $O(N log(N))$. More impressively, `DBSCAN` only needed $O(N)$ memory. They had also shown that via visualizing the density of distance to the k-th nearest neighbour from each point, optimal $\epsilon$ and `MinPts` could be chosen.
  
 Receiving substantial attention from the academic, researchers from the University of Munich extended their work 3 years later [@ankerst1999optics]. Their new algorithm, Ordering Points To Identify the Clustering Structure (`OPTICS`) provided an automatic technique to identify optimal $\epsilon$ and `MinPts` by obtaining the hierarchical structure of clusters.
 
-The design of our hotspots clustering algorithm will align with some of the ideas in `DBSCAN` and `OPTICS`, while incorporating the behaviour of bushfires. 
+Since there was no available algorithm for hotspots clustering, we designed our own hotspots clustering algorithm to align with some of the ideas in `DBSCAN` and `OPTICS`, and to incorporate the behaviour of bushfires. 
 
 
 ## Bushfire modelling
 
 Existing research on bushfire modelling can be divided into two main categories: simulation and analytical modelling. 
 
-In simulation modelling, @keane2004classification developed landscape fire succession models (LFSMs) to simulate spatial fire behaviour, including fire ignition and fire spread, and accounting for fire and vegetation dynamics. @bradstock2012wildfires used a model called `FIRESCAPE` which involved simulating fire behaviours with fuel and weather conditions. Simulation methods are cost- and time-effective ways to model bushfires, but ignition cause is not considered [@clarke2019developing].  These methods seldomly addressed the ignition methods that we are interested in. <!--Therefore, simulation modelling will not be considered in our bushfire ignition research.--> 
+In simulation modelling, @keane2004classification developed landscape fire succession models (LFSMs) to simulate spatial fire behaviour, including fire ignition and fire spread, and accounting for fire and vegetation dynamics. @bradstock2012wildfires used a model called `FIRESCAPE` which involved simulating fire behaviours with fuel and weather conditions. Simulation methods are cost- and time-effective ways to model bushfires, but ignition cause is not considered [@clarke2019developing].  These methods seldom addressed the ignition methods that we are interested in. <!--Therefore, simulation modelling will not be considered in our bushfire ignition research.--> 
 
 Analytical modelling is another common way to build bushfires models. The general framework for analysing bushfires ignition is a generalised additive model (GAM). @bates2018exploratory used it with a Gaussian distribution for predicting the number of lightning ignitions in Warren Region, Western Australia. Some studies implemented GAM with a binomial distribution to predict ignition probability in New South Wales, Australian Capital Territory and Victoria [@read2018lightning;@zhang2017wildfire]. Mixed-effect model is an alternative to incorporate spatial dependence and weather factors. @duff2018dryness have shown that by treating slope of drought factor and intercept vary by forest type, mixed-effect model with only 2 variables can achieve 70% mean accuracy for predicting fire occurrence in Southern Australia. Besides, simpler parametric models have also been widely used, including multiple linear regression, negative binomial regression and generalised logistic regression [@cheney2012predicting;@plucinski2014predicting;@collins2015spatial]. Instead of modelling bushfire, some research conduct statistical tests and exploratory methods to assess hypotheses about bushfire. [@miller2017electrically;@dowdy2017pyrocumulonimbus].
 

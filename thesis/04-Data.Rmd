@@ -7,23 +7,23 @@ knit: "bookdown::render_book"
 
 ## Data Source
 
-A focus of this work is to utilise open-source data, and collate these data sets to provide a data fusion with which to tackle the research questions. The motivating data source is satellite hotspots, which is different from what has been analysed previously in the literature. This data is collated with weather records, fuel layer, location of roads, fire stations and recreation sites, and historical data on ignition cause. The spatial and temporal details of each dataset are provided in Table \ref{tab:datasetinfo}. In addition, the original data types of each dataset are provided in Table \ref{tab:datatype}. In both tables, there is an `Index` column indicate the dataset usage, which will be further discussed in section [4.1.8][Summary of dataset usage]. 
+A focus of this work is to utilise open-source data, and collate these data sets to provide a data fusion with which to tackle the research questions. The motivating data source is satellite hotspots, which is different from what has been analysed previously in the literature. This data is collated with weather records, fuel layer, location of roads, fire stations and recreation sites, and historical data on cause of ignitions. The spatial and temporal details of each dataset are provided in Table \ref{tab:datasetinfo}. In addition, the original data types of each dataset are provided in Table \ref{tab:datatype}. In both tables, there is an `Index` column indicate the dataset usage, which will be further discussed in section [4.1.8][Summary of dataset usage]. 
 
 ### Satellite hotspots data
 
-To track bushfires in Australia remotely with high temporal and spatial resolution, we used hotspots data taken from the Himawari-8 satellite [@jaxa]. The hotspots data was available on the JAXA FTP site. Besides, only the data during October 2019 to March 2020 was downloaded. Details on how to download this data are provided by @hotspots. It contained records of 1989572 hotspots for 5 months in the full disk of 140 °east longitude.
+To track bushfires in Australia remotely with high temporal and spatial resolution, we used hotspots data taken from the Himawari-8 satellite [@jaxa]. The hotspots data was available on the JAXA FTP site. Besides, only the data from October 2019 to March 2020 was downloaded. Details on how to download this data are provided by @hotspots. It contained records of 1989572 hotspots for 5 months in the full disk of 140 °east longitude.
 
 ### Climate data
 
-To better understand bushifires, we collected climate data from Bureau of Meteorology (BOM) and Commonwealth Scientific and Industrial Research Organisation (CSRIO). Weather properties included maximum temperature, minimum temperature, rainfall and solar exposure were retrieved via an open-source R package `bomrang` [@R-bomrang], which was a data client of BOM. Historical weather records of 885 weather stations across Australia from January 1863 to April 2020 were downloaded. However, the number of public access climate attributes were limited on BOM. To maintain the coherent reproducible workflows, we decided to download near-surface wind speed grids across Australia from CSRIO [@wind]. Wind speed data during Jan 1975 to Dec 2018 were downloaded.
+To better understand bushfires, we collected climate data from Bureau of Meteorology (BOM) and Commonwealth Scientific and Industrial Research Organisation (CSRIO). Weather properties including maximum temperature, minimum temperature, rainfall and solar exposure were retrieved via an open-source R package `bomrang` [@R-bomrang], which was a data client of BOM. Historical weather records of 885 weather stations across Australia from January 1863 to April 2020 were downloaded. However, the number of public access climate attributes on BOM were limited. To maintain the coherent reproducible workflows, we decided to download near-surface wind speed grids across Australia from CSRIO [@wind]. Wind speed data from January 1975 to December 2018 were downloaded.
 
 ### Road map
 
-Bushfires were impacted by anthropogenic factors, we used road map from an comprehensive open-source map `Openstreetmap` [@OpenStreetMap] to represent accessibility of ignition locations. The road map is one of the layers of the full archive, which consisted of 1797217 roads belonging to 27 different classes in Australia. 
+Bushfires were impacted by anthropogenic factors, we used road map from a comprehensive open-source map `Openstreetmap` [@OpenStreetMap] to represent the reachability of ignition locations. The road map is one of the layers of the full archive, which consisted of 1797217 roads belonging to 27 different classes in Australia. 
 
 ### Fuel layer
 
-Vegetation information were obtained by using a 2018 nationwide forest dataset compiled by @forest. This was the fifth and the latest national State of the Forest Report (SOFR). Previous national SOFR were published in 1998-2013.
+Vegetation information was obtained by using a 2018 nationwide forest dataset compiled by @forest. This was the fifth and the latest national State of the Forest Report (SOFR). Previous national SOFRs were published in 1998-2013.
 
 ### Fire stations
 
@@ -83,7 +83,7 @@ datasets_info = data.frame(index = c(1,2,2,2,2,2,2,3),
                                     "2018",
                                     "2020",
                                     "2020",
-                                    "1972-2019"))
+                                    "1972-2018"))
 
 knitr::kable(datasets_info, 'latex', 
              caption  = 'Raw data information', 
@@ -149,14 +149,14 @@ knitr::kable(datasets_info, 'latex',
 
 The programming language used to perform data manipulation in this research is `R` [@R]. Victorian fire origins, recreation sites, CFA fire stations and road map were geospatial data in the shapefile format, which could be processed using the tools in `sf` [@R-sf]. Fuel layer and near-surface wind speed are also geospatial data but stored in the grid format. We used tools in `raster` [@R-raster] to manipulate the data. Other datasets including satellite hotspots data and BOM climate data were stored in csv format which could be handled using the package `tidyverse` [@R-tidyverse].
 
-We only kept fire origins since 2000 due to the limitation of other supplementary datasets. Fire origins were then filtered by the fuel layer to drop fires ignition in non forest area. Causes of fire were recategorized into 5 causes, including lightning, accidental, arson, burning off and others.
+We only kept fire origins since 2000 due to the limitation of other supplementary datasets. Fire origins were then filtered by the fuel layer to drop fire ignitions in non forest area. Causes of fire were recategorized into 5 classes, including lightning, accident, arson, burning off and others.
 
 
 Weather records including maximum temperature, minimum temperature, solar exposure, rainfall and wind speed in the past 720 days for each fire origin were summarised into several numeric variables which are provided in Table \ref{tab:cov}. Besides, CFA stations locations were filtered from the raw data by matching the `FEATSUBTYP` field equal to "fire station". 
 
 Distance to the nearest recreation site, fire station and road were computed for each fire origin.
 
-We truncated hotspots data by using a recommended threshold of fire power [@hotspots], which was over 100 (irradiance over 100 watts per square metre), to reduce noise from the background. The hotspots data were then filter by the published fire restriction period in Victoria to mitigate planned burns.
+We truncated hotspots data by using a recommended threshold of fire power [@hotspots], which was over 100 (irradiance over 100 watts per square metre), to reduce noise from the background. 
 
 
 
@@ -165,19 +165,19 @@ We truncated hotspots data by using a recommended threshold of fire power [@hots
 ### Identifying unique fires using spatiotemporal clustering
 
 
-A clustering algorithm was developed to group hotspots into unique fires. The details are in Table \ref{tab:clustering} in the Appendix. Each hotspot will be assigned a cluster membership which is called the *fire_id*. Other characteristics of each fire, including its centroid, starting time, ending time and movement are recorded. The motivation for this algorithm is bushfire dynamics which can be summarised using two parameters, the potential distance a fire can spread in an hour, and the time a fire can stay smouldering but undetectable by satellite before flaring up again, represented by $r_0$ and $t_0$, respectively. These two parameters have been used to determine if a new hotspot belongs to an existing or new cluster.
+Since there was no available algorithm and software for hotspots clustering, a clustering algorithm and implementation were developed to group hotspots into unique fires. The details are in Table \ref{tab:clustering} in the Appendix. Each hotspot will be assigned a cluster membership which is called the *fire_id*. Other characteristics of each fire, including its centroid, starting time, ending time and movement are recorded. The motivation for this algorithm is bushfire dynamics which can be summarised using two parameters, the potential distance a fire can spread in an hour, and the time a fire can stay smouldering but undetectable by satellite before flaring up again, represented by $r_0$ and $t_0$, respectively. These two parameters have been used to determine if a new hotspot belongs to an existing or new cluster.
 
 Figure \ref{fig:mov} shows two fires and their lifetime movement as computed by the algorithm. 
 
 
 
-![The movement path and hotspots map shows the bushfire behaviour of bushfire "454" and bushfire "1420", which is two clusters from the results of the clustering algorithm. The triangle is the ignition point of bushfire and the rectangle is the extinguish point. The black line is the movement of bushfire centroid. Points with red color and larger size are hotspots with higher fire power which is measured by watt per square metre. We can know that bushfires ignited with low fire power, and will get hotter when time pass, then finally extinguish with not enough fuel. \label{fig:mov}](figures/fire_mov.jpg){width=550px height=495px}
+![The movement path and hotspots map shows the bushfire behaviour of bushfire "454" and bushfire "1420", which is two clusters from the results of the clustering algorithm. The triangle is the ignition point of bushfire and the rectangle is the extinguish point. The black line is the movement of bushfire centroid. Points with red colour and larger size are hotspots with higher fire power which is measured by watt per square metre. We can know that bushfires ignited with low fire power, and will get hotter when time pass, then finally extinguish with not enough fuel. \label{fig:mov}](figures/fire_mov.jpg){width=550px height=495px}
 
 ## Compiled data
 
-The end result of the data processing are three different datasets, which are the dataset for fitting the ignition classifier, the dataset for predicting the 2019-2020 bushfires causes with the ignition classifier and the dataset for fitting the fire risk model. 
+The end results of the data cleaning are three different datasets, which are the dataset for fitting the ignition classifier, the dataset for predicting the 2019-2020 bushfires causes with the ignition classifier and the dataset for fitting the fire risk model. 
 
-The covariate information for fitting the ignition classifier and the fire risk model can be found in Table \ref{tab:cov} and Table <haven't finished this part> respectively.
+The covariate information for fitting the ignition classifier and the fire risk model can be found in Table \ref{tab:cov} and Table <haven't finished yet> respectively.
 
 
 
@@ -391,18 +391,52 @@ tibble(COVER = c(1,2,3,4,5,6), Forest = c("2m-10m", "10m-30m", ">30m", "n/a", ">
 
 ## Descriptive summary
 
-By performing the exploratory data analysis on the training data of ignition classifier, we learn useful information about relationship between covariates and cause of ignition.
+By performing the exploratory data analysis on the historical bushfire ignitions, we explored the relationship between covariates and cause of ignition.
 
-### Map view
+### Summary of ignition cause
 
-In Figure \ref{fig:twod}, lightning-caused ignitions are more likely to occur at the mountain area of Victoria while human-caused ignitions are closer to the urban area. Moreover, in Figure \ref{fig:roadmap}, human-caused ignitions have a clear pattern that align with the road network, and lightning-caused ignitions do not match the road map.
+From January 2000 to December 2018, Victoria recorded 3335, 3322, 1315, 665 and 1508 bushfires ignitions caused by lightning, accident, arson, burning off and others respectively. The histogram of ignition cause is given in Figure \ref{fig:causehist}. The proportion of each cause was against the review of bushfires proposed by @beale2011preventing. Ignitions caused by arson were significantly less than the data provided in their review, while lightning-caused ignitions taking a greater percentage. 
 
-![The density plot shows arson and accidental-caused ignitions are different from each other. Accidental-caused ignitions are denser. In addition, lightning-caused ignition are less likely to occur in melbourne metropolitan area. \label{fig:twod}](figures/lon_lat.jpeg){width=550 height=275}
+![Lightning and accident were the two main sources of bushfire ignitions, which took up 33% respectively. Proportion of ignitions caused by arson was around 13%. 6% of ignitions were reported as planned burns and the rest including unknown cause were 15%.  \label{fig:causehist}](figures/cause.jpeg){width=275 height=241}
 
-![Human-caused ignitions have a strong pattern in aligning with the road network. The map also shows that there are a lot of ignitions on the boundary. \label{fig:roadmap}](figures/road_cause.jpeg){width=550 height=367}
+### Map view of bushfire ignitions
 
-### Date
+In Figure \ref{fig:twod}, lightning-caused ignitions were more likely to occur in the mountain area of Victoria and human-caused ignitions were closer to the urban area. It suggested that spatial pattern would be useful in ignition classification.
 
-We want to know whether human-caused ignitions are vary by date or not. 
+![The density plot shows arson and accident-caused ignitions were different from each other. Accident-caused ignitions were denser. In addition, lightning-caused ignitions were less likely to occur in Melbourne metropolitan area. \label{fig:twod}](figures/lon_lat.jpeg){width=550 height=275}
 
-![\label{fig:year}](figures/year.jpeg){width=550 height=482}
+### Temporal characteristics of bushfire ignitions
+
+There was an increasing trend of accident-caused ignition over the recent years which was shown in Figure \ref{fig:year}. In addition, we found that in Figure \ref{fig:month}, lightning-caused ignitions were most likely occurred in January and February, which were the hottest months in Victoria. It indicated that lightning-caused ignitions were related to temperature. Moreover, according to Figure \ref{fig:day}, people were careless in managing fire risk on Sunday and in the first two days of the week.
+
+![The segmented bar chart shows that accident-caused ignitions increased significantly since 2012. Meanwhile, there were only few cases in 2011, which was because 2011-2012 bushfire season mainly affected Western Australia instead of Victoria. \label{fig:year}](figures/year_normal.jpeg){width=275 height=241}
+
+![The segmented bar chart shows that bushfires seldom ignited during the winter of Victoria. Besides, lightning-caused ignitions usually occurred in the hottest months. \label{fig:month}](figures/month_normal.jpeg){width=275 height=241}
+
+
+![Ignitions were almost equally likely to occur on every day of the week. However, accident-caused ignitions were more often on Sunday, Monday and Tuesday.  \label{fig:day}](figures/dow_normal.jpeg){width=275 height=241}
+
+
+
+### Climate condition of bushfire ignitions
+
+We investigated a series of climate variables given in Table \ref{tab:cov}. Some findings had been discovered. From the density plot of global solar exposure shown in \ref{fig:se}, we found that lightning-caused ignitions occurred on days with higher solar exposure while planned burns usually occurring on cloudy days. In addition, according to the density plot of average wind speed in the past 12 months shown in Figure \ref{fig:aws_m12}, the slower yearly wind speed was an indicator of lightning-caused ignitions in contrast to accident-caused ignitions.
+
+![The density plot shows that lightning-caused ignitions often occurred on sunny days and people usually chose to set up planned burns on cloudy days. Other than that, there was no particular pattern of arson. \label{fig:se}](figures/se.jpeg){width=275 height=241}
+
+![Wind speed was one of the key factor to classify different types of bushfire ignitions. Lightning-caused ignitions were more likely to occur in windless years. \label{fig:aws_m12}](figures/aws_m12.jpeg){width=275 height=241}
+
+
+### Anthropogenic characteristics of bushfire ignitions
+
+To understand the relationship between anthropogenic factors and bushfire ignitions, we explored density plot of the log distance to the nearest CFA fire station, the log distance to the nearest road and the log distance to the nearest camping site which are shown in Figure \ref{fig:dist_cfa}, Figure \ref{fig:dist_road} and Figure \ref{fig:dist_camp} respectively.
+
+We found that lightning-caused ignitions were far from the nearest fire station and arson-caused ignitions were closer to the nearest fire station. It was potentially because the population density around the fire station was larger. Besides, lightning-caused ignitions were less reachable shown in \ref{fig:dist_road}. Another finding was the density of arson was almost identical to the density of accident. It could indicate that both ignitions caused by arson and accident aligned with the road network. Moreover, according to Figure \ref{fig:dist_camp}, accident-caused ignitions were significantly close to camping sites, which suggested that camp fire was a source of bushfire ignitions.
+
+
+
+![The density plot of log distance to the nearest CFA fire station shows that arson-caused ignitions were closer to fire stations. However, lightning-caused ignitions were far from the fire stations since they were often occurred in the mountain area. \label{fig:dist_cfa}](figures/log_dist_cfa.jpeg){width=275 height=241}
+
+![The density plot shows that lightning-caused ignitions were less reachable, which could cause difficulties to firefighters. \label{fig:dist_road}](figures/log_dist_road.jpeg){width=275 height=241}
+
+![The density plot clearly shows that accident-caused ignitions were very likely to be camp fire. \label{fig:dist_camp}](figures/log_dist_camp.jpeg){width=275 height=241}

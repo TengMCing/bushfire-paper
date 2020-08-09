@@ -10,7 +10,7 @@ knit: "bookdown::render_book"
 \caption{\label{tab:clustering}A clustering algorithm for hotspots}
 \begin{align*}
 &\rule{150mm}{0.5mm}\\[-1\jot]
-&\textbf{Algorithm 1 Hotspots clutering}\\[-1\jot]
+&\textbf{Algorithm 1 Hotspots clustering}\\[-1\jot]
 &\rule{150mm}{0.5mm}\\[-1\jot]
 &\textbf{input: }~~~~\text{Hotspots dataset H : (Hour}\textunderscore \text{id}^{(n)} \text{, Coordinates}^{(n)} \text{), n = 1, 2, ... N}\\[-1\jot]
 &~~~~~~~~~~~~~~~~\text{An empty dataset F : (Fire\textunderscore id}^{(m)} \text{, Coordinates}^{(m)} \text{, Active}^{(m)} \text{), m = 1, 2, ...}\\[-1\jot]
