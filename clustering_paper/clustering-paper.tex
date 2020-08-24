@@ -80,34 +80,71 @@ using package \texttt{sf}.
 
 \begin{Schunk}
 \begin{figure}
-\includegraphics[width=0.8\linewidth]{clustering_paper_files/figure-latex/hotspots-1} \caption[Hotspot locations in Victoria during2019-2020 season]{Hotspot locations in Victoria during2019-2020 season.}\label{fig:hotspots}
+\includegraphics[width=0.8\linewidth]{clustering_paper_files/figure-latex/hotspots-1} \caption[Hotspot locations in Victoria during 2019-2020 season]{Hotspot locations in Victoria during 2019-2020 season. XXX This needs to be full map of hotspots for the 2019-2020 season}\label{fig:hotspots}
 \end{figure}
 \end{Schunk}
 
 \hypertarget{steps}{%
 \subsubsection{Steps}\label{steps}}
 
-After the data pre-processing, this algorithm ran in a time-series
-manner. It first selected entries of the first timestamps, which was the
-first hour in the hotspots data. The algorithm then calculated the
-matrix of pairwise geodesic distances between all points being selected.
-With the geodesic distances matrix, an ``adjacent distance'' as one of
-the hyperparameters in this algorithm was used to determine the
-adjacency matrix. If a geodesic distance between two points was less
-than the ``adjacent distance'', the corresponding entry in the adjacency
-matrix would be assigned with integer 1, otherwise it would be assigned
-with integer 0. Normally, this ``adjacent distance'' would be set
-between 0 to 100000 meters. Using the adjacency matrix, the algorithm
-then constructed a undirected unweighted graph. For each connected
-component in this graph, a unique integer was assigned as the
-membership. In our hotspots data, components could be recognised as
-bushfires. Points in the same component shared with the same membership.
+This algorithm runs in a temporal manner. Starting from the first hour
+of the first day or the bushfire season, hotspots are grouped, and then
+agglomerated spatially. This proceeds to the next hour.
+
+\textbf{1. Divide hotspots by hour}
+
+Show faceted plots of hotspot data (from full map) for first five hours,
+all in one row of plots
+
+Hour is used as the basic unit of time, to simplify the computation, but
+it could be a different time resolution.
+
+\textbf{2. Start from the first hour}
+
+Plot of one hour, small area, so we can show how the algorithm does
+grouping
+
+It first selected entries of the first timestamps, which was the first
+hour in the hotspots data.
+
+\textbf{3. Connect adjacent hotspots and active centroids (3km)}
+
+Show connection of points from previous plot
+
+The algorithm then calculated the matrix of pairwise geodesic distances
+between all points being selected. With the geodesic distances matrix,
+an ``adjacent distance'' as one of the hyperparameters in this algorithm
+was used to determine the adjacency matrix. If a geodesic distance
+between two points was less than the ``adjacent distance'', the
+corresponding entry in the adjacency matrix would be assigned with
+integer 1, otherwise it would be assigned with integer 0. Normally, this
+``adjacent distance'' would be set between 0 to 100000 meters. Using the
+adjacency matrix, the algorithm then constructed a undirected unweighted
+graph. For each connected component in this graph, a unique integer was
+assigned as the membership. In our hotspots data, components could be
+recognised as bushfires. Points in the same component shared with the
+same membership.
+
+\textbf{4. For each point, if there is a connected nearest active
+centroid, join its group}
+
 Meanwhile, the longitude and the latitude of centroids in each component
 were calculated by taking the average of longitude and the average of
 latitude for all points in the corresponding component. Those centroids
 along with memberships would then be recorded and labelled as active
 groups. In other words, their ``active'' attributes were assigned with
 integer 0.
+
+\textbf{5. Otherwise, create a new group for each connected graph}
+
+Show grouped observations
+
+\textbf{6. Compute centroid for each group}
+
+Show centroids
+
+\textbf{7. Keep the group active until there is no new hotspots join the
+group within 24 hours}
 
 When the algorithm moved to the next timestamps, it subtracted 1 from
 ``active'' attributes. Another hyperparameter ``group active time'' was
@@ -140,32 +177,9 @@ database. Relevant operation was done by using packages \texttt{DBI} and
 \texttt{geodist}. Graph operation was done by using package
 \texttt{igraph}.
 
+\textbf{8. Repeat this process to the last hour}
+
 The code implemented this algorithm is ``clustering.R''.
-
-(Code in clustering.R does this, needs cleaning up)
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Divide hotspots by hour
-\item
-  Start from the first hour
-\item
-  Connect adjacent hotspots and active centroids (3km)
-\item
-  For each point, if there is a connected nearest active centroid, join
-  its group
-\item
-  Otherwise, create a new group for each connected graph
-\item
-  Compute centroid for each group
-\item
-  Keep the group active until there is no new hotspots join the group
-  within 24 hours
-\item
-  Repeat this process to the last hour
-\end{enumerate}
 
 \begin{Schunk}
 \begin{figure}
@@ -184,8 +198,13 @@ choices}\label{effects-of-parameter-choices}}
 \subsubsection{Determining the ignition point and time for individual
 fires}\label{determining-the-ignition-point-and-time-for-individual-fires}}
 
+Show ignition points for a particularly heavy day and another for a
+particularly light day
+
 \hypertarget{tracking-fire-movement}{%
 \subsubsection{Tracking fire movement}\label{tracking-fire-movement}}
+
+Display showing how a fire moves over time, maybe two or more fires
 
 \hypertarget{allocating-resources-for-future-fire-prevention}{%
 \subsubsection{Allocating resources for future fire
