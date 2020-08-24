@@ -45,9 +45,25 @@ library(ggpubr)
 
 ## Introduction
 
+Bushfires are a major problem for Australia, and many other parts of the globe. There is concern that as the climate becomes hotter, and drier, that the impact of fires becomes much more severe and extensive. In Australia, the 2019-2020 fires were the worst on record causing extensive ecological damage, as well as damage to agricultural resources, properties and infrastructure. The Wollemi pine, rare prehistoric trees, required special forces intervention to prevent the last stands in the world, in remote wilderness areas, from being turned into ash. 
+
+Contributing to the problem is that many fires started in very remote areas, locations deep into the temperate forests ignited by lightning, that are virtually impossible to access or to monitor. Satellite data provides a possible solution to this, particularly remotely sensed hot spot data, which may be useful in detecting new ignitions and movements of fires. Understanding fires in remote areas using satellite data may provide some help in developing effective strategies for mitigating bushfire impact. 
+
+This work addresses this topic. Using hot spot data, can we cluster in space and time, in order to determine (1) points of ignition and (2) track the movement of bush fires. 
+
+This paper is organised as follows. The next section provides an introduction to the literature on spatiotemporal clustering and bush fire modeling and dynamics. Section @algorithm describes the clustering algorithm, and section @application illustrates how the resulting data can be used to study bush fire ignition. 
+
+<!--
 - What is the data, generic structure
 - Lit review: Spatio-temporal clustering. Algorithms for tracking movement.
 - Bushfire literature review?
+-->
+
+## Background
+
+### Spatiotemporal clustering
+
+### Bushfire modeling
 
 ## Algorithm 
 
