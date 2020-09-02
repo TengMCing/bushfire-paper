@@ -147,7 +147,7 @@ for (k in 2:12){
     gather(key = "ns", value = "station_id", ns_1:ns_10)
   
   # read in weather data
-  weather <- read_csv("Data/weather.csv")
+  weather <- read_csv("data/weather.csv")
   weather <- weather[,-1]
   weather$date <- make_date(year = weather$year, month = weather$month, day = weather$day)
   weather <- select(weather, station_number, date, rainfall)
@@ -734,12 +734,6 @@ fire_o <- select(fire_o,
                  -ns_8,
                  -ns_9,
                  -ns_10)
-
-
-fire_o <- fire_o %>%
-  filter(FOR_CAT %in% c('Native forest', 'Commercial plantation', 'Other forest'))
-
-
 
 
 fire_o <- fire_o %>%
