@@ -16,37 +16,50 @@ set.seed(357)
 
 # Read in training data
 training <- read_csv("training.csv")
+
 training <- training %>%
   filter(!CAUSE %in% c("BURNING BUILDING", 
                        "WASTE DISPOSAL, INDUSTRIAL, SAWMILL, TIP", 
                        "WASTE DISPOSAL, DOMESTIC", 
                        "BURNING VEHICLE, MACHINE",
-                       "BURNING BUILDING"))
+                       "BURNING BUILDING")) %>%
+  filter(new_cause != "other") %>%
+  filter(new_cause != "relight")
 
-training <- select(training, -EVENTID, -FIRE_NAME, -FIRE_DIST, -FIRE_STAT, -FIRE_NUM, -CAUSE, -id, -FOREST)
+
+training <- select(training, -c(EVENTID:FIRE_NUM), -id, -CAUSE, -FOREST, -FOR_CODE, -FOR_CAT)
+
+training <- mutate(training,
+                   year = factor(year(FIRE_START)),
+                   month = factor(month(FIRE_START), levels = c(10,11,12,1,2,3)),
+                   day = factor(day(FIRE_START), levels = c(1:31)),
+                   wod = factor(wday(FIRE_START), levels = c(1:7)))
+
+training <- filter(training, month %in% c(10,11,12,1,2,3))
+
+training <- na.omit(training)
+
+training <- mutate(training, new_cause = ifelse(new_cause == "acidental_human", "accident", new_cause)) %>%
+  mutate(new_cause = ifelse(new_cause == "burning_off_human", "burning_off", new_cause)) %>%
+  mutate(new_cause = factor(new_cause)) %>%
+  mutate(FOR_TYPE = factor(FOR_TYPE))
+
+training <- na.omit(training)
+
 training <- mutate(training, 
                    log_dist_cfa = log(dist_cfa),
                    log_dist_camp = log(dist_camp),
                    log_dist_road = log(dist_road),
                    COVER = factor(COVER),
-                   HEIGHT = factor(HEIGHT),
-                   FOR_CODE = factor(FOR_CODE),
-                   new_cause = ifelse(new_cause == "relight", "other", new_cause),
-                   new_cause = ifelse(new_cause == "acidental_human", "accident", new_cause),
-                   new_cause = ifelse(new_cause == "burning_off_human", "burning_off", new_cause))
-
-training <- mutate(training, year = factor(year(FIRE_START)),
-                   month = factor(month(FIRE_START)),
-                   day = factor(day(FIRE_START)),
-                   dow = factor(wday(FIRE_START)))
+                   HEIGHT = factor(HEIGHT))
 
 training <- rename(training, cause = new_cause)
-training <- mutate(training, 
-                   cause = factor(cause, levels = c("lightning", 
-                                                    "accident", 
-                                                    "arson", 
-                                                    "burning_off", 
-                                                    "other")))
+training <- mutate(training,
+                   cause = fct_relevel(cause,
+                                       "lightning",
+                                       "accident",
+                                       "arson",
+                                       "burning_off"))
 
 
 
@@ -125,12 +138,12 @@ for (each_variable in names(training)){
         ggsave(paste0("plots/line_", each_variable, ".jpeg"), plot = p, width = 8, height = 7)
       } else {
         
-        temp_span <- list("day" = 0.3, 
-                          "year" = 0.35, 
+        temp_span <- list("day" = 0.35, 
+                          "year" = 0.5, 
                           "month" = 0.75, 
-                          "FIRE_START" = 0.35, 
-                          "FOR_CODE" = 0.35,
-                          "FOR_TYPE" = 0.35)[[each_variable]]
+                          "FIRE_START" = 0.2, 
+                          "FOR_CODE" = 0.2,
+                          "FOR_TYPE" = 0.2)[[each_variable]]
         
         p <- training %>%
           group_by(!!as.symbol(each_variable), cause) %>%

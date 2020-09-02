@@ -62,15 +62,27 @@ training <- mutate(training,
                    day = factor(day(FIRE_START), levels = c(1:31)),
                    wod = factor(wday(FIRE_START), levels = c(1:7)))
 
+training <- mutate(training, 
+                   COVER = factor(COVER, levels = c(1,2,3,4,5,6)),
+                   HEIGHT = factor(HEIGHT, levels = c(1,2,3,4,5,6)))
+
 predict_x <- mutate(predict_x, 
                    month = factor(month(time), levels = c(1:12)),
                    day = factor(day(time), levels = c(1:31)),
                    wod = factor(wday(time), levels = c(1:7)))
 
+predict_x <- mutate(predict_x, 
+                   COVER = factor(COVER, levels = c(1,2,3,4,5,6)),
+                   HEIGHT = factor(HEIGHT, levels = c(1,2,3,4,5,6)))
+
 predict_x_grid <- mutate(predict_x_grid, 
                     month = factor(month(time), levels = c(1:12)),
                     day = factor(day(time), levels = c(1:31)),
                     wod = factor(wday(time), levels = c(1:7)))
+
+predict_x_grid <- mutate(predict_x_grid, 
+                    COVER = factor(COVER, levels = c(1,2,3,4,5,6)),
+                    HEIGHT = factor(HEIGHT, levels = c(1,2,3,4,5,6)))
 
 training <- select(training, -FIRE_START)
 predict_x <- select(predict_x, -time)
@@ -117,6 +129,9 @@ varImp(rf_model) %>% arrange(desc(Overall))
 
 predict_x$new_cause <- predict(rf_model, newdata = predict_x)
 predict_x_grid$new_cause <- predict(rf_model, newdata = predict_x_grid)
+
+write_csv(predict_x, "prediction_2019-2020.csv")
+write_csv(predict_x_grid, "prediction_2019-2020_simulation.csv")
 
 grid_prob <- predict(rf_model, newdata = predict_x_grid, type = "prob")
 
