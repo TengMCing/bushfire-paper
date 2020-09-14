@@ -1,7 +1,7 @@
 """
 Script name: clustering_core.py
 Description: The core part of the clustering algorithm.
-Last modified: 2020-09-10
+Last modified: 2020-09-14
 Author: Weihao (Patrick) Li
 """
 
@@ -54,7 +54,7 @@ class CLUSTERER:
 				past = np.where((time_id < i) & (max(1, i - self.active_time) <= time_id))
 
 				# No previous points
-				if len(current[0]) == len(past[0]):
+				if len(current[0]) == len(indexes[0]):
 					self.memberships[indexes] = temp_memberships[indexes] + np.max(self.memberships)
 
 				else:
@@ -243,7 +243,8 @@ class CLUSTERER:
 
 	def point_to_vector_geodist(self, P_rlon, P_rlat, V_rlon, V_rlat):
 		"""
-		Compute the distance from a point to a vector of points
+		Using Haversine formulat to compute the distance from a point to a vector of points.
+		Adpoted from https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude.
 		Input:
 			P_rlon: radians of longitude
 			P_rlat: radians of latitude

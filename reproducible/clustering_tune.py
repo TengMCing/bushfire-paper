@@ -1,7 +1,7 @@
 """
 Script name: main.py
 Description: A script to perform parameter tuning of the clustering algorithm
-Last modified: 2020-09-12
+Last modified: 2020-09-14
 Author: Weihao (Patrick) Li
 """
 
@@ -15,14 +15,14 @@ def main():
 	ID, lon, lat, time_id = read_hotspots_from_csv()
 
 	try:
-		os.remove("data/clustering_grid.csv")
+		remove("data/clustering_grid.csv")
 	except OSError:
 		pass
 
 	with open('data/clustering_grid.csv', 'a') as f:
 		f.write("active_time,adj_dist,count\n")
 
-	for active_time in [x * 6 for x in range(1, 9)]:
+	for active_time in [x * 3 for x in range(1, 13)]:
 		for adj_dist in [x * 1000 for x in range(1, 11)]:
 
 			print("Running", active_time, adj_dist)
