@@ -3,36 +3,7 @@ knit: "bookdown::render_book"
 ---
 
 
-# Model performance
 
 
-```{r}
-data.frame(accident = c(464, 48, 7, 118, 27), 
-           arson = c(108, 76, 10, 59, 10),
-           burning_off = c(66, 23, 11, 23, 10),
-           lightning = c(82, 14, 2, 554, 15),
-           other = c(120, 28, 7, 128, 18)) %>%
-  `row.names<-`(c("predicted_accident", "predicted_arson", "predicted_burning_off", "predicted_lightning", "predicted_other")) %>%
-  knitr::kable('latex',
-               booktabs = T,
-               caption = "Confusion matrix of multinomial logit model. The overall accuracy was 0.5537.")
-```
 
-
-```{r}
-data.frame(accident = c(532, 52, 10, 48, 35), 
-           arson = c(77, 107, 13, 20, 30),
-           burning_off = c(51, 25, 30, 18, 12),
-           lightning = c(58, 15, 6, 564, 24),
-           other = c(106, 31, 19, 98, 47)) %>%
-  `row.names<-`(c("predicted_accident", "predicted_arson", "predicted_burning_off", "predicted_lightning", "predicted_other")) %>%
-  knitr::kable('latex',
-               booktabs = T,
-               caption = "Confusion matrix of XGBoost model. The overall accuracy was 0.6312.")
-```
-
-
-The confusion matrix of GAM and NN haven't finished.
-
-<haven't finished>
 

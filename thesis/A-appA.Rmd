@@ -4,44 +4,211 @@ knit: "bookdown::render_book"
 
 \appendix
 
-# Spatio-temporal clustering algorithm
+# Covariate information
 
-\begin{table}
-\caption{\label{tab:clustering}A clustering algorithm for hotspots}
-\begin{align*}
-&\rule{150mm}{0.5mm}\\[-1\jot]
-&\textbf{Algorithm 1 Hotspots clustering}\\[-1\jot]
-&\rule{150mm}{0.5mm}\\[-1\jot]
-&\textbf{input: }~~~~\text{Hotspots dataset H : (Hour}\textunderscore \text{id}^{(n)} \text{, Coordinates}^{(n)} \text{), n = 1, 2, ... N}\\[-1\jot]
-&~~~~~~~~~~~~~~~~\text{An empty dataset F : (Fire\textunderscore id}^{(m)} \text{, Coordinates}^{(m)} \text{, Active}^{(m)} \text{), m = 1, 2, ...}\\[-1\jot]
-&~~~~~~~~~~~~~~~~\text{An empty vector K} \in \mathbb{N}_1^n\\[-1\jot]
-&~~~~~~~~~~~~~~~~\text{A distance hyperparameter }r_0 \in \mathbb{R}^+\\[-1\jot]
-&~~~~~~~~~~~~~~~~\text{A time hyperparameter }t_0 \in \mathbb{N}^+\\[-1\jot]
-&\textbf{output: }~~\text{A vector K} \in \mathbb{N}_1^n~\text{contains memberships of hotspots}\\[-1\jot]
-&~~~~~~~~~~~~~~~~\text{A dataset F contains fire clusters information including memberships, latest}\\[-1\jot]
-&~~~~~~~~~~~~~~~~\text{centroids and time from last updated}\\[-1\jot]
-&~~1:~~\text{select subset }H_c \in \text{H where Hour\textunderscore id == 1}\\[-1\jot]
-&~~2:~~\text{calculate distance matrix D for Coordinates in }H_c \\[-1\jot]
-&~~3:~~\text{assign 1 to a zero adjacency matrix A for where D} \leq r_0~~//~~\text{hotspots with a relative}\\[-1\jot]
-&~~~~~~~~~\text{distance less or equal to }r_0~\text{will be considered belonging to the same cluster} \\[-1\jot]
-&~~4:~~\text{create undirected unweighted graph G from A}\\[-1\jot]
-&~~5:~~\text{record memberships of G to K}\\[-1\jot]
-&~~6:~~\text{record clusters classes to Fire\textunderscore id and record clusters centroids to Coordinates of F}\\[-1\jot]
-&~~7:~~\text{set Active in F to }t_0~~//~~\text{Active clusters are fire being observed in the last }t_0~\text{hour}\\[-1\jot]
-&~~8:~~\textbf{for}~~\text{hour = 2, ... T}~~\textbf{do} \\[-1\jot]
-&~~9:~~~~~~~~\text{let Active -1 and select subset }F_c \in \text{F where Active} \geq 0\\[-1\jot]
-&10:~~~~~~~~\text{select subset }H_c \in \text{H where Hour\textunderscore id == hour}\\[-1\jot]
-&11:~~~~~~~~\text{append Coordinates from }F_c~\text{to}~H_c\\[-1\jot]
-&12:~~~~~~~~\text{repeat step 2 - 4}\\[-1\jot]
-&12:~~~~~~~~\textbf{for}~~h_i = \text{each hotspot in }H_c~~\textbf{do}\\[-1\jot]
-&13:~~~~~~~~~~~~~~\textbf{if}~~h_i~\text{share the same membership as one of active clusters in }F_c~~\textbf{then}\\[-1\jot]
-&14:~~~~~~~~~~~~~~~~~~~~\text{copy the corresponding Fire\textunderscore id of the nearest active cluster to K}\\[-1\jot]
-&15:~~~~~~~~~~~~~~\textbf{else}~~\text{copy the membership from G to K}\\[-1\jot]
-&16:~~~~~~~~~~~~~~\textbf{end if}\\[-1\jot]
-&17:~~~~~~~~\textbf{end for}\\[-1\jot]
-&18:~~~~~~~~\text{update F for clusters involved in current time-stamp and reset corresponding}\\[-1\jot]
-&~~~~~~~~~~~~~~~\text{Active to }t_0\\[-1\jot]
-&19:~~\textbf{end for}\\[-1\jot]
-&\rule{150mm}{0.5mm}
-\end{align*}
-\end{table}
+\footnotesize
+
+```{r}
+datasets_info = data.frame(index = c(
+                                     "month",
+                                     "day",
+                                     "dow",
+                                     "lon",
+                                     "lat",
+                                     "FOR_TYPE",
+                                     "COVER",
+                                     "HEIGHT",
+                                     "rf",
+                                     "rf7",
+                                     "arf14",
+                                     "arf28",
+                                     "arf60",
+                                     "arf90",
+                                     "arf180",
+                                     "arf360",
+                                     "arf720",
+                                     "se",
+                                     "ase7",
+                                     "ase14",
+                                     "ase28",
+                                     "ase60",
+                                     "ase90",
+                                     "ase180",
+                                     "ase360",
+                                     "ase720",
+                                     "maxt",
+                                     "amaxt7",
+                                     "amaxt14",
+                                     "amaxt28",
+                                     "amaxt60",
+                                     "amaxt90",
+                                     "amaxt180",
+                                     "amaxt360",
+                                     "amaxt720",
+                                     "mint",
+                                     "amint7",
+                                     "amint14",
+                                     "amint28",
+                                     "amint60",
+                                     "amint90",
+                                     "amint180",
+                                     "amint360",
+                                     "amint720",
+                                     "ws",
+                                     "aws_m0",
+                                     "aws_m1",
+                                     "aws_m3",
+                                     "aws_m6",
+                                     "aws_m12",
+                                     "aws_m24",
+                                     "log_dist_cfa",
+                                     "log_dist_camp",
+                                     "log_dist_road"),
+                           name = c(
+                                    "Month",
+                                    "Day",
+                                    "Day of the week. 1-7",
+                                    "Longitude",
+                                    "Latitude",
+                                    "Forest type. Eg. Acacia, Callitris, Casuarina, etc.",
+                                    "Forest crown cover. 1-6. Check COVER look up table",
+                                    "Forest height class. 1-6. Check HEIGHT look up table",
+                                    "Rainfall on that day",
+                                    "Average rainfall in past 7 days",
+                                    "Average rainfall in past 14 days",
+                                    "Average rainfall in past 28 days",
+                                    "Average rainfall in past 60 days",
+                                    "Average rainfall in past 90 days",
+                                    "Average rainfall in past 180 days",
+                                    "Average rainfall in past 360 days",
+                                    "Average rainfall in past 720 days",
+                                    "Global solar exposure on that day",
+                                    "Average global solar exposure in past 7 days",
+                                    "Average global solar exposure in past 14 days",
+                                    "Average global solar exposure in past 28 days",
+                                    "Average global solar exposure in past 60 days",
+                                    "Average global solar exposure in past 90 days",
+                                    "Average global solar exposure in past 180 days",
+                                    "Average global solar exposure in past 360 days",
+                                    "Average global solar exposure in past 720 days",
+                                    "Maximum temperature on that day",
+                                    "Average maximum temperature in past 7 days",
+                                    "Average maximum temperature in past 14 days",
+                                    "Average maximum temperature in past 28 days",
+                                    "Average maximum temperature in past 60 days",
+                                    "Average maximum temperature in past 90 days",
+                                    "Average maximum temperature in past 180 days",
+                                    "Average maximum temperature in past 360 days",
+                                    "Average maximum temperature in past 720 days",
+                                    "Minimum temperature on that day",
+                                    "Average minimum temperature in past 7 days",
+                                    "Average minimum temperature in past 14 days",
+                                    "Average minimum temperature in past 28 days",
+                                    "Average minimum temperature in past 60 days",
+                                    "Average minimum temperature in past 90 days",
+                                    "Average minimum temperature in past 180 days",
+                                    "Average minimum temperature in past 360 days",
+                                    "Average minimum temperature in past 720 days",
+                                    "Average wind speed on that day",
+                                    "Average wind speed on that month",
+                                    "Average wind speed in last month",
+                                    "Average wind speed in last 3 months",
+                                    "Average wind speed in last 6 months",
+                                    "Average wind speed in last 12 months",
+                                    "Average wind speed in last 24 months",
+                                    "Natural logarithm of the distance to the nearest CFA station",
+                                    "Natural logarithm of the distance to the nearest recreation site",
+                                    "Natural logarithm of the distance to the nearest road"), 
+                           type = c(
+                                     "",
+                                     "",
+                                     "",
+                                     "degrees",
+                                     "degrees",
+                                     "",
+                                     "",
+                                     "",
+                                     "mm",
+                                     "mm",
+                                     "mm",
+                                     "mm",
+                                     "mm",
+                                     "mm",
+                                     "mm",
+                                     "mm",
+                                     "mm",
+                                     "MJ/m^2",
+                                     "MJ/m^2",
+                                     "MJ/m^2",
+                                     "MJ/m^2",
+                                     "MJ/m^2",
+                                     "MJ/m^2",
+                                     "MJ/m^2",
+                                     "MJ/m^2",
+                                     "MJ/m^2",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "m/s",
+                                     "m/s",
+                                     "m/s",
+                                     "m/s",
+                                     "m/s",
+                                     "m/s",
+                                     "m/s",
+                                     "m",
+                                     "m",
+                                     "m"))
+
+knitr::kable(datasets_info, 'latex', 
+             caption  = 'Covariate information of the ignition classifier', 
+             label = "cov",
+             booktabs = TRUE,
+             longtable = T,
+             col.names = c("Covariate name", "description", "Units"))  %>%
+kable_styling(latex_options = c("repeat_header"))
+
+  
+```
+
+\normalsize
+
+(ref:clutforest) COVER look up table [@forest]
+(ref:hlutforest) HEIGHT look up table [@forest]
+
+```{r results='asis'}
+tibble(COVER = c(1,2,3,4,5,6), Forest = c("20-50%", "50-80%", ">80%", "n/a", ">=20%", "<20%"), des = c("Woodland", "Open", "Closed", "Plantation", "Unknown", "Non forest")) %>%
+  knitr::kable('latex',
+               col.names = c("COVER code", "Forest crown cover", "Description"),
+               label = "cover",
+               caption = '(ref:clutforest)',
+               booktabs = T)
+```
+
+
+```{r}
+tibble(COVER = c(1,2,3,4,5,6), Forest = c("2m-10m", "10m-30m", ">30m", "n/a", ">=2m", ""), des = c("Low", "Medium", "Tall", "Plantation", "Unknown", "Non forest")) %>%
+  knitr::kable('latex',
+               col.names = c("HEIGHT code", "Forest height class", "Description"),
+               label = "height",
+               caption = '(ref:hlutforest)',
+               booktabs = T)
+```
+
+
+

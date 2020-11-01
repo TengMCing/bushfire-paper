@@ -5,4 +5,9 @@ knit: "bookdown::render_book"
 
 # Conclusion {#ch:conclusion}
 
-<haven't finished yet>
+I will list the main points here (will be finished in the next 2 weeks). The conclusion will be brief given I have mentioned some of them in the contribution.
+
+1. We predicted the cause of 2019-2020 bushfire, which showed the main cause.
+2. The model can be used for any past or future ignition to predict cause, given the covariates are easily accessible
+3. We developed an algorithm to reconstruct bushfire from hotspot data
+4. Combine (1) and (3), it is a complete workflow to detect new ignition and predict the cause. This workflow can be smoothly adopted by others including CFA staff.

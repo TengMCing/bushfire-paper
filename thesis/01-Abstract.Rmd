@@ -1,15 +1,21 @@
 ---
-chapter: 1
 knit: "bookdown::render_book"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, cache=TRUE)
 # Load any R packages you need here
-library(forecast)
-library(ggplot2)
+library(tidyverse)
 ```
 
-# Abstract {#ch:abstract}
 
-<haven't finished yet>
+
+The main points of the abstract will be:
+
+1. Background and motivation (Why did we do this research and what did we research)
+2. Mention we developed an algorithm, and what is its main usage
+3. Mention we fitted a random forest model to the historical ignition data
+4. What was the model performance
+5. Mention we predicted the causes of 2019-2020 Australia bushfire using this model
+6. The major finding in the prediction
+7. One main contribution

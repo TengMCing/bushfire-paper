@@ -212,7 +212,7 @@
 \makeatletter
 \def\organization#1{\gdef\@organization{#1}}
 \makeatother
-  \organization{for Honours, supervised by Prof.~Di Cook}
+  \organization{for Honours, supervised by Dianne Cook and Emily Dodwell}
 
   \def\name{Department of\newline Econometrics \&\newline Business Statistics}
 
@@ -291,14 +291,14 @@
 \section{Introduction}\label{introduction}}
 
 In Australia, bushfires have historically caused massive loss of property and life. Since the 1967 Hobart bushfires, the insurance claims for building losses were greater than \$A10 million \autocite{mcaneney2009100}.
-The 2019-2020 Australian bushfires, compared with other major bushfires in history, had a more devastating impact on the environment and properties. According to a report by \textcite{LisaRichardsNigelBrew2020}, published by the Parliament of Australia, 3094 houses were destroyed and over 17M hectares of land burned. These two figures are the highest in history. Fortunately, less lives were lost: 33 (including fire fighters) compared to 173 in the Black Saturday fires and 47 in Ash Wednesday fires \autocite{LisaRichardsNigelBrew2020}.
+The 2019-2020 Australian bushfires, compared with other major bushfires in history, had a more devastating impact on the environment and properties. According to a report by \textcite{LisaRichardsNigelBrew2020}, published by the Parliament of Australia, 3094 houses were destroyed and over 17M hectares of land burned. These two figures are the highest in history. Fortunately, fewer lives were lost: 33 (including firefighters) compared to 173 in the Black Saturday fires and 47 in Ash Wednesday fires \autocite{LisaRichardsNigelBrew2020}.
 
-The research is also motivated by the lack of knowledge about the cause of bushfire in Australia. \textcite{beale2011preventing} state in their research that the cause is only known for 58.9\% of fires. Historically, about 50\% are due to deliberate and suspicious ignitions, 35\% by accidents and 6\% natural, such as lightning. Understanding the cause of the 2019-2020 Australian bushfires is a crucial step to provide information for future policy and fire risk management.
+The research is also motivated by the lack of knowledge about the cause of bushfire in Australia. \textcite{beale2011preventing} state in their research that the cause is only known for 58.9\% of fires. Historically, about 50\% are due to deliberate and suspicious ignitions, 35\% by accidents and 6\% by natural, such as lightning. Understanding the cause of the 2019-2020 Australian bushfires is a crucial step to provide information for future policy and fire risk management.
 
 \hypertarget{research-aims-and-questions}{%
 \section{Research aims and questions}\label{research-aims-and-questions}}
 
-This research will explore the potential methods of fire ignition during 2019-2020 Australia bushfires season based on the new availability of satellite data, and provide a model to predict the fire risk for locations around the country. Hotspots data from the JAXA's Himawari-8 satellite will be combined with weather data from the Australian Bureau of Meteorology, and other data on roads, recreation sites, vegetation, to study locations of fire ignition and predict bushfire risk. Satellite data provides the opportunity to more objectively study ignition locations, particularly in less accessible regions.
+This research will explore the potential methods of fire ignition during 2019-2020 Australia bushfires season based on the new availability of satellite data, and provide a model to predict the fire risk for locations around the country. Satellite data provides the opportunity to more objectively study ignition locations, particularly in less accessible regions.
 
 The overall research aim is to provide probabilistic estimates of the cause of fire ignition for the 2019-2020 bushfires. Several smaller research questions that will be addressed are:
 
@@ -320,7 +320,7 @@ The overall research aim is to provide probabilistic estimates of the cause of f
 
 Existing research on bushfire modelling can be divided into two main categories: simulation and analytical modelling.
 
-In simulation modelling, \textcite{keane2004classification} develop landscape fire succession models (LFSMs) to simulate spatial fire behaviour, including fire ignition and fire spread, and accounting for fire and vegetation dynamics. \textcite{bradstock2012wildfires} used a model called FIRESCAPE which involved simulating fire behaviours with fuel and weather conditions. Simulation methods are cost- and time-effective ways to model bushfires, but ignition cause is not considered \autocite{clarke2019developing}. These methods seldomly address the ignition types that we are interested in.
+In simulation modelling, \textcite{keane2004classification} developed landscape fire succession models (LFSMs) to simulate spatial fire behaviour, including fire ignition and fire spread, and accounting for fire and vegetation dynamics. \textcite{bradstock2012wildfires} used a model called FIRESCAPE which involved simulating fire behaviours with fuel and weather conditions. Simulation methods are cost- and time-effective ways to model bushfires, but ignition cause is not considered \autocite{clarke2019developing}. These methods seldomly addressed the ignition types that we are interested in.
 
 Analytical modelling is another common way to build bushfires models. The general framework for analysing bushfires ignition is a generalised additive model (GAM). \textcite{bates2018exploratory} used it with a Gaussian distribution for predicting the number of lightning ignitions. Some studies implemented GAM with a multinomial distribution to predict ignition probability \autocite{read2018lightning,zhang2017wildfire}. Mixed-effect models have also been considered to incorporate spatial dependence and weather factors \autocite{duff2018dryness}. Simpler models have also been used, including multiple linear regression, negative binomial regression and generalised logistic regression \autocite{cheney2012predicting,plucinski2014predicting,collins2015spatial}. Some research used statistical tests and exploratory methods to assess hypotheses about bushfires \autocite{miller2017electrically,dowdy2017pyrocumulonimbus}.
 

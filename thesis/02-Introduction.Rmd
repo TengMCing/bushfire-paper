@@ -5,19 +5,61 @@ knit: "bookdown::render_book"
 
 # Introduction {#ch:introduction}
 
-## Motivation
+## 2019-2020 Australia bushfires
 
-In Australia, bushfires have historically caused massive loss of property and life. Since the 1967 Hobart bushfires, the insurance claims for building losses were greater than 10 million Australia dollars [@mcaneney2009100]. <!-- McAneney, Chen and Pitman (2009) show in their research that the average number of buildings had been destroyed by bushfire per year is 84, accounting for 20% of total building losses in hazard events.--> The 2019-2020 Australian bushfires, compared with other major bushfires in history, had a more devastating impact on the environment and properties.  According to a report by @LisaRichardsNigelBrew2020, published by the Parliament of Australia, 3094 houses were destroyed and over 17M hectares of land burned. These two figures are the highest in history. Fortunately, fewer lives were lost: 33 (including firefighters) compared to 173 in the Black Saturday fires and 47 in Ash Wednesday fires [@LisaRichardsNigelBrew2020].
+In Australia, bushfires have historically caused massive loss of property and life. Since the 1967 Hobart bushfires, the insurance claims for building losses were greater than 10 million Australia dollars [@mcaneney2009100]. The 2019-2020 Australia bushfires, compared with other major bushfires in history, had a more devastating impact on the environment and properties.  According to a report by @LisaRichardsNigelBrew2020, published by the Parliament of Australia, 3094 houses were destroyed and over 17M hectares of land burned. These two figures are the highest in history. Fortunately, fewer lives were lost: 33 (including firefighters) compared to 173 in the Black Saturday fires and 47 in Ash Wednesday fires [@LisaRichardsNigelBrew2020].
 
-The research is also motivated by the lack of knowledge about the cause of bushfire in Australia. @beale2011preventing state in their research that the cause is only known for 58.9% of fires. Historically, about 50% are due to deliberate and suspicious ignitions, 35% by accidents and 6% by natural, such as lightning. Understanding the cause of the 2019-2020 Australian bushfires is a crucial step to provide information for future policy and fire risk management.
+Discussion about the cause of this crisis became a focal point on social media at the very beginning of the bushfire season. A group of people argued that climate change had a major impact on the catastrophic and unprecedented bushfires. One of the hashtags they used on twitter to convey their beliefs and promote action on climate change was *#ClimateEmergency* [@graham2020bushfires]. Climate Council, which was one of the biggest climate organizations in Australia and was made up of climate scientists and experts, claimed that climate change not only worsened the bushfire season but also increased our cost of fighting fires [@council2019not]. Meanwhile, in the first few weeks of 2020, another group of people brought a completely different argument onto the table. They claimed the cause of this bushfire season was not climate change, but arson. Besides, they attempted to replace the *#ClimateEmergency* hashtag with the *#ArsonEmergency* hashtag [@graham2020bushfires]. Although police [@knausc2020bushfires] contradicted this controversial claim immediately, the spread didn’t slow down at all. A research did by Dr Timothy Graham and Dr Tobias R. Keller [-@graham2020bushfires] from the Queensland University of Technology assessed around 300 twitter accounts driving the *#ArsonEmergency* hashtag and found that a third of the accounts were suspicious with automated and inauthentic behaviour. They believed that the accounts were very likely ran by disinformation campaigns. However, there was no direct evidence to support their beliefs, particularly without knowing the owners of the accounts. 
 
-## Aims
+By far, we have limited information on the cause of this catastrophic hazard in 2019-2020 [@LisaRichardsNigelBrew2020]. Bushfire investigation usually takes a certain amount of time and the result is not guaranteed. According to the research did by @beale2011preventing, the cause was only known for 58.9% of fires in history. Among the known cases, about 13% were due to deliberate ignitions, 35% by accidents and 6% by natural, such as lightning. There were considerable variations in rates due to location, time and difficulties of counting fire origins in a bushfire season.
 
-This research explore the potential methods of fire ignition during 2019-2020 Australia bushfires season based on the new availability of satellite data, and provide a model to predict the fire risk for locations around the country. Satellite data provides the opportunity to more objectively study ignition locations, particularly in less accessible regions.
+Understanding the causes of 2019-2020 Australia bushfires may provide some help in developing effective strategies for mitigating bushfire impact. If the most majority of bushfires were ignited by lightning, fuel management such as planned burns may need to be delivered more often on a larger scale. In contrast, if arson played an important role in the ignitions, improvements in regulations, enforcement, and research on environmental criminology may be in demand.
+
+
+## Remote sensing data
+
+Remote sensing data are collected by remote sensors carried by a satellite or an aircraft. These sensors can detect the reflected energy from the earth and record it as signals [@schowengerdt2006remote]. The signal will then be sent back to the Mission Control Center on the ground to further process to high-quality products such as high-resolution colour image and sea surface temperature map.
+
+Contributing to the problem is that many bushfires start in very remote areas, locations deep into the temperate forests ignited by lightning, that are virtually impossible to access or to monitor. Remote sensing data provide a possible solution to this, particularly satellite hotspot data, which may be useful in detecting ignitions and movements of bushfires. 
+
+Knowing the precise ignition location and ignition time will allow us to reconstruct detailed information at the time, such as weather condition and the distribution of vegetation. This can provide some help in understanding the causes of bushfires.
+
+
+## Research objectives and contribution
+
+<!--
+
+This research explore the potential methods of fire ignition during 2019-2020 Australia bushfires season based on the new availability of satellite data. Satellite data provides the opportunity to more objectively study ignition locations, particularly in less accessible regions.
 
 The overall research aim is to provide probabilistic estimates of the cause of fire ignition for the 2019-2020 bushfires. Several smaller research questions that being addressed are:
 
   1. Using satellite hotspots data can we detect ignition time and location? 
   2. How do the characteristics of 2019-2020 bushfires compare to historical bushfires?
   3. Can data from other sources including vegetation, weather, proximity to road and recreation sites help to inform ignition type?
-  4. Can we make a useful model for the fire risk across Australia? What predictors including fire indexes, proximity to road and recreation site, weather and vegetation are useful for modelling fire risk? 
+
+-->
+
+The overall objectives of this research are to (i) develop an algorithm to detect ignition locations for 2019-2020 Australia bushfires in Victoria from satellite hotspot data, and (ii) build a classifier to predict the potential methods of ignitions. 
+
+
+Clustering algorithm is an unsupervised learning algorithm to cluster similar data points into the same group. To organize satellite hotspot data, this research proposes a spatio-temporal clustering algorithm inspired by two existing clustering algorithms, Density Based Spatial Clustering of Applications with Noise (**DBSCAN**) [@ester1996density] and Fire Spread Reconstruction (**FSR**) [@loboda2007reconstruction]. 
+
+The core functionality of our algorithm is to determine whether a hotspot is a new ignition point or a branch of an existing bushfire. This requires our algorithm runs recursively in a temporal manner with referencing to the bushfire dynamics. In contrast to traditional spatio-temporal clustering algorithms [@kisilevich2009spatio], our algorithm slices the data by its temporal dimension and divides the overall spatio-temporal clustering task into thousands of spatial-only clustering tasks. The final clustering results are obtained by combining membership information in different timestamps. This design overcomes one of the issues of defining the data space in traditional spatio-temporal clustering algorithms, that the scaling of the temporal dimension can be highly influential to the clustering result [@kisilevich2009spatio]. Besides, a modification is made based on the existing **FSR** [@loboda2007reconstruction] algorithm to avoid two fires merging into one during the reconstruction. Other than that, because parameter tuning is not available in the **FSR** algorithm, a visualization tool is designed to help us choose reasonable values of parameters. 
+
+In essence, our algorithm clusters hotspots into bushfires with arbitrary shape and size, which can help track the movement, coverage and intensity of each bushfire. Meanwhile, it provides an automatic process of recognizing new bushfire from the satellite hotspot data, which may be useful for urgent fire resources planning and deployment in remote areas in the future. Importantly, by applying this algorithm on satellite hotspot data from the past bushfire seasons, we will be able to reconstruct fire events to enrich our knowledge of bushfire behaviour.
+
+
+The general choice for bushfire modelling is the generalised additive model (**GAM**). For example, @read2018lightning used **GAM** to model the risk of lightning-caused bushfires in Victoria. In this research, a spectrum of statistical models have been explored as the classifier to predict the cause of bushfire, including **GAM**, and other computationally intensive models which are popular in the field of modern machine learning but rarely used in bushfire modelling. Our final model can be used to produce the prediction of the causes of 2019-2020 Australia bushfires. To our knowledge, there is not yet any academic research on modelling and predicting the cause of this bushfire season.
+
+
+In overall, this research offers a complete workflow for bushfire analysis and monitoring, starts from collecting satellite hotspot data, and ends with predicting the cause of the ignition. We believe this workflow can be adopted into the future bushfire investigation, particularly for establishing the causes of bushfires.
+
+
+## Scope of the thesis
+
+This thesis will focus on analysing 2019-2020 bushfires in Victoria with open-source remote sensing data. The remainder of the thesis will be structured as follows. In chapter 2, we will review the existing literature in the related field. In chapter 3, we will outline the data source and data integration, and provide a brief data exploratory analysis of the compiled datasets. In chapter 4, we will describe the clustering algorithm and present the clustering results. In chapter 5, we will outline the strategy of model building and discuss the results we found. In chapter 6, we will discuss the limitation of our work and possible future extension. Finally, in chapter 7, we will give a brief conclusion of the research. 
+
+
+
+
+

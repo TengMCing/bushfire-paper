@@ -2,5 +2,14 @@
 .Rhistory
 .RData
 .Ruserdata
-_book/*
 _bookdown_files/*
+thesis.aux
+thesis.bcf
+thesis.log
+thesis.out
+thesis.run.xml
+thesis.toc
+Rplots.pdf
+thesis.bbl
+thesis.blg
+thesis.tex

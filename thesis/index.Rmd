@@ -1,9 +1,11 @@
 ---
-title: 'Using Remote Sensing Data to Understand Fire Ignition During the 2019-2020 Australia Bushfire Season'
+title: 'Using Remote Sensing Data to Understand Fire Ignitions in Victoria During the 2019-2020 Australian Bushfire Season'
 degreetype: 'Bachelor of Commerce (Honours)'
 author: 'Weihao Li'
 studentid: 28723740
-output: bookdown::pdf_book
+output: 
+  bookdown::pdf_book:
+    toc: false
 site: bookdown::bookdown_site
 link-citations: yes
 knit: "bookdown::render_book"
@@ -21,3 +23,141 @@ You will need to ensure you have installed the knitr and bookdown packages for R
 
 You will also need LaTeX installed on your computer.
 -->
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
+```
+
+```{r Prepare-Hotspots-For-Clustering, include=FALSE}
+# Prepare hotspots data for the clustering algorithm
+# Runtime: 5 minutes
+if (any(!file.exists(c("data/VIC_hotspots_before_clustering.csv", 
+                       "data/VIC_hotspots_raw.csv")))){
+  system("Rscript scripts/Clustering/Clustering-Python-setup.R")
+} 
+```
+
+
+```{r Clustering-Parameters-Tuning, include=FALSE}
+# Tune the parameters for the clustering algorithm
+# Runtime: 8-10 hours
+if (!file.exists("data/clustering_grid.csv")){
+  system("python scripts/Clustering/clustering_tune.py")
+} 
+```
+
+
+```{r Choose-Optimal-Parameters-For-Clustering, include=FALSE}
+# Choose the optimal parameters based on the tuning result
+# Runtime: 20 seconds
+if (FALSE){
+  system("Rscript scripts/Clustering/clustering_tune_vis.R")
+}
+```
+
+
+```{r Hotspots-Clustering, include=FALSE}
+# Cluster hotspots into bushfires
+# Runtime: 6 minutes
+if (!file.exists("data/VIC_hotspots_after_clustering.csv")){
+  system("python scripts/Clustering/main.py")
+}
+```
+
+```{r Bushfires-Data-Integration-Hotspots, include=FALSE}
+# Data integration for bushfires (hotspots)
+# Runtime: 20 minutes
+if (!file.exists("data/predict_x.csv")){
+  system("Rscript scripts/Training/combine_current.R")
+}
+```
+
+```{r Bushfires-Data-Integration-Simulation, include=FALSE}
+# Data integration for bushfires (Simulation)
+# Runtime: 3 hours
+if (!file.exists("data/predict_x_grid.csv")){
+  system("Rscript scripts/Training/combine_grid.R")
+}
+```
+
+
+```{r Bushfires-Data-Integration-History, include=FALSE}
+# Data integration for bushfires (History)
+# Runtime: 2 hours
+if (!file.exists("data/training.csv")){
+  system("Rscript scripts/Training/combine_his.R")
+}
+```
+
+```{r EDA, include=FALSE}
+# EDA on bushfire history
+# Runtime: 10-20 minutes
+if (FALSE){
+  system("Rscript scripts/Training/EDA.R")
+}
+
+```
+
+```{r Random-Forest-Model, include=FALSE}
+# Random forest
+# Runtime: 1 hour
+if (any(!file.exists(c("data/RF_best_features.rds", 
+                       "data/RF_model.rds")))){
+  system("Rscript scripts/Training/RF.R")
+                       }
+```
+
+```{r MNL-Model, include=FALSE}
+# MNL
+# Runtime: 1 hour
+if (any(!file.exists(c("data/MNL_best_features.rds", 
+                       "data/MNL_model.rds")))){
+  system("Rscript scripts/Training/MNL.R")
+                       }
+```
+
+```{r GAM-Model, include=FALSE}
+# GAM
+# Runtime: 6 hours
+if (any(!file.exists(c("data/GAM_best_features.rds", 
+                       "data/GAM_model.rds")))){
+  system("Rscript scripts/Training/GAM.R")
+                       }
+```
+
+```{r XGB-Model, include=FALSE}
+# XGB
+# Runtime: 6 hours
+if (any(!file.exists(c("data/XGB_best_features.rds", 
+                       "data/XGB_model.rds")))){
+  system("Rscript scripts/Training/XGB.R")
+                       }
+```
+
+```{r Final-Model, include = FALSE}
+# Final Model
+# Runtime: 2 minutes
+if (!file.exists("data/Final_model.rds")){
+  system("Rscript scripts/Training/Comparison.R")
+                       }
+```
+
+```{r Prediction, include = FALSE}
+# Prediction
+# Runtime: 2 minutes
+if (!file.exists("data/prediction_2019-2020.csv")){
+  system("Rscript scripts/Prediction/2019-2020_prediction.R")
+}
+
+if (!file.exists("data/prediction_2019-2020_simulation.csv")){
+  system("Rscript scripts/Prediction/2019-2020_simulation_prediction.R")
+                       }
+```
+
+# Acknowledgement {-}
+
+# Declaration {-}
+
+# Abstract {-}
+
+\tableofcontents

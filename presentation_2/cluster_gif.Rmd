@@ -1,0 +1,457 @@
+---
+title: "Untitled"
+author: "Weihao Li"
+date: "2020年5月22日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(igraph)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+set.seed(1256)
+x = rnorm(10, mean = 0, sd = 3)
+y = rnorm(10, mean = 0, sd = 2)
+x = c(x,rnorm(10, mean = 5, sd = 2))
+y = c(y,rnorm(10, mean = 5, sd = 3))
+points = data.frame(x=x, y=y)
+```
+
+```{r}
+adj_matrix = as.matrix(dist(points))<3
+sim_graph = graph.adjacency(adj_matrix, mode = "undirected")
+```
+
+```{r}
+points$membership = clusters(sim_graph) %>% .[['membership']]
+centers = points %>%
+  group_by(membership) %>%
+  summarise(c_x = mean(x), c_y = mean(y))
+```
+
+
+```{r}
+edges = as_edgelist(sim_graph)
+
+edges = as.data.frame(edges)
+
+
+edges$V1 = as.numeric(as.character(edges$V1))
+edges$V2 = as.numeric(as.character(edges$V2))
+
+
+segs = edges %>%
+  mutate(x1= points[V1,1], y1 = points[V1,2], x2 = points[V2,1], y2 = points[V2,2], from = V1, to = V2) %>%
+  select(x1, y1, x2, y2, from, to)
+
+ggplot(points)+
+  geom_point(aes(x,y), size = 3)+
+  geom_segment(data = segs, aes(x = x1, y= y1, xend = x2, yend = y2)) +
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)))+
+  ggtitle("First Hour - Assign group numbers and compute centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h1-3-1.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points)+
+  geom_point(aes(x,y), size = 3)+
+  geom_segment(data = segs, aes(x = x1, y= y1, xend = x2, yend = y2)) +
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7, alpha = 0.5) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)), alpha = 0.5)+
+  ggtitle("First Hour - Assign group numbers and compute centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h1-2-2.jpg", dpi = 600)
+```
+
+
+```{r}
+ggplot(points)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)))+
+  ggtitle("First Hour - Assign group numbers and compute centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h1-4-1.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points)+
+  geom_point(aes(x,y), size = 3)+
+  geom_segment(data = segs, aes(x = x1, y= y1, xend = x2, yend = y2), alpha = 0.5) +
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)))+
+  ggtitle("First Hour - Assign group numbers and compute centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h1-3-2.jpg", dpi = 600)
+```
+
+
+
+```{r}
+ggplot(points)+
+  geom_point(aes(x,y), size = 3)+
+  geom_segment(data = segs, aes(x = x1, y= y1, xend = x2, yend = y2)) +
+  ggtitle("First Hour - Connect adjacent points")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h1-2-1.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points)+
+  geom_point(aes(x,y), size = 3)+
+  geom_segment(data = segs, aes(x = x1, y= y1, xend = x2, yend = y2), alpha = 0.5) +
+  ggtitle("First Hour - Connect adjacent points")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h1-1-2.jpg", dpi = 600)
+```
+
+
+
+```{r}
+ggplot(points)+
+  geom_point(aes(x,y), size = 3)+
+  ggtitle("First Hour - Raw data")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h1-1-1.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points)+
+  geom_point(aes(x,y), size = 2, alpha = 0.6)+
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7, alpha = 0.5) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)), alpha = 0.5)+
+  ggtitle("First Hour - Assign group numbers and compute centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h1-4-2.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points)+
+  geom_point(aes(x,y), alpha = 0.3)+
+  ggtitle("First Hour - Assign group numbers and compute centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h1-4-3.jpg", dpi = 600)
+```
+
+
+
+
+```{r}
+x = rnorm(10, mean = -3, sd = 3)
+y = rnorm(10, mean = 0, sd = 2)
+x = c(x,rnorm(10, mean = 6, sd = 2))
+y = c(y,rnorm(10, mean = 7, sd = 2))
+points_2 = data.frame(x=x, y=y)
+```
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  ggtitle("Second Hour - Raw data")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+
+
+ggsave("h2-1-2.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3, alpha = 0.5)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  ggtitle("Second Hour - Raw data")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-1-1.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3) +
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7, alpha = 0.5) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)), alpha = 0.5)+
+  ggtitle("Second Hour - Raw data + known centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-2-1.jpg", dpi = 600)
+```
+
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3) +
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)))+
+  ggtitle("Second Hour - Raw data + known centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-2-2.jpg", dpi = 600)
+```
+
+
+```{r}
+adj_matrix = centers %>%
+  select(x = c_x,y = c_y) %>%
+  rbind(points_2) %>%
+  dist() %>%
+  as.matrix()
+
+
+
+adj_matrix = adj_matrix<3
+sim_graph = graph.adjacency(adj_matrix, mode = "undirected")
+```
+
+
+```{r}
+edges = as_edgelist(sim_graph)
+
+edges = as.data.frame(edges)
+
+
+edges$V1 = as.numeric(as.character(edges$V1))
+edges$V2 = as.numeric(as.character(edges$V2))
+
+temp = centers %>%
+  select(x = c_x,y = c_y) %>%
+  rbind(points_2)
+
+segs = data.frame(x1 = temp[edges$V1,1][['x']], y1 = temp[edges$V1,2][['y']], x2 = temp[edges$V2,1][['x']], y2 =  temp[edges$V2,2][['y']])
+
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_segment(data = segs, aes(x = x1, y= y1, xend = x2, yend = y2))+
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4))) +
+  ggtitle("Second hour - Connect adjacent points")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-3-2.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_segment(data = segs, aes(x = x1, y= y1, xend = x2, yend = y2), alpha = 0.5)+
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4))) +
+  ggtitle("Second hour - Connect adjacent points")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-3-1.jpg", dpi = 600)
+```
+
+
+```{r}
+temp$nearest = sapply(as.data.frame(as.matrix(dist(temp))[1:4,]), which.min)
+```
+
+```{r}
+segs2 = data.frame(x1 = temp$x[seq(1:24)], y1 = temp$y[seq(1:24)], x2 = temp$x[temp$nearest], y2 = temp$y[temp$nearest])
+segs2 = segs2[-c(14,15),]
+```
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_segment(data = segs, aes(x = x1, y= y1, xend = x2, yend = y2))+
+  geom_segment(data=segs2,aes(x = x1, y= y1, xend = x2, yend = y2), col = "red", size =1)+
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)))+
+  ggtitle("Second hour - Assign points to connected nearest known centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-4-2.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_segment(data = segs, aes(x = x1, y= y1, xend = x2, yend = y2))+
+  geom_segment(data=segs2,aes(x = x1, y= y1, xend = x2, yend = y2), col = "red", size =1, alpha = 0.5)+
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)))+
+  ggtitle("Second hour - Assign points to connected nearest known centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-4-1.jpg", dpi = 600)
+```
+
+
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_segment(data = segs, aes(x = x1, y= y1, xend = x2, yend = y2), alpha = 0.5)+
+  geom_segment(data=segs2,aes(x = x1, y= y1, xend = x2, yend = y2), col = "red", size =1)+
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)))+
+  ggtitle("Second hour - Assign points to connected nearest known centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-5-1.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_segment(data=segs2,aes(x = x1, y= y1, xend = x2, yend = y2), col = "red", size =1)+
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)))+
+  ggtitle("Second hour - Assign points to connected nearest known centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-5-2.jpg", dpi = 600)
+```
+
+
+
+
+```{r}
+points_2$membership = c(1,1,1,2,1,1,1,1,1,5,6,4,2,4,3,4,4,4,4,4)
+
+centers2 = points_2 %>%
+  group_by(membership) %>%
+  summarise(c_x = mean(x), c_y = mean(y))
+
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_segment(data=segs2,aes(x = x1, y= y1, xend = x2, yend = y2), col = "red", size =1)+
+  geom_point(data =centers2, aes(c_x,c_y), col = "red", size = 7) +
+  geom_text(data = centers2, aes(c_x,c_y,label = seq(1:6)))+
+  ggtitle("Second hour - Assign group numbers and recompute centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-6-4.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_segment(data=segs2,aes(x = x1, y= y1, xend = x2, yend = y2), col = "red", size =1)+
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7, alpha = 0.8) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)), alpha = 0.8)+
+  geom_point(data =centers2, aes(c_x,c_y), col = "red", size = 7, alpha = 0.2) +
+  geom_text(data = centers2, aes(c_x,c_y,label = seq(1:6)), alpha = 0.2)+
+  ggtitle("Second hour - Assign group numbers and recompute centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-6-1.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_segment(data=segs2,aes(x = x1, y= y1, xend = x2, yend = y2), col = "red", size =1)+
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7, alpha = 0.5) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)), alpha = 0.5)+
+  geom_point(data =centers2, aes(c_x,c_y), col = "red", size = 7, alpha = 0.5) +
+  geom_text(data = centers2, aes(c_x,c_y,label = seq(1:6)), alpha = 0.5)+
+  ggtitle("Second hour - Assign group numbers and recompute centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-6-2.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_segment(data=segs2,aes(x = x1, y= y1, xend = x2, yend = y2), col = "red", size =1)+
+  geom_point(data =centers, aes(c_x,c_y), col = "red", size = 7, alpha = 0.2) +
+  geom_text(data = centers, aes(c_x,c_y,label = seq(1:4)), alpha = 0.2)+
+  geom_point(data =centers2, aes(c_x,c_y), col = "red", size = 7, alpha = 0.8) +
+  geom_text(data = centers2, aes(c_x,c_y,label = seq(1:6)), alpha = 0.8)+
+  ggtitle("Second hour - Assign group numbers and recompute centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-6-3.jpg", dpi = 600)
+```
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_segment(data=segs2,aes(x = x1, y= y1, xend = x2, yend = y2), col = "red", size =1, alpha = 0.5)+
+  geom_point(data =centers2, aes(c_x,c_y), col = "red", size = 7) +
+  geom_text(data = centers2, aes(c_x,c_y,label = seq(1:6)))+
+  ggtitle("Second hour - Assign group numbers and recompute centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-7-1.jpg", dpi = 600)
+```
+
+
+```{r}
+ggplot(points_2)+
+  geom_point(aes(x,y), size = 3)+
+  geom_point(data = points, aes(x,y), alpha = 0.3)+
+  geom_point(data =centers2, aes(c_x,c_y), col = "red", size = 7) +
+  geom_text(data = centers2, aes(c_x,c_y,label = seq(1:6)))+
+  ggtitle("Second hour - Assign group numbers and recompute centroids")+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+ggsave("h2-7-2.jpg", dpi = 600)
+```
+
+
+
+
+
+
+```{r}
+plot(sim_graph)
+```
+
+
+```{r}
+ggplot()+
+  geom_point(data = points, aes(x,y, col="First hour"), size=3)+
+  geom_point(data = points_2, aes(x,y,col="Second Hour"), size=3)
+ggsave("two_hour.jpg", dpi=600)+
+  ylim(c(-6,12))+
+  xlim(c(-10,12))
+```
+
