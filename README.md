@@ -4,7 +4,9 @@
 
 This is a one-year research of bushfire ignitions in Victoria during the Australian 2019-2020 bushfires season. The outcomes include a [thesis for Weihao Li's honours degree](https://github.com/TengMCing/bushfire-paper/tree/master/thesis), a [thesis for Chang Liu's master degree](https://github.com/timtam3/Bushfire/tree/master/Australian%20Fire) and a [shiny app](https://github.com/timtam3/Bushfire/tree/master/Code) (credit to Chang Liu) for presentation. 
 
-Three main aims of this research are:
+### Research objectives
+
+The overall objectives of this research are:
 
 1. Develop an spatio-temporal clustering algorithm to detect bushfire ignitions from satellite hotspot data
 2. Build an classification model to predict the cause of bushfire ignitions in Victoria during the 2019-2020 season given 
@@ -14,7 +16,7 @@ Three main aims of this research are:
     - proximity to the nearest road, proximity to the nearest recreation site and proximity to the nearest fire station
 3. Develop an interactive shiny app to visually explore bushfire ignition data
 
-Researcher:
+### Researchers:
 
 [Weihao Li](https://github.com/TengMCing)
 - Honours student, Department of Econometrics and Business Statistics, Monash University
@@ -22,7 +24,7 @@ Researcher:
 [Chang Liu](https://github.com/timtam3)
 - Master student, Department of Econometrics and Business Statistics, Monash University
 
-Supervisors:
+### Supervisors:
 
 [Dianne Cook](https://github.com/dicook)
 - Professor of Business Analytics, Department of Econometrics and Business Statistics, Monash University
