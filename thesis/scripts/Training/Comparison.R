@@ -86,9 +86,13 @@ pred_mat <- predict(xgb_model, newdata = test_set, type = "prob") %>% as.matrix(
 xgb_roc <- multiclass.roc(test_set$cause, pred_mat)
 
 rf_roc$auc
+# Multi-class area under the curve: 0.8795
 mnl_roc$auc
+# Multi-class area under the curve: 0.7424
 gam_roc$auc
+# Multi-class area under the curve: 0.8233
 xgb_roc$auc
+# Multi-class area under the curve: 0.8752
 
 # Random Forest is the best one
 

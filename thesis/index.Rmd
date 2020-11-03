@@ -29,8 +29,10 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning = FALSE)
 ```
 
 ```{r Prepare-Hotspots-For-Clustering, include=FALSE}
-# Prepare hotspots data for the clustering algorithm
+# Prepare hotspot data for the clustering algorithm
 # Runtime: 5 minutes
+# Input: hotspot data
+# Output: VIC_hotspots_before_clustering.csv, VIC_hotspots_raw.csv
 if (any(!file.exists(c("data/VIC_hotspots_before_clustering.csv", 
                        "data/VIC_hotspots_raw.csv")))){
   system("Rscript scripts/Clustering/Clustering-Python-setup.R")
@@ -41,6 +43,8 @@ if (any(!file.exists(c("data/VIC_hotspots_before_clustering.csv",
 ```{r Clustering-Parameters-Tuning, include=FALSE}
 # Tune the parameters for the clustering algorithm
 # Runtime: 8-10 hours
+# Input: VIC_hotspots_before_clustering.csv
+# Output: clustering_grid.csv
 if (!file.exists("data/clustering_grid.csv")){
   system("python scripts/Clustering/clustering_tune.py")
 } 
@@ -50,6 +54,8 @@ if (!file.exists("data/clustering_grid.csv")){
 ```{r Choose-Optimal-Parameters-For-Clustering, include=FALSE}
 # Choose the optimal parameters based on the tuning result
 # Runtime: 20 seconds
+# Input: clustering_grid.csv
+# Output: setting.txt, clustering_tuning_1.jpeg, clustering_tuning_2.jpeg
 if (FALSE){
   system("Rscript scripts/Clustering/clustering_tune_vis.R")
 }
@@ -59,6 +65,8 @@ if (FALSE){
 ```{r Hotspots-Clustering, include=FALSE}
 # Cluster hotspots into bushfires
 # Runtime: 6 minutes
+# Input: VIC_hotspots_before_clustering.csv
+# Output: VIC_hotspots_after_clustering.csv, summary.txt
 if (!file.exists("data/VIC_hotspots_after_clustering.csv")){
   system("python scripts/Clustering/main.py")
 }
@@ -67,6 +75,8 @@ if (!file.exists("data/VIC_hotspots_after_clustering.csv")){
 ```{r Bushfires-Data-Integration-Hotspots, include=FALSE}
 # Data integration for bushfires (hotspots)
 # Runtime: 20 minutes
+# Input: VIC_hotspots_raw.csv, VIC_hotspots_after_clustering.csv, forest data, weather data, camping site, CFA stations, road map
+# Output: predict_x.csv
 if (!file.exists("data/predict_x.csv")){
   system("Rscript scripts/Training/combine_current.R")
 }
@@ -75,6 +85,8 @@ if (!file.exists("data/predict_x.csv")){
 ```{r Bushfires-Data-Integration-Simulation, include=FALSE}
 # Data integration for bushfires (Simulation)
 # Runtime: 3 hours
+# Input: forest data, weather data, camping site, CFA stations, road map
+# Output: predict_x_grid.csv
 if (!file.exists("data/predict_x_grid.csv")){
   system("Rscript scripts/Training/combine_grid.R")
 }
@@ -84,6 +96,8 @@ if (!file.exists("data/predict_x_grid.csv")){
 ```{r Bushfires-Data-Integration-History, include=FALSE}
 # Data integration for bushfires (History)
 # Runtime: 2 hours
+# Input: fire origins, forest data, weather data, camping site, CFA stations, road map
+# Output: training.csv
 if (!file.exists("data/training.csv")){
   system("Rscript scripts/Training/combine_his.R")
 }
@@ -92,6 +106,8 @@ if (!file.exists("data/training.csv")){
 ```{r EDA, include=FALSE}
 # EDA on bushfire history
 # Runtime: 10-20 minutes
+# Input: training.csv, VIC_hotspots_raw.csv, VIC_hotspots_after_clustering.csv
+# Output: Many plots
 if (FALSE){
   system("Rscript scripts/Training/EDA.R")
 }
@@ -101,6 +117,8 @@ if (FALSE){
 ```{r Random-Forest-Model, include=FALSE}
 # Random forest
 # Runtime: 1 hour
+# Input: training.csv
+# Output: RF_best_features.rds, RF_model.rds
 if (any(!file.exists(c("data/RF_best_features.rds", 
                        "data/RF_model.rds")))){
   system("Rscript scripts/Training/RF.R")
@@ -110,6 +128,8 @@ if (any(!file.exists(c("data/RF_best_features.rds",
 ```{r MNL-Model, include=FALSE}
 # MNL
 # Runtime: 1 hour
+# Input: training.csv
+# Output: MNL_best_features.rds, MNL_model.rds
 if (any(!file.exists(c("data/MNL_best_features.rds", 
                        "data/MNL_model.rds")))){
   system("Rscript scripts/Training/MNL.R")
@@ -119,6 +139,8 @@ if (any(!file.exists(c("data/MNL_best_features.rds",
 ```{r GAM-Model, include=FALSE}
 # GAM
 # Runtime: 6 hours
+# Input: training.csv
+# Output: GAM_best_features.rds, GAM_model.rds
 if (any(!file.exists(c("data/GAM_best_features.rds", 
                        "data/GAM_model.rds")))){
   system("Rscript scripts/Training/GAM.R")
@@ -128,6 +150,8 @@ if (any(!file.exists(c("data/GAM_best_features.rds",
 ```{r XGB-Model, include=FALSE}
 # XGB
 # Runtime: 6 hours
+# Input: training.csv
+# Output: XGB_best_features.rds, XGB_model.rds
 if (any(!file.exists(c("data/XGB_best_features.rds", 
                        "data/XGB_model.rds")))){
   system("Rscript scripts/Training/XGB.R")
@@ -137,6 +161,8 @@ if (any(!file.exists(c("data/XGB_best_features.rds",
 ```{r Final-Model, include = FALSE}
 # Final Model
 # Runtime: 2 minutes
+# Input: RF_model.rds, MNL_model.rds, GAM_model.rds, XGB_model.rds, training.csv, RF_best_features.rds
+# Output: Final_model.rds
 if (!file.exists("data/Final_model.rds")){
   system("Rscript scripts/Training/Comparison.R")
                        }
@@ -145,6 +171,8 @@ if (!file.exists("data/Final_model.rds")){
 ```{r Prediction, include = FALSE}
 # Prediction
 # Runtime: 2 minutes
+# Input: Final_model.rds, predict_x.csv, predict_x_grid.csv
+# Output: prediction_2019-2020.csv, 2019-2020_prediction.jpeg, prediction_2019-2020_simulation.csv
 if (!file.exists("data/prediction_2019-2020.csv")){
   system("Rscript scripts/Prediction/2019-2020_prediction.R")
 }

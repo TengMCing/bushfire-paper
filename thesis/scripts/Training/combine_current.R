@@ -71,7 +71,7 @@ rm(fire_forest_info)
 rm(fire_points)
 rm(fire_forest_index)
 
-# Join <- data
+# Join weather data
 
 hotspots <- hotspots %>%
   rowwise() %>%
