@@ -1,54 +1,54 @@
 # Using Remote Sensing Data to Understand Fire Ignitions in Victoria During the 2019-2020 Australian Bushfire Season
 
-## A thesis submitted for the degree of Bachelor of Commerce (Honours) by Weihao (Patrick) Li
+**A thesis submitted for the degree of Bachelor of Commerce (Honours) by Weihao Li**
 
 ## Abstract
 
 ## Table of Content
 
 1. Introduction
-  1. 2019-2020 Australia bushfires
-  2. Remote sensing data
-  3. Research objectives and contribution
-  4. Scope of this thesis
+	1. 2019-2020 Australia bushfires
+	2. Remote sensing data
+	3. Research objectives and contribution
+	4. Scope of this thesis
 2. Review of literature
-  1. Spatio-temporal clustering
-  2. Bushfire modelling
+ 	1. Spatio-temporal clustering
+ 	2. Bushfire modelling
 3. Data
-  1. Data sources
-  2. Data processing for historical bushfire ignitions
-  3. Compiled data
-  4. Exploratory data analysis of historical bushfire ignitions
+ 	1. Data sources
+ 	2. Data processing for historical bushfire ignitions
+ 	3. Compiled data
+ 	4. Exploratory data analysis of historical bushfire ignitions
 4. Detecting bushfire ignitions from hotspots data
-  1. Overview of the hotspot data
-  2. Outline of the algorithm
-  3. Results
-  4. Data integration for ignition points in 2019-2020
+ 	1. Overview of the hotspot data
+ 	2. Outline of the algorithm
+ 	3. Results
+ 	4. Data integration for ignition points in 2019-2020
 5. Classification of ignition causes
-  1. Model description
-  2. Feature selection
-  3. Hyperparameter tuning and candidate model selection
-  4. Results
-  5. Predicting ignition cause for 2019-2020 season
+ 	1. Model description
+ 	2. Feature selection
+ 	3. Hyperparameter tuning and candidate model selection
+ 	4. Results
+ 	5. Predicting ignition cause for 2019-2020 season
 6. Discussion
-  1. Policy implications
-  2. Limitation
-  3. Future work
+ 	1. Policy implications
+ 	2. Limitation
+ 	3. Future work
 7. Conclusion
 
 # Instructions
 
 Before you try to reproduce this research, we need to inform you of several tips: 
 
-- When you run R scripts, please use `Rstudio` to open the R project `reproducible.Rproj`. 
+- Please use `Rstudio` to open the R project `thesis.Rproj` to preserve the relative paths. 
 
-- Every time you finish running a script, please entirely shutdown the kernel. That means you need to shutdown your R, Rsutido, Python, etc. We are assuming you are working in a clean environment.
+- Code for reproduciblity are provided in `index.Rmd`. Minor changes need to be made to enable reevaluating the code.
 
-- Please check the [Dependencies] and keep your environment as similar as possible. We do not guarantee the result will be the same under different environments.
+- Please check the [Dependencies](#Dependencies) and keep your environment as similar as possible.
 
-- Please strictly follow the instructions step by step. Most steps depend on the results from one or more previous steps.
+- Please run the `index.Rmd` chunk by chunk. Most chunks depend on the results from one or more previous chunks.
 
-- It may takes more than 18 hours to reproduce this entire research with a mid-range laptop. We will notify the approximate time needs for each computational intensive step.
+- It may takes more than 30 hours to reproduce this entire research with a mid-range laptop. We will notify the approximate time needs for each chunk in `index.Rmd`.
 
 ## Data Collection
 
