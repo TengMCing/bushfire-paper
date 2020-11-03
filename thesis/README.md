@@ -52,49 +52,157 @@ Before you try to reproduce this research, we need to inform you of several tips
 
 ## Data Collection
 
-1. Check the `data` folder and download all the data as required. The detail about how to download the data is in the `data` folder. 
+Check the `data` folder and download all the data as required. The detail about how to download the data is in the `data` folder. 
 
-## Data Pre-processing
+## `index.Rmd`
 
-2. Run the script `Clustering-Python-setup.R`. This will preprocess the raw hotspots data for clustering. The processed hotspots data will be stored in `data/VIC_hotspots_before_clustering.csv` and `data/VIC_hotspots_raw.csv`. (Time: 5 mins)
+All the scripts required for reproducibility have been linked by the `index.Rmd`. Subsitial changes need to be made to activate the reevaluation functions. You need to set the condition to `TRUE` for each `if` statement in `index.Rmd` to prevent R skipping it. Then you can run the script chunk by chunk.
 
-3. To reproduce the parameters tuning process of the clustering algorithm, run the script `clustering_tune.py`. The tuning process will be recorded in `data/clustering_grid.csv`. (Time: 700 mins)
+### 1. Code chunk: Prepare-Hotspots-For-Clustering
 
-4. To visualize the tuning process, run the script `clustering_tune_vis.R`. The optimal setting will be recorded in `setting.txt`. Meanwhile, the plots will be exported to the folder `plots`.
+**Runtime: ~5 minutes**
 
-5. Run the python script `main.py`. This will cluster the hotspots into bushfires. You will find a file `summary.txt` provides you with the summary of the clustering results. (Time: 6 mins)
+**Input: hotspot data**
 
-6. Run the script `combine_his.R` to integrate fire history. The result will be stored in `data/training.csv`. (Time: )
+**Output: `VIC_hotspots_before_clustering.csv`, `VIC_hotspots_raw.csv`**
 
-7. Run the script `combine_current.R` to integrate bushfires data from 2019 to 2020. The result will be stored in `data/predict_x.csv`. (Time: )
+This chunk preprocesses the raw hotspot data by calling `Clustering-Python-setup.R`. The outcomes include two csv files `VIC_hotspots_before_clustering.csv` and `VIC_hotspots_raw.csv`. `VIC_hotspots_before_clustering.csv` only contains observed time and location of hostpots, while `VIC_hotspots_raw.csv` contains full information.
 
-8. Run the script `combine_grid.R` to integrate simulation bushfire data. The result will be stored in `data/predict_x_grid.csv`. (Time: )
+### 2. Code chunk: Clustering-Parameters-Tuning
 
-9. Run the script `EDA.R` to perform data visualization on fire history and bushfires from 2019 to 2020. Plots will be exported to the folder `plots`. (Time: )
+**Runtime: ~8-10 hours**
 
-10. Run the script `MNL.R` to preform training, variable selection and testing on the multinomial logistic regression. The performance of the model will be recorded in `data/MNL.txt`. (Time: )
+**Input: `VIC_hotspots_before_clustering.csv`**
 
-11. Run the script `GAM.R` to perform training, variable selection and testing on the generalized additive model. The performance of the model will be recorded in `data/GAM.txt`. (Time: )
+**Output: `clustering_grid.csv`**
 
-12. Run the script `RF.R` to perform training, variable selection, hyperparameters tuning and testing on the random forest model. The performance of the model will be recorded in `data/RF.txt`. (Time: )
+This chunk runs the clustering algorithm using a grid of parameter values by calling `clustering_tune.py`. It provides the results of different attempts in `clustering_grid.csv`.
 
-13. Run the script `XGB.R` to perform training, variable selection, hyperparameters tuning and testing on the XGBoost model. The performance of the model will be recorded in `data/XGB.txt`. (Time: )
+### 3. Code chunk: Choose-Optimal-Parameters-For-Clustering
 
-14. Run the python script `NN.py` to perform training, variable selection, hyperparameters tuning and testing on the neural network model. The performance of the model will be recorded in `data/NN.txt`. (Time: )
+**Runtime: ~20 seconds**
 
-15. Run the script `prediction.R` to predict the ignition cause of bushfires from 2019 to 2020. Plots will be stored in the folder `plots` and the predictions will be stored in `data/prediction.csv`. (Time: )
+**Input: `clustering_grid.csv`**
 
-16. For how to reproduce the thesis of this research, please check `link`.
+**Output: `setting.txt, clustering_tuning_1.jpeg, clustering_tuning_2.jpeg`**
 
+This chunk chooses the optimal parameters for the clustering algorithm by calling `clustering_tune_vis.R`. The result is saved in `setting.txt`.
+
+### 4. Code chunk: Hotspots-Clustering
+
+**Runtime: ~6 minutes**
+
+**Input: `VIC_hotspots_before_clustering.csv`**
+
+**Output: `VIC_hotspots_after_clustering.csv, summary.txt`**
+
+This chunk runs the clustering algorithm on the optimal parameters by calling `main.py`.  The outcomes are the final clustering result `VIC_hotspots_after_clustering.csv` and a brief summary of the result `summary.txt`. 
+
+### 5. Code chunk: Bushfires-Data-Integration-Hotspots
+
+**Runtime: ~20 minutes**
+
+**Input: `VIC_hotspots_raw.csv`, `VIC_hotspots_after_clustering.csv`, forest data, weather data, camping site data, fire stations data, road map**
+
+**Output: `predict_x.csv`**
+
+This chunk performs data integration on the clustering result by calling `combine_current.R`. The outome is a dataset contains fire ignitions along with 54 predictors provided in `predict_x.csv`.
+
+### 6. Code chunk: Bushfires-Data-Integration-Simulation
+
+**Runtime: ~3 hours**
+
+**Input: forest data, weather data, camping site data, fire stations data, road map**
+
+**Output: `predict_x_grid.csv`**
+
+This chunks performs data integration on the uniformly simulated fire ignitions by calling `combine_grid.R`.  The outcome is a dataset contains simulated fire ignitions with 54 predictors provided in `predict_x_grid.csv`.
+
+### 7. Code chunk: Bushfires-Data-Integration-History
+
+**Runtime: ~3 hours**
+
+**Input: fire origins, forest data, weather data, camping site, CFA stations, road map**
+
+**Output: `training.csv`**
+
+This chunks performs data integration on historical fire ignitions by calling `combine_his.R`. The outcome is a the training data contains the cause of the ignition and 54 predictors provided in `training.csv`.
+
+### 8. Code chunk: EDA
+
+**Runtime: ~3 minutes**
+
+**Input: `training.csv`, `VIC_hotspots_raw.csv`, `VIC_hotspots_after_clustering.csv`**
+
+**Output: multiple plots**
+
+This chunks produces plots for exploratory data analysis of the training data.
+
+### 9. Code chunks: Random-Forest-Model, MNL-Model, GAM-Model and XGB-Model
+
+**Runtime: ~1 hour, 1 hour, 6 hours, 6 hours**
+
+**Input: `training.csv`**
+
+**Output: RF_best_features.rds, RF_model.rds, MNL_best_features.rds, MNL_model.rds, GAM_best_features.rds, GAM_model.rds, XGB_best_features.rds, XGB_model.rds**
+
+These 4 code chunks fit classification models on the training data and find the most important features by calling `RF.R`, `MNL.R`, `GAM.R` and `XGB.R`. The final models are stored in `RF_model.rds`, `MNL_model.rds`, `GAM_model.rds` and `XGB_model.rds`. Best features are stored in `RF_best_features.rds`, `MNL_best_features.rds`, `GAM_best_features.rds` and `XGB_best_features.rds`.
+
+### 10. Code chunk: Final-Model
+
+**Runtime: ~2 minutes**
+
+**Input: `RF_model.rds`, `MNL_model.rds`, `GAM_model.rds`, `XGB_model.rds`, `training.csv`, `RF_best_features.rds`**
+
+**Output: `Final_model.rds`**
+
+This chunk compares different models and fit the best model on the full training data by calling `Comparison.R`. The outcome is stored in `Final_model.rds`.
+
+### 11. Code chunk: Prediction
+
+**Runtime: ~2 minutes**
+
+**Input: `Final_model.rds`, `predict_x.csv`, `predict_x_grid.csv`**
+
+**Output: `prediction_2019-2020.csv`, `2019-2020_prediction.jpeg`, `prediction_2019-2020_simulation.csv`**
+
+This final chunk predicts the cause of ignitions for the 2019-2020 season data and the simulation data by calling `2019-2020_prediction.R` and `2019-2020_simulation_prediction.R`. Results are stored in `prediction_2019-2020.csv` and `prediction_2019-2020_simulation.csv`.
+
+## Thesis
+
+With all the preliminary results, the entire thesis can be reproduced by knitting the `index.Rmd`.
 
 
 # Dependencies
 
 1. `R`>=3.6.0
-	a. `tidyverse` >= 1.0.0
-	b. `sf` 
+	- `tidyverse` >= 1.3.0
+	- `sf` >= 0.9.5
+	- `lubridate` >= 1.7.9
+	- `rnaturalearth` >= 0.1.0
+	- `here` >= 0.1
+	- `raster` >= 3.3.13
+	- `bomrang` >= 0.7.0
+	- `geodist` >= 0.0.4
+	- `progress` >= 1.2.2
+	- `GGally` >= 2.0.0
+	- `naniar` >= 0.5.2
+	- `ggridges` >= 0.5.2
+	- `ggthemes` >= 4.2.0
+	- `caret` >= 6.0.86
+	- `lime` >= 0.5.1
+	- `nnet` >= 7.3.12
+	- `randomForest` >= 4.6.14
+	- `mgcv` >= 1.8.31
+	- `fastDummies` >= 1.6.2
+	- `xgboost` >= 1.1.1.1
+	- `plyr` >= 1.8.6
+	- `pROC` >= 1.16.2
+	
 2. `Python`>=3.7.0
-	a. `numpy`
+	- `tqdm` >= 4.48.2
+	- `numpy` >= 1.19.1
+	
 
 
 
