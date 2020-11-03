@@ -3,7 +3,6 @@
 # Load libraries
 library(tidyverse)
 library(sf)
-library(furrr)
 library(lubridate)
 library(rnaturalearth)
 library(here)
