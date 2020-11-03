@@ -1,12 +1,50 @@
+# Using Remote Sensing Data to Understand Fire Ignitions in Victoria During the 2019-2020 Australian Bushfire Season
+
+## A thesis submitted for the degree of Bachelor of Commerce (Honours) by Weihao (Patrick) Li
+
+## Abstract
+
+## Table of Content
+
+1. Introduction
+  1. 2019-2020 Australia bushfires
+  2. Remote sensing data
+  3. Research objectives and contribution
+  4. Scope of this thesis
+2. Review of literature
+  1. Spatio-temporal clustering
+  2. Bushfire modelling
+3. Data
+  1. Data sources
+  2. Data processing for historical bushfire ignitions
+  3. Compiled data
+  4. Exploratory data analysis of historical bushfire ignitions
+4. Detecting bushfire ignitions from hotspots data
+  1. Overview of the hotspot data
+  2. Outline of the algorithm
+  3. Results
+  4. Data integration for ignition points in 2019-2020
+5. Classification of ignition causes
+  1. Model description
+  2. Feature selection
+  3. Hyperparameter tuning and candidate model selection
+  4. Results
+  5. Predicting ignition cause for 2019-2020 season
+6. Discussion
+  1. Policy implications
+  2. Limitation
+  3. Future work
+7. Conclusion
+
 # Instructions
 
 Before you try to reproduce this research, we need to inform you of several tips: 
 
 - When you run R scripts, please use `Rstudio` to open the R project `reproducible.Rproj`. 
 
-- Every time you finish running a script, please enitrely shutdown the kernel. That means you need to shutdown your R, Rsutido, Python, etc. We are assuming you are working in a clean environment.
+- Every time you finish running a script, please entirely shutdown the kernel. That means you need to shutdown your R, Rsutido, Python, etc. We are assuming you are working in a clean environment.
 
-- Please check the [Denpendencies] and keep your environment as similar as possible. We do not guarantee the result will be the same under different environments.
+- Please check the [Dependencies] and keep your environment as similar as possible. We do not guarantee the result will be the same under different environments.
 
 - Please strictly follow the instructions step by step. Most steps depend on the results from one or more previous steps.
 
@@ -30,9 +68,9 @@ Before you try to reproduce this research, we need to inform you of several tips
 
 7. Run the script `combine_current.R` to integrate bushfires data from 2019 to 2020. The result will be stored in `data/predict_x.csv`. (Time: )
 
-8. Run the script `combine_grid.R` to integrate simulation bushfires data. The result will be stored in `data/predict_x_grid.csv`. (Time: )
+8. Run the script `combine_grid.R` to integrate simulation bushfire data. The result will be stored in `data/predict_x_grid.csv`. (Time: )
 
-9. Run the script `EDA.R` to perform data visulization on fire history and bushfires from 2019 to 2020. Plots will be exported to the folder `plots`. (Time: )
+9. Run the script `EDA.R` to perform data visualization on fire history and bushfires from 2019 to 2020. Plots will be exported to the folder `plots`. (Time: )
 
 10. Run the script `MNL.R` to preform training, variable selection and testing on the multinomial logistic regression. The performance of the model will be recorded in `data/MNL.txt`. (Time: )
 
