@@ -32,7 +32,7 @@ The overall objectives of this research are:
 [Emily Dodwell](https://github.com/emdodwell)
 - Principal Inventive Scientist - Data Science and AI Research, AT&T Labs
 
-## Data source
+## Data sources
 
 Himawari-8 satellite hotspots data - Japan Aerospace Exploration Agency 
 
