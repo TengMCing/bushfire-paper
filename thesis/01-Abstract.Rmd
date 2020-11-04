@@ -8,14 +8,20 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE, cache=TRUE)
 library(tidyverse)
 ```
 
+# Abstract {-}
+
+The 2019-2020 Australian bushfire season, compared with other major bushfire season in history, has a more devastating impact on the environment and properties. The availability of remote sensing data provide us with an opportunity to predict the cause of bushfire ignitions in Victoria during this season. We developed a spatio-temporal clustering algorithm to detect bushfire ignitions from hotspot data. We fitted a random forest model to classify the cause of historical bushfire ignitions in Victoria from 2000-2018. The final model showed good predictive ability with 74.95% overall accuracy and 90.5% accuracy in lightning-caused bushfires. We predicted the cause for 2019-2020 Victoria bushfire ignitions using the model and found lightning was the major cause (82%), while arson was only responsible for a fraction of the total cases (3.62%). The clustering algorithm and the predictive model used in this research can allow fire managers to more easily monitor and investigate bushfires using satellite hotpot data.
+
+*Key words: machine learning, statistics, spatio-temporal data, cluster analysis, data visualization, exploratory data analysis, data science*
 
 
-The main points of the abstract will be:
+<!-- The main points of the abstract will be: -->
 
-1. Background and motivation (Why did we do this research and what did we research)
-2. Mention we developed an algorithm, and what is its main usage
-3. Mention we fitted a random forest model to the historical ignition data
-4. What was the model performance
-5. Mention we predicted the causes of 2019-2020 Australia bushfire using this model
-6. The major finding in the prediction
-7. One main contribution
+<!-- 1. Background and motivation (Why did we do this research and what did we research) -->
+<!-- 2. Mention we developed an algorithm, and what is its main usage -->
+<!-- 3. Mention we fitted a random forest model to the historical ignition data -->
+<!-- 4. What was the model performance -->
+<!-- 5. Mention we predicted the causes of 2019-2020 Australia bushfire using this model -->
+<!-- 6. The major finding in the prediction -->
+<!-- 7. One main contribution -->
+

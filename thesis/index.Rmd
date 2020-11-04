@@ -1,5 +1,5 @@
 ---
-title: 'Using Remote Sensing Data to Understand Fire Ignitions in Victoria During the 2019-2020 Australian Bushfire Season'
+title: 'Using Remote Sensing Data to Understand Fire Ignitions in Victoria during the 2019-2020 Australian Bushfire Season'
 degreetype: 'Bachelor of Commerce (Honours)'
 author: 'Weihao Li'
 studentid: 28723740
@@ -184,8 +184,22 @@ if (!file.exists("data/prediction_2019-2020_simulation.csv")){
 
 # Acknowledgement {-}
 
+I would like to thank my supervisors, Professor Dianne Cook and Emily Dodwell, for their invaluable support and guidance throughout this year. 
+
+<!-- ## Software used {-} -->
+
+R, RStudio and Python are used for data analysis in this thesis. R packages used in this research include `tidyverse`, `sf`, `lubridate`, `rnaturalearth`, `here`, `raster`, `bomrang`, `geodist`, `progress`, `GGally`, `naniar`, `ggridges`, `ggthemes`, `caret`, `lime`, `nnet`, `randomForest`, `mgcv`, `fastDummies`, `xgboost`, `plyr` and `pROC`. Python packages used in this research include `tqdm` and `numpy`. Besides, this thesis is produced using the R package `bookdown`.
+
 # Declaration {-}
 
-# Abstract {-}
 
-\tableofcontents
+I declare that this thesis contains no material which has been submitted in any form for the award of any other degree or diploma in any university or equivalent institution, and that, to the best of my knowledge and belief, this thesis contains no material previously published or written by another person, except where due reference is made in the text of the thesis.
+
+\makebox[0.5\linewidth][r]{}\dotsign\smallskip\
+\hspace*{0.5\linewidth}Weihao Li\
+\hspace*{0.5\linewidth}$4^{th}$ November 2020
+
+
+
+
+

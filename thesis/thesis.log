@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  4 NOV 2020 00:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  4 NOV 2020 15:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -852,7 +852,7 @@ Already applied: [0000/00/00] float order in 2-column on input line 151.
 )
 \@quotelevel=\count420
 \@quotereset=\count421
-LaTeX Font Info:    Trying to load font information for T1+ppl on input line 30
+LaTeX Font Info:    Trying to load font information for T1+ppl on input line 31
 .
 
 (c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/t1ppl.f
@@ -871,22 +871,22 @@ LaTeX Warning: Label `tab:cov' multiply defined.
 )
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -942,14 +942,14 @@ stopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \microtypecontext on input line 30.
+LaTeX Info: Redefining \microtypecontext on input line 31.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `basictext'.
-LaTeX Info: Redefining \showhyphens on input line 30.
+LaTeX Info: Redefining \showhyphens on input line 31.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -973,9 +973,9 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'thesis.bbl' found.
 (./thesis.bbl)
-Package biblatex Info: Reference section=0 on input line 30.
-Package biblatex Info: Reference segment=0 on input line 30.
-Package hyperref Info: Link coloring ON on input line 30.
+Package biblatex Info: Reference section=0 on input line 31.
+Package biblatex Info: Reference segment=0 on input line 31.
+Package hyperref Info: Link coloring ON on input line 31.
 
 (c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/namer
 ef.sty
@@ -991,47 +991,47 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count422
 )
-LaTeX Info: Redefining \ref on input line 30.
-LaTeX Info: Redefining \pageref on input line 30.
-LaTeX Info: Redefining \nameref on input line 30.
+LaTeX Info: Redefining \ref on input line 31.
+LaTeX Info: Redefining \pageref on input line 31.
+LaTeX Info: Redefining \nameref on input line 31.
 (./thesis.out) (./thesis.out)
 \@outlinefile=\write5
 \openout5 = `thesis.out'.
 
-LaTeX Font Info:    Trying to load font information for T1+fvs on input line 34
+LaTeX Font Info:    Trying to load font information for T1+fvs on input line 35
 .
 (c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bera/t1fvs.fd
 File: t1fvs.fd 2004/09/07 scalable font definitions for T1/fvs.
 )
 LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
-(Font)              scaled to size 9.85492pt on input line 34.
+(Font)              scaled to size 9.85492pt on input line 35.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `fvs' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
-(Font)              scaled to size 22.39185pt on input line 34.
+(Font)              scaled to size 22.39185pt on input line 35.
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 22.39185pt on input line 34.
+(Font)              scaled to size 22.39185pt on input line 35.
 LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
-(Font)              scaled to size 12.9599pt on input line 34.
+(Font)              scaled to size 12.9599pt on input line 35.
 LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
-(Font)              scaled to size 15.55188pt on input line 34.
+(Font)              scaled to size 15.55188pt on input line 35.
 <figures/crest.jpg, id=156, 509.905pt x 553.06625pt>
 File: figures/crest.jpg Graphic file (type jpg)
 <use figures/crest.jpg>
-Package pdftex.def Info: figures/crest.jpg  used on input line 34.
+Package pdftex.def Info: figures/crest.jpg  used on input line 35.
 (pdftex.def)             Requested size: 85.35826pt x 92.57692pt.
 LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
-(Font)              scaled to size 10.79993pt on input line 34.
+(Font)              scaled to size 10.79993pt on input line 35.
 [1
 
 {c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/p
 dftex.map} <./figures/crest.jpg>]
 LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
-(Font)              scaled to size 21.59985pt on input line 36.
+(Font)              scaled to size 21.59985pt on input line 37.
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 21.59985pt on input line 36.
+(Font)              scaled to size 21.59985pt on input line 37.
 (./thesis.toc
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
 (Font)              scaled to size 9.85492pt on input line 3.
@@ -1079,114 +1079,110 @@ Package microtype Info: Loading generic protrusion settings for font family
 \openout6 = `thesis.toc'.
 
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 12.9599pt on input line 38.
+(Font)              scaled to size 12.9599pt on input line 39.
 [3] [0
 
 
 ]
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 18.66588pt on input line 41.
-[1] [2
-
-] [3] [4
-
-] (./thesis.toc)
-\tf@toc=\write7
-\openout7 = `thesis.toc'.
-
-[5] [6
-
-]
-Chapter 1.
-LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 13.49991pt on input line 79.
-[7] [8] [9] [10] [11] [12
-
-]
-Chapter 2.
-[13]
-LaTeX Font Info:    Trying to load font information for T1+fvm on input line 15
-1.
+(Font)              scaled to size 18.66588pt on input line 42.
+LaTeX Font Info:    Trying to load font information for T1+fvm on input line 47
+.
 (c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bera/t1fvm.fd
 File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 )
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 9.85492pt on input line 151.
+(Font)              scaled to size 9.85492pt on input line 47.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `fvm' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-[14] [15] [16] [17] [18
+[1] [2
+
+]
+Underfull \hbox (badness 10000) detected at line 55
+[]
+ []
+
+[3] [4
+
+] [5] [6
+
+]
+Chapter 1.
+LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
+(Font)              scaled to size 13.49991pt on input line 71.
+[7] [8] [9] [10] [11] [12
+
+]
+Chapter 2.
+[13] [14] [15] [16] [17] [18
 
 ]
 Chapter 3.
 LaTeX Font Info:    Font shape `T1/fvs/b/n' will be
-(Font)              scaled to size 10.79993pt on input line 189.
+(Font)              scaled to size 10.79993pt on input line 181.
 LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 1
-91.
+83.
 
 (c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ppl.
 fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 ) [19] [20]
-<figures/data summary.jpeg, id=429, 763.4121pt x 420.1296pt>
+<figures/data summary.jpeg, id=422, 763.4121pt x 420.1296pt>
 File: figures/data summary.jpeg Graphic file (type jpg)
 <use figures/data summary.jpeg>
-Package pdftex.def Info: figures/data summary.jpeg  used on input line 234.
+Package pdftex.def Info: figures/data summary.jpeg  used on input line 226.
 (pdftex.def)             Requested size: 414.04195pt x 196.4801pt.
 [21] [22 <./figures/data summary.jpeg>] [23] [24]
-<figures/overall_summary.png, id=480, 1156.32pt x 867.24pt>
+<figures/overall_summary.png, id=473, 1156.32pt x 867.24pt>
 File: figures/overall_summary.png Graphic file (type png)
 <use figures/overall_summary.png>
-Package pdftex.def Info: figures/overall_summary.png  used on input line 323.
+Package pdftex.def Info: figures/overall_summary.png  used on input line 315.
 (pdftex.def)             Requested size: 421.56808pt x 316.17607pt.
-<figures/lon_lat.png, id=482, 1156.32pt x 867.24pt>
+<figures/lon_lat.png, id=475, 1156.32pt x 867.24pt>
 File: figures/lon_lat.png Graphic file (type png)
 <use figures/lon_lat.png>
-Package pdftex.def Info: figures/lon_lat.png  used on input line 331.
+Package pdftex.def Info: figures/lon_lat.png  used on input line 323.
 (pdftex.def)             Requested size: 421.56808pt x 316.17607pt.
-<figures/overall_density.png, id=485, 1156.32pt x 867.24pt>
+<figures/overall_density.png, id=478, 1156.32pt x 867.24pt>
 File: figures/overall_density.png Graphic file (type png)
 <use figures/overall_density.png>
-Package pdftex.def Info: figures/overall_density.png  used on input line 339.
+Package pdftex.def Info: figures/overall_density.png  used on input line 331.
 (pdftex.def)             Requested size: 421.56808pt x 316.17607pt.
 [25] [26 <./figures/overall_summary.png>] [27 <./figures/lon_lat.png>] [28 <./f
 igures/overall_density.png>]
 Chapter 4.
-<thesis_files/figure-latex/rawhotspot-1.png, id=510, 455.301pt x 274.626pt>
+<thesis_files/figure-latex/rawhotspot-1.png, id=503, 455.301pt x 274.626pt>
 File: thesis_files/figure-latex/rawhotspot-1.png Graphic file (type png)
 <use thesis_files/figure-latex/rawhotspot-1.png>
 Package pdftex.def Info: thesis_files/figure-latex/rawhotspot-1.png  used on in
-put line 353.
+put line 345.
 (pdftex.def)             Requested size: 455.29988pt x 274.62532pt.
 
-Overfull \hbox (28.50853pt too wide) in paragraph at lines 353--354
+Overfull \hbox (28.50853pt too wide) in paragraph at lines 345--346
  [][] 
  []
 
 [29
 
 ] [30 <./thesis_files/figure-latex/rawhotspot-1.png>] [31] [32]
-
-LaTeX Warning: Reference `fig:tdafterhotspots' on page 33 undefined on input li
-ne 434.
-
-<thesis_files/figure-latex/afterhotspot-1.png, id=554, 455.301pt x 274.626pt>
+<thesis_files/figure-latex/afterhotspot-1.png, id=541, 455.301pt x 274.626pt>
 File: thesis_files/figure-latex/afterhotspot-1.png Graphic file (type png)
 <use thesis_files/figure-latex/afterhotspot-1.png>
 Package pdftex.def Info: thesis_files/figure-latex/afterhotspot-1.png  used on 
-input line 440.
+input line 423.
 (pdftex.def)             Requested size: 455.29988pt x 274.62532pt.
 
-Overfull \hbox (28.50853pt too wide) in paragraph at lines 440--441
+Overfull \hbox (28.50853pt too wide) in paragraph at lines 423--424
  [][] 
  []
 
 [33]
-<figures/fire_mov.jpeg, id=569, 1011.78pt x 1011.78pt>
+<figures/fire_mov.jpeg, id=557, 1011.78pt x 1011.78pt>
 File: figures/fire_mov.jpeg Graphic file (type jpg)
 <use figures/fire_mov.jpeg>
-Package pdftex.def Info: figures/fire_mov.jpeg  used on input line 448.
+Package pdftex.def Info: figures/fire_mov.jpeg  used on input line 431.
 (pdftex.def)             Requested size: 414.04512pt x 372.63907pt.
 [34 <./thesis_files/figure-latex/afterhotspot-1.png>] [35 <./figures/fire_mov.j
 peg>] [36]
@@ -1194,72 +1190,72 @@ Chapter 5.
 [37
 
 ] [38]
-<thesis_files/figure-latex/limeex-1.pdf, id=642, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/limeex-1.pdf, id=630, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/limeex-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/limeex-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/limeex-1.pdf  used on input 
-line 490.
+line 473.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 490--491
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 473--474
  [][] 
  []
 
 LaTeX Font Info:    Font shape `T1/fvm/m/it' in size <10.95> not available
-(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 491.
+(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 474.
 LaTeX Font Info:    Font shape `T1/fvm/m/sl' will be
-(Font)              scaled to size 9.85492pt on input line 491.
+(Font)              scaled to size 9.85492pt on input line 474.
 [39]pdfTeX warning (ext4): destination with the same identifier (name{results})
  has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.526 \section{Results}\label{results}}
+l.509 \section{Results}\label{results}}
                                         [40 <./thesis_files/figure-latex/limeex
 -1.pdf>]
-<thesis_files/figure-latex/errormap-1.pdf, id=673, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/errormap-1.pdf, id=661, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/errormap-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/errormap-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/errormap-1.pdf  used on inpu
-t line 569.
+t line 552.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 569--570
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 552--553
  [][] 
  []
 
 [41]
-<thesis_files/figure-latex/limeexvar-1.pdf, id=682, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/limeexvar-1.pdf, id=670, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/limeexvar-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/limeexvar-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/limeexvar-1.pdf  used on inp
-ut line 579.
+ut line 562.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 579--580
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 562--563
  [][] 
  []
 
 [42 <./thesis_files/figure-latex/errormap-1.pdf>] [43 <./thesis_files/figure-la
 tex/limeexvar-1.pdf>]
-<thesis_files/figure-latex/pred2019-1.pdf, id=712, 454.69875pt x 578.16pt>
+<thesis_files/figure-latex/pred2019-1.pdf, id=699, 454.69875pt x 578.16pt>
 File: thesis_files/figure-latex/pred2019-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/pred2019-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/pred2019-1.pdf  used on inpu
-t line 596.
+t line 579.
 (pdftex.def)             Requested size: 454.69763pt x 578.15858pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 596--597
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 579--580
  [][] 
  []
 
-<thesis_files/figure-latex/gridpred-1.pdf, id=713, 505.89pt x 578.16pt>
+<thesis_files/figure-latex/gridpred-1.pdf, id=700, 505.89pt x 578.16pt>
 File: thesis_files/figure-latex/gridpred-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/gridpred-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/gridpred-1.pdf  used on inpu
-t line 618.
+t line 601.
 (pdftex.def)             Requested size: 505.88875pt x 578.15858pt.
 
-Overfull \hbox (79.0974pt too wide) in paragraph at lines 618--619
+Overfull \hbox (79.0974pt too wide) in paragraph at lines 601--602
  [][] 
  []
 
@@ -1269,25 +1265,25 @@ Chapter 6.
 [47
 
 ] [48] [49]
-<thesis_files/figure-latex/mcsim-1.pdf, id=767, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/mcsim-1.pdf, id=755, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/mcsim-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/mcsim-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/mcsim-1.pdf  used on input l
-ine 676.
+ine 659.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 676--677
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 659--660
  [][] 
  []
 
-<thesis_files/figure-latex/posterior-1.pdf, id=768, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/posterior-1.pdf, id=756, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/posterior-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/posterior-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/posterior-1.pdf  used on inp
-ut line 682.
+ut line 665.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 682--683
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 665--666
  [][] 
  []
 
@@ -1305,17 +1301,17 @@ Appendix A.
 ]
 Appendix B.
 [59]
-<figures/clustering_tuning_1.jpeg, id=845, 722.7pt x 505.89pt>
+<figures/clustering_tuning_1.jpeg, id=832, 722.7pt x 505.89pt>
 File: figures/clustering_tuning_1.jpeg Graphic file (type jpg)
 <use figures/clustering_tuning_1.jpeg>
 Package pdftex.def Info: figures/clustering_tuning_1.jpeg  used on input line 8
-45.
+28.
 (pdftex.def)             Requested size: 426.79135pt x 298.75812pt.
-<figures/clustering_tuning_2.jpeg, id=846, 722.7pt x 505.89pt>
+<figures/clustering_tuning_2.jpeg, id=833, 722.7pt x 505.89pt>
 File: figures/clustering_tuning_2.jpeg Graphic file (type jpg)
 <use figures/clustering_tuning_2.jpeg>
 Package pdftex.def Info: figures/clustering_tuning_2.jpeg  used on input line 8
-49.
+32.
 (pdftex.def)             Requested size: 426.79135pt x 298.75812pt.
 [60 <./figures/clustering_tuning_1.jpeg>] [61 <./figures/clustering_tuning_2.jp
 eg>] [62
@@ -1325,17 +1321,17 @@ Appendix C.
 [63] [64]
 Appendix D.
 
+Overfull \hbox (2.51488pt too wide) in paragraph at lines 932--943
+ [][] 
+ []
+
+
 Overfull \hbox (2.51488pt too wide) in paragraph at lines 949--960
  [][] 
  []
 
 
 Overfull \hbox (2.51488pt too wide) in paragraph at lines 966--977
- [][] 
- []
-
-
-Overfull \hbox (2.51488pt too wide) in paragraph at lines 983--994
  [][] 
  []
 
@@ -1351,9 +1347,6 @@ Appendix E.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: C77CF030EEB7038F6ED6930A169E4C14;2594.
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
 
 Package logreq Info: Writing requests to 'thesis.run.xml'.
@@ -1365,13 +1358,13 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 19616 strings out of 481466
- 346880 string characters out of 5919837
- 1127307 words of memory out of 5000000
+ 19596 strings out of 481466
+ 346732 string characters out of 5919837
+ 1127338 words of memory out of 5000000
  35432 multiletter control sequences out of 15000+600000
- 635888 words of font info for 277 fonts, out of 8000000 for 9000
+ 635590 words of font info for 273 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 80i,12n,86p,1745b,14989s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 80i,12n,86p,1744b,14993s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/en
 c/dvips/base/8r.enc}<c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/font
 s/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTe
@@ -1387,10 +1380,10 @@ ming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb><c:/Users/TengMCin
 g/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/Us
 ers/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri
 8a.pfb>
-Output written on thesis.pdf (77 pages, 4936391 bytes).
+Output written on thesis.pdf (77 pages, 4940458 bytes).
 PDF statistics:
- 1062 PDF objects out of 1200 (max. 8388607)
- 921 compressed objects within 10 object streams
- 296 named destinations out of 1000 (max. 500000)
+ 1047 PDF objects out of 1200 (max. 8388607)
+ 906 compressed objects within 10 object streams
+ 284 named destinations out of 1000 (max. 500000)
  37766 words of extra memory for PDF output out of 42996 (max. 10000000)
 
