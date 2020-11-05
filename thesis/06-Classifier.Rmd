@@ -624,7 +624,7 @@ $$P(L,S|\mathcal{F}) = P(L|S,\mathcal{F})P(S|\mathcal{F})$$
 
 We will demonstrate how this works by using the a naive method to estimate the $P(S|\mathcal{F})$ and eventually yield the $P(L,S|\mathcal{F})$.
 
-A reasonable estimate of the probability of the bushfire starts in a region in a certain month is the fraction of the number of past December we observed bushfires on the total number of past December. Figure \ref{fig:mcsim} is the estimate of $P(S|\mathcal{F})$. As you can see, it produces a lot of missing values because we didn't observe bushfires in those regions in the past. The joint probability $P(L,S|\mathcal{F})$ can then be calculated by omitting other factors and simply using the prediction of 2019-2020 Australia bushfires. Figure \ref{fig:posterior} shows the final product. It can be directly used as the prediction of the risk of lightning-ignited bushfire.
+A reasonable estimate of the probability of the bushfire starts in a region in a certain month is the fraction of the number of past December we observed bushfires on the total number of past December. Figure \ref{fig:mcsim} is the estimate of $P(S|\mathcal{F})$. The joint probability $P(L,S|\mathcal{F})$ can then be calculated by omitting other factors and simply using the prediction of 2019-2020 Australia bushfires. Figure \ref{fig:posterior} shows the final product. It can be directly used as the prediction of the risk of lightning-ignited bushfire.
 
 ```{r mcsim, fig.cap="A map of the frequency of bushfire occurred in a region. Some regions contain missing values because there was no observed bushfire."}
  set.seed(10086)
@@ -735,9 +735,10 @@ for (i in 1:length(indexes)){
 }
 
 rect_list <- as.data.frame(rect_list)
-rect_list <- mutate(rect_list, rect = 1:nrow(rect_list), month = 11)
+rect_list <- mutate(rect_list, rect = 1:nrow(rect_list), month = 10)
 
 rect_list <- rect_list %>%
+  bind_rows(mutate(rect_list, month = 11)) %>%
   bind_rows(mutate(rect_list, month = 12)) %>%
   bind_rows(mutate(rect_list, month = 1)) %>%
   bind_rows(mutate(rect_list, month = 2)) %>%
@@ -843,7 +844,7 @@ rect_list <- rect_list %>%
 rect_list <- filter(rect_list, cause == "Lightning")
 rect_list_st <- rename(rect_list_st, past_count = count)
 
-rect_list_st <- mutate(rect_list_st, month = as.numeric(levels(month))[month])
+rect_list_st <- mutate(rect_list_st, month = as.numeric(as.character(month)))
 
 
 rect_list <- left_join(rect_list, select(rect_list_st, -geometry), by = c("rect", "month"))
