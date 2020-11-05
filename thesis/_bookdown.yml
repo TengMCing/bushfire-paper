@@ -9,8 +9,7 @@ rmd_files: ["index.Rmd",
   "04-Data.Rmd",
   "05-Clustering.Rmd",
   "06-Classifier.Rmd",
-  "07-Discussion.Rmd",
-  "08-Conclusion.Rmd",
+  "07-Discussion-and-conclusion.Rmd",
   "A-appA.Rmd",
   "B-appB.Rmd"]
 delete_merged_file: TRUE

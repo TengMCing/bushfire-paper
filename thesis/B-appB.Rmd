@@ -38,7 +38,7 @@ tibble(Hyperparameter = c("Multinomial logistic regression", "decay"),
 ```
 
 
-(ref:hpgridtwodetail) A description of each hyperparameter. The definition of the hyperparameters is referenced from the documentations of the package `nnet` [@nnet], package `randomForest`[@R-rf] and package `xgboost` [@xgboost].
+(ref:hpgridtwodetail) A description of each hyperparameter. The definition of the hyperparameters is referenced from the documentations of the package `nnet` [@R-nnet], package `randomForest`[@R-rf] and package `xgboost` [@R-xgboost].
 
 ```{r}
 tibble(Hyperparameter = c("Multinomial logistic regression", "decay"), 

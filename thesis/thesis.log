@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  6 NOV 2020 08:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  6 NOV 2020 10:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -860,9 +860,6 @@ d
 File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
 ) (./thesis.aux
 
-LaTeX Warning: Label `results' multiply defined.
-
-
 LaTeX Warning: Label `tab:cov' multiply defined.
 
 
@@ -980,20 +977,6 @@ Package biblatex Warning: The following entry could not be found
 (biblatex)                Please verify the spelling and rerun
 (biblatex)                LaTeX afterwards.
 
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                nnet
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                xgboost
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
 )
 Package biblatex Info: Reference section=0 on input line 31.
 Package biblatex Info: Reference segment=0 on input line 31.
@@ -1039,7 +1022,7 @@ LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
 (Font)              scaled to size 12.9599pt on input line 35.
 LaTeX Font Info:    Font shape `T1/fvs/m/n' will be
 (Font)              scaled to size 15.55188pt on input line 35.
-<figures/crest.jpg, id=160, 509.905pt x 553.06625pt>
+<figures/crest.jpg, id=156, 509.905pt x 553.06625pt>
 File: figures/crest.jpg Graphic file (type jpg)
 <use figures/crest.jpg>
 Package pdftex.def Info: figures/crest.jpg  used on input line 35.
@@ -1158,24 +1141,24 @@ LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 1
 fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 ) [19] [20]
-<figures/data summary.jpeg, id=485, 763.4121pt x 420.1296pt>
+<figures/data summary.jpeg, id=480, 763.4121pt x 420.1296pt>
 File: figures/data summary.jpeg Graphic file (type jpg)
 <use figures/data summary.jpeg>
 Package pdftex.def Info: figures/data summary.jpeg  used on input line 232.
 (pdftex.def)             Requested size: 414.04195pt x 196.4801pt.
 [21] [22 <./figures/data summary.jpeg>] [23] [24]
-<figures/overall_summary.png, id=529, 1156.32pt x 867.24pt>
+<figures/overall_summary.png, id=524, 1156.32pt x 867.24pt>
 File: figures/overall_summary.png Graphic file (type png)
 <use figures/overall_summary.png>
 Package pdftex.def Info: figures/overall_summary.png  used on input line 321.
 (pdftex.def)             Requested size: 421.56808pt x 316.17607pt.
-<figures/lon_lat.png, id=531, 1156.32pt x 867.24pt>
+<figures/lon_lat.png, id=526, 1156.32pt x 867.24pt>
 File: figures/lon_lat.png Graphic file (type png)
 <use figures/lon_lat.png>
 Package pdftex.def Info: figures/lon_lat.png  used on input line 329.
 (pdftex.def)             Requested size: 421.56808pt x 316.17607pt.
 [25 <./figures/overall_summary.png>]
-<figures/overall_density.png, id=539, 1156.32pt x 867.24pt>
+<figures/overall_density.png, id=534, 1156.32pt x 867.24pt>
 File: figures/overall_density.png Graphic file (type png)
 <use figures/overall_density.png>
 Package pdftex.def Info: figures/overall_density.png  used on input line 337.
@@ -1184,7 +1167,7 @@ Package pdftex.def Info: figures/overall_density.png  used on input line 337.
 
 ]
 Chapter 4.
-<thesis_files/figure-latex/rawhotspot-1.png, id=559, 455.301pt x 274.626pt>
+<thesis_files/figure-latex/rawhotspot-1.png, id=554, 455.301pt x 274.626pt>
 File: thesis_files/figure-latex/rawhotspot-1.png Graphic file (type png)
 <use thesis_files/figure-latex/rawhotspot-1.png>
 Package pdftex.def Info: thesis_files/figure-latex/rawhotspot-1.png  used on in
@@ -1196,7 +1179,7 @@ Overfull \hbox (28.50853pt too wide) in paragraph at lines 351--352
  []
 
 [29] [30 <./thesis_files/figure-latex/rawhotspot-1.png>] [31] [32]
-<thesis_files/figure-latex/afterhotspot-1.png, id=598, 455.301pt x 274.626pt>
+<thesis_files/figure-latex/afterhotspot-1.png, id=593, 455.301pt x 274.626pt>
 File: thesis_files/figure-latex/afterhotspot-1.png Graphic file (type png)
 <use thesis_files/figure-latex/afterhotspot-1.png>
 Package pdftex.def Info: thesis_files/figure-latex/afterhotspot-1.png  used on 
@@ -1208,7 +1191,7 @@ Overfull \hbox (28.50853pt too wide) in paragraph at lines 429--430
  []
 
 [33]
-<figures/fire_mov.jpeg, id=614, 1011.78pt x 1011.78pt>
+<figures/fire_mov.jpeg, id=609, 1011.78pt x 1011.78pt>
 File: figures/fire_mov.jpeg Graphic file (type jpg)
 <use figures/fire_mov.jpeg>
 Package pdftex.def Info: figures/fire_mov.jpeg  used on input line 437.
@@ -1219,7 +1202,7 @@ Chapter 5.
 [37
 
 ] [38]
-<thesis_files/figure-latex/limeex-1.pdf, id=679, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/limeex-1.pdf, id=674, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/limeex-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/limeex-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/limeex-1.pdf  used on input 
@@ -1234,14 +1217,8 @@ LaTeX Font Info:    Font shape `T1/fvm/m/it' in size <10.95> not available
 (Font)              Font shape `T1/fvm/m/sl' tried instead on input line 480.
 LaTeX Font Info:    Font shape `T1/fvm/m/sl' will be
 (Font)              scaled to size 9.85492pt on input line 480.
-[39]pdfTeX warning (ext4): destination with the same identifier (name{results})
- has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.515 \section{Results}\label{results}}
-                                        [40 <./thesis_files/figure-latex/limeex
--1.pdf>]
-<thesis_files/figure-latex/errormap-1.pdf, id=709, 454.69875pt x 274.02374pt>
+[39] [40 <./thesis_files/figure-latex/limeex-1.pdf>]
+<thesis_files/figure-latex/errormap-1.pdf, id=705, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/errormap-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/errormap-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/errormap-1.pdf  used on inpu
@@ -1253,7 +1230,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 558--559
  []
 
 [41]
-<thesis_files/figure-latex/limeexvar-1.pdf, id=718, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/limeexvar-1.pdf, id=714, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/limeexvar-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/limeexvar-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/limeexvar-1.pdf  used on inp
@@ -1266,7 +1243,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 568--569
 
 [42 <./thesis_files/figure-latex/errormap-1.pdf>] [43 <./thesis_files/figure-la
 tex/limeexvar-1.pdf>]
-<thesis_files/figure-latex/pred2019-1.pdf, id=748, 454.69875pt x 578.16pt>
+<thesis_files/figure-latex/pred2019-1.pdf, id=744, 454.69875pt x 578.16pt>
 File: thesis_files/figure-latex/pred2019-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/pred2019-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/pred2019-1.pdf  used on inpu
@@ -1277,7 +1254,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 585--586
  [][] 
  []
 
-<thesis_files/figure-latex/gridpred-1.pdf, id=749, 505.89pt x 578.16pt>
+<thesis_files/figure-latex/gridpred-1.pdf, id=745, 505.89pt x 578.16pt>
 File: thesis_files/figure-latex/gridpred-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/gridpred-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/gridpred-1.pdf  used on inpu
@@ -1290,7 +1267,7 @@ Overfull \hbox (79.0974pt too wide) in paragraph at lines 607--608
 
 [44] [45 <./thesis_files/figure-latex/pred2019-1.pdf>] [46 <./thesis_files/figu
 re-latex/gridpred-1.pdf>]
-<thesis_files/figure-latex/mcsim-1.pdf, id=782, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/mcsim-1.pdf, id=778, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/mcsim-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/mcsim-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/mcsim-1.pdf  used on input l
@@ -1301,27 +1278,24 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 632--633
  [][] 
  []
 
-<thesis_files/figure-latex/posterior-1.pdf, id=783, 454.69875pt x 274.02374pt>
+[47]
+<thesis_files/figure-latex/posterior-1.pdf, id=784, 469.755pt x 578.16pt>
 File: thesis_files/figure-latex/posterior-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/posterior-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/posterior-1.pdf  used on inp
 ut line 638.
-(pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
+(pdftex.def)             Requested size: 469.75386pt x 578.15858pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 638--639
+Overfull \hbox (42.96251pt too wide) in paragraph at lines 638--639
  [][] 
  []
 
-[47] [48 <./thesis_files/figure-latex/mcsim-1.pdf> <./thesis_files/figure-latex
-/posterior-1.pdf>]
-Chapter 6.
-[49
-
-] [50] [51] [52
+[48 <./thesis_files/figure-latex/mcsim-1.pdf>] [49 <./thesis_files/figure-latex
+/posterior-1.pdf>] [50
 
 ]
-Chapter 7.
-[53] [54
+Chapter 6.
+[51] [52] [53] [54
 
 ]
 Appendix A.
@@ -1330,43 +1304,37 @@ Appendix A.
 ]
 Appendix B.
 [59]
-<figures/clustering_tuning_1.jpeg, id=883, 722.7pt x 505.89pt>
+<figures/clustering_tuning_1.jpeg, id=874, 722.7pt x 505.89pt>
 File: figures/clustering_tuning_1.jpeg Graphic file (type jpg)
 <use figures/clustering_tuning_1.jpeg>
 Package pdftex.def Info: figures/clustering_tuning_1.jpeg  used on input line 8
-38.
+22.
 (pdftex.def)             Requested size: 426.79135pt x 298.75812pt.
-<figures/clustering_tuning_2.jpeg, id=884, 722.7pt x 505.89pt>
+<figures/clustering_tuning_2.jpeg, id=875, 722.7pt x 505.89pt>
 File: figures/clustering_tuning_2.jpeg Graphic file (type jpg)
 <use figures/clustering_tuning_2.jpeg>
 Package pdftex.def Info: figures/clustering_tuning_2.jpeg  used on input line 8
-42.
+26.
 (pdftex.def)             Requested size: 426.79135pt x 298.75812pt.
 [60 <./figures/clustering_tuning_1.jpeg>] [61 <./figures/clustering_tuning_2.jp
 eg>] [62
 
 ]
 Appendix C.
-
-Underfull \hbox (badness 1371) in paragraph at lines 880--880
-\T1/ppl/m/it/10.95 (+20) is ref-er-enced from the doc-u-men-ta-tions of the pac
-k-age \T1/fvm/m/sl/10.95 nnet \T1/ppl/m/it/10.95 (+20) ([]), pack-age
- []
-
 [63] [64]
 Appendix D.
 
-Overfull \hbox (2.51488pt too wide) in paragraph at lines 942--953
+Overfull \hbox (2.51488pt too wide) in paragraph at lines 926--937
  [][] 
  []
 
 
-Overfull \hbox (2.51488pt too wide) in paragraph at lines 959--970
+Overfull \hbox (2.51488pt too wide) in paragraph at lines 943--954
  [][] 
  []
 
 
-Overfull \hbox (2.51488pt too wide) in paragraph at lines 976--987
+Overfull \hbox (2.51488pt too wide) in paragraph at lines 960--971
  [][] 
  []
 
@@ -1380,7 +1348,7 @@ Appendix E.
 
 ] [69] [70] [71] [72] [73] [74] [75] (./thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 3D6B32D8E4BD05780D376178A20A24B0;2657.
+(rerunfilecheck)             Checksum: 632F6EBD289B1148BFC198F2D9ABEF28;2635.
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -1393,13 +1361,13 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 19712 strings out of 481466
- 349238 string characters out of 5919837
- 1128392 words of memory out of 5000000
- 35515 multiletter control sequences out of 15000+600000
- 636204 words of font info for 281 fonts, out of 8000000 for 9000
+ 19713 strings out of 481466
+ 349295 string characters out of 5919837
+ 1128301 words of memory out of 5000000
+ 35518 multiletter control sequences out of 15000+600000
+ 638215 words of font info for 285 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 80i,12n,86p,1732b,14999s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 80i,12n,86p,1732b,15000s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/en
 c/dvips/base/8r.enc}<c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/font
 s/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTe
@@ -1415,10 +1383,10 @@ ming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb><c:/Users/TengMCin
 g/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/Us
 ers/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri
 8a.pfb>
-Output written on thesis.pdf (79 pages, 4972130 bytes).
+Output written on thesis.pdf (79 pages, 5481089 bytes).
 PDF statistics:
- 1122 PDF objects out of 1200 (max. 8388607)
- 981 compressed objects within 10 object streams
- 305 named destinations out of 1000 (max. 500000)
- 37774 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 1116 PDF objects out of 1200 (max. 8388607)
+ 973 compressed objects within 10 object streams
+ 300 named destinations out of 1000 (max. 500000)
+ 38790 words of extra memory for PDF output out of 42996 (max. 10000000)
 

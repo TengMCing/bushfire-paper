@@ -263,7 +263,7 @@ p1 <- training %>%
   mutate(cause = factor(tools::toTitleCase(as.character(cause)), levels = c("Lightning", "Accident", "Arson", "Burning_off"))) %>%
   ggplot() +
   geom_histogram(aes(cause, fill = cause), stat = "count") +
-  theme_minimal(base_size = 20) +
+  theme_minimal(base_size = 25) +
   theme(legend.position = "none") +
   scale_fill_brewer(palette = "RdBu") +
   xlab("Cause") +
@@ -275,7 +275,7 @@ p2 <- training %>%
   geom_bar(data = select(training, -cause), aes(as.Date(paste0(as.character(year), "-01-01")))) +
   geom_bar(aes(as.Date(paste0(as.character(year), "-01-01")), fill = cause)) +
   facet_wrap(~cause) +
-  theme_minimal(base_size = 20) +
+  theme_minimal(base_size = 25) +
   theme(legend.position = "none") +
   scale_fill_brewer(palette = "RdBu") +
   xlab("Year") +
@@ -288,7 +288,7 @@ p3 <- training %>%
   geom_bar(data = select(training, -cause), aes(month)) +
   geom_bar(aes(month, fill = cause)) +
   facet_wrap(~cause) +
-  theme_minimal(base_size = 20) +
+  theme_minimal(base_size = 25) +
   theme(legend.position = "none") +
   scale_fill_brewer(palette = "RdBu") +
   xlab("Month") +
@@ -300,7 +300,7 @@ p4 <- training %>%
   geom_bar(data = select(training, -cause), aes(wod)) +
   geom_bar(aes(wod, fill = cause)) +
   facet_wrap(~cause) +
-  theme_minimal(base_size = 20) +
+  theme_minimal(base_size = 25) +
   theme(legend.position = "none") +
   scale_fill_brewer(palette = "RdBu") +
   xlab("Day of the week") +
@@ -310,9 +310,13 @@ p4 <- training %>%
 p5 <- (p1 + p2) / (p3 + p4)
 
 p5 <- p5 + plot_annotation(tag_levels = 'A') &
-  theme(plot.tag = element_text(size = 20))
+  theme(plot.tag = element_text(size = 25))
 
 ggsave(paste0("figures/", "overall_summary", ".png"), plot = p5, width = 16, height = 12, dpi = 600)
+
+
+
+
 
 p1 <- training %>%
   mutate(cause = factor(tools::toTitleCase(as.character(cause)), levels = c("Lightning", "Accident", "Arson", "Burning_off"))) %>%
@@ -322,15 +326,21 @@ p1 <- training %>%
                             metric =="log_dist_camp"~"Log distance to the nearest recreation site (m)",
                             metric =="aws_m12"~"1-year average wind speed (m/s)")) %>%
   ggplot() +
-  geom_density(aes(distance, col = cause, fill = cause), alpha = 0.3) +
-  theme_minimal(base_size = 20) +
+  geom_density(aes(distance, col = cause, fill = cause), alpha = 0.3, size = 1.5) +
+  theme_minimal(base_size = 30) +
   theme(legend.position = "bottom") +
   xlab("") +
   scale_color_brewer(palette = "RdBu") +
+  scale_fill_brewer(palette = "RdBu") +
   facet_wrap(~metric, scales = "free", nrow = 2)
 
 
 ggsave(paste0("figures/", "overall_density", ".png"), plot = p1, width = 16, height = 12, dpi = 600)
+
+
+
+
+
 
 training %>%
   mutate(cause = factor(tools::toTitleCase(as.character(cause)), levels = c("Lightning", "Accident", "Arson", "Burning_off"))) %>%
@@ -338,7 +348,7 @@ training %>%
   geom_density_2d_filled(aes(lon, lat), contour_var = "ndensity") +
   geom_sf(data = vic_map, fill = NA, col = "white") +
   facet_wrap(~cause)+
-  theme_map(base_size = 20) +
+  theme_map(base_size = 30) +
   theme(legend.position = "right",
         plot.margin = unit(c(0, 0, 0, 0), "pt")) +
   guides(fill = guide_legend(reverse = T)) -> p

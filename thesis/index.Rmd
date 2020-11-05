@@ -207,5 +207,9 @@ I declare that this thesis contains no material which has been submitted in any 
 
 
 
+<!-- anything we have done -> present tense -->
+<!-- all others' past work, past events -> past tense -->
+<!-- future work -> future tense -->
+
 
 

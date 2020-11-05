@@ -601,6 +601,7 @@ rect_list <- rect_list %>%
 
 ggplot() +
   geom_sf(data = rect_list, aes(fill = count/10, geometry = geometry), col = NA) +
+  geom_sf(data = vic_map, fill = NA) +
   facet_grid(factor(month.abb[month], levels = c("Oct", "Nov", "Dec", "Jan", "Feb", "Mar"))~cause) +
   scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1)) +
   theme_map() +
@@ -622,11 +623,11 @@ A possible method to obtain $P(L,S|\mathcal{F})$ is by using the decomposition o
 
 $$P(L,S|\mathcal{F}) = P(L|S,\mathcal{F})P(S|\mathcal{F})$$
 
-We will demonstrate how this works by using the a naive method to estimate the $P(S|\mathcal{F})$ and eventually yield the $P(L,S|\mathcal{F})$.
+We will demonstrate how this works by using a naive method to estimate the $P(S|\mathcal{F})$ and eventually yield the $P(L,S|\mathcal{F})$.
 
-A reasonable estimate of the probability of the bushfire starts in a region in a certain month is the fraction of the number of past December we observed bushfires on the total number of past December. Figure \ref{fig:mcsim} is the estimate of $P(S|\mathcal{F})$. The joint probability $P(L,S|\mathcal{F})$ can then be calculated by omitting other factors and simply using the prediction of 2019-2020 Australia bushfires. Figure \ref{fig:posterior} shows the final product. It can be directly used as the prediction of the risk of lightning-ignited bushfire.
+A reasonable estimator of the probability of the bushfire starts in a region in a certain month is the frequency calculated from historical observations. Using December as an example, the estimator will be $$P(S|\mathcal{F}) = \frac{\text{Number of past December we observed bushfire ignitions in a region}}{\text{Total number of past December in a region}}$$ Figure \ref{fig:mcsim} shows the estimate of $P(S|\mathcal{F})$. If we omit the impact of weather and other factors and simply use the prediction of 2019-2020 Australia bushfires as $P(L|S,\mathcal{F})$, the joint probability $P(L,S|\mathcal{F})$ can then be calculated. Figure \ref{fig:posterior} shows the final product. It can be directly used as the prediction of the risk of bushfire ignited by different methods.
 
-```{r mcsim, fig.cap="A map of the frequency of bushfire occurred in a region. Some regions contain missing values because there was no observed bushfire."}
+```{r mcsim, fig.cap="A map of the frequency of bushfire occurred in a region in history."}
  set.seed(10086)
   
   # Read in training data
@@ -758,9 +759,10 @@ rect_list <- temp %>%
 
 ggplot() +
   geom_sf(data = rect_list, aes(geometry = geometry, fill = count/19), col = NA) +
+  geom_sf(data = vic_map, fill = NA) +
   facet_wrap(~fct_recode(month, "Oct" = "10", "Nov" = "11", "Dec" = "12", "Jan" = "1", "Feb" = "2", "Mar" = "3")) +
   theme_map() +
-  theme(legend.position = "right") +
+  theme(legend.position = "bottom") +
   scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1), na.value = "grey") +
   labs(fill = "Frequency")
 
@@ -768,7 +770,7 @@ rect_list_st <- rect_list
 
 ```
 
-```{r posterior, fig.cap="The joint probability of lightning-ignited bushfire occur, which could be a future extension."}
+```{r posterior, fig.cap="The joint probability of bushfire ignited by different methods.", fig.height=8, fig.width=6.5}
 lat <- seq(34, 39, 0.2)
 lat <- -lat
 lon <- seq(141, 150, 0.2)
@@ -841,7 +843,7 @@ rect_list <- rect_list %>%
   mutate(cause = factor(tools::toTitleCase(cause), levels = c("Lightning", "Accident", "Arson", "Burning_off")))
 
 
-rect_list <- filter(rect_list, cause == "Lightning")
+# rect_list <- filter(rect_list, cause == "Lightning")
 rect_list_st <- rename(rect_list_st, past_count = count)
 
 rect_list_st <- mutate(rect_list_st, month = as.numeric(as.character(month)))
@@ -854,9 +856,10 @@ rect_list <- mutate(rect_list, poster = (count/10)*(past_count/19))
 
 ggplot() +
   geom_sf(data = rect_list, aes(geometry = geometry, fill = poster), col = NA) +
-  facet_wrap(~factor(month.abb[month], levels = c("Oct", "Nov", "Dec", "Jan", "Feb", "Mar"))) +
+  geom_sf(data = vic_map, fill = NA) +
+  facet_grid(factor(month.abb[month], levels = c("Oct", "Nov", "Dec", "Jan", "Feb", "Mar"))~cause) +
   theme_map() +
-  theme(legend.position = "right") +
+  theme(legend.position = "bottom") +
   scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1)) +
   labs(fill = "Probability")
 ```
