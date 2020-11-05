@@ -20,7 +20,7 @@ XGBoost [@chen2016xgboost] is an open-source distributed gradient boosting libra
 
 In this research, the model building process includes feature selection, hyperparameter tuning and candidate model selection. 
 
-The multinomial logit model, generalised additive model, random forest and XGboost are available in package `nnet` [@nnet], `mgcv` [@mgcv], `randomForest` [@R-rf] and `xgboost` [@xgboost] respectively. Besides, package `lime` [@lime] is used to perform feature selection and package `caret` [@R-caret] is used to control the training, hyperparameter tuning and candidate model selection process. 
+The multinomial logit model, generalised additive model, random forest and XGboost are available in package `nnet` [@R-nnet], `mgcv` [@R-mgcv], `randomForest` [@R-rf] and `xgboost` [@R-xgboost] respectively. Besides, package `lime` [@R-lime] is used to perform feature selection and package `caret` [@R-caret] is used to control the training, hyperparameter tuning and candidate model selection process. 
 
 In terms of the train-test split, we randomly select 80% of total data as the training set, and the rest 20% data is test set. The total number of training samples is 7497 and the total number of test samples is 1872. Within the 1872 test samples, we further randomly select 100 samples for feature selection. Thus, the number of remaining samples in the test set is 1772.
 
@@ -150,7 +150,7 @@ readRDS("data/MNL_best_features.rds") %>%
 
 The hyperparameter tuning for each candidate model was done by using 3-fold cross-validation grid searching controlled by package `caret` [@R-caret]. We set up a grid of potential hyperparameters and evaluate their performance cell by cell. The grid, the definition for each hyperparameter and the optimal hyperparameters is given in the Appendix.
 
-The final step of the modelling is candidate model selection. Model performance is compared by using both prediction accuracy and multi-class AUC. Multi-class AUC is defined by Hand and Till [@hand2001simple] and it is available in package `pROC` [@proc]. This metric generalises the commonly used AUC into multiple class classification problems by averaging pairwise comparison of classes.
+The final step of the modelling is candidate model selection. Model performance is compared by using both prediction accuracy and multi-class AUC. Multi-class AUC is defined by Hand and Till [@hand2001simple] and it is available in package `pROC` [@R-pROC]. This metric generalises the commonly used AUC into multiple class classification problems by averaging pairwise comparison of classes.
 
 
 ## Results
@@ -608,3 +608,254 @@ ggplot() +
   labs(fill = "Probability")
 ```
 
+## Fire risk map
+
+Our model can produce the probability of the bushfire ignited by a certain type of sources, but it doesn't provide us with the general risk of the bushfire ignited by that cause. Using the lightning-ignited bushfire as an example, it will give us
+
+$$P(L|S,\mathcal{F})$$
+
+where $L = the~bushfire~ignited~by~lightning$, $S = the~bushfire~ignited$ and $\mathcal{F}$ is other information of the ignition, such as location, time, weather conditions, etc.
+
+This probability is useful for bushfire investigation but is not particularly helpful for bushfire risk prediction. In general, decision makers wants to know the risk of the lightning-ignited bushfire $P(L,S|\mathcal{F})$ or the probability of the overall bushfire risk given certain conditions $P(S|\mathcal{F})$.
+
+A possible method to obtain $P(L,S|\mathcal{F})$ is by using the decomposition of the conditional probability:
+
+$$P(L,S|\mathcal{F}) = P(L|S,\mathcal{F})P(S|\mathcal{F})$$
+
+We will demonstrate how this works by using the a naive method to estimate the $P(S|\mathcal{F})$ and eventually yield the $P(L,S|\mathcal{F})$.
+
+A reasonable estimate of the probability of the bushfire starts in a region in a certain month is the fraction of the number of past December we observed bushfires on the total number of past December. Figure \ref{fig:mcsim} is the estimate of $P(S|\mathcal{F})$. As you can see, it produces a lot of missing values because we didn't observe bushfires in those regions in the past. The joint probability $P(L,S|\mathcal{F})$ can then be calculated by omitting other factors and simply using the prediction of 2019-2020 Australia bushfires. Figure \ref{fig:posterior} shows the final product. It can be directly used as the prediction of the risk of lightning-ignited bushfire.
+
+```{r mcsim, fig.cap="A map of the frequency of bushfire occurred in a region. Some regions contain missing values because there was no observed bushfire."}
+ set.seed(10086)
+  
+  # Read in training data
+  training <- read_csv("data/training.csv")
+  
+  training <- training %>%
+    filter(!CAUSE %in% c("BURNING BUILDING",
+                         "WASTE DISPOSAL, INDUSTRIAL, SAWMILL, TIP",
+                         "WASTE DISPOSAL, DOMESTIC",
+                         "BURNING VEHICLE, MACHINE",
+                         "BURNING BUILDING")) %>%
+    filter(new_cause != "other") %>%
+    filter(new_cause != "relight")
+  
+  
+  training <- select(training, -c(EVENTID:FIRE_NUM), -id, -CAUSE, -FOREST, -FOR_CODE, -FOR_CAT)
+  
+  training <- mutate(training,
+                     year = factor(year(FIRE_START)),
+                     month = factor(month(FIRE_START), levels = c(10,11,12,1,2,3)),
+                     day = factor(day(FIRE_START), levels = c(1:31)),
+                     wod = factor(wday(FIRE_START), levels = c(1:7)))
+  
+  training <- filter(training, month %in% c(10,11,12,1,2,3))
+  
+  training <- na.omit(training)
+  
+  training <- mutate(training, new_cause = ifelse(new_cause == "accidental_human", "accident", new_cause)) %>%
+    mutate(new_cause = ifelse(new_cause == "burning_off_human", "burning_off", new_cause)) %>%
+    mutate(new_cause = factor(new_cause)) %>%
+    mutate(FOR_TYPE = factor(FOR_TYPE))
+  
+  training <- na.omit(training)
+  
+  training <- mutate(training,
+                     log_dist_cfa = log(dist_cfa),
+                     log_dist_camp = log(dist_camp),
+                     log_dist_road = log(dist_road),
+                     COVER = factor(COVER),
+                     HEIGHT = factor(HEIGHT))
+  
+  training <- rename(training, cause = new_cause)
+  training <- mutate(training,
+                     cause = fct_relevel(cause,
+                                         "lightning",
+                                         "accident",
+                                         "arson",
+                                         "burning_off"))
+  
+  training <- na.omit(training)
+  
+  training <- select(training, -dist_road, -dist_cfa, -dist_camp, -FIRE_START)
+  
+
+  
+library(sf)
+library(rnaturalearth)
+au_map <- ne_states(country = 'Australia', returnclass = 'sf')
+vic_map <- au_map[7,]
+
+lat <- seq(34, 39, 0.2)
+lat <- -lat
+lon <- seq(141, 150, 0.2)
+
+grids <- expand.grid(lat, lon)
+
+
+rect <- function(x){
+
+  # left top
+  lat1 <- x[1]
+  lon1 <- x[2]
+
+  # right top
+  lat2 <- x[1]
+  lon2 <- x[2]+0.2
+
+  # right bottom
+  lat3 <- x[1]-0.2
+  lon3 <- x[2]+0.2
+
+  # left bottom
+  lat4 <- x[1]-0.2
+  lon4 <- x[2]
+
+  st_sfc(st_polygon(list(matrix(c(lon1,lat1,lon2,lat2,lon3,lat3,lon4,lat4,lon1,lat1), ncol =2, byrow = TRUE))))
+
+}
+
+rect_list <- apply(grids[1:nrow(grids),],1,rect)
+
+rect_list <- do.call(c, rect_list)
+
+st_crs(rect_list) <- 4326
+
+indexes <- st_intersects(vic_map$geometry, rect_list)[[1]]
+rect_list <- rect_list[indexes]
+
+training2 <- st_as_sf(training, coords = c("lon", "lat"), crs = 4326)
+
+indexes <- st_intersects(rect_list, training2)
+
+training$rect <- 0
+for (i in 1:length(indexes)){
+  training$rect[indexes[[i]]] <- i
+}
+
+rect_list <- as.data.frame(rect_list)
+rect_list <- mutate(rect_list, rect = 1:nrow(rect_list), month = 11)
+
+rect_list <- rect_list %>%
+  bind_rows(mutate(rect_list, month = 12)) %>%
+  bind_rows(mutate(rect_list, month = 1)) %>%
+  bind_rows(mutate(rect_list, month = 2)) %>%
+  bind_rows(mutate(rect_list, month = 3)) %>%
+  mutate(month = factor(month, levels = c("10", "11", "12", "1", "2", "3")))
+
+temp <- training %>%
+  group_by(rect, year, month) %>%
+  summarise(count = n()) %>%
+  ungroup() %>%
+  group_by(rect, month) %>%
+  summarise(count = n())
+
+rect_list <- temp %>%
+  right_join(rect_list, by = c("rect", "month")) %>%
+  mutate(count = ifelse(is.na(count), 0, count))
+
+ggplot() +
+  geom_sf(data = rect_list, aes(geometry = geometry, fill = count/19), col = NA) +
+  facet_wrap(~fct_recode(month, "Oct" = "10", "Nov" = "11", "Dec" = "12", "Jan" = "1", "Feb" = "2", "Mar" = "3")) +
+  theme_map() +
+  theme(legend.position = "right") +
+  scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1), na.value = "grey") +
+  labs(fill = "Frequency")
+
+rect_list_st <- rect_list
+
+```
+
+```{r posterior, fig.cap="The joint probability of lightning-ignited bushfire occur, which could be a future extension."}
+lat <- seq(34, 39, 0.2)
+lat <- -lat
+lon <- seq(141, 150, 0.2)
+
+grids <- expand.grid(lat, lon)
+
+
+rect <- function(x){
+
+  # left top
+  lat1 <- x[1]
+  lon1 <- x[2]
+
+  # right top
+  lat2 <- x[1]
+  lon2 <- x[2]+0.2
+
+  # right bottom
+  lat3 <- x[1]-0.2
+  lon3 <- x[2]+0.2
+
+  # left bottom
+  lat4 <- x[1]-0.2
+  lon4 <- x[2]
+
+  st_sfc(st_polygon(list(matrix(c(lon1,lat1,lon2,lat2,lon3,lat3,lon4,lat4,lon1,lat1), ncol =2, byrow = TRUE))))
+
+}
+
+rect_list <- apply(grids[1:nrow(grids),],1,rect)
+
+rect_list <- do.call(c, rect_list)
+
+st_crs(rect_list) <- 4326
+
+indexes <- st_intersects(vic_map$geometry, rect_list)[[1]]
+rect_list <- rect_list[indexes]
+
+
+
+sim <- read_csv("data/prediction_2019-2020_simulation.csv")
+
+sim2 <- st_as_sf(sim, coords = c("lon", "lat"), crs = 4326)
+
+
+rect_index <- st_intersects(rect_list, sim2)
+
+sim$rect <- 0
+for (i in 1:length(indexes)){
+  sim$rect[rect_index[[i]]] <- i
+}
+
+rect_list <- as.data.frame(rect_list)
+rect_list <- mutate(rect_list, rect = 1:nrow(rect_list))
+
+
+temp <- sim %>%
+  group_by(rect, month, cause) %>%
+  summarise(count = n()) %>%
+  ungroup() %>%
+  spread(cause, count)
+
+temp[is.na(temp)] <- 0
+  
+rect_list <- temp %>%
+  right_join(rect_list, by = c("rect"))
+
+rect_list <- rect_list %>%
+  gather(key = "cause", value = "count", lightning, accident, arson, burning_off) %>%
+  mutate(cause = factor(tools::toTitleCase(cause), levels = c("Lightning", "Accident", "Arson", "Burning_off")))
+
+
+rect_list <- filter(rect_list, cause == "Lightning")
+rect_list_st <- rename(rect_list_st, past_count = count)
+
+rect_list_st <- mutate(rect_list_st, month = as.numeric(levels(month))[month])
+
+
+rect_list <- left_join(rect_list, select(rect_list_st, -geometry), by = c("rect", "month"))
+
+
+rect_list <- mutate(rect_list, poster = (count/10)*(past_count/19))
+
+ggplot() +
+  geom_sf(data = rect_list, aes(geometry = geometry, fill = poster), col = NA) +
+  facet_wrap(~factor(month.abb[month], levels = c("Oct", "Nov", "Dec", "Jan", "Feb", "Mar"))) +
+  theme_map() +
+  theme(legend.position = "right") +
+  scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1)) +
+  labs(fill = "Probability")
+```

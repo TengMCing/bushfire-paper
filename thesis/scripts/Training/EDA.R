@@ -309,39 +309,28 @@ p4 <- training %>%
 
 p5 <- (p1 + p2) / (p3 + p4)
 
+p5 <- p5 + plot_annotation(tag_levels = 'A') &
+  theme(plot.tag = element_text(size = 20))
+
 ggsave(paste0("figures/", "overall_summary", ".png"), plot = p5, width = 16, height = 12, dpi = 600)
 
 p1 <- training %>%
   mutate(cause = factor(tools::toTitleCase(as.character(cause)), levels = c("Lightning", "Accident", "Arson", "Burning_off"))) %>%
-  gather(key = "metric", value = "distance", log_dist_cfa, log_dist_road) %>%
-  mutate(metric = ifelse(metric == "log_dist_cfa", "Log distance to the nearest CFA station (m)", "Log distance to the nearest road (m)")) %>%
+  gather(key = "metric", value = "distance", log_dist_cfa, log_dist_road, log_dist_camp, aws_m12) %>%
+  mutate(metric = case_when(metric =="log_dist_cfa"~"Log distance to the nearest CFA station (m)",
+                            metric =="log_dist_road"~"Log distance to the nearest road (m)",
+                            metric =="log_dist_camp"~"Log distance to the nearest recreation site (m)",
+                            metric =="aws_m12"~"1-year average wind speed (m/s)")) %>%
   ggplot() +
-  geom_density(aes(distance, col = cause), size = 1.5) +
-  theme_minimal(base_size = 20) +
-  theme(legend.position = "none") +
-  xlab("") +
-  scale_color_brewer(palette = "RdBu") +
-  facet_wrap(~metric, scales = "free_x")
-
-p2 <- training %>%
-  mutate(cause = factor(tools::toTitleCase(as.character(cause)), levels = c("Lightning", "Accident", "Arson", "Burning_off"))) %>%
-  gather(key = "metric", value = "distance", log_dist_camp, aws_m12) %>%
-  mutate(metric = ifelse(metric == "log_dist_camp", "Log distance to the nearest recreation site (m)", "1-year average wind speed (m/s)")) %>%
-  ggplot() +
-  geom_density(aes(distance, col = cause), size = 1.5) +
+  geom_density(aes(distance, col = cause, fill = cause), alpha = 0.3) +
   theme_minimal(base_size = 20) +
   theme(legend.position = "bottom") +
   xlab("") +
   scale_color_brewer(palette = "RdBu") +
-  facet_wrap(~metric, scales = "free")
+  facet_wrap(~metric, scales = "free", nrow = 2)
 
 
-
-
-p3 <- p1/p2
-
-
-ggsave(paste0("figures/", "overall_density", ".png"), plot = p3, width = 16, height = 12, dpi = 600)
+ggsave(paste0("figures/", "overall_density", ".png"), plot = p1, width = 16, height = 12, dpi = 600)
 
 training %>%
   mutate(cause = factor(tools::toTitleCase(as.character(cause)), levels = c("Lightning", "Accident", "Arson", "Burning_off"))) %>%
