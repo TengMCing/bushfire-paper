@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  5 NOV 2020 22:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  6 NOV 2020 00:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1408,7 +1408,7 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### bottom level 
 Here is how much of TeX's memory you used:
  19699 strings out of 481466
- 349088 string characters out of 5919837
+ 349087 string characters out of 5919837
  1128426 words of memory out of 5000000
  35507 multiletter control sequences out of 15000+600000
  636055 words of font info for 279 fonts, out of 8000000 for 9000
@@ -1429,7 +1429,7 @@ ming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb><c:/Users/TengMCin
 g/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb><c:/Us
 ers/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplri
 8a.pfb>
-Output written on thesis.pdf (79 pages, 4948831 bytes).
+Output written on thesis.pdf (79 pages, 4948783 bytes).
 PDF statistics:
  1112 PDF objects out of 1200 (max. 8388607)
  971 compressed objects within 10 object streams
