@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a one-year research of bushfire ignitions in Victoria during the Australian 2019-2020 bushfires season. The outcomes include a [thesis for Weihao Li's honours degree](https://github.com/TengMCing/bushfire-paper/tree/master/thesis), a [thesis for Chang Liu's master degree](https://github.com/timtam3/Bushfire/tree/master/Australian%20Fire) and a [shiny app](https://github.com/timtam3/Bushfire/tree/master/Code) (credit to Chang Liu) for presentation. 
+This is a one-year research of bushfire ignitions in Victoria during the Australian 2019-2020 bushfires season. The outcomes include a [thesis for Weihao Li's honours degree](https://github.com/TengMCing/bushfire-paper/tree/master/thesis), a [thesis for Chang Liu's master degree](https://github.com/timtam3/Bushfire/tree/master/thesis) and a [shiny app](https://github.com/timtam3/Bushfire/tree/master/VICfire) (credit to Chang Liu) for presentation. 
 
 ### Research objectives
 
