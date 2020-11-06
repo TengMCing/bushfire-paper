@@ -60,12 +60,14 @@ These are described in details in the following sections.
 
 ### Slice the temporal dimension
 
-To illustrate this step, we need to introduce the first parameter used in our algorithm, $ActiveTime$. $ActiveTime$ is a parameter which controls the size of the interval. A nature interpretation of this parameter is the time a fire can stay smouldering but undetectable by satellite before flaring up again. In @loboda2007reconstruction’s work, a similar parameter is used as the tolerance time for the missed observations due to cloud cover.
+This step uses the parameter named $ActiveTime$, which controls the size of the interval. A natural interpretation of this parameter is the time a fire can stay smouldering but undetectable by satellite before flaring up again. In @loboda2007reconstruction, a similar parameter is used as the tolerance time for the missed observations due to cloud cover.
 
-Given a certain value of $ActiveTime$ and the length of the time frame $T$, the algorithm will slice the timeline into several intervals, $$\boldsymbol{S}_t = [max(1, t - ActiveTime), t], t = 1,2,...,T$$, where $T$ and $t$ have the same unit as $ActiveTime$. 
+Given a fixed value of $ActiveTime$ and the length of the time frame $T$, the algorithm will slice the timeline into several intervals, 
 
+$$\boldsymbol{S}_t = [max(1, t - ActiveTime), t], t = 1,2,...,T$$, 
+
+\noindent where $T$ and $t$ have the same unit as $ActiveTime$. 
 For example, if we have 48 hours of data and we set $ActiveTime = 24~hours$, the algorithm will produce 48 intervals, $\boldsymbol{S}_1 = [1,1],\boldsymbol{S}_2 =[1,2],...,\boldsymbol{S}_{25}=[1,25],\boldsymbol{S}_{26}=[2,26],...,\boldsymbol{S}_{47} = [23,47],\boldsymbol{S}_{48} = [24,48]$.
-
 
 ### Cluster hotspots locally
 
