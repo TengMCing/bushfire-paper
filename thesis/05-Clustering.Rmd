@@ -123,7 +123,7 @@ The earliest observed hotspot of a cluster is used as the ignition point. If the
 This section will reference to the conditions we discuss in the section [4.2][Outline of the algorithm]. In terms of condition (1), this algorithm didn't depend on the scaling of the temporal dimension, instead, it uses the parameter $ActiveTime$ to control the time frame. Condition (2) and (3) are embedded in the algorithm. The two substeps for label updating in step 4 is designed to meet condition (4). For condition (5), the memory complexity of this algorithm is $O(N)$, and the time complexity is $O(N^2)$. Although the time complexity of this algorithm is not as great as **DBSCAN**, it is still acceptable for the personal computer. Condition (7) will be justified in Appendix. 
 
 
-## Clutering results
+## Clustering results
 
 The clustering results by applying our algorithm on the hotspots data in Victoria is shown in Figure \ref{fig:afterhotspot}. From the distribution of ignition points (Figure \ref{fig:afterhotspot}), we do not observe too many overlapped points. This is consistent with the fact that the environment around the ignition point is often severely damaged and is less likely to be ignited again. Comparing to the hotspots data (Figure \ref{fig:rawhotspot}), ignition points can provide us with direct information of ignition locations and ignition time. This is crucial for our research on the cause of bushfires.
 
