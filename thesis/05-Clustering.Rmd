@@ -69,18 +69,16 @@ $$\boldsymbol{S}_t = [max(1, t - ActiveTime), t], t = 1,2,...,T$$,
 \noindent where $T$ and $t$ have the same unit as $ActiveTime$. 
 For example, if we have 48 hours of data and we set $ActiveTime = 24~hours$, the algorithm will produce 48 intervals, $\boldsymbol{S}_1 = [1,1],\boldsymbol{S}_2 =[1,2],...,\boldsymbol{S}_{25}=[1,25],\boldsymbol{S}_{26}=[2,26],...,\boldsymbol{S}_{47} = [23,47],\boldsymbol{S}_{48} = [24,48]$.
 
-### Cluster hotspots locally
+### Cluster hotspots spatially
 
-In the previous step, the algorithm breaks the temporal dimension. Thus, the local clustering for each interval only needs to address the hotspots spatially. This step involves the second parameter used in this algorithm, $AdjDist$. It represents the potential distance a fire can spread with respect to the temporal resolution of the data. For example, if $AdjDist = 3km$ and the temporal resolution of the data is 10-minute, then the potential speed of the bushfire is $3km/10min = 18km/h$. Similarly, in @ester1996density's work, a radius-based parameter $\epsilon$ is defined to connect neighbouring points.
+The spatial clustering is computed within a time interval. There is one parameter, $AdjDist$, which represents the potential distance a fire can spread with respect to the temporal resolution of the data. For example, if $AdjDist = 3km$ and the temporal resolution of the data is 10-minute, then the potential speed of the bushfire is $3km/10min = 18km/h$. Similarly, in @ester1996density, a radius-based parameter $\epsilon$ is defined to connect neighbouring points.
 
 Given a certain value of $AdjDist$ and the interval $\boldsymbol{S}_t$, conceptually the algorithm will:
 
 (a) Connect each pair of hotspots $h_i$ and $h_j$ if the proximity from $h_i$ to $h_j$ is less or equal to $AdjDist$, where $h_i$ is the $i$th hotspot in the interval $\boldsymbol{S}_t$ and $h_j$ is the $j$th hotspot in the interval $\boldsymbol{S}_t$.
 (b) A connected component is called $\boldsymbol{M}_{t,n}$, where $n$ is less than the total number of components in the interval $\boldsymbol{S}_t$. Hotspots in the same component $\boldsymbol{M}_{t,p}$ will be assigned with the same unique membership label, where $\boldsymbol{M}_{t,p}$ is the $p$th component in $\boldsymbol{S}_t$.
 
-The real implementation of the algorithm involves using a modified version of the breadth-first search algorithm to reduce the memory complexity of the algorithm from $O(N^2)$ to $O(N)$. Details information about this can be found in Appendix.
-
-
+The practical implementation of the algorithm involves using a modified version of the breadth-first search algorithm to reduce the memory complexity of the algorithm from $O(N^2)$ to $O(N)$. Details information about this can be found in the Appendix.
 
 <!-- (a) Append a randomly selected hotspot $h_i$ to a empty list $\boldsymbol{L}$, where $h_i$ was the $i$th hotspot in the segment $\boldsymbol{S}_t$. -->
 <!-- (b) Let pointer $\boldsymbol{P}$ point to the first element of the list $\boldsymbol{L}$. -->
