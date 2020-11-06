@@ -7,9 +7,7 @@ knit: "bookdown::render_book"
 
 ## Overview of the hotspot data
 
-The hotspot data contained 75936 observations which are shown in Figure \ref{fig:rawhotspot}. Generally, a group of similar hotspots in a spatio-temporal data space can be recognized as a series of bushfire dynamics. One of the characteristics of this data was bushfires in small scale were easier to be distinguished from the others because there are clear gaps, but some clusters in the east of the Victoria were close to each other spatially and temporally, which introduced extra difficulties of clustering. In essence, hotspots need to be clustered into different groups to identify the ignition locations.
-
-
+The hotspot data contained 75936 observations (shown in Figure \ref{fig:rawhotspot}). There is a large concentration of hotspots in the east of Victoria which points to the large scale effect of the fires. Generally, though hotspots are dispersed throughout the state, in many separated small clumps. To determine the locations where the bushfires started, these isolated hotspots can be easily labelled with a cluster id, and the first time that a hotspot appears in the region would be considered the ignition point and time. Zooming in to the denser hotspot regions sees some concentrated clusters, but is generally much harder to tease apart into unique fires. Spatio-temporal clustering will be developed which uses the first appearance of a hotspot, and  spatial distance from other hotspots to group the hotspots into clusters and identify the ignition point and time. 
 
 
 ```{r rawhotspot, fig.cap="Distribution of 75936 satellite hotspots data in Victoria from October 2019 to March 2020. Most of the hotspots are observed in the east of Victoria. Hotspots data are difficult to use in ignition analysis.", dev = "png", dpi = 600}
@@ -55,15 +53,10 @@ How to link clusters at different timestamps
 
 ## Outline of the algorithm
 
-We have discussed the existing clustering algorithm for spatio-temporal data in the literature review. Meanwhile, we point out the modification we need to consider in the development of our algorithm. To robustly and efficiently cluster satellite hotspots data, we summarised 6 conditions that the clustering algorithm needed to satisfy, (1) it does not require any scaling of the temporal dimension, (2) it iteratively runs at the positive direction of the timeline to mimic the bushfire dynamics, (3) hotspots at later timestamps have no impact on the clustering result of hotspots observed earlier, (4) it keep bushfires separate even they are connected at later timestamps, (5) it is a time-efficient and memory-efficient algorithm that is capable for the personal computer and (6) all its parameters can be tuned via diagnostic tools.
+Some clustering algorithms for spatio-temporal data exist but require modifications to work for this problem. There are six conditions that the clustering algorithm needs to satisfy, (1) it does not require any scaling of the temporal dimension, (2) it iteratively runs in the positive direction of the timeline to mimic the bushfire dynamics, (3) hotspots at later timestamps have no impact on the clustering result of hotspots observed earlier, (4) it keep bushfires separate even they are connected at later timestamps, (5) it is a time-efficient and memory-efficient algorithm that is capable for the personal computer and (6) all its parameters can be tuned via diagnostic tools. These form the basis of our own algorithm for hotspots clustering. 
 
-With this in mind, we developed our own algorithm for hotspots clustering while meeting these conditions. The input of the algorithm is the hotspot data with 4 attributes, which are the unique identifier, longitude, latitude, and time. The output are a list of labels describing the corresponding clusters of hotspots.
-
-This algorithm can be divided into four steps: (1) Slice the temporal dimension, (2) Cluster hotspots locally, (3) Broadcast and update the membership label and (4) Compute ignition locations.
-
-We will discuss these four steps sequentially in the following sections.
-
-
+The input for the algorithm is the hotspot data with 4 attributes: unique identifier, longitude, latitude, and time. The output is a list of labels describing the corresponding clusters of hotspots. There are four steps: (1) slice the temporal dimension, (2) cluster hotspots spatially, (3) broadcast and update the membership label and (4) compute ignition locations.
+These are described in details in the following sections.
 
 ### Slice the temporal dimension
 
