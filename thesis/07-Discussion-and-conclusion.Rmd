@@ -18,25 +18,30 @@ Finally, future bushfire investigation could be performed more concisely by util
 
  
 
-## Limitation
+## Limitation and possible extensions
 
-### Data source
+### Data
 
-In this research, we didn't take into account the vegetation dynamics in modelling, instead, we only used a static map of vegetation information. This could lead to ineffective use of vegetation factors. However, we didn’t find a similar public vegetation dataset in previous years. This could be mitigated in the future when there are more available data. Moreover, in the prediction, we used the ASOS wind speed as covariates. ASOS network only has a few stations near Melbourne so our weather conditions could be inaccurate. We knew there were accurate wind speed data on BOM, but they were not free to the public.
+In this research, vegetation dynamics has not been taken into account in modelling. Instead, a static map of vegetation information is used. This could lead to ineffective use of vegetation factors. A possible future direction will be incorporating vegetation data collected in multiple years. 
+
+In the prediction of 2019-2020 season, **ASOS** wind speed data is used as covariate. **ASOS** network only has a limited number of stations in Victoria, so the weather conditions integrated to estimated bushfire ignitions could be inaccurate. To improve the accuracy of the prediction, **BOM** wind speed data can be used in the future, but they are not publicly available.
 
 ### Clustering algorithm
 
-Our clustering algorithm used only satellite hotspots data to reconstruct the bushfire dynamics. This didn’t incorporate the vegetation factors, slope, smoke and weather conditions, which might affect the speed of the fire, the direction of the fire and the tolerance of the missing observations. This was already out of the scope of this research since it would take more time and effort but we already spent months to develop the current version.
+During the reconstruction of the bushfire dynamics, only satellite hotspot data is used in our clustering algorithm. Other influential factors such as distribution of vegetation, slope and weather conditions have not been taken into account. These factors will affect the speed of the bushfire and the direction of the spread. An extension that we plan to pursue is a more comprehensive and complicated algorithm that allows variable speed of bushfire and variable time tolerance during the clustering. 
 
 ### Modelling
 
-There were other machine learning models we didn’t test on this task, like artificial neural network which might boost the performance. However, complex machine learning model needed great effort in hyperparameters tuning which was possibly infeasible for our computing platform.
+Only 4 statistical models have been tested in this research. Other popular machine learning models such as artificial neural network and support vector machine may have a better performance. However, these modelling frameworks typically require significant amount of time in hyperparameter tuning. Besides, advanced modelling techniques like model fusion and dimensionality reduction can be applied to this problem in future work.
 
-There were also other machine learning modelling techniques we didn’t use in this research. The most impactful two would be feature engineering and ensemble modelling. We believed these methods could potentially increase our model performance, but we didn’t apply them due to the time constraint. We might consider trying them in future work.
+### Fire risk map
 
-## Future work
+We show the use of our predictive model in producing the fire risk map. However, a simple method is used to estimate the probability of bushfire ignited in a region. None of the changes of the distribution of vegetation and differences in the weather conditions have been considered. In the future work, we will develop another model to provide accurate prediction of the risk of the bushfire ignition $P(S|\mathcal{F})$. Combining the outcomes of two models, we will eventually produce the risk of bushfire ignited by different methods $P(M, S|\mathcal{F})$.
 
-...
+### Shiny app
+
+General public and officers from fire departments may not have time and knowledge in running the code of our predictive model. An interactive web-based shiny application could be a more accessible way for people to be beneficial from our research. It could provide elegant interactive plots for exploratory data analysis and real-time prediction for decision making. A shiny app is under development by @shiny-app. The product will be published on the server of the Department of Econometrics and Business Statistics, Monash University.
+
 
 
 

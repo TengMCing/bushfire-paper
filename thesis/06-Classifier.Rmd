@@ -28,7 +28,7 @@ In terms of the train-test split, we randomly select 80% of total data as the tr
 ## Feature selection
 
 
-In feature selection, a reasonable principle is to select the most important features. Concerning the variable importance, @strobl2007bias in their research has shown that the global variable importance, particularly random forest variable importance, can be bias and misleading. Unlike the global variable importance provided by many other packages, the package `lime` [@lime] provides the local variable importance under the assumption that machine learning models are linear at the local scope. 
+In feature selection, a reasonable principle is to select the most important features. Concerning the variable importance, @strobl2007bias in their research has shown that the global variable importance, particularly random forest variable importance, can be bias and misleading. Unlike the global variable importance provided by many other packages, the package `lime` [@R-lime] provides the local variable importance under the assumption that machine learning models are linear at the local scope. 
 
 Given an observation, `lime` will randomly sample data points around the predictors, and obtain their predictions by passing them into the black-box model. It will then fit a simple model, typically a ridge regression [@hoerl1970ridge] or a lasso regression [@tibshirani1996regression], using these data points. Due to the characteristic of the lasso regression, it is possible to select the most important variables based on the regularization path. By repeating this process for large enough observations, variables being frequently selected are the most important variables. Figure \ref{fig:limeex} is an example of the result produced by `lime`.
 
@@ -611,23 +611,24 @@ ggplot() +
 
 ## Fire risk map
 
-Our model can produce the probability of the bushfire ignited by a certain type of sources, but it doesn't provide us with the general risk of the bushfire ignited by that cause. Using the lightning-ignited bushfire as an example, it will give us
+Our predictive model can produce the probability of the bushfire ignited by a certain type of sources $P(M|S,\mathcal{F})$, but it doesn't provide us with the risk of the bushfire ignited by that source $P(M,S|\mathcal{F})$, where $M$ is the method of the bushfire ignition, $M \in \{\text{lightning, arson, accident, burning off}\}$, $S$ is the bushfire is ignited and $\mathcal{F}$ is the supplementary information of the bushfire ignition, such as location, time, weather conditions, distribution of vegetation.
 
-$$P(L|S,\mathcal{F})$$
+Knowing $P(M|S,\mathcal{F})$ is useful for bushfire investigation but is not particularly helpful for predicting the risk of the bushfire ignition. In general, decision makers want to know the risk of the bushfire ignited by a certain method $P(M,S|\mathcal{F})$ or the overall risk $P(S|\mathcal{F})$.
 
-where $L = the~bushfire~ignited~by~lightning$, $S = the~bushfire~ignited$ and $\mathcal{F}$ is other information of the ignition, such as location, time, weather conditions, etc.
+A possible method to obtain $P(M,S|\mathcal{F})$ is by using the decomposition of the conditional probability:
 
-This probability is useful for bushfire investigation but is not particularly helpful for bushfire risk prediction. In general, decision makers wants to know the risk of the lightning-ignited bushfire $P(L,S|\mathcal{F})$ or the probability of the overall bushfire risk given certain conditions $P(S|\mathcal{F})$.
+$$P(M,S|\mathcal{F}) = P(M|S,\mathcal{F})P(S|\mathcal{F})$$
+We will demonstrate how this works by using a simple method to estimate $P(S|\mathcal{F})$ and eventually yield $P(M,S|\mathcal{F})$.
 
-A possible method to obtain $P(L,S|\mathcal{F})$ is by using the decomposition of the conditional probability:
+If we only consider month $MON$ and location $L$ in $\mathcal{F}$, a reasonable estimator of
+the probability of the bushfire ignited in a region $l$ in a certain month $mon$ is the relative frequency calculated from historical records:
 
-$$P(L,S|\mathcal{F}) = P(L|S,\mathcal{F})P(S|\mathcal{F})$$
+$$P(S|MON = mon, L = l) = \frac{\sum_{i=1}^{N}I(\text{bushfire ignition occurred in month } mon, \text{year } y_i)}{N}$$, where $N$ is the number of years in the historical records and $y_i$ is the $i$ th year of the historical records.
 
-We will demonstrate how this works by using a naive method to estimate the $P(S|\mathcal{F})$ and eventually yield the $P(L,S|\mathcal{F})$.
 
-A reasonable estimator of the probability of the bushfire starts in a region in a certain month is the frequency calculated from historical observations. Using December as an example, the estimator will be $$P(S|\mathcal{F}) = \frac{\text{Number of past December we observed bushfire ignitions in a region}}{\text{Total number of past December in a region}}$$ Figure \ref{fig:mcsim} shows the estimate of $P(S|\mathcal{F})$. If we omit the impact of weather and other factors and simply use the prediction of 2019-2020 Australia bushfires as $P(L|S,\mathcal{F})$, the joint probability $P(L,S|\mathcal{F})$ can then be calculated. Figure \ref{fig:posterior} shows the final product. It can be directly used as the prediction of the risk of bushfire ignited by different methods.
+Figure \ref{fig:mcsim} shows the estimate of $P(S|MON = mon, L = l)$ using 20 years historical records. If we assume the weather conditions are similar to 2019-2020 bushfire season, $P(M|S,MON = mon, L = l$ can be produced by our predictive model and the joint probability $P(L,S|\mathcal{F})$ can then be calculated. Figure \ref{fig:posterior} shows the final outcome.
 
-```{r mcsim, fig.cap="A map of the frequency of bushfire occurred in a region in history."}
+```{r mcsim, fig.cap="A map of the relative frequency of the bushfire ignition occurred in a region in the past 20 years."}
  set.seed(10086)
   
   # Read in training data
@@ -764,7 +765,7 @@ ggplot() +
   theme_map() +
   theme(legend.position = "bottom") +
   scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1), na.value = "grey") +
-  labs(fill = "Frequency")
+  labs(fill = "Relative frequency")
 
 rect_list_st <- rect_list
 
