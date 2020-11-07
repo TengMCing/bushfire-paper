@@ -11,31 +11,31 @@ A focus of this work is to utilise open-source data, and collates these datasets
 
 ### Satellite hotspot data
 
-To track bushfires in Australia remotely with high temporal and spatial resolution, we used hotspot data taken from the Himawari-8 satellite [@jaxa]. The hotspot data was available on the Japan Aerospace Exploration Agency FTP site. Only the data from October 2019 to March 2020 was downloaded. Details on how to download this data were provided by @hotspots. The dataset contained records of 1989572 hotspots for 6 months in the full disk of 140 °east longitude.
+To track bushfires in Australia remotely with high temporal and spatial resolution, we use hotspot data taken from the Himawari-8 satellite [@jaxa]. This hotspot data is available on the Japan Aerospace Exploration Agency FTP site. We download only the data from October 2019 to March 2020, and details on how to download this data are provided by @hotspots. The dataset contains records of 1,989,572 hotspots for these six months in the full disk of 140 °east longitude.
 
 ### Climate data
 
-To better understand bushfires, we collected climate data from Bureau of Meteorology (**BOM**) and Commonwealth Scientific and Industrial Research Organisation (**CSIRO**). Weather properties including maximum temperature, minimum temperature, rainfall and solar exposure were retrieved via an open-source R package `bomrang` [@R-bomrang], which was a data client of **BOM**. Historical weather records of 885 weather stations across Australia from January 1863 to April 2020 were downloaded. However, the number of publicly available climate attributes on **BOM** were limited. In order to maintain the coherent reproducible workflows, we decided to download near-surface wind speed grids across Australia from January 1975 to December 2018 from **CSIRO** [@wind] and the weather station-based wind speed from January 2017 to August 2020 from the Australia Automated Surface Observing System (**ASOS**) network mirrored by Iowa State University [@windasos]. There were only a limited number of **ASOS** stations in Victoria and they mostly based around Melbourne. Therefore, even though **ASOS** data was also available over 2000-2018, **CSIRO** data was used.
+To better understand bushfires, we collect climate data from Bureau of Meteorology (**BOM**) and Commonwealth Scientific and Industrial Research Organisation (**CSIRO**). Weather properties including maximum temperature, minimum temperature, rainfall and solar exposure are retrieved via an open-source R package `bomrang` [@R-bomrang], which was a data client of **BOM**. Historical weather records of 885 weather stations across Australia from January 1863 to April 2020 were downloaded. However, the number of publicly available climate attributes on **BOM** were limited. In order to maintain the coherent reproducible workflows, we download near-surface wind speed grids across Australia from January 1975 to December 2018 from **CSIRO** [@wind] and the weather station-based wind speed from January 2017 to August 2020 from the Australia Automated Surface Observing System (**ASOS**) network mirrored by Iowa State University [@windasos]. There are only a limited number of **ASOS** stations in Victoria and they are mostly based around Melbourne. Therefore, even though **ASOS** data is also available from 2000-2018, **CSIRO** data is used.
 
 ### Road map
 
-Since bushfires could be impacted by anthropogenic factors, we used road map from a comprehensive open-source map **Openstreetmap** [@OpenStreetMap] to represent the reachability of bushfire ignition locations. The road map was one of the layers of the full archive, which consisted of 1797217 roads belonging to 27 different road classes in Australia. 
+Since bushfires can be impacted by anthropogenic factors, we use the road map from the comprehensive open-source **OpenStreetMap** [@OpenStreetMap] to represent the reachability of bushfire ignition locations. The road map is one of the layers of the full archive, and consists of 1,797,217 roads belonging to 27 different road classes in Australia. 
 
 ### Fuel layer
 
-Vegetation information was obtained by using a 2018 nationwide forest dataset compiled by @forest. This was the fifth and the latest national State of the Forest Report (**SOFR**). Previous national **SOFR**s were published in 1998-2013 and were superseded.
+Vegetation information is obtained from a 2018 nationwide forest dataset compiled by @forest. This is the fifth and the latest national State of the Forest Report (**SOFR**). Previous national **SOFR**s were published in 1998-2013 and superseded.
 
 ### Fire stations
 
-Data of Country Fire Authority (**CFA**) fire stations were retrieved from @cfa. It contained 52716 Victorian topographic features including rivers, water bodies, transport, facilities and fire stations.
+Data of Country Fire Authority (**CFA**) fire stations are retrieved from @cfa. It contains 52,716 Victorian topographic features, including rivers, water bodies, transport, facilities and fire stations.
 
 ### Recreation sites
 
-Camping activities could be associated with accidental human-caused bushfires. Therefore, we downloaded Victorian recreation sites from @recreation. The dataset contained 417 camping locations in Victoria. 
+Camping activities may be associated with accidental human-caused bushfires. Therefore, we download Victorian recreation sites from @recreation. The dataset contains 417 camping locations in Victoria. 
 
 ### Fire origins
 
-We used the Victorian Department of Environment, Land, Water and Planning (**DELWP**) Fire Origins dataset to obtain historical bushfire ignition locations and causes [-@fireorigin]. This dataset provided first reported location of the fire recorded by crews rather than the exact origin of the fire, which could be considered as a great approximation of ignition points. 
+We use the Victorian Department of Environment, Land, Water and Planning (**DELWP**) Fire Origins dataset to obtain historical bushfire ignition locations and causes [-@fireorigin]. This dataset provides each first reported location of the fire recorded by crews rather than the exact origin of the fire, which could be considered as a great approximation of ignition points. 
 
 
 ### Summary of dataset usage
@@ -155,11 +155,11 @@ knitr::kable(datasets_info, 'latex',
 ## Data processing for historical bushfire ignitions
 
 
-The programming language we used to perform data manipulation in this research was `R` [@R]. Victorian historical fire origins, recreation sites, **CFA** fire stations and road map were geospatial data in the shapefile format, which could be processed using the tools in `sf` [@R-sf]. Fuel layer and near-surface wind speed were also geospatial data but stored in the grid format. We used tools in `raster` [@R-raster] to manipulate the data. Other datasets including satellite hotspot data and **BOM** climate data were stored in csv format which could be handled using the package `tidyverse` [@R-tidyverse].
+The programming language we use to perform data manipulation for this research is `R` [@R]. Victorian historical fire origins, recreation sites, **CFA** fire stations and the road map are geospatial data in the shapefile format, which are processed using the tools in `sf` [@R-sf]. Fuel layer and near-surface wind speed are also geospatial data but are stored in the grid format. We use tools in `raster` [@R-raster] to manipulate the data. Other datasets including satellite hotspot data and **BOM** climate data are stored in csv format, which can be handled using the package `tidyverse` [@R-tidyverse].
 
-We only kept historical fire origins since 2000 due to the limitation of other supplementary datasets. We dropped all cases with unknown cause from the dataset under the assumption that the major causes distributed in a same way in cases with unknown cause. Given the dataset contained fires other than bushfires, we dropped non-bushfire cases based on their cause. Fires caused by reasons included "WASTE DISPOSAL", "BURNING BUILDING" and "BURNING VEHICLE" were not considered as bushfires. Causes of fire were then recategorized into 5 classes, including lightning, accident, arson, burning off and others.  We ended up having very few cases in others (0.9%) which motivated us to drop it.
+We only keep historical fire origins since 2000 due to the limitation of other supplementary datasets. We drop all cases with unknown cause from the dataset under the assumption that the major causes distributed in a same way in cases with unknown cause. Given the dataset contained fires other than bushfires, we dropped non-bushfire cases based on their cause. Fires caused by reasons included "WASTE DISPOSAL", "BURNING BUILDING" and "BURNING VEHICLE" were not considered as bushfires. Causes of fire were then recategorized into 5 classes, including lightning, accident, arson, burning off and others.  We ended up having very few cases in others (0.9%) which motivated us to drop it.
 
-**BOM** weather records including maximum temperature, minimum temperature, solar exposure and rainfall were station-based data. Weather stations distributed unevenly across Victoria and were often under maintenance. Therefore, we matched every historical fire origin to its 10 nearest weather stations, and then extracted the nearest non-missing daily weather metrics. Differently, **CSIRO** wind speed data provided us with a full grid of values in Victoria. Therefore, we projected each historical fire origin onto its corresponding gird entry to extract the daily average wind speed. Finally, weather metrics in the past 720 days for every historical fire origin were summarised into several numeric variables which can be found in Appendix.
+**BOM** weather records including maximum temperature, minimum temperature, solar exposure and rainfall are station-based data. Weather stations are distributed unevenly across Victoria and were often under maintenance. Therefore, we matched every historical fire origin to its 10 nearest weather stations, and then extracted the nearest non-missing daily weather metrics. Differently, **CSIRO** wind speed data provided us with a full grid of values in Victoria. Therefore, we projected each historical fire origin onto its corresponding gird entry to extract the daily average wind speed. Finally, weather metrics in the past 720 days for every historical fire origin were summarised into several numeric variables which can be found in Appendix.
 
 Besides, **CFA** stations locations were filtered from the raw data by matching the `FEATSUBTYP` field equal to "fire station". Natural logarithm of the distance to the nearest recreation site, fire station and road were computed for every historical fire origin.
 
@@ -172,16 +172,16 @@ We also truncated hotspot data by using a recommended threshold of fire power [@
 
 ## Compiled data
 
-The end results of the data cleaning were two different datasets. One was the compiled dataset used for model fitting which contained 9369 observations and 55 fields, including a field represented the cause of the bushfire ignition. The other one was the satellite hotspot data that were ready for clustering, which contained 75936 observations and 4 fields. These 4 fields were unique identifier, longitude, latitude and time.
+The end result of the data cleaning are two different datasets. One is the compiled dataset used for model fitting which contains 9369 observations and 55 fields, including a field representing the cause of the bushfire ignition. The other is the satellite hotspot data for clustering, which contains 75,936 observations and four fields: unique identifier, longitude, latitude and time.
 
-Covariates for fitting the ignition classifier included month, day, day of the week, longitude , latitude, forest type, forest crown cover, forest height, rainfall in the past 2 years, wind speed in the past 2 years, temperature in the past 2 years, solar exposure in the past 2 years, natural logarithm of proximity to the nearest fire station, recreation site and road. Additional details about the covariate information can be found in Appendix. 
+Covariates for fitting the ignition classifier include month, day, day of the week, longitude, latitude, forest type, forest crown cover, forest height, rainfall in the past 2 years, wind speed in the past 2 years, temperature in the past 2 years, solar exposure in the past 2 years, as well as natural logarithm of proximities to the nearest fire station, recreation site and road. Additional details about the covariate information can be found in Appendix. 
 
 
 ## Exploratory data analysis of historical bushfire ignitions
 
-By performing the exploratory data analysis on the historical bushfire ignitions, we explored the relationship between covariates and causes of ignition.
+By performing the exploratory data analysis on the historical bushfire ignitions, we explore the relationship between covariates and causes of ignition.
 
-From January 2000 to December 2018, Victoria recorded 3886, 3173, 1627 and 683 bushfire ignitions caused by lightning, accident, arson and burning off respectively. The histogram of ignition cause is given in (A) of Figure \ref{fig:causehist}. The proportion of each cause was against the review of bushfires proposed by @beale2011preventing. Ignitions caused by arson were significantly less than the data provided in their review, while lightning-caused ignitions taking a greater percentage. 
+From January 2000 to December 2018, Victoria recorded 3886, 3173, 1627 and 683 bushfire ignitions caused by lightning, accident, arson and burning off, respectively. The histogram of ignition cause is given in (A) of Figure \ref{fig:causehist}. The proportion of each cause is against the review of bushfires proposed by @beale2011preventing. Ignitions caused by arson were significantly less than the data provided in their review, while lightning-caused ignitions taking a greater percentage. 
 
 There was an abnormal trend of accident-caused ignition over the recent years which is shown in the (B) of Figure \ref{fig:causehist}. In addition, from (C) of Figure \ref{fig:causehist}, we found that lightning-caused ignitions were most likely occurred in January and February, which were the hottest months in Victoria. It indicated that lightning-caused ignitions were related to temperature. Moreover, according to (D) of Figure \ref{fig:causehist}, people were careless in managing fire risk on Sunday and in the first two days of the week.
 
