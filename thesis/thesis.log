@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  7 NOV 2020 19:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  8 NOV 2020 01:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1368,7 +1368,7 @@ Here is how much of TeX's memory you used:
  35520 multiletter control sequences out of 15000+600000
  639350 words of font info for 289 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 80i,12n,86p,1732b,15005s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 80i,12n,86p,1677b,15005s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/en
 c/dvips/base/8r.enc}<c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/font
 s/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTe
@@ -1385,7 +1385,7 @@ ng/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb><c:/
 Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/upl
 r8a.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/
 palatino/uplri8a.pfb>
-Output written on thesis.pdf (79 pages, 5486598 bytes).
+Output written on thesis.pdf (79 pages, 5486622 bytes).
 PDF statistics:
  1122 PDF objects out of 1200 (max. 8388607)
  978 compressed objects within 10 object streams
