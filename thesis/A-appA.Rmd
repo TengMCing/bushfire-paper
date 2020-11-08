@@ -176,7 +176,7 @@ datasets_info = data.frame(index = c(
                                      "m"))
 
 knitr::kable(datasets_info, 'latex', 
-             caption  = 'Covariate information of the ignition classifier', 
+             caption  = 'Detail information of covariates used in modelling.', 
              label = "cov",
              booktabs = TRUE,
              longtable = T,
