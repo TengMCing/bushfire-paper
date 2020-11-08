@@ -57,7 +57,7 @@ Overall, this research offers a complete workflow for bushfire analysis and moni
 
 ## Scope of the thesis
 
-This thesis focuses on analysing 2019-2020 bushfires in Victoria with open-source remote sensing data. The remainder of the thesis is structured as follows. In chapter 2, we review the existing literature in the relevant fields. In chapter 3, we outline the data source and data integration, and provide a brief data exploratory analysis of the compiled datasets. In chapter 4, we describe the clustering algorithm and present the clustering results. In chapter 5, we outline the strategy of model building and discuss the results. Finally, in chapter 6, we give a brief conclusion of the research and discuss limitations of our work and possible future extensions. 
+This thesis focuses on analysing 2019-2020 bushfires in Victoria with open source remote sensing data. The remainder of the thesis is structured as follows. In chapter 2, we review the existing literature in the relevant fields. In chapter 3, we outline the data source and data integration, and provide a brief data exploratory analysis of the compiled datasets. In chapter 4, we describe the clustering algorithm and present the clustering results. In chapter 5, we outline the strategy of model building and discuss the results. Finally, in chapter 6, we give a brief conclusion of the research and discuss the limitations of our work and possible future extensions. 
 
 
 

@@ -176,7 +176,7 @@ datasets_info = data.frame(index = c(
                                      "m"))
 
 knitr::kable(datasets_info, 'latex', 
-             caption  = 'Detail information of covariates used in modelling.', 
+             caption  = 'Detail information about covariates used in modelling.', 
              label = "cov",
              booktabs = TRUE,
              longtable = T,

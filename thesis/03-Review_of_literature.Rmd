@@ -7,7 +7,7 @@ knit: "bookdown::render_book"
 
 ## Spatio-temporal clustering
 
-To detect time and location of the bushfire ignitions from the satellite hotspot data, hotspots need to be grouped into meaningful clusters. This can be achieved by using spatio-temporal clustering.
+To detect the time and location of the bushfire ignitions from the satellite hotspot data, hotspots need to be grouped into meaningful clusters. This can be achieved by using spatio-temporal clustering.
 
 Spatio-temporal data contain at least three dimensions, which are spatial location (e.g. latitude and longitude) and time. In the survey of spatio-temporal clustering algorithms, @kisilevich2009spatio summarised that there are five types of point-wise spatio-temporal data, including spatio-temporal events, geo-referenced variable, geo-referenced time series, moving points and trajectories. Table \ref{tab:st} shows that the classification of data is based on their temporal and spatial dimensions. 
 
@@ -26,9 +26,9 @@ data.frame(single = c("Spatio-temporal events", ""), updated = c("Geo-referenced
   kableExtra::kable_styling(latex_options = c("scale_down"))
 ```
 
-Meanwhile in satellite hotspots clustering, the data type is even more complicated. Each moving object possesses a spatial extension with arbitrary size and shape [@kisilevich2009spatio]. 
+Meanwhile, in satellite hotspots clustering, the data type is even more complicated. Each moving object possesses a spatial extension with arbitrary size and shape [@kisilevich2009spatio]. 
 
-Before performing the clustering algorithm on spatio-temporal data, deciding how to represent the temporal information in a high-dimensional space is challenging [@kisilevich2009spatio]. This is because the end result of the clustering algorithm can be highly sensitive to the temporal resolution. Hence, scaling of the temporal dimension varies by application.
+Before performing the clustering algorithm on spatio-temporal data, deciding how to represent the temporal information in a high-dimensional space is challenging [@kisilevich2009spatio]. This is because the end result of the clustering algorithm can be highly sensitive to the temporal resolution. Hence, the scaling of the temporal dimension varies by application.
 
 In the late '90s, researchers in the University of Munich proposed an influential density-based algorithm, Density Based Spatial Clustering of Applications with Noise (**DBSCAN**), for discovering clusters [@ester1996density]. @ester1996density mentioned three difficulties of clustering algorithms which motivated their work: (1) requirements of domain knowledge to determine the hyperparameters, (2) arbitrary shape of clusters and (3) computational efficiency. 
 
@@ -40,7 +40,7 @@ Although **DBSCAN** is popular among many fields, it is not suitable for cluster
 
 A better algorithm for satellite hotspots clustering is Fire Spread Reconstruction (**FSR**) [@loboda2007reconstruction]. This algorithm starts from the earliest observed hotspot. It constructs a tree based on three rules: (1) the earliest observed hotspot is the root of the tree, (2) any node is within a 2.5km radius from its parent and (3) any node is observed no later than four days from its parent. When the tree is closed and there are still unassigned hotspots, the algorithm continues at the earliest unassigned hotspot to construct a new tree. Finally, each tree is a cluster, and the earliest hotspot is defined as the ignition point.
 
-**FSR** works well in reconstructing bushfire spread, but it constructs clusters sequentially. If two fires start at a different locations but have overlapping coverage, **FSR** considers them to be a single fire when they meet each other. In this situation, the coverage of one of the fires increases dramatically during a short period of time, which does not correctly reflect the real speed of the bushfire. Besides, @loboda2007reconstruction did not provide details of parameter tuning in their research. Instead, they briefly delivered the reason for choosing four days as the time threshold, which was because they wanted to tolerate missing observations due to cloud and smoke cover.
+**FSR** works well in reconstructing bushfire spread, but it constructs clusters sequentially. If two fires start at different locations but have overlapping coverage, **FSR** considers them to be a single fire when they meet each other. In this situation, the coverage of one of the fires increases dramatically during a short period, which does not correctly reflect the real speed of the bushfire. Besides, @loboda2007reconstruction did not provide details of parameter tuning in their research. Instead, they briefly delivered the reason for choosing four days as the time threshold, which was because they wanted to tolerate missing observations due to cloud and smoke cover.
 
 **DBSCAN** is mature and efficient with a parameter tuning tool, but is not suitable for temporal data like satellite hotspot data. **FSR** is designed for satellite hotspot data but lacks detailed consideration of parameter tuning and fire interactions. Inspired by these two algorithms, our work designs a spatio-temporal algorithm that can efficiently and robustly cluster hotspots with respect to the temporal behaviour of bushfires. Meanwhile, we provide a tool to help make parameter choices.
 

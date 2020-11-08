@@ -13,9 +13,9 @@ Other candidate models we examine in this research are the multinomial logit mod
 
 A multinomial logit model [@berkson1944application] is a generalization of the logistic regression to multi-class problems, which is commonly used as the baseline model in predictive modelling. 
 
-A generalised additive model [@hastie1990generalized] is a generalised linear model with additive smooths terms in the link function and GAM multinomial logistic regression [@yee1996vector] is its extension to multi-class problems. Generalised additive model is relatively popular in the field of bushfire ignition analysis. Some examples are @bates2018exploratory, @read2018lightning and @zhang2017wildfire. 
+A generalised additive model [@hastie1990generalized] is a generalised linear model with additive smooths terms in the link function and GAM multinomial logistic regression [@yee1996vector] is its extension to multi-class problems. The generalised additive model is relatively popular in the field of bushfire ignition analysis. Some examples are @bates2018exploratory, @read2018lightning and @zhang2017wildfire. 
 
-A XGBoost [@chen2016xgboost] is an open-source distributed gradient boosting library. It provides a parallel tree boosting to solve complex regression and classification problems efficiently. Gradient boosting [@gboost] is an important technique in machine learning, which belongs to the class of boosting algorithms. It is a method to build a strong learner, which often referred to as an ensemble model, by aggregating a set of week learners iteratively. Numerous competitions, for example, the Higgs boson machine learning challenge [@adam2015higgs] and the Global energy forecasting competition 2012 [@hong2014global], have shown that XGBoost is one of the dominant methods in building prediction models on structured data.
+An XGBoost [@chen2016xgboost] is an open source distributed gradient boosting library. It provides a parallel tree boosting to solve complex regression and classification problems efficiently. Gradient boosting [@gboost] is an important technique in machine learning, which belongs to the class of boosting algorithms. It is a method to build a strong learner, which often referred to as an ensemble model, by aggregating a set of week learners iteratively. Numerous competitions, for example, the Higgs boson machine learning challenge [@adam2015higgs] and the Global energy forecasting competition 2012 [@hong2014global], have shown that XGBoost is one of the dominant methods in building prediction models on structured data.
 
 
 In this research, the model building process includes feature selection, hyperparameter tuning and candidate model selection. These are described in details in the following sections. 
@@ -32,7 +32,7 @@ In feature selection, a reasonable principle is to select the most important fea
 
 Given an observation, `lime` randomly samples data points around the predictors, and obtains their predictions by passing them into the machine learning model. It then fits a simple model, typically a ridge regression [@hoerl1970ridge] or a lasso regression [@tibshirani1996regression], on these data points. Due to the characteristic of the lasso regression, it is possible to select the most important variables based on the regularization path. By repeating this process for large enough observations, variables being frequently selected are the most important variables. Figure \ref{fig:limeex} is an example of the result produced by `lime`.
 
-The strategic used in this research to perform feature selection is first fitting and tuning a full model with all covariates using 3-fold cross-validation grid searching controlled by `caret` [@R-caret], then passing in 100 observations for `lime` to find the top 10 most important variables. The final set of variables selected for each candidate model is given in Table \ref{tab:limemost}. Table \ref{tab:covshort} gives the detail information about each variable. From the result, we find the characteristics of different candidate models in ignition method classification. Simpler models, such as the multinomial logistic regression model and the GAM multinomial logistic regression model are preferred to use climate covariates, while the random forest model and the XGBoost model rely on ignition location and anthropogenic covariates.
+The strategic used in this research to perform feature selection is first fitting and tuning a full model with all covariates using 3-fold cross-validation grid searching controlled by `caret` [@R-caret], then passing in 100 observations for `lime` to find the top 10 most important variables. The final set of variables selected for each candidate model is given in Table \ref{tab:limemost}. Table \ref{tab:covshort} gives detail information about each variable. From the result, we find the characteristics of different candidate models in ignition method classification. Simpler models, such as the multinomial logistic regression model and the GAM multinomial logistic regression model are preferred to use climate covariates, while the random forest model and the XGBoost model rely on ignition location and anthropogenic covariates.
 
 ```{r}
 datasets_info = data.frame(index = c("lon",
@@ -94,7 +94,7 @@ datasets_info = data.frame(index = c("lon",
                                      "m"))
 
 knitr::kable(datasets_info, 'latex', 
-             caption  = 'Detail information of variables involved in the feature selection process.', 
+             caption  = 'Detail information about the variables involved in the feature selection process.', 
              label = "covshort",
              booktabs = TRUE,
              col.names = c("Covariate name", "description", "Units"))  %>%
@@ -254,7 +254,7 @@ data.frame(Lightning = c(703, 51, 18, 5, 777),
   knitr::kable('latex',
                booktabs = T,
                label = "conrf",
-               caption = "Confusion matrix of random forest model. The overall accuracy is 0.7495.") 
+               caption = "Confusion matrix of the random forest model. The overall accuracy is 0.7495.") 
 ```
 
 
@@ -271,7 +271,7 @@ The weighted variable contribution to the probability of different causes produc
 
 For future fire investigation, if a bushfire starts at a remote area in a windless year, it is very likely to be lightning-ignited bushfire. In contrast, if the bushfire is very close to the CFA station and starts in a windy year, it is possible to be arson. Moreover, the accident-caused bushfire usually starts near the recreation site and road in a windless year after a windy year.
 
-```{r limeexvar, fig.cap = "Variable contribution to the probability of differenct causes. Variable has a positive weight means it has a postive impact on the probability. The same rule applies to negative weights. The magnitude shows the impact strength, which can be seen as the marginal effect at the local scope."}
+```{r limeexvar, fig.cap = "Variable contribution to the probability of different causes. Variable has a positive weight means it has a postive impact on the probability. The same rule applies to negative weights. The feature weight can be seen as the marginal effect at the local scope."}
 library(caret)
 
 if (!file.exists("data/lime_ex2")){
@@ -414,14 +414,14 @@ if (!file.exists("data/lime_ex2")){
 
 A fitted random forest model, along with covariate data in 2019-2020 bushfire season, can be used to produce the prediction of the cause of the bushfires in Victoria during the 2019-2020 season. Figure \ref{fig:pred2019} shows the prediction produced by the final model. And Table \ref{tab:predictionsummary} summarizes the prediction. According to the prediction, most majority of the bushfires in 2019-2020 season are caused by lightning. However, there are 138 bushfires caused by accidents which take up 14% of the total fires. Majority of the accident-caused bushfires are ignited in March. Besides, 37 bushfires are caused by arsonists. There was a noticeable bushfire at French island in January, which caused serious damage to the koala habitat. Our model predicts its cause is arson. Very few planned burns are predicted after October 2019 which suggests the correctness of our model. It is because fire restrictions normally start in October. 
 
-Furthermore, we provide a map with 0.2 degree spatial resolution for quick decision making, which is given in Figure \ref{fig:gridpred}. If the investigator observes a new ignition between December and March and the weather condition is similar to the 2019-2020 bushfire season, prediction of the cause can be made immediately by checking Figure \ref{fig:gridpred}. 
+Furthermore, we provide a map with 0.2-degree spatial resolution for quick decision making, which is given in Figure \ref{fig:gridpred}. If the investigator observes a new ignition between December and March and the weather condition is similar to the 2019-2020 bushfire season, prediction of the cause can be made immediately by checking Figure \ref{fig:gridpred}. 
 
 Other than that, Figure \ref{fig:gridpred} also reveals the temporal and spatial characteristics of different causes. Probability of lightning-caused bushfire is almost time and spatial invariant from October to March. Bushfires start in the east and the west of Victoria are likely to be predicted by our model as lightning-ignited bushfires. The probability of accident-caused bushfire evolves by time. In October, only the north of Victoria has a high probability of accident-caused bushfire, but the high probability region spreads to the south over time and reaches its peak in March. Probability of arson-caused bushfire excluding the Melbourne region decreases as time goes from October to March. Planned burns only occur in October and November.
 
 
 
 
-```{r pred2019, fig.cap="Prediction of the cause of bushfire ignitions in Victoria during the 2019-2020 season produced by the final model. Majority of the bushfires are caused by lightning. Most of the Planned burns occurred before November. Bushfires caused by arson mainly occur in December 2019 and March 2020. A large propotion of bushfires in March 2020 are predicted to be accident-caused.", fig.height=8}
+```{r pred2019, fig.cap="Prediction of the cause of bushfire ignitions in Victoria during the 2019-2020 season produced by the final model. Majority of the bushfires are caused by lightning. Most of the Planned burns occurred before November. Bushfires caused by arson mainly occur in December 2019 and March 2020. A large proportion of bushfires in March 2020 are predicted to be accident-caused.", fig.height=8}
 
 library(ggthemes)
 library(rnaturalearth)
@@ -460,13 +460,13 @@ temp$Total <- paste0(temp$Total, " (", round(temp$Total/sum(temp$Total), 2), "%)
 temp %>%
   knitr::kable(booktabs = T, 
                label = "predictionsummary",
-               caption = "A summary of the predicted causes of 2019-2020 Australia bushfires. Our model predicts 82\\% of the bushfire were lightning, 14\\% were accident, and only 4\\% and 1\\% were arson an planned burns respectively.")
+               caption = "A summary of the predicted causes of 2019-2020 Australia bushfires. Our model predicts 82\\% of the bushfires were ignited by lightning, 14\\% were ignited by accident, and only 4\\% and 1\\% were arson and planned burns respectively.")
 ```
 
 
 
 
-```{r gridpred, fig.cap="A map with 0.2 degree spatial resolution for quick decision making of the cause of the bushfire during a bushfire season. This map is based on the assumption that the long-run weather condition of the new ignition is similar to 2019-2020 Australia bushfire season. Users need to match the location of the observed ignition and the observed date with the map to obtain the prediction for each cause. The darker the region the higher the probability.", fig.height=8, fig.width=6.5}
+```{r gridpred, fig.cap="A map with 0.2-degree spatial resolution for quick decision making of the cause of the bushfire during a bushfire season. This map is based on the assumption that the long-run weather condition of the new ignition is similar to 2019-2020 Australia bushfire season. Users need to match the location of the observed ignition and the observed date with the map to obtain the prediction for each cause. The darker the region the higher the probability.", fig.height=8, fig.width=6.5}
 lat <- seq(34, 39, 0.2)
 lat <- -lat
 lon <- seq(141, 150, 0.2)
@@ -550,7 +550,7 @@ ggplot() +
 
 ## Fire risk map
 
-Our predictive model can produce the probability of the bushfire ignited by a certain type of sources $P(M|S,\mathcal{F})$, but it does not provide us with the risk of the bushfire ignited by that source $P(M,S|\mathcal{F})$, where $M$ is the method of the bushfire ignition, $M \in \{\text{lightning, arson, accident, burning off}\}$, $S$ is the bushfire is ignited and $\mathcal{F}$ is the supplementary information of the bushfire ignition, such as location, time, weather conditions, distribution of vegetation.
+Our predictive model can produce the probability of the bushfire ignited by a certain type of sources $P(M|S,\mathcal{F})$, but it does not provide us with the risk of the bushfire ignited by that source $P(M,S|\mathcal{F})$, where $M$ is the method of the bushfire ignition, $M \in \{\text{lightning, arson, accident, burning off}\}$, $S$ is the bushfire is ignited and $\mathcal{F}$ is the supplementary information about the bushfire ignition, such as location, time, weather conditions, distribution of vegetation.
 
 Knowing $P(M|S,\mathcal{F})$ is useful for bushfire investigation but is not particularly helpful for bushfire management. In general, decision makers want to know the overall risk $P(S|\mathcal{F})$ and the risk of the bushfire ignited by a certain method $P(M,S|\mathcal{F})$.
 
@@ -565,9 +565,9 @@ the probability of at least one bushfire ignited in a region $l$ in a certain mo
 $$P(S|MON = mon, L = l) = \frac{\sum_{i=1}^{N}I(\text{bushfire ignition occurred in month } mon, \text{year } y_i)}{N}$$, where $N$ is the number of years in the historical records and $y_i$ is the $i$ th year of the historical records.
 
 
-Figure \ref{fig:mcsim} shows the estimate of $P(S|MON = mon, L = l)$ using 20 years historical records. If we assume the weather conditions are similar to 2019-2020 bushfire season, $P(M|S,MON = mon, L = l)$ can be produced by our random forest model and the joint probability $P(L,S|\mathcal{F})$ can then be calculated. Figure \ref{fig:posterior} shows the final outcome. From the result, we notice that January is the most dangerous month in terms of lightning-caused bushfire and the east of Victoria is the high risk area. The risk of arson-caused bushfire is concentrated in a relatively small region near Melbourne.  
+Figure \ref{fig:mcsim} shows the estimate of $P(S|MON = mon, L = l)$ using 20 years of historical records. If we assume the weather conditions are similar to 2019-2020 bushfire season, $P(M|S,MON = mon, L = l)$ can be produced by our random forest model and the joint probability $P(L,S|\mathcal{F})$ can then be calculated. Figure \ref{fig:posterior} shows the final outcome. From the result, we notice that January is the most dangerous month in terms of lightning-caused bushfire and the east of Victoria is the high risk area. The risk of arson-caused bushfire is concentrated in a relatively small region near Melbourne.  
 
-```{r mcsim, fig.cap="A map of the relative frequency of the bushfire ignition occurred in a region in the past 20 years. It is a estimate of the probability of at least one bushfire ignition occur in a given region and a given month."}
+```{r mcsim, fig.cap="A map of the relative frequency of the bushfire ignition occurred in a region in the past 20 years. It is an estimate of the probability of at least one bushfire ignition occur in a given region and a given month."}
  set.seed(10086)
   
   # Read in training data
