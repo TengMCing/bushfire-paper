@@ -13,26 +13,95 @@ Other candidate models we test in this research are multinomial logit model [@be
 
 Multinomial logit model [@berkson1944application] is the generalization of the logistic regression to multi-class problems, which is commonly used as the baseline model in predictive modelling. 
 
-Generalised additive model [@hastie1990generalized] is a generalised linear model with additive smooths terms in the link function and GAM multinomial logistic regression [@yee1996vector] is its extension to multi-class problems. GAM is relatively popular in the field of bushfire ignition analysis. Some examples are @bates2018exploratory, @read2018lightning and @zhang2017wildfire. 
+Generalised additive model [@hastie1990generalized] is a generalised linear model with additive smooths terms in the link function and GAM multinomial logistic regression [@yee1996vector] is its extension to multi-class problems. Generalised additive model is relatively popular in the field of bushfire ignition analysis. Some examples are @bates2018exploratory, @read2018lightning and @zhang2017wildfire. 
 
 XGBoost [@chen2016xgboost] is an open-source distributed gradient boosting library. It provides a parallel tree boosting to solve complex regression and classification problems efficiently. Gradient boosting [@gboost] is an important technique in machine learning, which belongs to the class of boosting algorithms. It is a method to build a strong learner, which often referred to as an ensemble model, by aggregating a set of week learners iteratively. Numerous competitions, for example, the Higgs boson machine learning challenge [@adam2015higgs] and the Global energy forecasting competition 2012 [@hong2014global], have shown that XGBoost is one of the dominant methods in building prediction models on structured data.
 
 
-In this research, the model building process includes feature selection, hyperparameter tuning and candidate model selection. 
+In this research, the model building process includes feature selection, hyperparameter tuning and candidate model selection. These are described in details in the following sections. 
 
-The multinomial logit model, generalised additive model, random forest and XGboost are available in package `nnet` [@R-nnet], `mgcv` [@R-mgcv], `randomForest` [@R-rf] and `xgboost` [@R-xgboost] respectively. Besides, package `lime` [@R-lime] is used to perform feature selection and package `caret` [@R-caret] is used to control the training, hyperparameter tuning and candidate model selection process. 
+The multinomial logit model, generalised additive model, random forest and XGboost are available in package `nnet` [@R-nnet], `mgcv` [@R-mgcv], `randomForest` [@R-rf] and `xgboost` [@R-xgboost] respectively. Besides, package `lime` [@R-lime] is used to perform feature selection and package `caret` [@R-caret] is used to control the training, hyperparameter tuning and candidate model selection. 
 
-In terms of the train-test split, we randomly select 80% of total data as the training set, and the rest 20% data is test set. The total number of training samples is 7497 and the total number of test samples is 1872. Within the 1872 test samples, we further randomly select 100 samples for feature selection. Thus, the number of remaining samples in the test set is 1772.
+In terms of the train-test split, we randomly select 80% of total data as the training set, and the rest 20% data is test set. The total number of training samples is 7497 and the total number of test samples is 1872. 
 
 
 ## Feature selection
 
 
-In feature selection, a reasonable principle is to select the most important features. Concerning the variable importance, @strobl2007bias in their research has shown that the global variable importance, particularly random forest variable importance, can be bias and misleading. Unlike the global variable importance provided by many other packages, the package `lime` [@R-lime] provides the local variable importance under the assumption that machine learning models are linear at the local scope. 
+In feature selection, a reasonable principle is to select the most important features. Concerning the variable importance, @strobl2007bias in their research has shown that the global variable importance, particularly random forest variable importance, can be bias and misleading. Alternatively, unlike the global variable importance provided by many other packages, the package `lime` [@R-lime] provides the local variable importance under the assumption that machine learning models are linear at the local scope. 
 
-Given an observation, `lime` will randomly sample data points around the predictors, and obtain their predictions by passing them into the black-box model. It will then fit a simple model, typically a ridge regression [@hoerl1970ridge] or a lasso regression [@tibshirani1996regression], using these data points. Due to the characteristic of the lasso regression, it is possible to select the most important variables based on the regularization path. By repeating this process for large enough observations, variables being frequently selected are the most important variables. Figure \ref{fig:limeex} is an example of the result produced by `lime`.
+Given an observation, `lime` randomly samples data points around the predictors, and obtains their predictions by passing them into the black-box model. It then fits a simple model, typically a ridge regression [@hoerl1970ridge] or a lasso regression [@tibshirani1996regression], on these data points. Due to the characteristic of the lasso regression, it is possible to select the most important variables based on the regularization path. By repeating this process for large enough observations, variables being frequently selected are the most important variables. Figure \ref{fig:limeex} is an example of the result produced by `lime`.
 
-The strategic used in this research to perform feature selection is first fitting and tuning a full model with all covariates using 3-fold cross-validation grid searching controlled by `caret` [@R-caret], then passing in 100 observations for `lime` to find the top 10 most important variables. The final set of variables selected for each candidate model is given in Table \ref{tab:limemost}. From the result, we find the characteristics of different candidate models in ignition method classification. Simpler models, such as the multinomial logistic regression model and the GAM multinomial logistic regression model are preferred to use climate covariates, while the random forest model and the XGBoost model rely on ignition location and anthropogenic covariates.
+The strategic used in this research to perform feature selection is first fitting and tuning a full model with all covariates using 3-fold cross-validation grid searching controlled by `caret` [@R-caret], then passing in 100 observations for `lime` to find the top 10 most important variables. The final set of variables selected for each candidate model is given in Table \ref{tab:limemost}. Table \ref{tab:covshort} gives the detail information about each variable. From the result, we find the characteristics of different candidate models in ignition method classification. Simpler models, such as the multinomial logistic regression model and the GAM multinomial logistic regression model are preferred to use climate covariates, while the random forest model and the XGBoost model rely on ignition location and anthropogenic covariates.
+
+```{r}
+datasets_info = data.frame(index = c("lon",
+                                     "lat",
+                                     "FOR_TYPE",
+                                     "COVER",
+                                     "HEIGHT",
+                                     "arf360",
+                                     "ase90",
+                                     "ase180",
+                                     "ase720",
+                                     "amaxt90",
+                                     "amaxt180",
+                                     "amaxt720",
+                                     "amint180",
+                                     "ws",
+                                     "aws_m12",
+                                     "aws_m24",
+                                     "log_dist_cfa",
+                                     "log_dist_camp",
+                                     "log_dist_road"),
+                           name = c("Longitude",
+                                    "Latitude",
+                                    "Forest type. Eg. Acacia, Callitris, Casuarina, etc.",
+                                    "Forest crown cover",
+                                    "Forest height class",
+                                    "Average rainfall in the past 360 days",
+                                    "Average global solar exposure in the past 90 days",
+                                    "Average global solar exposure in the past 180 days",
+                                    "Average global solar exposure in the past 720 days",
+                                    "Average maximum temperature in the past 90 days",
+                                    "Average maximum temperature in the past 180 days",
+                                    "Average maximum temperature in the past 720 days",
+                                    "Average minimum temperature in the past 180 days",
+                                    "Average wind speed on that day",
+                                    "Average wind speed in last 12 months",
+                                    "Average wind speed in last 24 months",
+                                    "Natural logarithm of the distance to the nearest CFA station",
+                                    "Natural logarithm of the distance to the nearest recreation site",
+                                    "Natural logarithm of the distance to the nearest road"), 
+                           type = c("degrees",
+                                     "degrees",
+                                     "",
+                                     "",
+                                     "",
+                                     "mm",
+                                     "MJ/m^2",
+                                     "MJ/m^2",
+                                     "MJ/m^2",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "Celsius degree",
+                                     "m/s",
+                                     "m/s",
+                                     "m/s",
+                                     "m",
+                                     "m",
+                                     "m"))
+
+knitr::kable(datasets_info, 'latex', 
+             caption  = 'Detail information of variables involved in the feature selection process.', 
+             label = "covshort",
+             booktabs = TRUE,
+             col.names = c("Covariate name", "description", "Units"))  %>%
+kableExtra::kable_styling(latex_options = c("scale_down"))
+```
+
+
 
 ```{r limeex, fig.cap="An example of selecting the most important variables for the random forest model with respect to the predicted probability of the bushfire ignited by lightning in 4 cases using `lime`. The feature weight is the weighted importance within a case. In this example, the common feature that influences all observations is latitude (lat)."}
 
@@ -135,7 +204,7 @@ readRDS("data/MNL_best_features.rds") %>%
   knitr::kable('latex',
                booktabs = T,
                label = 'limemost',
-               caption = "The top 10 most important variables for each candidate model ranked in descending order. Variables on the top are more important. The difference in choices of variables across candidate models can be observed. Random forest and XGBoost exploit the location variables and anthropogenic variables. Vegetation factors are most influential in multinomial logistic regression. Solar exposure and wind speed are most important in GAM multinomial logistic regression. ") %>%
+               caption = "The top 10 most important variables for each candidate model ranked in descending order. Variables on the top are more important. The differences in choices of variables across candidate models can be observed. Random forest and XGBoost exploit the location variables and anthropogenic variables. Vegetation factors are most influential in multinomial logistic regression. Solar exposure and wind speed are most important in GAM multinomial logistic regression. ") %>%
   kableExtra::kable_styling(latex_options = "scale_down")
   
   
@@ -148,14 +217,14 @@ readRDS("data/MNL_best_features.rds") %>%
 
 ## Hyperparameter tuning and candidate model selection
 
-The hyperparameter tuning for each candidate model was done by using 3-fold cross-validation grid searching controlled by package `caret` [@R-caret]. We set up a grid of potential hyperparameters and evaluate their performance cell by cell. The grid, the definition for each hyperparameter and the optimal hyperparameters is given in the Appendix.
+The hyperparameter tuning for each candidate model is performed by using 3-fold cross-validation grid searching controlled by package `caret` [@R-caret]. We set up a grid of potential hyperparameters and evaluate their performance cell by cell. The grid, the definition of every hyperparameter and the optimal hyperparameters is given in the Appendix.
 
-The final step of the modelling is candidate model selection. Model performance is compared by using both prediction accuracy and multi-class AUC. Multi-class AUC is defined by Hand and Till [@hand2001simple] and it is available in package `pROC` [@R-pROC]. This metric generalises the commonly used AUC into multiple class classification problems by averaging pairwise comparison of classes.
+The final step of the model building process is candidate model selection. Model performance is compared by using both overall prediction accuracy and multi-class AUC. Multi-class AUC is defined by Hand and Till [@hand2001simple] and it is available in package `pROC` [@R-pROC]. This metric generalises the commonly used AUC into multiple class classification problems by averaging pairwise comparison of classes.
 
 
 ## Results
 
-After performing feature selection and parameter tuning, we find that random forest is better than all other candidate models in both prediction accuracy and multi-class AUC. Thus, we choose the random forest model as our final model. Model performance is given in Table \ref{tab:accandauc}. More details about the model performance can be found in the Appendix. 
+After performing feature selection and parameter tuning, we find that random forest outperforms all other candidate models in both overall prediction accuracy and multi-class AUC. Thus, we choose the random forest model as our final model. Model performance is given in Table \ref{tab:accandauc}. More details about the model performance can be found in the Appendix. 
 
 ```{r}
 data.frame(model = c("Multinomial logistic regression", "GAM multinomial logistic regression", "Random forest", "XGBoost"), 
@@ -168,7 +237,7 @@ data.frame(model = c("Multinomial logistic regression", "GAM multinomial logisti
                booktabs = T)
 ```
 
-The overall accuracy of our model is 74.95%. The confusion matrix of the ignition classifier is shown in Table \ref{tab:conrf}. It suggests that lightning-caused and accident-caused ignitions can be easily classified from other causes. Meanwhile, the model is not very confident with arson and burning off. 77.9% of accident-caused and 90.5% of lightning-caused ignitions are correctly recognised by the model, which is a reliable result. 
+The overall accuracy of our model is 74.95%. The confusion matrix is shown in Table \ref{tab:conrf}. It suggests that lightning-caused and accident-caused ignitions can be easily classified from other causes. 77.9% of accident-caused and 90.5% of lightning-caused ignitions are correctly recognised by the model, which is a reliable result. Meanwhile, the model is not very confident with arson (53.8%) and burning off (23.5%). 
 
 
 ```{r}
@@ -195,7 +264,7 @@ data.frame(Lightning = c(703, 51, 18, 5, 777),
 
 <!-- ![The guided tour with LDA projection pursuit indx shows that arson-caused ignitions (green) can not be classified from other causes. \label{fig:ldaarson}](figures/lda_guide_tour_arson.jpeg){width=275 height=275} -->
 
-Based on the prediction performance of the final model on the test set, we plot a map for error rate to reveal the spatial patterns. The plot is given in Figure \ref{fig:errormap}. From the plot, we can observe that our model correctly predicts most of the cases in the mountain area, which is the east of Victoria. However, it performs worse in the Melbourne region. Besides, our model doesn't fit well on the boundary of the north-west of Victoria.
+In order to explore the prediction performance of the final model on the test set, we plot a error rate map to reveal the spatial patterns. The plot is given in Figure \ref{fig:errormap}. From the error rate map, we can observe that our model correctly predicts most of the cases in the east of Victoria, which is the mountain area. However, it performs worse near the Melbourne region. Besides, our model does not fit well on the boundary of the north-west of Victoria.
 
 ```{r errormap, fig.cap="The spatial patterns of the error rate of the final model. We omit regions with less than 5 bushfires occurred. Our model makes very few mistakes in the east of Victoria but has a higher error rate near Melbourne."}
   set.seed(10086)
@@ -327,11 +396,11 @@ as.data.frame(rect_list) %>%
 ```
 
 
-The weighted variable contribution to the probability of different causes produced by `lime` is the scaled coefficients obtained from the lasso regression at the local scope. Figure \ref{fig:limeexvar} shows proximity to the nearest CFA station and proximity to the nearest road have a high positive impact on the probability of lightning-caused bushfire, while average wind speed in the last 2 years has a high negative impact on the probability. Patterns in arson are almost the opposite of what has been shown in lightning. Latitude and average wind speed in past 24 months have some positive impact on the probability of accident-caused bushfire, while average wind speed in past 12 months, proximity to the nearest road and proximity to the nearest camping site have negative to the probability. Variable contribution to the probability of planned burn is relatively small, and the proximity to the nearest CFA station and latitude contribute negatively to the probability.
+The weighted variable contribution to the probability of different causes produced by `lime` is the scaled coefficients obtained from the lasso regression at the local scope. Figure \ref{fig:limeexvar} shows proximity to the nearest CFA station and proximity to the nearest road have a high positive impact on the probability of lightning-caused bushfire, while 2-year average wind speed has a high negative impact on the probability. Patterns in arson are almost the opposite of what has been shown in lightning. Latitude and 2-year average wind speed have some positive impact on the probability of accident-caused bushfire, while average wind speed in past 12 months, proximity to the nearest road and proximity to the nearest camping site have negative to the probability. Variable contribution to the probability of planned burn is relatively small, and the proximity to the nearest CFA station and latitude contribute negatively to the probability.
 
-For future fire investigation, if a bushfire starts at a remote area in a windless year, it's very likely to be lightning-ignited bushfire. In contrast, if the bushfire is very close to the CFA station and starts in a windy year, it is possible to be arson. Moreover, the accident-caused bushfire usually starts near the recreation site and road in a windless year after a windy year.
+For future fire investigation, if a bushfire starts at a remote area in a windless year, it is very likely to be lightning-ignited bushfire. In contrast, if the bushfire is very close to the CFA station and starts in a windy year, it is possible to be arson. Moreover, the accident-caused bushfire usually starts near the recreation site and road in a windless year after a windy year.
 
-```{r limeexvar, fig.cap = "Variable contribution to the probability of differenct causes. Variable has a positive weight means it has a postive impact on the probability. The same rule applies to negative weights. The magnitude shows the impact strength, which can be seen as the average marginal effect at the local scope."}
+```{r limeexvar, fig.cap = "Variable contribution to the probability of differenct causes. Variable has a positive weight means it has a postive impact on the probability. The same rule applies to negative weights. The magnitude shows the impact strength, which can be seen as the marginal effect at the local scope."}
 library(caret)
 
 if (!file.exists("data/lime_ex2")){
@@ -472,18 +541,16 @@ if (!file.exists("data/lime_ex2")){
 
 ## Predicting ignition cause for 2019-2020 season
 
-A fitted random forest model, along with covariate data in 2019-2020 bushfire season, can be used to produce the prediction of the cause of the 2019-2020 Australia bushfires. Figure \ref{fig:pred2019} shows the prediction produced by the final model. And Table \ref{tab:predictionsummary} summarize the prediction. According to the prediction, the most majority of the bushfires in 2019-2020 season were caused by lightning. However, there were 138 bushfires caused by accidents which took up 14% of the total fires. Most of the accident-caused bushfires were ignited in March. Besides, 37 bushfires were caused by arsonists. There was a noticeable bushfire at French island in January, which caused serious damage to the koala habitat. Our model predicts its cause was arson. Very few planned burns were predicted after October 2019 which suggests the correctness of our model that is because fire restrictions usually start in October. 
+A fitted random forest model, along with covariate data in 2019-2020 bushfire season, can be used to produce the prediction of the cause of the bushfires in Victoria during the 2019-2020 season. Figure \ref{fig:pred2019} shows the prediction produced by the final model. And Table \ref{tab:predictionsummary} summarizes the prediction. According to the prediction, most majority of the bushfires in 2019-2020 season are caused by lightning. However, there are 138 bushfires caused by accidents which take up 14% of the total fires. Majority of the accident-caused bushfires are ignited in March. Besides, 37 bushfires are caused by arsonists. There was a noticeable bushfire at French island in January, which caused serious damage to the koala habitat. Our model predicts its cause is arson. Very few planned burns are predicted after October 2019 which suggests the correctness of our model. It is because fire restrictions normally start in October. 
 
-The prediction in Figure \ref{fig:pred2019} is only an example of using our model to predict the cause of the bushfire. Actually, with the location of the ignition and the corresponding weather conditions, covariates needed in this model can be easily produced, which makes our model adaptable for future fire prediction. 
+Furthermore, we provide a map with 0.2 degree spatial resolution for quick decision making, which is given in Figure \ref{fig:gridpred}. If the investigator observes a new ignition between December and March and the weather condition is similar to the 2019-2020 bushfire season, prediction of the cause can be made immediately by checking Figure \ref{fig:gridpred}. 
 
-Furthermore, we provide a map with 0.2 degree spatial resolution for quick decision making of the cause of the bushfire, which is given in Figure \ref{fig:gridpred}. If the investigator observes a new ignition between December and March and the weather condition is similar to the 2019-2020 bushfire season, prediction of the cause can be made immediately. 
-
-Other than that, Figure \ref{fig:gridpred} also reveals the temporal and spatial characteristics of different causes. Probability of lightning-caused bushfire is almost time and spatial invariant. Bushfires in the east and the west of Victoria will be predicted by our model as lightning-ignited bushfires, which is reasonable. Because those areas are mostly national parks, forests and mountain regions, which could be ignited by lightning. The probability of accident-caused bushfire evolves by time. In October, only the north of Victoria has a high probability of accident-caused bushfire, but high probability region spread to the south over time and reach its peak in March. Probability of arson-caused bushfire outside the Melbourne region will decrease as time goes from October to March. Planned burns will only occur in October and November. It is a very low probability that a bushfire is caused by burning off in the summer of Victoria.
+Other than that, Figure \ref{fig:gridpred} also reveals the temporal and spatial characteristics of different causes. Probability of lightning-caused bushfire is almost time and spatial invariant from October to March. Bushfires start in the east and the west of Victoria are likely to be predicted by our model as lightning-ignited bushfires. The probability of accident-caused bushfire evolves by time. In October, only the north of Victoria has a high probability of accident-caused bushfire, but the high probability region spreads to the south over time and reaches its peak in March. Probability of arson-caused bushfire excluding the Melbourne region decreases as time goes from October to March. Planned burns only occur in October and November.
 
 
 
 
-```{r pred2019, fig.cap="Prediction of 2019-2020 bushfire ignition cause produced by our final model. Majority of the bushfires were caused by lightning. Most of the Planned burns occurred in October. There were two burning off in December 2019 predicted by the model which is abnormal. Arson were mainly in December 2019 and March 2020. The model predicts a lot of accident in March 2020.", fig.height=8}
+```{r pred2019, fig.cap="Prediction of the cause of bushfire ignitions in Victoria during the 2019-2020 season produced by the final model. Majority of the bushfires are caused by lightning. Most of the Planned burns occurred before November. Bushfires caused by arson mainly occur in December 2019 and March 2020. A large propotion of bushfires in March 2020 are predicted to be accident-caused.", fig.height=8}
 
 library(ggthemes)
 library(rnaturalearth)
@@ -527,7 +594,7 @@ temp %>%
 
 
 
-```{r gridpred, fig.cap="A map with 0.2 degree spatial resolution for quick decision making of the cause of the bushfire during a bushfire season. This map is based on the assumption that the long-run weather condition of the new ignition is similar to 2019-2020 Australia bushfire season. Users need to match the location of the observed ignition and the observed date with the map to obtain the prediction for each cause. The darker the region the higher the probability.", fig.height=8, fig.width=7}
+```{r gridpred, fig.cap="A map with 0.2 degree spatial resolution for quick decision making of the cause of the bushfire during a bushfire season. This map is based on the assumption that the long-run weather condition of the new ignition is similar to 2019-2020 Australia bushfire season. Users need to match the location of the observed ignition and the observed date with the map to obtain the prediction for each cause. The darker the region the higher the probability.", fig.height=8, fig.width=6.5}
 lat <- seq(34, 39, 0.2)
 lat <- -lat
 lon <- seq(141, 150, 0.2)
@@ -611,24 +678,24 @@ ggplot() +
 
 ## Fire risk map
 
-Our predictive model can produce the probability of the bushfire ignited by a certain type of sources $P(M|S,\mathcal{F})$, but it doesn't provide us with the risk of the bushfire ignited by that source $P(M,S|\mathcal{F})$, where $M$ is the method of the bushfire ignition, $M \in \{\text{lightning, arson, accident, burning off}\}$, $S$ is the bushfire is ignited and $\mathcal{F}$ is the supplementary information of the bushfire ignition, such as location, time, weather conditions, distribution of vegetation.
+Our predictive model can produce the probability of the bushfire ignited by a certain type of sources $P(M|S,\mathcal{F})$, but it does not provide us with the risk of the bushfire ignited by that source $P(M,S|\mathcal{F})$, where $M$ is the method of the bushfire ignition, $M \in \{\text{lightning, arson, accident, burning off}\}$, $S$ is the bushfire is ignited and $\mathcal{F}$ is the supplementary information of the bushfire ignition, such as location, time, weather conditions, distribution of vegetation.
 
-Knowing $P(M|S,\mathcal{F})$ is useful for bushfire investigation but is not particularly helpful for predicting the risk of the bushfire ignition. In general, decision makers want to know the risk of the bushfire ignited by a certain method $P(M,S|\mathcal{F})$ or the overall risk $P(S|\mathcal{F})$.
+Knowing $P(M|S,\mathcal{F})$ is useful for bushfire investigation but is not particularly helpful for bushfire management. In general, decision makers want to know the overall risk $P(S|\mathcal{F})$ and the risk of the bushfire ignited by a certain method $P(M,S|\mathcal{F})$.
 
 A possible method to obtain $P(M,S|\mathcal{F})$ is by using the decomposition of the conditional probability:
 
 $$P(M,S|\mathcal{F}) = P(M|S,\mathcal{F})P(S|\mathcal{F})$$
-We will demonstrate how this works by using a simple method to estimate $P(S|\mathcal{F})$ and eventually yield $P(M,S|\mathcal{F})$.
+We will demonstrate how this works by using a simple method to estimate $P(S|\mathcal{F})$ and eventually yield $P(M,S|\mathcal{F})$ in the rest of the section.
 
-If we only consider month $MON$ and location $L$ in $\mathcal{F}$, a reasonable estimator of
-the probability of the bushfire ignited in a region $l$ in a certain month $mon$ is the relative frequency calculated from historical records:
+If we only consider month $MON$ and location $L$ as $\mathcal{F}$, a reasonable estimator of
+the probability of at least one bushfire ignited in a region $l$ in a certain month $mon$ is the relative frequency calculated from historical records:
 
 $$P(S|MON = mon, L = l) = \frac{\sum_{i=1}^{N}I(\text{bushfire ignition occurred in month } mon, \text{year } y_i)}{N}$$, where $N$ is the number of years in the historical records and $y_i$ is the $i$ th year of the historical records.
 
 
-Figure \ref{fig:mcsim} shows the estimate of $P(S|MON = mon, L = l)$ using 20 years historical records. If we assume the weather conditions are similar to 2019-2020 bushfire season, $P(M|S,MON = mon, L = l$ can be produced by our predictive model and the joint probability $P(L,S|\mathcal{F})$ can then be calculated. Figure \ref{fig:posterior} shows the final outcome.
+Figure \ref{fig:mcsim} shows the estimate of $P(S|MON = mon, L = l)$ using 20 years historical records. If we assume the weather conditions are similar to 2019-2020 bushfire season, $P(M|S,MON = mon, L = l)$ can be produced by our predictive model and the joint probability $P(L,S|\mathcal{F})$ can then be calculated. Figure \ref{fig:posterior} shows the final outcome. From the result, we notice that January is the most dangerous month in terms of lightning-caused bushfire and the east of the Victoria is the high risk area. The risk of arson-caused bushfire is concentrated in a relatively small region near Melbourne.  
 
-```{r mcsim, fig.cap="A map of the relative frequency of the bushfire ignition occurred in a region in the past 20 years."}
+```{r mcsim, fig.cap="A map of the relative frequency of the bushfire ignition occurred in a region in the past 20 years. It is a estiamte of the probability of at least one bushfire ignition occur in a given region and a given month."}
  set.seed(10086)
   
   # Read in training data
@@ -771,7 +838,7 @@ rect_list_st <- rect_list
 
 ```
 
-```{r posterior, fig.cap="The joint probability of bushfire ignited by different methods.", fig.height=8, fig.width=6.5}
+```{r posterior, fig.cap="The joint probability of bushfire ignited by different methods in different months. The east of Victoria has the highest risk of lightning-caused bushfire in January. Arson risk is concentrated around Melbourne.", fig.height=8, fig.width=6.5}
 lat <- seq(34, 39, 0.2)
 lat <- -lat
 lon <- seq(141, 150, 0.2)

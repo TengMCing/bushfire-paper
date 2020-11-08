@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  8 NOV 2020 11:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  8 NOV 2020 14:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1198,104 +1198,103 @@ Chapter 5.
 [37
 
 ] [38]
-<thesis_files/figure-latex/limeex-1.pdf, id=667, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/limeex-1.pdf, id=668, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/limeex-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/limeex-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/limeex-1.pdf  used on input 
-line 479.
+line 514.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 479--480
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 514--515
  [][] 
  []
 
 LaTeX Font Info:    Font shape `T1/fvm/m/it' in size <10.95> not available
-(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 480.
+(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 515.
 LaTeX Font Info:    Font shape `T1/fvm/m/sl' will be
-(Font)              scaled to size 9.85492pt on input line 480.
-[39] [40 <./thesis_files/figure-latex/limeex-1.pdf>]
-<thesis_files/figure-latex/errormap-1.pdf, id=698, 454.69875pt x 274.02374pt>
+(Font)              scaled to size 9.85492pt on input line 515.
+[39] [40 <./thesis_files/figure-latex/limeex-1.pdf>] [41]
+<thesis_files/figure-latex/errormap-1.pdf, id=704, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/errormap-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/errormap-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/errormap-1.pdf  used on inpu
-t line 558.
+t line 593.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 558--559
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 593--594
  [][] 
  []
 
-[41]
-<thesis_files/figure-latex/limeexvar-1.pdf, id=707, 454.69875pt x 274.02374pt>
+[42]
+<thesis_files/figure-latex/limeexvar-1.pdf, id=714, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/limeexvar-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/limeexvar-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/limeexvar-1.pdf  used on inp
-ut line 568.
+ut line 603.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 568--569
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 603--604
  [][] 
  []
 
-[42 <./thesis_files/figure-latex/errormap-1.pdf>] [43 <./thesis_files/figure-la
+[43 <./thesis_files/figure-latex/errormap-1.pdf>] [44 <./thesis_files/figure-la
 tex/limeexvar-1.pdf>]
-<thesis_files/figure-latex/pred2019-1.pdf, id=737, 454.69875pt x 578.16pt>
+<thesis_files/figure-latex/pred2019-1.pdf, id=743, 454.69875pt x 578.16pt>
 File: thesis_files/figure-latex/pred2019-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/pred2019-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/pred2019-1.pdf  used on inpu
-t line 585.
+t line 618.
 (pdftex.def)             Requested size: 454.69763pt x 578.15858pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 585--586
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 618--619
  [][] 
  []
 
-<thesis_files/figure-latex/gridpred-1.pdf, id=738, 505.89pt x 578.16pt>
+<thesis_files/figure-latex/gridpred-1.pdf, id=744, 469.755pt x 578.16pt>
 File: thesis_files/figure-latex/gridpred-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/gridpred-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/gridpred-1.pdf  used on inpu
-t line 607.
-(pdftex.def)             Requested size: 505.88875pt x 578.15858pt.
+t line 640.
+(pdftex.def)             Requested size: 469.75386pt x 578.15858pt.
 
-Overfull \hbox (79.0974pt too wide) in paragraph at lines 607--608
+Overfull \hbox (42.96251pt too wide) in paragraph at lines 640--641
  [][] 
  []
 
-[44] [45 <./thesis_files/figure-latex/pred2019-1.pdf>] [46 <./thesis_files/figu
-re-latex/gridpred-1.pdf>]
-<thesis_files/figure-latex/mcsim-1.pdf, id=771, 454.69875pt x 274.02374pt>
+[45] [46 <./thesis_files/figure-latex/pred2019-1.pdf>] [47 <./thesis_files/figu
+re-latex/gridpred-1.pdf>] [48]
+<thesis_files/figure-latex/mcsim-1.pdf, id=783, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/mcsim-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/mcsim-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/mcsim-1.pdf  used on input l
-ine 632.
+ine 665.
 (pdftex.def)             Requested size: 454.69763pt x 274.02307pt.
 
-Overfull \hbox (27.90628pt too wide) in paragraph at lines 632--633
+Overfull \hbox (27.90628pt too wide) in paragraph at lines 665--666
  [][] 
  []
 
-[47]
-<thesis_files/figure-latex/posterior-1.pdf, id=778, 469.755pt x 578.16pt>
+<thesis_files/figure-latex/posterior-1.pdf, id=784, 469.755pt x 578.16pt>
 File: thesis_files/figure-latex/posterior-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/posterior-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/posterior-1.pdf  used on inp
-ut line 638.
+ut line 671.
 (pdftex.def)             Requested size: 469.75386pt x 578.15858pt.
 
-Overfull \hbox (42.96251pt too wide) in paragraph at lines 638--639
+Overfull \hbox (42.96251pt too wide) in paragraph at lines 671--672
  [][] 
  []
 
-[48 <./thesis_files/figure-latex/mcsim-1.pdf>] [49 <./thesis_files/figure-latex
-/posterior-1.pdf>] [50
-
-]
+[49 <./thesis_files/figure-latex/mcsim-1.pdf>] [50 <./thesis_files/figure-latex
+/posterior-1.pdf>]
 Chapter 6.
-[51] [52]pdfTeX warning (ext4): destination with the same identifier (name{fire
--risk-map}) has been already used, duplicate ignored
+[51
+
+] [52]pdfTeX warning (ext4): destination with the same identifier (name{fire-ri
+sk-map}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.677 ...tion{Fire risk map}\label{fire-risk-map}}
+l.710 ...tion{Fire risk map}\label{fire-risk-map}}
                                                    [53] [54
 
 ]
@@ -1305,17 +1304,17 @@ Appendix A.
 ]
 Appendix B.
 [59]
-<figures/clustering_tuning_1.jpeg, id=872, 722.7pt x 505.89pt>
+<figures/clustering_tuning_1.jpeg, id=874, 722.7pt x 505.89pt>
 File: figures/clustering_tuning_1.jpeg Graphic file (type jpg)
 <use figures/clustering_tuning_1.jpeg>
 Package pdftex.def Info: figures/clustering_tuning_1.jpeg  used on input line 8
-27.
+60.
 (pdftex.def)             Requested size: 426.79135pt x 298.75812pt.
-<figures/clustering_tuning_2.jpeg, id=873, 722.7pt x 505.89pt>
+<figures/clustering_tuning_2.jpeg, id=875, 722.7pt x 505.89pt>
 File: figures/clustering_tuning_2.jpeg Graphic file (type jpg)
 <use figures/clustering_tuning_2.jpeg>
 Package pdftex.def Info: figures/clustering_tuning_2.jpeg  used on input line 8
-31.
+64.
 (pdftex.def)             Requested size: 426.79135pt x 298.75812pt.
 [60 <./figures/clustering_tuning_1.jpeg>] [61 <./figures/clustering_tuning_2.jp
 eg>] [62
@@ -1325,17 +1324,17 @@ Appendix C.
 [63] [64]
 Appendix D.
 
-Overfull \hbox (2.51488pt too wide) in paragraph at lines 931--942
+Overfull \hbox (2.51488pt too wide) in paragraph at lines 964--975
  [][] 
  []
 
 
-Overfull \hbox (2.51488pt too wide) in paragraph at lines 948--959
+Overfull \hbox (2.51488pt too wide) in paragraph at lines 981--992
  [][] 
  []
 
 
-Overfull \hbox (2.51488pt too wide) in paragraph at lines 965--976
+Overfull \hbox (2.51488pt too wide) in paragraph at lines 998--1009
  [][] 
  []
 
@@ -1349,7 +1348,7 @@ Appendix E.
 
 ] [69] [70] [71] [72] [73] [74] [75] (./thesis.aux)
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 5D55DE5FE35520806E91F01A75370CE4;2599.
+(rerunfilecheck)             Checksum: E66370E45C487252221A74010EE6992A;2599.
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -1362,11 +1361,11 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 19718 strings out of 481466
- 349436 string characters out of 5919837
- 1128268 words of memory out of 5000000
- 35520 multiletter control sequences out of 15000+600000
- 639195 words of font info for 287 fonts, out of 8000000 for 9000
+ 19727 strings out of 481466
+ 349532 string characters out of 5919837
+ 1129637 words of memory out of 5000000
+ 35521 multiletter control sequences out of 15000+600000
+ 639583 words of font info for 292 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  80i,12n,86p,1677b,15005s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/en
@@ -1385,10 +1384,10 @@ ng/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb><c:/
 Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/upl
 r8a.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/
 palatino/uplri8a.pfb>
-Output written on thesis.pdf (79 pages, 5486034 bytes).
+Output written on thesis.pdf (79 pages, 5487354 bytes).
 PDF statistics:
- 1120 PDF objects out of 1200 (max. 8388607)
- 977 compressed objects within 10 object streams
- 302 named destinations out of 1000 (max. 500000)
+ 1122 PDF objects out of 1200 (max. 8388607)
+ 979 compressed objects within 10 object streams
+ 303 named destinations out of 1000 (max. 500000)
  38782 words of extra memory for PDF output out of 42996 (max. 10000000)
 
