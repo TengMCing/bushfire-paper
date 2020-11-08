@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  8 NOV 2020 10:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  8 NOV 2020 11:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1185,7 +1185,7 @@ Overfull \hbox (28.50853pt too wide) in paragraph at lines 429--430
  [][] 
  []
 
-<figures/fire_mov.jpeg, id=594, 1011.78pt x 1011.78pt>
+<figures/fire_mov.jpeg, id=592, 1011.78pt x 1011.78pt>
 File: figures/fire_mov.jpeg Graphic file (type jpg)
 <use figures/fire_mov.jpeg>
 Package pdftex.def Info: figures/fire_mov.jpeg  used on input line 437.
@@ -1198,7 +1198,7 @@ Chapter 5.
 [37
 
 ] [38]
-<thesis_files/figure-latex/limeex-1.pdf, id=669, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/limeex-1.pdf, id=667, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/limeex-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/limeex-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/limeex-1.pdf  used on input 
@@ -1214,7 +1214,7 @@ LaTeX Font Info:    Font shape `T1/fvm/m/it' in size <10.95> not available
 LaTeX Font Info:    Font shape `T1/fvm/m/sl' will be
 (Font)              scaled to size 9.85492pt on input line 480.
 [39] [40 <./thesis_files/figure-latex/limeex-1.pdf>]
-<thesis_files/figure-latex/errormap-1.pdf, id=700, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/errormap-1.pdf, id=698, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/errormap-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/errormap-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/errormap-1.pdf  used on inpu
@@ -1226,7 +1226,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 558--559
  []
 
 [41]
-<thesis_files/figure-latex/limeexvar-1.pdf, id=709, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/limeexvar-1.pdf, id=707, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/limeexvar-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/limeexvar-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/limeexvar-1.pdf  used on inp
@@ -1239,7 +1239,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 568--569
 
 [42 <./thesis_files/figure-latex/errormap-1.pdf>] [43 <./thesis_files/figure-la
 tex/limeexvar-1.pdf>]
-<thesis_files/figure-latex/pred2019-1.pdf, id=739, 454.69875pt x 578.16pt>
+<thesis_files/figure-latex/pred2019-1.pdf, id=737, 454.69875pt x 578.16pt>
 File: thesis_files/figure-latex/pred2019-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/pred2019-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/pred2019-1.pdf  used on inpu
@@ -1250,7 +1250,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 585--586
  [][] 
  []
 
-<thesis_files/figure-latex/gridpred-1.pdf, id=740, 505.89pt x 578.16pt>
+<thesis_files/figure-latex/gridpred-1.pdf, id=738, 505.89pt x 578.16pt>
 File: thesis_files/figure-latex/gridpred-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/gridpred-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/gridpred-1.pdf  used on inpu
@@ -1263,7 +1263,7 @@ Overfull \hbox (79.0974pt too wide) in paragraph at lines 607--608
 
 [44] [45 <./thesis_files/figure-latex/pred2019-1.pdf>] [46 <./thesis_files/figu
 re-latex/gridpred-1.pdf>]
-<thesis_files/figure-latex/mcsim-1.pdf, id=773, 454.69875pt x 274.02374pt>
+<thesis_files/figure-latex/mcsim-1.pdf, id=771, 454.69875pt x 274.02374pt>
 File: thesis_files/figure-latex/mcsim-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/mcsim-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/mcsim-1.pdf  used on input l
@@ -1275,7 +1275,7 @@ Overfull \hbox (27.90628pt too wide) in paragraph at lines 632--633
  []
 
 [47]
-<thesis_files/figure-latex/posterior-1.pdf, id=780, 469.755pt x 578.16pt>
+<thesis_files/figure-latex/posterior-1.pdf, id=778, 469.755pt x 578.16pt>
 File: thesis_files/figure-latex/posterior-1.pdf Graphic file (type pdf)
 <use thesis_files/figure-latex/posterior-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/posterior-1.pdf  used on inp
@@ -1305,13 +1305,13 @@ Appendix A.
 ]
 Appendix B.
 [59]
-<figures/clustering_tuning_1.jpeg, id=874, 722.7pt x 505.89pt>
+<figures/clustering_tuning_1.jpeg, id=872, 722.7pt x 505.89pt>
 File: figures/clustering_tuning_1.jpeg Graphic file (type jpg)
 <use figures/clustering_tuning_1.jpeg>
 Package pdftex.def Info: figures/clustering_tuning_1.jpeg  used on input line 8
 27.
 (pdftex.def)             Requested size: 426.79135pt x 298.75812pt.
-<figures/clustering_tuning_2.jpeg, id=875, 722.7pt x 505.89pt>
+<figures/clustering_tuning_2.jpeg, id=873, 722.7pt x 505.89pt>
 File: figures/clustering_tuning_2.jpeg Graphic file (type jpg)
 <use figures/clustering_tuning_2.jpeg>
 Package pdftex.def Info: figures/clustering_tuning_2.jpeg  used on input line 8
@@ -1362,11 +1362,11 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 ### semi simple group (level 1) entered at line 102 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 19721 strings out of 481466
- 349466 string characters out of 5919837
- 1128419 words of memory out of 5000000
+ 19718 strings out of 481466
+ 349436 string characters out of 5919837
+ 1128268 words of memory out of 5000000
  35520 multiletter control sequences out of 15000+600000
- 639350 words of font info for 289 fonts, out of 8000000 for 9000
+ 639195 words of font info for 287 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  80i,12n,86p,1677b,15005s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/en
@@ -1385,10 +1385,10 @@ ng/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb><c:/
 Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/upl
 r8a.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/
 palatino/uplri8a.pfb>
-Output written on thesis.pdf (79 pages, 5485968 bytes).
+Output written on thesis.pdf (79 pages, 5486034 bytes).
 PDF statistics:
- 1122 PDF objects out of 1200 (max. 8388607)
- 978 compressed objects within 10 object streams
+ 1120 PDF objects out of 1200 (max. 8388607)
+ 977 compressed objects within 10 object streams
  302 named destinations out of 1000 (max. 500000)
  38782 words of extra memory for PDF output out of 42996 (max. 10000000)
 

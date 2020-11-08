@@ -7,7 +7,7 @@ knit: "bookdown::render_book"
 
 ## Overview of the hotspot data
 
-The hotspot data contained 75936 observations (shown in Figure \ref{fig:rawhotspot}). There is a large concentration of hotspots in the east of Victoria which points to the large scale effect of the fires. Generally, though hotspots are dispersed throughout the state, in many separated small clumps. To determine the locations where the bushfires started, these isolated hotspots can be easily labelled with a cluster id, and the first time that a hotspot appears in the region would be considered the ignition point and time. Zooming in to the denser hotspot regions sees some concentrated clusters, but is generally much harder to tease apart into unique fires. Spatio-temporal clustering will be developed which uses the first appearance of a hotspot, and  spatial distance from other hotspots to group the hotspots into clusters and identify the ignition point and time. 
+The hotspot data contains 75936 observations (shown in Figure \ref{fig:rawhotspot}). There is a large concentration of hotspots in the east of Victoria which points to the large scale effect of the fires. Generally, though hotspots are dispersed throughout the state, in many separated small clumps. To determine the locations where the bushfires started, these isolated hotspots can be easily labelled with a cluster id, and the first time that a hotspot appears in the region would be considered the ignition point and time. Zooming in to the denser hotspot regions sees some concentrated clusters, but is generally much harder to tease apart into unique fires. Spatio-temporal clustering will be developed which uses the first appearance of a hotspot, and  spatial distance from other hotspots to group the hotspots into clusters and identify the ignition point and time. 
 
 
 ```{r rawhotspot, fig.cap="Distribution of 75936 satellite hotspots data in Victoria from October 2019 to March 2020. Most of the hotspots are observed in the east of Victoria. Hotspots data are difficult to use in ignition analysis.", dev = "png", dpi = 600}
@@ -56,7 +56,11 @@ How to link clusters at different timestamps
 Some clustering algorithms for spatio-temporal data exist but require modifications to work for this problem. There are six conditions that the clustering algorithm needs to satisfy, (1) it does not require any scaling of the temporal dimension, (2) it iteratively runs in the positive direction of the timeline to mimic the bushfire dynamics, (3) hotspots at later timestamps have no impact on the clustering result of hotspots observed earlier, (4) it keep bushfires separate even they are connected at later timestamps, (5) it is a time-efficient and memory-efficient algorithm that is capable for the personal computer and (6) all its parameters can be tuned via diagnostic tools. These form the basis of our own algorithm for hotspots clustering. 
 
 The input for the algorithm is the hotspot data with 4 attributes: unique identifier, longitude, latitude, and time. The output is a list of labels describing the corresponding clusters of hotspots. There are four steps: (1) slice the temporal dimension, (2) cluster hotspots spatially, (3) broadcast and update the membership label and (4) compute ignition locations.
-These are described in details in the following sections.
+These are described in details in the following sections. 
+
+<!-- Figure \ref{fig:clusterdia} is the diagram of this algorithm. -->
+
+<!-- ![The diagram of the clustering algorithm. It consists of two main parts and 4 steps. \label{fig:clusterdia}](figures/clusteringalgo.png){width=550px height=450px} -->
 
 ### Slice the temporal dimension
 
@@ -64,21 +68,21 @@ This step uses the parameter named $ActiveTime$, which controls the size of the 
 
 Given a fixed value of $ActiveTime$ and the length of the time frame $T$, the algorithm will slice the timeline into several intervals, 
 
-$$\boldsymbol{S}_t = [max(1, t - ActiveTime), t], t = 1,2,...,T$$, 
+$$\boldsymbol{S}_t = [max(1, t - ActiveTime), t], t = 1,2,...,T$$ 
 
-\noindent where $T$ and $t$ have the same unit as $ActiveTime$. 
+\noindent ,where $T$ and $t$ have the same unit as $ActiveTime$. 
 For example, if we have 48 hours of data and we set $ActiveTime = 24~hours$, the algorithm will produce 48 intervals, $\boldsymbol{S}_1 = [1,1],\boldsymbol{S}_2 =[1,2],...,\boldsymbol{S}_{25}=[1,25],\boldsymbol{S}_{26}=[2,26],...,\boldsymbol{S}_{47} = [23,47],\boldsymbol{S}_{48} = [24,48]$.
 
 ### Cluster hotspots spatially
 
 The spatial clustering is computed within a time interval. There is one parameter, $AdjDist$, which represents the potential distance a fire can spread with respect to the temporal resolution of the data. For example, if $AdjDist = 3km$ and the temporal resolution of the data is 10-minute, then the potential speed of the bushfire is $3km/10min = 18km/h$. Similarly, in @ester1996density, a radius-based parameter $\epsilon$ is defined to connect neighbouring points.
 
-Given a certain value of $AdjDist$ and the interval $\boldsymbol{S}_t$, conceptually the algorithm will:
+Given a fixed value of $AdjDist$ and the interval $\boldsymbol{S}_t$, conceptually the algorithm will:
 
 (a) Connect each pair of hotspots $h_i$ and $h_j$ if the proximity from $h_i$ to $h_j$ is less or equal to $AdjDist$, where $h_i$ is the $i$th hotspot in the interval $\boldsymbol{S}_t$ and $h_j$ is the $j$th hotspot in the interval $\boldsymbol{S}_t$.
-(b) A connected component is called $\boldsymbol{M}_{t,n}$, where $n$ is less than the total number of components in the interval $\boldsymbol{S}_t$. Hotspots in the same component $\boldsymbol{M}_{t,p}$ will be assigned with the same unique membership label, where $\boldsymbol{M}_{t,p}$ is the $p$th component in $\boldsymbol{S}_t$.
+(b) A connected component is called $\boldsymbol{M}_{t,n}, 1\leq n\leq N$, where $N$ is the total number of components in the interval $\boldsymbol{S}_t$. Hotspots in the same component $\boldsymbol{M}_{t,p}$ will be assigned with the same unique membership label, where $\boldsymbol{M}_{t,p}$ is the $p$th component in $\boldsymbol{S}_t$.
 
-The practical implementation of the algorithm involves using a modified version of the breadth-first search algorithm to reduce the memory complexity of the algorithm from $O(N^2)$ to $O(N)$. Details information about this can be found in the Appendix.
+The practical implementation of the clustering algorithm involves using a modified version of the breadth-first search algorithm to reduce the memory complexity of the clustering algorithm from $O(N^2)$ to $O(N)$. Details information about this can be found in the Appendix.
 
 <!-- (a) Append a randomly selected hotspot $h_i$ to a empty list $\boldsymbol{L}$, where $h_i$ was the $i$th hotspot in the segment $\boldsymbol{S}_t$. -->
 <!-- (b) Let pointer $\boldsymbol{P}$ point to the first element of the list $\boldsymbol{L}$. -->
@@ -93,7 +97,7 @@ The practical implementation of the algorithm involves using a modified version 
 
 With current clustering results, the next step is to broadcast the clustering results from earlier intervals to update the membership label iteratively. 
 
-This step starts from the second interval $\boldsymbol{S}_2$ till the interval $\boldsymbol{S}_T$. Given the interval $\boldsymbol{S}_t$, the algorithm will:
+This step starts from the second interval $\boldsymbol{S}_2$ till the last interval $\boldsymbol{S}_T$. Given the interval $\boldsymbol{S}_t$, the algorithm will:
 
 (a) If a hotspot $h$ belongs to both $\boldsymbol{S}_{t-1}$ and $\boldsymbol{S}_t$, it will succeed its membership label from $\boldsymbol{S}_{t-1}$. We call these hotspots $H_s = \{h_{s,1}, h_{s,2}, ...\}$.
 
@@ -119,7 +123,7 @@ In terms of condition (1), the algorithm doesn't depend on the scaling of the te
 
 The clustering results by applying our algorithm on the hotspots data in Victoria is shown in Figure \ref{fig:afterhotspot}. From the distribution of ignition points (Figure \ref{fig:afterhotspot}), we do not observe too many overlapped points. This is consistent with the fact that the environment around the ignition point is often severely damaged and is less likely to be ignited again. Comparing to the hotspots data (Figure \ref{fig:rawhotspot}), ignition points can provide us with direct information of ignition locations and ignition time. This is crucial for our research on the cause of bushfires.
 
-(ref:afterhotspotscap) Distribution of 1022 ignitions in Victoria from October 2019 to March 2020 produced by our spatio-temporal clustering algorithm.  Most of the ignitions are distinct spatially. Combined with (Figure \ref{fig:rawhotspot}), It suggests the number of ignition has a positive relationship with the severity of the bushfire in an area.
+(ref:afterhotspotscap) Distribution of 1022 ignitions in Victoria from October 2019 to March 2020 produced by our spatio-temporal clustering algorithm.  Most of the ignitions are distinct spatially.
 
 ```{r afterhotspot, fig.cap="(ref:afterhotspotscap)", dev = "png", dpi = 600}
 VIC_hotspots_after_clustering <- read_csv("data/VIC_hotspots_after_clustering.csv")
@@ -151,7 +155,7 @@ scatter3D(x = VIC_hotspots_after_clustering$lon, y = VIC_hotspots_after_clusteri
 ```
 
 
-By using the algorithm, we can also reconstruct the bushfire dynamics to study the bushfire behaviour. Figure \ref{fig:mov} shows two fires and their lifetime movement as produced by the algorithm. From this plot, we can diagnose several features of the algorithm. First, the algorithm can provide the ignition, movement, coverage and intensity of the bushfire. Second, the parameter $AcitveTime$ is working in the algorithm. At 01:00 am 31 December 2019, there are missing values but the algorithm continues reconstructing the bushfire. Finally, the bushfire reconstructed by this algorithm can have arbitrary size and shape and multiple branches far away from each other. This feature is essential for the correctness of the algorithm. 
+By using the algorithm, we can also reconstruct the bushfire dynamics to study the bushfire behaviour. Figure \ref{fig:mov} shows two fires and their lifetime movement as produced by the algorithm. From this plot, we can diagnose several features of the algorithm. First, the algorithm can provide the ignition, movement, coverage and intensity of the bushfire. Second, the parameter $AcitveTime$ is working in the algorithm. At 01:00 am 31 December 2019, there are missing values but the algorithm continues reconstructing the bushfire. Finally, bushfires reconstructed by this algorithm can have arbitrary size and shape and multiple branches far away from each other. This feature is essential for the correctness of the algorithm. 
 
 ![The snapshots of hotspots show the bushfire behaviour of bushfire "390" and bushfire "395", which is two clusters from the results of the clustering algorithm.  Fire "390" started at 01:00 am 29 December 2019 and fire "395" started at 07:00 am 29 Devember 2019. The grey shadow behinds the hotspots is the coverage of the bushfire. The darker the colour of the hotspot, the higher power it contains. Missing hotspots data at 01:00 am 31 December 2019 suggests that there was smoke above that area, but it does not trouble the algorithm. Moreover, the split of hotspots within a bushfire shows that the algorithm can tackle bushfire with fronts in differnet directions. \label{fig:mov}](figures/fire_mov.jpeg){width=550px height=495px}
 
@@ -165,4 +169,4 @@ By using the algorithm, we can also reconstruct the bushfire dynamics to study t
 
 ## Data integration for ignition points in 2019-2020
 
-We discuss the data integration for historical fire origins in the data processing section, but we haven't outline the data integration for the clustering results. The only difference will be the source of the wind speed data, other covariates such as vegetation factors, temperature and rainfall will follow the same procedure to join with the ignition points as provided in the data processing section. In terms of the wind speed, we use the daily ASOS wind speed data from the nearest station for each ignition points. The wind speed will then be converted from mph to m/s. The end result of this step is a dataset with same covariates as the dataset used for modelling fitting.
+We discuss the data integration for historical fire origins in the data processing section, but we haven't outline the data integration for the clustering results. The only difference is the source of the wind speed data, other covariates such as vegetation factors, temperature and rainfall follow the same procedure to join with the ignition points as provided in the data processing section. In terms of the wind speed, we use the daily ASOS wind speed data from the nearest station for each ignition points. We then convert the wind speed data from mph to m/s. The end result of this step is a dataset with same covariates as the dataset used for model fitting.
