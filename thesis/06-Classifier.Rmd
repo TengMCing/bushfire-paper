@@ -7,15 +7,15 @@ knit: "bookdown::render_book"
 
 ## Model description
 
-We use a random forest model to classify historical bushfire ignitions. Random forest [@breiman2001random] is an ensemble learning method for building tree-based prediction models. It is perhaps one of the most regularly used black-box machine learning models in various fields [@boulesteix2012overview; @heung2016overview]. It generates a certain number of decision trees by using the bootstrap aggregating technique and take the majority vote in the case of decision trees as the prediction. In contrast to the decision tree, random forest model can potentially reduce overfitting of the training set and have a built-in variable selection mechanism.
+We use a random forest model to classify historical bushfire ignitions. A random forest [@breiman2001random] is an ensemble learning method for building tree-based prediction models. It is perhaps one of the most regularly used machine learning models in various fields [@boulesteix2012overview; @heung2016overview]. It combines the predictions of many decision trees constructed using the bootstrapping the sample and randomly selecting variables/features at each tree node, takes the majority vote as the forest prediction. A random forest model guards against overfitting of the training set by only using out-of-bag predictions from each tree.
 
-Other candidate models we test in this research are multinomial logit model [@berkson1944application], generalised additive model (GAM) multinomial logistic regression [@yee1996vector] and XGBoost [@chen2016xgboost]. 
+Other candidate models we examine in this research are the multinomial logit model [@berkson1944application], the generalised additive model (GAM) multinomial logistic regression [@yee1996vector] and the XGBoost [@chen2016xgboost]. 
 
-Multinomial logit model [@berkson1944application] is the generalization of the logistic regression to multi-class problems, which is commonly used as the baseline model in predictive modelling. 
+A multinomial logit model [@berkson1944application] is a generalization of the logistic regression to multi-class problems, which is commonly used as the baseline model in predictive modelling. 
 
-Generalised additive model [@hastie1990generalized] is a generalised linear model with additive smooths terms in the link function and GAM multinomial logistic regression [@yee1996vector] is its extension to multi-class problems. Generalised additive model is relatively popular in the field of bushfire ignition analysis. Some examples are @bates2018exploratory, @read2018lightning and @zhang2017wildfire. 
+A generalised additive model [@hastie1990generalized] is a generalised linear model with additive smooths terms in the link function and GAM multinomial logistic regression [@yee1996vector] is its extension to multi-class problems. Generalised additive model is relatively popular in the field of bushfire ignition analysis. Some examples are @bates2018exploratory, @read2018lightning and @zhang2017wildfire. 
 
-XGBoost [@chen2016xgboost] is an open-source distributed gradient boosting library. It provides a parallel tree boosting to solve complex regression and classification problems efficiently. Gradient boosting [@gboost] is an important technique in machine learning, which belongs to the class of boosting algorithms. It is a method to build a strong learner, which often referred to as an ensemble model, by aggregating a set of week learners iteratively. Numerous competitions, for example, the Higgs boson machine learning challenge [@adam2015higgs] and the Global energy forecasting competition 2012 [@hong2014global], have shown that XGBoost is one of the dominant methods in building prediction models on structured data.
+A XGBoost [@chen2016xgboost] is an open-source distributed gradient boosting library. It provides a parallel tree boosting to solve complex regression and classification problems efficiently. Gradient boosting [@gboost] is an important technique in machine learning, which belongs to the class of boosting algorithms. It is a method to build a strong learner, which often referred to as an ensemble model, by aggregating a set of week learners iteratively. Numerous competitions, for example, the Higgs boson machine learning challenge [@adam2015higgs] and the Global energy forecasting competition 2012 [@hong2014global], have shown that XGBoost is one of the dominant methods in building prediction models on structured data.
 
 
 In this research, the model building process includes feature selection, hyperparameter tuning and candidate model selection. These are described in details in the following sections. 
@@ -30,7 +30,7 @@ In terms of the train-test split, we randomly select 80% of total data as the tr
 
 In feature selection, a reasonable principle is to select the most important features. Concerning the variable importance, @strobl2007bias in their research has shown that the global variable importance, particularly random forest variable importance, can be bias and misleading. Alternatively, unlike the global variable importance provided by many other packages, the package `lime` [@R-lime] provides the local variable importance under the assumption that machine learning models are linear at the local scope. 
 
-Given an observation, `lime` randomly samples data points around the predictors, and obtains their predictions by passing them into the black-box model. It then fits a simple model, typically a ridge regression [@hoerl1970ridge] or a lasso regression [@tibshirani1996regression], on these data points. Due to the characteristic of the lasso regression, it is possible to select the most important variables based on the regularization path. By repeating this process for large enough observations, variables being frequently selected are the most important variables. Figure \ref{fig:limeex} is an example of the result produced by `lime`.
+Given an observation, `lime` randomly samples data points around the predictors, and obtains their predictions by passing them into the machine learning model. It then fits a simple model, typically a ridge regression [@hoerl1970ridge] or a lasso regression [@tibshirani1996regression], on these data points. Due to the characteristic of the lasso regression, it is possible to select the most important variables based on the regularization path. By repeating this process for large enough observations, variables being frequently selected are the most important variables. Figure \ref{fig:limeex} is an example of the result produced by `lime`.
 
 The strategic used in this research to perform feature selection is first fitting and tuning a full model with all covariates using 3-fold cross-validation grid searching controlled by `caret` [@R-caret], then passing in 100 observations for `lime` to find the top 10 most important variables. The final set of variables selected for each candidate model is given in Table \ref{tab:limemost}. Table \ref{tab:covshort} gives the detail information about each variable. From the result, we find the characteristics of different candidate models in ignition method classification. Simpler models, such as the multinomial logistic regression model and the GAM multinomial logistic regression model are preferred to use climate covariates, while the random forest model and the XGBoost model rely on ignition location and anthropogenic covariates.
 
@@ -237,7 +237,7 @@ data.frame(model = c("Multinomial logistic regression", "GAM multinomial logisti
                booktabs = T)
 ```
 
-The overall accuracy of our model is 74.95%. The confusion matrix is shown in Table \ref{tab:conrf}. It suggests that lightning-caused and accident-caused ignitions can be easily classified from other causes. 77.9% of accident-caused and 90.5% of lightning-caused ignitions are correctly recognised by the model, which is a reliable result. Meanwhile, the model is not very confident with arson (53.8%) and burning off (23.5%). 
+The overall accuracy of our model is 74.95%. The confusion matrix is shown in Table \ref{tab:conrf}. It suggests that lightning-caused and accident-caused ignitions can be easily classified from other causes. 77.9% of accident-caused and 90.5% of lightning-caused ignitions are correctly recognised by the model, which is a reliable result. Meanwhile, the model is not very confident with arson (53.8%) and burning off (23.5%). An error rate map for model diagnostic can be found in the Appendix.
 
 
 ```{r}
@@ -264,136 +264,7 @@ data.frame(Lightning = c(703, 51, 18, 5, 777),
 
 <!-- ![The guided tour with LDA projection pursuit indx shows that arson-caused ignitions (green) can not be classified from other causes. \label{fig:ldaarson}](figures/lda_guide_tour_arson.jpeg){width=275 height=275} -->
 
-In order to explore the prediction performance of the final model on the test set, we plot a error rate map to reveal the spatial patterns. The plot is given in Figure \ref{fig:errormap}. From the error rate map, we can observe that our model correctly predicts most of the cases in the east of Victoria, which is the mountain area. However, it performs worse near the Melbourne region. Besides, our model does not fit well on the boundary of the north-west of Victoria.
 
-```{r errormap, fig.cap="The spatial patterns of the error rate of the final model. We omit regions with less than 5 bushfires occurred. Our model makes very few mistakes in the east of Victoria but has a higher error rate near Melbourne."}
-  set.seed(10086)
-  
-  # Read in training data
-  training <- read_csv("data/training.csv")
-  
-  training <- training %>%
-    filter(!CAUSE %in% c("BURNING BUILDING",
-                         "WASTE DISPOSAL, INDUSTRIAL, SAWMILL, TIP",
-                         "WASTE DISPOSAL, DOMESTIC",
-                         "BURNING VEHICLE, MACHINE",
-                         "BURNING BUILDING")) %>%
-    filter(new_cause != "other") %>%
-    filter(new_cause != "relight")
-  
-  
-  training <- select(training, -c(EVENTID:FIRE_NUM), -id, -CAUSE, -FOREST, -FOR_CODE, -FOR_CAT)
-  
-  training <- mutate(training,
-                     year = factor(year(FIRE_START)),
-                     month = factor(month(FIRE_START), levels = c(10,11,12,1,2,3)),
-                     day = factor(day(FIRE_START), levels = c(1:31)),
-                     wod = factor(wday(FIRE_START), levels = c(1:7)))
-  
-  training <- filter(training, month %in% c(10,11,12,1,2,3))
-  
-  training <- na.omit(training)
-  
-  training <- mutate(training, new_cause = ifelse(new_cause == "accidental_human", "accident", new_cause)) %>%
-    mutate(new_cause = ifelse(new_cause == "burning_off_human", "burning_off", new_cause)) %>%
-    mutate(new_cause = factor(new_cause)) %>%
-    mutate(FOR_TYPE = factor(FOR_TYPE))
-  
-  training <- na.omit(training)
-  
-  training <- mutate(training,
-                     log_dist_cfa = log(dist_cfa),
-                     log_dist_camp = log(dist_camp),
-                     log_dist_road = log(dist_road),
-                     COVER = factor(COVER),
-                     HEIGHT = factor(HEIGHT))
-  
-  training <- rename(training, cause = new_cause)
-  training <- mutate(training,
-                     cause = fct_relevel(cause,
-                                         "lightning",
-                                         "accident",
-                                         "arson",
-                                         "burning_off"))
-  
-  training <- na.omit(training)
-  
-  training <- select(training, -year, -dist_road, -dist_cfa, -dist_camp, -FIRE_START)
-  
-  inTraining <- createDataPartition(training$cause, p = .8, list = FALSE)[,1]
-  train_set <- training[inTraining,]
-  test_set  <- training[-inTraining,]
-  
-  rf_best_features <- readRDS("data/RF_best_features.rds")
-  
-  rf_model <- readRDS("data/RF_model.rds")
-
-  
-  test_set$error <- predict(rf_model, newdata = test_set) != test_set$cause
-  
-library(sf)
-library(rnaturalearth)
-au_map <- ne_states(country = 'Australia', returnclass = 'sf')
-vic_map <- au_map[7,]
-
-lat <- seq(34, 39, 0.5)
-lat <- -lat
-lon <- seq(141, 150, 0.5)
-
-grids <- expand.grid(lat, lon)
-
-
-rect <- function(x){
-
-  # left top
-  lat1 <- x[1]
-  lon1 <- x[2]
-
-  # right top
-  lat2 <- x[1]
-  lon2 <- x[2]+0.5
-
-  # right bottom
-  lat3 <- x[1]-0.5
-  lon3 <- x[2]+0.5
-
-  # left bottom
-  lat4 <- x[1]-0.5
-  lon4 <- x[2]
-
-  st_sfc(st_polygon(list(matrix(c(lon1,lat1,lon2,lat2,lon3,lat3,lon4,lat4,lon1,lat1), ncol =2, byrow = TRUE))))
-
-}
-
-rect_list <- apply(grids[1:nrow(grids),],1,rect)
-
-rect_list <- do.call(c, rect_list)
-
-st_crs(rect_list) <- 4326
-
-indexes <- st_intersects(vic_map$geometry, rect_list)[[1]]
-rect_list <- rect_list[indexes]
-
-test_set2 <- st_as_sf(filter(test_set, error), coords = c("lon", "lat"), crs = 4326)
-test_set3 <- st_as_sf(test_set, coords = c("lon", "lat"), crs = 4326)
-
-temp <- unlist(lapply(st_intersects(rect_list, test_set3), length))
-temp <- ifelse(temp <= 4, NA, temp) 
-
-
-as.data.frame(rect_list) %>%
-  mutate(error = unlist(lapply(st_intersects(rect_list, test_set2), length))/temp) %>%
-  mutate(error = ifelse(is.nan(error), NA, error)) %>%
-  na.omit() %>%
-  ggplot() +
-  geom_sf(aes(geometry = geometry, fill = error)) +
-  geom_sf(data = vic_map, fill = NA, col = "black") +
-  scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1)) +
-  theme_map() +
-  theme(legend.position = "right") +
-  labs(fill = "Error rate")
-
-```
 
 
 The weighted variable contribution to the probability of different causes produced by `lime` is the scaled coefficients obtained from the lasso regression at the local scope. Figure \ref{fig:limeexvar} shows proximity to the nearest CFA station and proximity to the nearest road have a high positive impact on the probability of lightning-caused bushfire, while 2-year average wind speed has a high negative impact on the probability. Patterns in arson are almost the opposite of what has been shown in lightning. Latitude and 2-year average wind speed have some positive impact on the probability of accident-caused bushfire, while average wind speed in past 12 months, proximity to the nearest road and proximity to the nearest camping site have negative to the probability. Variable contribution to the probability of planned burn is relatively small, and the proximity to the nearest CFA station and latitude contribute negatively to the probability.
@@ -560,9 +431,10 @@ read_csv("data/prediction_2019-2020.csv") %>%
   mutate(cause = factor(tools::toTitleCase(cause), levels = c("Lightning", "Accident", "Arson", "Burning_off"))) %>%
   ggplot() +
   geom_sf(data = vic_map, fill = "white") +
-  geom_point(aes(lon, lat), size = 1, alpha = 0.8, col = "red") +
+  geom_point(aes(lon, lat, col = cause), size = 1) +
   theme_map(base_size = 10) +
-  theme(legend.position = "right") +
+  theme(legend.position = "none") +
+  scale_color_brewer(palette = "RdBu") +
   facet_grid(factor(month.abb[month(time)], levels = c("Oct", "Nov", "Dec", "Jan", "Feb", "Mar"))~cause)
   
 ```
@@ -693,9 +565,9 @@ the probability of at least one bushfire ignited in a region $l$ in a certain mo
 $$P(S|MON = mon, L = l) = \frac{\sum_{i=1}^{N}I(\text{bushfire ignition occurred in month } mon, \text{year } y_i)}{N}$$, where $N$ is the number of years in the historical records and $y_i$ is the $i$ th year of the historical records.
 
 
-Figure \ref{fig:mcsim} shows the estimate of $P(S|MON = mon, L = l)$ using 20 years historical records. If we assume the weather conditions are similar to 2019-2020 bushfire season, $P(M|S,MON = mon, L = l)$ can be produced by our predictive model and the joint probability $P(L,S|\mathcal{F})$ can then be calculated. Figure \ref{fig:posterior} shows the final outcome. From the result, we notice that January is the most dangerous month in terms of lightning-caused bushfire and the east of the Victoria is the high risk area. The risk of arson-caused bushfire is concentrated in a relatively small region near Melbourne.  
+Figure \ref{fig:mcsim} shows the estimate of $P(S|MON = mon, L = l)$ using 20 years historical records. If we assume the weather conditions are similar to 2019-2020 bushfire season, $P(M|S,MON = mon, L = l)$ can be produced by our random forest model and the joint probability $P(L,S|\mathcal{F})$ can then be calculated. Figure \ref{fig:posterior} shows the final outcome. From the result, we notice that January is the most dangerous month in terms of lightning-caused bushfire and the east of Victoria is the high risk area. The risk of arson-caused bushfire is concentrated in a relatively small region near Melbourne.  
 
-```{r mcsim, fig.cap="A map of the relative frequency of the bushfire ignition occurred in a region in the past 20 years. It is a estiamte of the probability of at least one bushfire ignition occur in a given region and a given month."}
+```{r mcsim, fig.cap="A map of the relative frequency of the bushfire ignition occurred in a region in the past 20 years. It is a estimate of the probability of at least one bushfire ignition occur in a given region and a given month."}
  set.seed(10086)
   
   # Read in training data

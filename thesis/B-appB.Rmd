@@ -133,7 +133,138 @@ data.frame(Lightning = c(695,53,22,7,777),
                caption = "Confusion matrix of XGBoost model. The overall accuracy was 0.7388.")
 ```
 
+# Error rate map
 
+In order to explore the prediction performance of the final model on the test set, we plot a error rate map to reveal the spatial patterns. The plot is given in Figure \ref{fig:errormap}. From the error rate map, we can observe that our model correctly predicts most of the cases in the east of Victoria, which is the mountain area. However, it performs worse near the Melbourne region. Besides, our model does not fit well on the boundary of the north-west of Victoria.
+
+```{r errormap, fig.cap="The spatial patterns of the error rate of the final model. We omit regions with less than 5 bushfires occurred. Our model makes very few mistakes in the east of Victoria but has a higher error rate near Melbourne."}
+  set.seed(10086)
+  
+  # Read in training data
+  training <- read_csv("data/training.csv")
+  
+  training <- training %>%
+    filter(!CAUSE %in% c("BURNING BUILDING",
+                         "WASTE DISPOSAL, INDUSTRIAL, SAWMILL, TIP",
+                         "WASTE DISPOSAL, DOMESTIC",
+                         "BURNING VEHICLE, MACHINE",
+                         "BURNING BUILDING")) %>%
+    filter(new_cause != "other") %>%
+    filter(new_cause != "relight")
+  
+  
+  training <- select(training, -c(EVENTID:FIRE_NUM), -id, -CAUSE, -FOREST, -FOR_CODE, -FOR_CAT)
+  
+  training <- mutate(training,
+                     year = factor(year(FIRE_START)),
+                     month = factor(month(FIRE_START), levels = c(10,11,12,1,2,3)),
+                     day = factor(day(FIRE_START), levels = c(1:31)),
+                     wod = factor(wday(FIRE_START), levels = c(1:7)))
+  
+  training <- filter(training, month %in% c(10,11,12,1,2,3))
+  
+  training <- na.omit(training)
+  
+  training <- mutate(training, new_cause = ifelse(new_cause == "accidental_human", "accident", new_cause)) %>%
+    mutate(new_cause = ifelse(new_cause == "burning_off_human", "burning_off", new_cause)) %>%
+    mutate(new_cause = factor(new_cause)) %>%
+    mutate(FOR_TYPE = factor(FOR_TYPE))
+  
+  training <- na.omit(training)
+  
+  training <- mutate(training,
+                     log_dist_cfa = log(dist_cfa),
+                     log_dist_camp = log(dist_camp),
+                     log_dist_road = log(dist_road),
+                     COVER = factor(COVER),
+                     HEIGHT = factor(HEIGHT))
+  
+  training <- rename(training, cause = new_cause)
+  training <- mutate(training,
+                     cause = fct_relevel(cause,
+                                         "lightning",
+                                         "accident",
+                                         "arson",
+                                         "burning_off"))
+  
+  training <- na.omit(training)
+  
+  training <- select(training, -year, -dist_road, -dist_cfa, -dist_camp, -FIRE_START)
+  
+  inTraining <- createDataPartition(training$cause, p = .8, list = FALSE)[,1]
+  train_set <- training[inTraining,]
+  test_set  <- training[-inTraining,]
+  
+  rf_best_features <- readRDS("data/RF_best_features.rds")
+  
+  rf_model <- readRDS("data/RF_model.rds")
+
+  
+  test_set$error <- predict(rf_model, newdata = test_set) != test_set$cause
+  
+library(sf)
+library(rnaturalearth)
+au_map <- ne_states(country = 'Australia', returnclass = 'sf')
+vic_map <- au_map[7,]
+
+lat <- seq(34, 39, 0.5)
+lat <- -lat
+lon <- seq(141, 150, 0.5)
+
+grids <- expand.grid(lat, lon)
+
+
+rect <- function(x){
+
+  # left top
+  lat1 <- x[1]
+  lon1 <- x[2]
+
+  # right top
+  lat2 <- x[1]
+  lon2 <- x[2]+0.5
+
+  # right bottom
+  lat3 <- x[1]-0.5
+  lon3 <- x[2]+0.5
+
+  # left bottom
+  lat4 <- x[1]-0.5
+  lon4 <- x[2]
+
+  st_sfc(st_polygon(list(matrix(c(lon1,lat1,lon2,lat2,lon3,lat3,lon4,lat4,lon1,lat1), ncol =2, byrow = TRUE))))
+
+}
+
+rect_list <- apply(grids[1:nrow(grids),],1,rect)
+
+rect_list <- do.call(c, rect_list)
+
+st_crs(rect_list) <- 4326
+
+indexes <- st_intersects(vic_map$geometry, rect_list)[[1]]
+rect_list <- rect_list[indexes]
+
+test_set2 <- st_as_sf(filter(test_set, error), coords = c("lon", "lat"), crs = 4326)
+test_set3 <- st_as_sf(test_set, coords = c("lon", "lat"), crs = 4326)
+
+temp <- unlist(lapply(st_intersects(rect_list, test_set3), length))
+temp <- ifelse(temp <= 4, NA, temp) 
+
+
+as.data.frame(rect_list) %>%
+  mutate(error = unlist(lapply(st_intersects(rect_list, test_set2), length))/temp) %>%
+  mutate(error = ifelse(is.nan(error), NA, error)) %>%
+  na.omit() %>%
+  ggplot() +
+  geom_sf(aes(geometry = geometry, fill = error)) +
+  geom_sf(data = vic_map, fill = NA, col = "black") +
+  scale_fill_distiller(palette = "Reds", direction = 1, limits = c(0,1)) +
+  theme_map() +
+  theme(legend.position = "right") +
+  labs(fill = "Error rate")
+
+```
 
 # Supplementary material
 
