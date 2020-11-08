@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  8 NOV 2020 14:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.10.29)  8 NOV 2020 16:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1295,22 +1295,22 @@ sk-map}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.710 ...tion{Fire risk map}\label{fire-risk-map}}
-                                                   [53] [54
-
-]
+                                                   [53] [54]
 Appendix A.
-[55] [56] [57] [58
+[55
+
+] [56] [57] [58
 
 ]
 Appendix B.
 [59]
-<figures/clustering_tuning_1.jpeg, id=874, 722.7pt x 505.89pt>
+<figures/clustering_tuning_1.jpeg, id=875, 722.7pt x 505.89pt>
 File: figures/clustering_tuning_1.jpeg Graphic file (type jpg)
 <use figures/clustering_tuning_1.jpeg>
 Package pdftex.def Info: figures/clustering_tuning_1.jpeg  used on input line 8
 60.
 (pdftex.def)             Requested size: 426.79135pt x 298.75812pt.
-<figures/clustering_tuning_2.jpeg, id=875, 722.7pt x 505.89pt>
+<figures/clustering_tuning_2.jpeg, id=876, 722.7pt x 505.89pt>
 File: figures/clustering_tuning_2.jpeg Graphic file (type jpg)
 <use figures/clustering_tuning_2.jpeg>
 Package pdftex.def Info: figures/clustering_tuning_2.jpeg  used on input line 8
@@ -1363,7 +1363,7 @@ Package logreq Info: Writing requests to 'thesis.run.xml'.
 Here is how much of TeX's memory you used:
  19727 strings out of 481466
  349532 string characters out of 5919837
- 1129637 words of memory out of 5000000
+ 1128637 words of memory out of 5000000
  35521 multiletter control sequences out of 15000+600000
  639583 words of font info for 292 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1384,10 +1384,10 @@ ng/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/uplbi8a.pfb><c:/
 Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/palatino/upl
 r8a.pfb><c:/Users/TengMCing/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/
 palatino/uplri8a.pfb>
-Output written on thesis.pdf (79 pages, 5487354 bytes).
+Output written on thesis.pdf (79 pages, 5488749 bytes).
 PDF statistics:
- 1122 PDF objects out of 1200 (max. 8388607)
- 979 compressed objects within 10 object streams
+ 1123 PDF objects out of 1200 (max. 8388607)
+ 980 compressed objects within 10 object streams
  303 named destinations out of 1000 (max. 500000)
  38782 words of extra memory for PDF output out of 42996 (max. 10000000)
 
