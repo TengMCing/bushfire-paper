@@ -239,7 +239,7 @@ p1 <- bind_rows(data1, data2) %>%
   scale_color_distiller(palette = "RdYlBu", na.value = "grey") +
   # scale_color_viridis_c(option = "B", direction = -1, na.value = "grey") +
   facet_wrap(~label) +
-  theme_map() +
+  theme_map(base_size = 15) +
   theme(legend.position = "none")
 
 
@@ -249,10 +249,10 @@ p2 <- ggplot() +
              aes(lon, lat, col = factor(fire_id))) +
   labs(color = "fire_id") +
   scale_color_manual(values = c("390" = "#a50026", "395" = "#313695")) +
-  theme_map()
+  theme_map(base_size = 15)
 
 
-p3 <- gridExtra::grid.arrange(p2, p1, ncol = 1)
+p3 <- gridExtra::grid.arrange(p2, p1, ncol = 1, heights = c(1, 2))
 
 ggsave(paste0("figures/", "fire_mov", ".jpeg"), plot = p3, width = 14, height = 14)
 

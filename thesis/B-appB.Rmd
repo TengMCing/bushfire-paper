@@ -2,7 +2,16 @@
 knit: "bookdown::render_book"
 ---
 
+# Modified breadth-first search algorithm used in step 2 of the clustering algorithm
 
+This modified breadth-first search algorithm includes 6 substeps:
+
+(a) Append a randomly selected hotspot $h_i$ to a empty list $\boldsymbol{L}$, where $h_i$ was the $i$th hotspot in the interval $\boldsymbol{S}_t$.
+(b) Let pointer $\boldsymbol{P}$ point to the first element of the list $\boldsymbol{L}$.
+(c) Visit every $h_i \in \boldsymbol{S}_t$ where $h_i \notin \boldsymbol{L}$. Meanwhile, if $geodesic(h_i,\boldsymbol{P})\leq AdjDist$, append $h_i$ to list $\boldsymbol{L}$.
+(d) Move pointer $\boldsymbol{P}$ to the next element of the list $\boldsymbol{L}$.
+(e) Repeat (a) to (d) till the pointer $\boldsymbol{P}$ reach to the end of the list $\boldsymbol{L}$.
+(f) Assign a new membership to all hotspots $h_i \in \boldsymbol{L}$. Repeat (a) to (f) for unassigned hotspots in interval $\boldsymbol{S}_t$.
 
 # Effects of parameter choices in the clustering algorithm
 
@@ -123,6 +132,7 @@ data.frame(Lightning = c(695,53,22,7,777),
                booktabs = T,
                caption = "Confusion matrix of XGBoost model. The overall accuracy was 0.7388.")
 ```
+
 
 
 # Supplementary material
