@@ -410,7 +410,7 @@ if (!file.exists("data/lime_ex2")){
 ```
 
 
-## Predicting ignition cause for 2019-2020 season
+## Predicting ignition causes for 2019-2020 season
 
 A fitted random forest model, along with covariate data in 2019-2020 bushfire season, can be used to produce the prediction of the cause of the bushfires in Victoria during the 2019-2020 season. Figure \ref{fig:pred2019} shows the prediction produced by the final model. And Table \ref{tab:predictionsummary} summarizes the prediction. According to the prediction, most majority of the bushfires in 2019-2020 season are caused by lightning. However, there are 138 bushfires caused by accidents which take up 14% of the total fires. Majority of the accident-caused bushfires are ignited in March. Besides, 37 bushfires are caused by arsonists. There was a noticeable bushfire at French island in January, which caused serious damage to the koala habitat. Our model predicts its cause is arson. Very few planned burns are predicted after October 2019 which suggests the correctness of our model. It is because fire restrictions normally start in October. 
 
